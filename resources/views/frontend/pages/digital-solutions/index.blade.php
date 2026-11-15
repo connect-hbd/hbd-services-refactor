@@ -90,7 +90,7 @@
                         <span class="ml-2 text-xs text-brand-500">http://hbdservices/admin/dashboard</span>
                     </div>
                     <div class="bg-brand-25 p-3 sm:p-5">
-                        <img src="{{ asset('dashboard-preview.png') }}" alt="Dashboard Preview" class="w-full rounded-xl shadow-md">
+                        <img src="{{ asset('/images/digital-services/dashboard-preview.png') }}" alt="Dashboard Preview" class="w-full rounded-xl shadow-md">
                     </div>
                 </div>
             </div>
@@ -228,7 +228,7 @@
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-md sm:p-6 lg:order-1" data-reveal>
                 <h3 class="mb-4 font-bold text-black">Interactive Courses Dashboard</h3>
-                <img src="{{ asset('lms.jpeg') }}" alt="Learning Dashboard" class="w-full rounded-2xl shadow-md">
+                <img src="{{ asset('/images/digital-services/lms.jpeg') }}" alt="Learning Dashboard" class="w-full rounded-2xl shadow-md">
             </div>
         </div>
         <div class="mt-14 grid gap-5 md:grid-cols-3">
@@ -288,7 +288,7 @@
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-md sm:p-6 lg:order-1" data-reveal>
                 <h3 class="mb-4 font-bold text-black">Mobile Logbook &amp; Field Evidence</h3>
-                <img src="{{ asset('workbase.jpeg') }}" alt="Mobile Workplace Logbook" class="w-full rounded-2xl shadow-md">
+                <img src="{{ asset('/images/digital-services/workbase.jpeg') }}" alt="Mobile Workplace Logbook" class="w-full rounded-2xl shadow-md">
             </div>
         </div>
         <div class="mt-14 grid gap-5 md:grid-cols-3">
