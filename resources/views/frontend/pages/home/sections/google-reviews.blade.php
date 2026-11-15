@@ -19,7 +19,7 @@
             'name' => 'Sajia Oshin',
             'date' => '3 weeks ago',
             'rating' => 3,
-            'avatar' => '/reviews/sajia.png',
+            'avatar' => '/images/reviews/sajia.png',
             'text' =>
                 'I started my Australia visa process with HBD Services in August. Their team guided me through each step and made the overall process easier to understand. I appreciate their support and assistance throughout my journey.',
         ],
@@ -28,7 +28,7 @@
             'name' => 'Aditto Saha',
             'date' => 'A month ago',
             'rating' => 5,
-            'avatar' => '/reviews/aditto.png',
+            'avatar' => '/images/reviews/aditto.png',
             'text' =>
                 'A big thanks to HBD Services for their excellent support. My counsellor, Pinku Vai, was incredibly helpful, patient, and supportive throughout the process. I highly recommend their team to anyone planning to study abroad.',
         ],
@@ -37,7 +37,7 @@
             'name' => 'Kamrul Islam',
             'date' => 'A month ago',
             'rating' => 4,
-            'avatar' => '/reviews/kamrul.png',
+            'avatar' => '/images/reviews/kamrul.png',
             'text' =>
                 'I am grateful to the entire HBD Services team for making my journey smooth and stress-free. Everyone was friendly, approachable, and always ready to help whenever I needed assistance.',
         ],
@@ -46,7 +46,7 @@
             'name' => 'Tasfia Rahman',
             'date' => '2 months ago',
             'rating' => 5,
-            'avatar' => '/reviews/tasfia.png',
+            'avatar' => '/images/reviews/tasfia.png',
             'text' =>
                 'I had a wonderful experience with HBD Services. Their guidance on university selection and visa documentation was clear and professional. The team made every step much easier for me.',
         ],
@@ -55,7 +55,7 @@
             'name' => 'Farhana Mitu',
             'date' => '2 months ago',
             'rating' => 5,
-            'avatar' => '/reviews/farhana.png',
+            'avatar' => '/images/reviews/farhana.png',
             'text' =>
                 'The team at HBD Services was very supportive and responsive. They helped me understand my study options and provided helpful guidance throughout my application journey. Truly appreciate their dedication.',
         ],
@@ -64,7 +64,7 @@
             'name' => 'Tamim Hasan',
             'date' => '2 months ago',
             'rating' => 5,
-            'avatar' => '/reviews/tamim.png',
+            'avatar' => '/images/reviews/tamim.png',
             'text' =>
                 'Choosing HBD Services was a great decision for my study abroad journey. The counsellors were knowledgeable, friendly, and always willing to answer my questions. Thank you for your continued support.',
         ],
@@ -73,7 +73,7 @@
             'name' => 'Dip Bhakta',
             'date' => '2 months ago',
             'rating' => 5,
-            'avatar' => '/reviews/dip.png',
+            'avatar' => '/images/reviews/dip.png',
             'text' =>
                 'I really appreciate the professional service and personal attention I received from HBD Services. Their team provided helpful guidance and made the application process feel much more manageable.',
         ],
@@ -82,7 +82,7 @@
             'name' => 'Jihan Islam',
             'date' => '2 months ago',
             'rating' => 5,
-            'avatar' => '/reviews/jihan.png',
+            'avatar' => '/images/reviews/jihan.png',
             'text' =>
                 'My experience with HBD Services has been excellent. The team was cooperative, professional, and supportive at every stage. I am thankful for their guidance and would happily recommend their services.',
         ],
