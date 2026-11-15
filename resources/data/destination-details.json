@@ -415,17 +415,17 @@
       "url": "#contact"
     },
     {
-      "id": 9,
-      "name": "De Montfort University",
-      "short_name": "DMU",
-      "logo": "/images/destinations/united-kingdom/icon-9.png",
-      "city": "Leicester, England",
-      "type": "",
-      "ranking": "",
-      "badge": "TEACHING QUALITY",
-      "description": "Leicester-based with excellent teaching quality and comprehensive student support.",
-      "url": "#contact"
-    },
+  "id": 9,
+  "name": "De Montfort University",
+  "short_name": "DMU",
+  "logo": "/images/destinations/united-kingdom/demontfornt.jfif",
+  "city": "Leicester, England",
+  "type": "Public University",
+  "ranking": "",
+  "badge": "TEACHING QUALITY",
+  "description": "Known for career-focused education, industry partnerships, practical learning opportunities, and dedicated student support.",
+  "url": "https://www.dmu.ac.uk/"
+},
     {
       "id": 10,
       "name": "Northumbria University",
@@ -440,10 +440,10 @@
     },
     {
       "id": 11,
-      "name": "University of Sunderland",
-      "short_name": "UOS",
-      "logo": "/images/destinations/united-kingdom/icon-11.png",
-      "city": "Sunderland, England",
+      "name": "University of Nottingham",
+      "short_name": "UON",
+      "logo": "/images/destinations/united-kingdom/icon-11.jfif",
+      "city": "England",
       "type": "",
       "ranking": "",
       "badge": "SUPPORTIVE",
@@ -463,17 +463,17 @@
       "url": "#contact"
     },
     {
-      "id": 13,
-      "name": "University of Central Lancashire",
-      "short_name": "UCLan",
-      "logo": "/images/destinations/united-kingdom/icon-13.png",
-      "city": "Preston, England",
-      "type": "",
-      "ranking": "",
-      "badge": "CAREER FOCUSED",
-      "description": "Renowned for industry-focused teaching, modern facilities, and strong graduate employability across a wide range of disciplines.",
-      "url": "#contact"
-    },
+  "id": 13,
+  "name": "Brunel University",
+  "short_name": "Brunel",
+  "logo": "/images/destinations/united-kingdom/brunel.ico",
+  "city": "Uxbridge, London, England",
+  "type": "Public Research University",
+  "ranking": "",
+  "badge": "CAREER FOCUSED",
+  "description": "Known for industry-focused education, practical learning, modern facilities, and strong connections with employers, helping students develop skills for successful careers.",
+  "url": "https://www.brunel.ac.uk/"
+},
     {
       "id": 14,
       "name": "Bangor University",
@@ -487,17 +487,17 @@
       "url": "#contact"
     },
     {
-      "id": 15,
-      "name": "University of South Wales",
-      "short_name": "USW",
-      "logo": "/images/destinations/united-kingdom/icon-15.png",
-      "city": "Wales",
-      "type": "",
-      "ranking": "",
-      "badge": "INDUSTRY CONNECTIONS",
-      "description": "Offers career-oriented degrees with strong industry partnerships, excellent facilities, and practical learning opportunities.",
-      "url": "#contact"
-    }
+  "id": 15,
+  "name": "UWE Bristol",
+  "short_name": "UWE Bristol",
+  "logo": "/images/destinations/united-kingdom/uwe.jfif",
+  "city": "Bristol, England",
+  "type": "Public University",
+  "ranking": "",
+  "badge": "INDUSTRY CONNECTIONS",
+  "description": "Offers career-focused degrees, strong industry partnerships, modern facilities, and practical learning opportunities designed to prepare students for successful careers.",
+  "url": "https://www.uwe.ac.uk/"
+}
   ],
       "requirements": [
         {
