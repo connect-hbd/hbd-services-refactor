@@ -59,7 +59,21 @@ class EmployeeController extends Controller
     {
         $request->user()->can('employee.create') || abort(403);
 
-        return view('backend.pages.HR.employees.create');
+        $countries = Country::all();
+        $cities = City::all();
+        $branches = Branch::all();
+        $departments = Department::all();
+        $teams = Team::all();
+        $designations = Designation::all();
+
+        return view('backend.pages.HR.employees.create',[
+            'countries' => $countries,
+            'cities' => $cities,
+            'branches' => $branches,
+            'departments' => $departments,
+            'teams' => $teams,
+            'designations' => $designations
+        ]);
     }
 
     /**

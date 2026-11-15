@@ -3,7 +3,7 @@
 @section('content')
     <div class="mx-auto max-w-6xl pb-12">
 
-        {{-- Sticky Action Bar --}}
+       
         <div
             class="sticky top-19 z-20  mb-6 rounded-2xl border-b border-neutral-200/60 bg-white/80 px-4 py-4 backdrop-blur-lg dark:border-neutral-800 dark:bg-neutral-900/80 sm:-mx-6 sm:px-6">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -88,20 +88,20 @@
                         {{-- Names --}}
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <x-form.input-text name="first_name" label="First Name" required autocomplete="given-name"
-                                value="{{ old('first_name', $employee?->first_name) }}" placeholder="e.g. John" />
+                                value="" placeholder="e.g. John" />
 
                             <x-form.input-text name="last_name" label="Last Name" required autocomplete="family-name"
-                                value="{{ old('last_name', $employee?->last_name) }}" placeholder="e.g. Doe" />
+                                value="" placeholder="e.g. Doe" />
                         </div>
 
                         {{-- Contact --}}
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
                             <x-form.input-text name="email" label="Email Address" type="email" required
-                                autocomplete="email" value="{{ old('email', $employee?->user?->email) }}"
+                                autocomplete="email" value=""
                                 placeholder="john@example.com" />
 
                             <x-form.input-text name="phone" label="Phone Number" type="tel" autocomplete="tel"
-                                value="{{ old('phone', $employee?->user?->phone) }}" placeholder="+1 (555) 000-0000" />
+                                value="" placeholder="+1 (555) 000-0000" />
 
                             <x-form.input-text name="password" label="Password" type="password" required
                                 autocomplete="new-password" placeholder="Minimum 8 characters" />
@@ -126,11 +126,11 @@
 
                             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                 <x-form.input-text name="emergency_contact_name" label="Contact Name"
-                                    value="{{ old('emergency_contact_name', $employee?->emergency_contact_name) }}"
+                                    value=""
                                     placeholder="Full name" />
 
                                 <x-form.input-text name="emergency_contact_phone" label="Phone Number" type="tel"
-                                    value="{{ old('emergency_contact_phone', $employee?->emergency_contact_phone) }}"
+                                    value=""
                                     placeholder="+1 (555) 000-0000" />
                             </div>
                         </fieldset>

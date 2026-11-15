@@ -301,7 +301,7 @@
                              : route('role.dashboard', ['role' => auth()->user()->rolePrefix()]) }}"
                              class="overflow-hidden rounded-full h-11 w-11 block">
 
-                             <img src="{{ asset('images/user/owner.png') }}" alt="User"
+                             <img src="{{ asset('user.webp') }}" alt="User"
                                  class="w-full h-full object-cover" />
                          </a>
                      @endauth

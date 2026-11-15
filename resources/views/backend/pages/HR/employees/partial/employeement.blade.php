@@ -1,18 +1,6 @@
-@php
-    $employment = $employee?->currentEmployment;
-
-    $mainBranchId = $branches->first(fn($branch) => (bool) ($branch->is_head_office ?? false))?->id;
-
-    $branchId = old('branch_id', $employment?->branch_id ?? $mainBranchId);
-
-    $departmentId = old('department_id', $employment?->department_id);
-    $teamId = old('team_id', $employment?->team_id);
-    $designationId = old('designation_id', $employment?->designation_id);
-@endphp
-
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
     x-data="{
-        branchId: @js((string) ($branchId ?? '')),
+        branchId: @js((string) ($branchId ?? (collect($branches)->firstWhere('code', 'DHK-HO')['id'] ?? ''))),
         departmentId: @js((string) ($departmentId ?? '')),
         teamId: @js((string) ($teamId ?? '')),
         designationId: @js((string) ($designationId ?? '')),
@@ -174,8 +162,7 @@
                 Employee Code <span class="text-red-500">*</span>
             </label>
 
-            <input type="text" id="employee_code" name="employee_code"
-                value="{{ old('employee_code', $employment?->employee_code) }}" required maxlength="50"
+            <input type="text" id="employee_code" name="employee_code" value="" required maxlength="50"
                 placeholder="e.g. EMP-001"
                 class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
 
@@ -194,13 +181,13 @@
                 </label>
 
                 <select id="branch_id" name="branch_id" x-model="branchId" @change="branchChanged()"
-                    class="h-11 w-full rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                    class="h-11 w-full rounded-lg border border-neutral-300 bg-white px-4 text-sm">
                     <option value="">Select Branch</option>
 
                     @foreach ($branches as $branch)
-                        <option value="{{ $branch->id }}">
-                            {{ $branch->name }}
-                            @if ($branch->code === 'DHK-HO')
+                        <option value="{{ $branch['id'] }}">
+                            {{ $branch['name'] }}
+                            @if ($branch['code'] === 'DHK-HO')
                                 (Main Branch)
                             @endif
                         </option>
@@ -289,19 +276,16 @@
                 'onsite' => 'Onsite',
                 'remote' => 'Remote',
                 'hybrid' => 'Hybrid',
-            ]"
-                value="{{ old('work_type', $employment?->work_type ?? 'onsite') }}" />
+            ]" value="" />
 
             <x-form.select-input name="employment_status" label="Employment Status" :options="[
                 'probation' => 'Probation',
                 'permanent' => 'Permanent',
                 'resigned' => 'Resigned',
                 'terminated' => 'Terminated',
-            ]"
-                value="{{ old('employment_status', $employment?->employment_status ?? 'probation') }}" />
+            ]" value="" />
 
-            <x-form.date-picker name="joining_date" label="Joining Date" type="date"
-                value="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}"
+            <x-form.date-picker name="joining_date" label="Joining Date" type="date" value=""
                 placeholder="YYYY-MM-DD" />
         </div>
 
@@ -315,6 +299,6 @@
                 'saturday' => 'Saturday',
                 'sunday' => 'Sunday',
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])" />
-        </div>       
+        </div>
     </div>
 </section>
