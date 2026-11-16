@@ -75,6 +75,7 @@ class EmployeeController extends Controller
         return view('backend.pages.HR.employees.create', array_merge($this->formOptions(), [
             'employee' => null,
             'employment' => null,
+            'salaryHistory' => null,
             'isEdit' => false,
         ]));
     }
@@ -107,10 +108,11 @@ class EmployeeController extends Controller
                     $this->prepareEmploymentData($validated, true)
                 );
 
-                 // Create Salary Structure
-                $employee->employments()->create(
-                    $this->prepareSalaryStructure($validated, true)
-                );
+                // Record the employee's initial salary from their joining date.
+                $employee->salaryHistories()->create([
+                    'salary_amount' => $validated['salary_amount'],
+                    'effective_from' => $validated['joining_date'],
+                ]);
 
             });
 
@@ -136,7 +138,9 @@ class EmployeeController extends Controller
         $request->user()->can('employee.edit') || abort(403);
 
         $employee = Employee::query()
-            ->with(['user', 'country', 'city', 'currentEmployment'])
+            ->with(['user', 'country', 'city', 'currentEmployment', 'salaryHistories' => fn ($query) => $query
+                ->whereNull('effective_to')
+                ->latest('effective_from')])
             ->findOrFail($employee);
 
         return view(
@@ -144,6 +148,7 @@ class EmployeeController extends Controller
             array_merge($this->formOptions(), [
                 'employee' => $employee,
                 'employment' => $employee->currentEmployment,
+                'salaryHistory' => $employee->salaryHistories->first(),
                 'isEdit' => true,
             ]),
         );
@@ -216,6 +221,27 @@ class EmployeeController extends Controller
                     } else {
                         $employee->employments()->create(array_merge($employmentData, ['is_current' => true]));
                     }
+                }
+
+                $effectiveFrom = $validated['joining_date'];
+                $salaryHistory = $employee->salaryHistories()
+                    ->whereNull('effective_to')
+                    ->latest('effective_from')
+                    ->first();
+
+                if ($salaryHistory && $salaryHistory->effective_from->toDateString() === $effectiveFrom) {
+                    $salaryHistory->update(['salary_amount' => $validated['salary_amount']]);
+                } else {
+                    if ($salaryHistory) {
+                        $salaryHistory->update([
+                            'effective_to' => \Illuminate\Support\Carbon::parse($effectiveFrom)->subDay()->toDateString(),
+                        ]);
+                    }
+
+                    $employee->salaryHistories()->create([
+                        'salary_amount' => $validated['salary_amount'],
+                        'effective_from' => $effectiveFrom,
+                    ]);
                 }
             });
 
@@ -340,17 +366,6 @@ class EmployeeController extends Controller
         if ($creating) {
             $data['is_current'] = true;
         }
-
-        return $data;
-    }
-
-       private function prepareSalaryStructure(array $validated): array
-    {
-         $fields = [
-            'salary_amount',
-        ];
-
-        $data = array_intersect_key($validated, array_flip($fields));
 
         return $data;
     }

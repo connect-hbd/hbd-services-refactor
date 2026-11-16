@@ -51,7 +51,7 @@ class UpdateEmployeeRequest extends FormRequest
             'resignation_date' => ['exclude_unless:employment_status,resigned', 'required', 'date', 'after_or_equal:joining_date'],
             'last_working_day' => ['exclude_unless:employment_status,resigned,terminated', 'required', 'date', 'after_or_equal:joining_date'],
             //current salary
-            'salary' => ['nullable', 'numeric', 'min:0'],
+            'salary_amount' => ['required', 'numeric', 'min:0'],
         ];
     }
 }

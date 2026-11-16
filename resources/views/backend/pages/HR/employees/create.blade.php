@@ -201,9 +201,9 @@
                                     Current Salary <span class="text-red-500">*</span>
                                 </label>
 
-                                <input type="text" id="salary_amount" name="salary_amount"
-                                    value="{{ old('salary_amount', $employment?->salary_amount) }}" required
-                                    maxlength="50" placeholder="e.g. Current Salary- 500000"
+                                <input type="number" id="salary_amount" name="salary_amount" step="0.01" min="0"
+                                    value="{{ old('salary_amount', $salaryHistory?->salary_amount) }}" required
+                                    placeholder="e.g. 500000"
                                     class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
 
                                 @error('salary_amount')

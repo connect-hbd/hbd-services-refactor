@@ -129,7 +129,7 @@ class StoreEmployeeRequest extends FormRequest
             |--------------------------------------------------------------------------
             */
 
-            'salary' => ['nullable', 'numeric', 'min:0'],
+            'salary_amount' => ['required', 'numeric', 'min:0'],
 
         ];
     }
