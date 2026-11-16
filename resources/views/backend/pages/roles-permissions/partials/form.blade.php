@@ -63,7 +63,8 @@
             <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
                 @foreach ($featurePermissions as $permission)
-                    <label class="flex cursor-pointer items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    <label
+                        class="flex cursor-pointer items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
 
                         <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
                             @checked(in_array($permission->name, old('permissions', $role?->permissions->pluck('name')->all() ?? []), true)) @change="permissionChanged($event.target)"
@@ -80,14 +81,7 @@
 
         </div>
     @endforeach
-    <div class="flex items-center gap-3">
-    <button type="submit" class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600">
-        Save Role
-    </button>
-    <a href="{{ role_route('role.roles-permissions.index') }}" class="rounded-lg border border-neutral-300 px-4 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-300">
-        Cancel
-    </a>
-</div>
+    
 </div>
 
 <script>
@@ -208,8 +202,7 @@
                 );
 
                 this.selectAll =
-                    permissions.length > 0 &&
-                    [...permissions].every(
+                    permissions.length > 0 && [...permissions].every(
                         checkbox => checkbox.checked
                     );
             }

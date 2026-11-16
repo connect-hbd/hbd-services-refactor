@@ -85,11 +85,4 @@
     @enderror
 </div>
 
-<div class="flex items-center gap-3">
-    <button type="submit" class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600">
-        Save User
-    </button>
-    <a href="{{ role_route('role.users.index') }}" class="rounded-lg border border-neutral-300 px-4 py-2 text-sm text-neutral-700 dark:border-neutral-700 dark:text-neutral-300">
-        Cancel
-    </a>
-</div>
+

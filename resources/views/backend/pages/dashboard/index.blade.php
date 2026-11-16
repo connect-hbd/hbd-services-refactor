@@ -11,14 +11,14 @@
                     Welcome back! Here is an overview of today's performance.
                 </p>
             </div>
-            <div class="flex items-center gap-2">
+            {{-- <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200/80 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 dark:border-neutral-700/60 dark:bg-neutral-800 dark:text-neutral-300">
                     <svg class="h-4 w-4 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                     </svg>
                     {{ now()->format('l, F j, Y') }}
                 </span>
-            </div>
+            </div> --}}
         </div>
         <!-- Section Grid / Reports -->
         {{-- <div class="space-y-6">

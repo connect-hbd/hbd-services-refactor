@@ -7,15 +7,22 @@ use Illuminate\Support\Facades\Route;
 
 class MenuHelper
 {
-    public static function getCRMItems()
-    {
-        return [
-            [
+
+public static function getMainItems()
+{
+     return [
+        [
                 'icon' => 'dashboard',
                 'name' => 'Dashboard',
                 'route' => 'role.dashboard',
                 'permission' => 'dashboard.view',
-            ],
+            ]
+            ];
+}
+    public static function getCRMItems()
+    {
+        return [
+            
             [
                 'name' => 'CMS Manage',
                 'icon' => 'pages',
@@ -178,12 +185,7 @@ class MenuHelper
     public static function getHRMItems()
     {
         return [
-             [
-                'icon' => 'dashboard',
-                'name' => 'Dashboard',
-                'route' => 'role.dashboard',
-                'permission' => 'dashboard.view',
-            ],
+          
             [
                 'name' => 'Access Control',
                 'icon' => 'authentication',
@@ -263,20 +265,31 @@ class MenuHelper
         ];
     }
 
-    public static function getMenuGroups()
-    {
-        return [
-              [
-                'title' => 'HRM Menu',
-                'items' => self::visibleItems(self::getHRMItems()),
-            ],
-            [
-                'title' => 'CRM Menu',
-                'items' => self::visibleItems(self::getCRMItems()),
-            ],           
 
-        ];
-    }
+
+public static function getMenuGroups()
+{
+    $groups = [
+        [
+            'title' => 'Main Memu',
+            'items' => self::visibleItems(self::getMainItems()),
+        ],
+          [
+            'title' => 'HRM Menu',
+            'items' => self::visibleItems(self::getHRMItems()),
+        ],
+        [
+            'title' => 'CRM Menu',
+            'items' => self::visibleItems(self::getCRMItems()),
+        ],
+    ];
+
+    // Hide entire group if no accessible menu items
+    return array_values(array_filter($groups, function ($group) {
+        return !empty($group['items']);
+    }));
+}
+
 
     public static function rolePath(string $path): string
     {
