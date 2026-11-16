@@ -49,6 +49,9 @@
     @if ($label)
         <label for="{{ $id }}" class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
             {{ $label }}
+            @if ($attributes->has('required'))
+                <span class="text-red-500">*</span>
+            @endif
         </label>
     @endif
 

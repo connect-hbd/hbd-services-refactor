@@ -304,15 +304,10 @@
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                                 <div>
-                                    <label for="resignation_date"
-                                        class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                        Resignation Date <span class="text-red-500">*</span>
-                                    </label>
-
-                                    <input type="date" id="resignation_date" name="resignation_date"
-                                        value="{{ old('resignation_date', $employment?->resignation_date?->format('Y-m-d')) }}"
-                                        :required="status === 'resigned'" :disabled="status !== 'resigned'"
-                                        class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
+                                    <x-form.date-picker id="resignation_date" name="resignation_date" label="Resignation Date" required
+                                        placeholder="Select resignation date" dateFormat="Y-m-d"
+                                        x-bind:required="status === 'resigned'" x-bind:disabled="status !== 'resigned'"
+                                        :defaultDate="old('resignation_date', $employment?->resignation_date?->format('Y-m-d'))" />
 
                                     @error('resignation_date')
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -320,15 +315,10 @@
                                 </div>
 
                                 <div>
-                                    <label for="resigned_last_working_day"
-                                        class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                        Last Working Day <span class="text-red-500">*</span>
-                                    </label>
-
-                                    <input type="date" id="resigned_last_working_day" name="last_working_day"
-                                        value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}"
-                                        :required="status === 'resigned'" :disabled="status !== 'resigned'"
-                                        class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
+                                    <x-form.date-picker id="resigned_last_working_day" name="last_working_day" label="Last Working Day" required
+                                        placeholder="Select last working day" dateFormat="Y-m-d"
+                                        x-bind:required="status === 'resigned'" x-bind:disabled="status !== 'resigned'"
+                                        :defaultDate="old('last_working_day', $employment?->last_working_day?->format('Y-m-d'))" />
 
                                     @error('last_working_day')
                                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -359,15 +349,10 @@
                             </div>
 
                             <div>
-                                <label for="terminated_last_working_day"
-                                    class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Last Working Day <span class="text-red-500">*</span>
-                                </label>
-
-                                <input type="date" id="terminated_last_working_day" name="last_working_day"
-                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}"
-                                    :required="status === 'terminated'" :disabled="status !== 'terminated'"
-                                    class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white sm:max-w-md">
+                                <x-form.date-picker id="terminated_last_working_day" name="last_working_day" label="Last Working Day" required
+                                    placeholder="Select last working day" dateFormat="Y-m-d" class="sm:max-w-md"
+                                    x-bind:required="status === 'terminated'" x-bind:disabled="status !== 'terminated'"
+                                    :defaultDate="old('last_working_day', $employment?->last_working_day?->format('Y-m-d'))" />
 
                                 @error('last_working_day')
                                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -391,13 +376,13 @@
 
                     if (!joiningDate || !probationMonths || !probationEndDate) return;
 
-                    const calculateEndDate = () => {
-                        if (!joiningDate.value || !probationMonths.value) {
+                    const calculateEndDate = (joiningValue = joiningDate.value) => {
+                        if (!joiningValue || !probationMonths.value) {
                             probationEndDate.value = '';
                             return;
                         }
 
-                        const [year, month, day] = joiningDate.value.split('-').map(Number);
+                        const [year, month, day] = joiningValue.split('-').map(Number);
                         const startMonth = month - 1;
                         const targetMonth = startMonth + Number(probationMonths.value);
                         const targetYear = year + Math.floor(targetMonth / 12);
@@ -412,10 +397,13 @@
                         ].join('-');
                     };
 
-                    joiningDate.addEventListener('input', calculateEndDate);
-                    joiningDate.addEventListener('change', calculateEndDate);
-                    probationMonths.addEventListener('change', calculateEndDate);
-                    calculateEndDate();
+                    joiningDate.addEventListener('input', () => calculateEndDate());
+                    joiningDate.addEventListener('change', () => calculateEndDate());
+                    probationMonths.addEventListener('change', () => calculateEndDate());
+
+                    // Seed the end date from the server-rendered value so it is
+                    // correct on first load (the flatpickr picker initializes later).
+                    calculateEndDate(@json(old('joining_date', $employment?->joining_date?->format('Y-m-d'))));
                 };
 
                 if (document.readyState === 'loading') {

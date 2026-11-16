@@ -278,17 +278,9 @@
                 'hybrid' => 'Hybrid',
             ]" :value="old('work_type', $employment?->work_type) ?? ''" />
 
-            <div>
-                <label for="joining_date" class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
-                    Joining Date <span class="text-red-500">*</span>
-                </label>
-                <input type="date" id="joining_date" name="joining_date"
-                    value="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}" required
-                    class="h-11 w-full rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
-                @error('joining_date')
-                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+            <x-form.date-picker id="joining_date" name="joining_date" label="Joining Date" required
+                placeholder="Select joining date" dateFormat="Y-m-d"
+                :defaultDate="old('joining_date', $employment?->joining_date?->format('Y-m-d'))" />
 
 
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
