@@ -10,11 +10,14 @@
             'name' => $employee->full_name ?: 'N/A',
             'email' => $employee->user?->email ?? 'No account',
             'phone' => $employee->user?->phone ?? '—',
-            'country' => $employee->country?->name ?? '—',
-            'status' => data_get($employee, 'current_employment.employment_status', '—'),
+            'branch' => $employee->currentEmployment?->branch?->name ?? 'N/A',
+            'department' => $employee->currentEmployment?->department?->name ?? 'N/A',
+            'status' => $employee->currentEmployment?->employment_status
+                ?? $employee->employments->first()?->employment_status
+                ?? 'Unavailable',
         ];
     })->values();
-@dd($tableRowData);
+
     $role = request()->route('role');
 @endphp
 
@@ -92,7 +95,8 @@
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Employee</th>
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Email</th>
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Phone</th>
-                        <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Country</th>
+                        <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Branch</th>
+                        <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Department</th>
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Status</th>
                         <th class="px-5 py-4 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">Actions</th>
                     </tr>
@@ -101,7 +105,7 @@
                 <tbody class="divide-y divide-neutral-100 dark:divide-white/[0.05]">
                     <template x-if="rows.length === 0">
                         <tr>
-                            <td colspan="7"
+                            <td colspan="8"
                                 class="px-5 py-10 text-center text-sm text-neutral-500">
                                 No employees found.
                             </td>
@@ -131,18 +135,24 @@
                                 x-text="row.phone"></td>
 
                             <td class="px-5 py-4 text-sm text-neutral-500 dark:text-neutral-400"
-                                x-text="row.country"></td>
+                                x-text="row.branch"></td>
 
                             <td class="px-5 py-4 text-sm text-neutral-500 dark:text-neutral-400"
-                                x-text="row.verified"></td>
+                                x-text="row.department"></td>
 
-                            {{-- <td class="px-5 py-4">
+                            <td class="px-5 py-4">
                                 <span
-                                    :class="row.verified ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'"
-                                    class="rounded-full px-2.5 py-1 text-xs font-medium"
-                                    x-text="row.verified ? 'Verified' : 'Pending'">
+                                    :class="{
+                                        'bg-amber-100 text-amber-700': row.status === 'probation',
+                                        'bg-green-100 text-green-700': row.status === 'permanent',
+                                        'bg-orange-100 text-orange-700': row.status === 'resigned',
+                                        'bg-red-100 text-red-700': row.status === 'terminated',
+                                        'bg-neutral-100 text-neutral-700': row.status === 'Unavailable'
+                                    }"
+                                    class="rounded-full px-2.5 py-1 text-xs font-medium capitalize"
+                                    x-text="row.status">
                                 </span>
-                            </td> --}}
+                            </td>
 
                             <td class="px-5 py-4 text-right">
                                 <div class="flex justify-end gap-2">

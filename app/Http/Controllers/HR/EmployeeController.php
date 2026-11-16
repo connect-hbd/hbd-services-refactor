@@ -30,7 +30,18 @@ class EmployeeController extends Controller
         $request->user()->can('employee.list') || abort(403);
 
         $employees = Employee::query()
-            ->with(['user', 'country', 'city', 'currentEmployment.branch', 'currentEmployment.department', 'currentEmployment.team', 'currentEmployment.designation'])
+            ->with([
+                'user',
+                'country',
+                'city',
+                'currentEmployment.branch',
+                'currentEmployment.department',
+                'currentEmployment.team',
+                'currentEmployment.designation',
+                'employments' => fn ($query) => $query
+                    ->latest('id')
+                    ->select(['id', 'employee_id', 'employment_status']),
+            ])
             ->when($request->filled('search'), function (Builder $query) use ($request) {
                 $search = trim($request->input('search'));
 
@@ -57,7 +68,7 @@ class EmployeeController extends Controller
     /**
      * Show the create form.
      */
-    public function create(string $role,Request $request)
+    public function create(string $role, Request $request)
     {
         $request->user()->can('employee.create') || abort(403);
 
