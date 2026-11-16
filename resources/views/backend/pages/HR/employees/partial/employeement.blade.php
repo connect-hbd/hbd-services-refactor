@@ -278,10 +278,18 @@
                 'hybrid' => 'Hybrid',
             ]" :value="old('work_type', $employment?->work_type) ?? ''" />
 
-           
+            <div>
+                <label for="joining_date" class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+                    Joining Date <span class="text-red-500">*</span>
+                </label>
+                <input type="date" id="joining_date" name="joining_date"
+                    value="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}" required
+                    class="h-11 w-full rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                @error('joining_date')
+                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
 
-            <x-form.date-picker name="joining_date" label="Joining Date" type="date" :value="old('joining_date', $employment?->joining_date?->format('Y-m-d'))"
-                placeholder="YYYY-MM-DD" />
 
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
                 'monday' => 'Monday',
@@ -292,21 +300,6 @@
                 'saturday' => 'Saturday',
                 'sunday' => 'Sunday',
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])" />
-        </div>
-{{-- Employee Code --}}
-        <div>
-            <label for="employee_code" class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
-                Current Salary <span class="text-red-500">*</span>
-            </label>
-
-            <input type="text" id="employee_code" name="employee_code" value="{{ old('employee_code', $employment?->employee_code) }}" required maxlength="50"
-                placeholder="e.g. EMP-001"
-                class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
-
-            @error('employee_code')
-                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-            @enderror
-        </div>
-      
+        </div>   
     </div>
 </section>

@@ -148,7 +148,6 @@
 
                 <section x-data="{
                     status: @js($currentStatus),
-                    probationMonths: @js(old('probation_period_months', $employment?->probation_period_months)),
                 }"
                     class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
 
@@ -240,20 +239,26 @@
                                         '4' => '4 Months',
                                         '5' => '5 Months',
                                         '6' => '6 Months',
-                                    ]" :value="old('probation_period_months', $employment?->probation_period_months) ??
-                                        ''" />
-                                <x-form.date-picker name="probation_end_date" label="Probation End Date" type="date"
-                                    :value="old(
-                                        'probation_end_date',
-                                        $employment?->probation_end_date?->format('Y-m-d'),
-                                    )" placeholder="YYYY-MM-DD" />
+                                    ]" :value="old('probation_period_months', $employment?->probation_period_months) ?? ''" />
+                                <div>
+                                    <label for="probation_end_date"
+                                        class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+                                        Probation End Date <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" id="probation_end_date" name="probation_end_date"
+                                        value="{{ old('probation_end_date', $employment?->probation_end_date?->format('Y-m-d')) }}"
+                                        readonly required
+                                        class="h-11 w-full cursor-not-allowed rounded-lg border border-neutral-300 bg-neutral-100 px-4 text-sm text-neutral-800 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
+                                    @error('probation_end_date')
+                                        <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
                             </div>
 
                             <p class="flex items-start gap-2 text-xs leading-relaxed text-amber-800 dark:text-amber-400">
                                 <iconify-icon icon="lucide:info" class="mt-0.5 shrink-0"></iconify-icon>
-                                The probation period starts from the employee's joining date. Select the expected completion
-                                date.
+                                The end date is calculated from the joining date and probation period.
                             </p>
                         </div>
 
@@ -375,4 +380,50 @@
             </div>
         </form>
     </div>
+
+    @push('scripts')
+        <script>
+            (() => {
+                const initializeProbationEndDate = () => {
+                    const joiningDate = document.getElementById('joining_date');
+                    const probationMonths = document.getElementById('probation_period_months');
+                    const probationEndDate = document.getElementById('probation_end_date');
+
+                    if (!joiningDate || !probationMonths || !probationEndDate) return;
+
+                    const calculateEndDate = () => {
+                        if (!joiningDate.value || !probationMonths.value) {
+                            probationEndDate.value = '';
+                            return;
+                        }
+
+                        const [year, month, day] = joiningDate.value.split('-').map(Number);
+                        const startMonth = month - 1;
+                        const targetMonth = startMonth + Number(probationMonths.value);
+                        const targetYear = year + Math.floor(targetMonth / 12);
+                        const normalizedMonth = targetMonth % 12;
+                        const lastDay = new Date(Date.UTC(targetYear, normalizedMonth + 1, 0)).getUTCDate();
+                        const endDate = new Date(Date.UTC(targetYear, normalizedMonth, Math.min(day, lastDay)));
+
+                        probationEndDate.value = [
+                            endDate.getUTCFullYear(),
+                            String(endDate.getUTCMonth() + 1).padStart(2, '0'),
+                            String(endDate.getUTCDate()).padStart(2, '0'),
+                        ].join('-');
+                    };
+
+                    joiningDate.addEventListener('input', calculateEndDate);
+                    joiningDate.addEventListener('change', calculateEndDate);
+                    probationMonths.addEventListener('change', calculateEndDate);
+                    calculateEndDate();
+                };
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initializeProbationEndDate);
+                } else {
+                    initializeProbationEndDate();
+                }
+            })();
+        </script>
+    @endpush
 @endsection

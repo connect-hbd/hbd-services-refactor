@@ -3,6 +3,7 @@
 namespace App\Http\Requests\HR;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class StoreEmployeeRequest extends FormRequest
@@ -10,6 +11,25 @@ class StoreEmployeeRequest extends FormRequest
     public function authorize(): bool
     {
         return $this->user()?->can('employee.create') ?? false;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if (
+            $this->input('employment_status') === 'probation'
+            && $this->filled('joining_date')
+            && $this->filled('probation_period_months')
+        ) {
+            try {
+                $this->merge([
+                    'probation_end_date' => Carbon::parse($this->input('joining_date'))
+                        ->addMonthsNoOverflow((int) $this->input('probation_period_months'))
+                        ->toDateString(),
+                ]);
+            } catch (\Throwable) {
+                // Let the date validation rule report invalid joining dates.
+            }
+        }
     }
 
     public function rules(): array
