@@ -20,7 +20,7 @@
                 <h1 class="text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
                     Your Journey. <span class="text-accent-two-500">Your Destination.</span>
                 </h1>
-                <p class="mx-auto mt-6 max-w-2xl text-sm leading-7 text-brand-100/80 sm:text-lg sm:leading-8">
+                <p class="mx-auto mt-6 max-w-2xl text-sm leading-7 text-brand-100/80 sm:text-lg sm:leading-8 mb-6 sm:mb-0">
                     Discover world-class study destinations, leading universities and exciting opportunities.
                     Find the right place to build your future.
                 </p>
@@ -95,13 +95,14 @@
                             <input type="search" x-model="search"
                                 placeholder="Search destination, country, region or university..."
                                 aria-label="Search destinations" autocomplete="off"
-                                class="w-full min-w-0 border-0 bg-transparent py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-0">
+                                class="w-full min-w-0 appearance-none border-0 bg-transparent py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-0 focus:outline-none [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden">
                             <button type="button" x-show="search" x-cloak @click="search = ''" aria-label="Clear search"
-                                class="shrink-0 rounded-full p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700">
-                                <iconify-icon icon="lucide:x"></iconify-icon>
+                                class="shrink-0 rounded-full p-1.5 w-8 h-8 flex items-center justify-center text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700">
+                                <iconify-icon icon="lucide:x" class="text-base"></iconify-icon>
                             </button>
                         </div>
                     </div>
+                    
                     <p class="mt-2 px-3 text-xs text-neutral-400">Results update automatically as you type.</p>
                 </div>
 
