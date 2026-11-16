@@ -220,12 +220,12 @@
                                 {{-- Actions --}}
                                 <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
                                     <div class="inline-flex items-center justify-end gap-3">
-                                        @can('user.view')
+                                        {{-- @can('user.view')
                                             <a href="{{ role_route('role.users.show', ['user' => $user]) }}"
                                                 class="font-medium text-neutral-600 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
                                                 View
                                             </a>
-                                        @endcan
+                                        @endcan --}}
 
                                         @can('user.edit')
                                             <a href="{{ role_route('role.users.edit', ['user' => $user]) }}"

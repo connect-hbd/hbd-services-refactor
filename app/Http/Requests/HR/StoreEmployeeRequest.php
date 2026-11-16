@@ -122,11 +122,14 @@ class StoreEmployeeRequest extends FormRequest
 
             'emergency_contact_phone' => ['nullable', 'string', 'max:32'],
 
-            /*
+         
+             /*
             |--------------------------------------------------------------------------
-            | Account Verification
+            | Salary
             |--------------------------------------------------------------------------
             */
+
+            'salary' => ['nullable', 'numeric', 'min:0'],
 
         ];
     }

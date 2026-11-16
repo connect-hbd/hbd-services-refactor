@@ -50,6 +50,8 @@ class UpdateEmployeeRequest extends FormRequest
             'probation_end_date' => ['exclude_unless:employment_status,probation', 'required', 'date', 'after:joining_date'],
             'resignation_date' => ['exclude_unless:employment_status,resigned', 'required', 'date', 'after_or_equal:joining_date'],
             'last_working_day' => ['exclude_unless:employment_status,resigned,terminated', 'required', 'date', 'after_or_equal:joining_date'],
+            //current salary
+            'salary' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 }

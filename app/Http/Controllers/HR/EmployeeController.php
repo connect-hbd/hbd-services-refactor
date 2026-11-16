@@ -106,6 +106,12 @@ class EmployeeController extends Controller
                 $employee->employments()->create(
                     $this->prepareEmploymentData($validated, true)
                 );
+
+                 // Create Salary Structure
+                $employee->employments()->create(
+                    $this->prepareSalaryStructure($validated, true)
+                );
+
             });
 
             return redirect()
@@ -302,6 +308,7 @@ class EmployeeController extends Controller
             'status' => 'active',
         ];
     }
+   
 
     /**
      * Map only fields that belong to the employments table.
@@ -333,6 +340,17 @@ class EmployeeController extends Controller
         if ($creating) {
             $data['is_current'] = true;
         }
+
+        return $data;
+    }
+
+       private function prepareSalaryStructure(array $validated): array
+    {
+         $fields = [
+            'salary_amount',
+        ];
+
+        $data = array_intersect_key($validated, array_flip($fields));
 
         return $data;
     }

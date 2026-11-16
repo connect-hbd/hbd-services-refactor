@@ -6,7 +6,8 @@
             class="sticky top-19 z-20  mb-6 rounded-2xl border-b border-neutral-200/60 bg-white/80 px-4 py-4 backdrop-blur-lg dark:border-neutral-800 dark:bg-neutral-900/80 sm:-mx-6 sm:px-6">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $isEdit ? 'Edit Employee' : 'Create Employee' }}</h1>
+                    <h1 class="text-lg font-semibold text-neutral-900 dark:text-white">
+                        {{ $isEdit ? 'Edit Employee' : 'Create Employee' }}</h1>
                     <p class="text-sm text-neutral-500 dark:text-neutral-400">Add a new employee with personal, contact and
                         account details.</p>
                 </div>
@@ -57,9 +58,13 @@
             </div>
         @endif
 
-        <form id="employee-form" action="{{ $isEdit ? role_route('role.employees.update', ['employee' => $employee->id]) : role_route('role.employees.store') }}" method="POST" novalidate>
+        <form id="employee-form"
+            action="{{ $isEdit ? role_route('role.employees.update', ['employee' => $employee->id]) : role_route('role.employees.store') }}"
+            method="POST" novalidate>
             @csrf
-            @if ($isEdit) @method('PUT') @endif
+            @if ($isEdit)
+                @method('PUT')
+            @endif
             <div class="space-y-6">
                 {{-- Personal Information  --}}
                 <section
@@ -100,7 +105,7 @@
                                 :value="old('phone', $employee?->user?->phone) ?? ''" placeholder="+1 (555) 000-0000" />
 
                             <x-form.input-text name="password" label="Password" type="password" required
-                                 placeholder="Minimum 8 characters" />
+                                placeholder="Minimum 8 characters" />
                         </div>
 
                         {{-- Emergency Contact --}}
@@ -125,7 +130,8 @@
                                     placeholder="Full name" />
 
                                 <x-form.input-text name="emergency_contact_phone" label="Phone Number" type="tel"
-                                    :value="old('emergency_contact_phone', $employee?->emergency_contact_phone) ?? ''" placeholder="+1 (555) 000-0000" />
+                                    :value="old('emergency_contact_phone', $employee?->emergency_contact_phone) ??
+                                        ''" placeholder="+1 (555) 000-0000" />
                             </div>
                         </fieldset>
                     </div>
@@ -165,26 +171,45 @@
                     </header>
 
                     <div class="space-y-6 p-6">
+                        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 
-                        {{-- Employment Status --}}
-                        <div>
-                            <label for="employment_status"
-                                class="mb-2 block text-sm font-semibold text-neutral-800 dark:text-neutral-200">
-                                Employment Status <span class="text-red-500">*</span>
-                            </label>
 
-                            <select id="employment_status" name="employment_status" x-model="status" required
-                                class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-800 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
+                            {{-- Employment Status --}}
+                            <div>
+                                <label for="employment_status"
+                                    class="mb-2 block text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+                                    Employment Status <span class="text-red-500">*</span>
+                                </label>
 
-                                <option value="probation">Probation</option>
-                                <option value="permanent">Permanent</option>
-                                <option value="resigned">Resigned</option>
-                                <option value="terminated">Terminated</option>
-                            </select>
+                                <select id="employment_status" name="employment_status" x-model="status" required
+                                    class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-800 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
 
-                            @error('employment_status')
-                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                            @enderror
+                                    <option value="probation">Probation</option>
+                                    <option value="permanent">Permanent</option>
+                                    <option value="resigned">Resigned</option>
+                                    <option value="terminated">Terminated</option>
+                                </select>
+
+                                @error('employment_status')
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            {{-- Current Salary --}}
+                            <div>
+                                <label for="salary_amount"
+                                    class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+                                    Current Salary <span class="text-red-500">*</span>
+                                </label>
+
+                                <input type="text" id="salary_amount" name="salary_amount"
+                                    value="{{ old('salary_amount', $employment?->salary_amount) }}" required
+                                    maxlength="50" placeholder="e.g. Current Salary- 500000"
+                                    class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+
+                                @error('salary_amount')
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         {{-- Probation Fields --}}
@@ -209,15 +234,19 @@
 
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-                                <x-form.select-input name="probation_period_months" label="Probation Period" :options="[
-                                    '3' => '3 Months',
-                                    '4' => '4 Months',
-                                    '5' => '5 Months',
-                                    '6' => '6 Months',
-                                ]"
-                                    :value="old('probation_period_months', $employment?->probation_period_months) ?? ''" />
+                                <x-form.select-input name="probation_period_months" label="Probation Period"
+                                    :options="[
+                                        '3' => '3 Months',
+                                        '4' => '4 Months',
+                                        '5' => '5 Months',
+                                        '6' => '6 Months',
+                                    ]" :value="old('probation_period_months', $employment?->probation_period_months) ??
+                                        ''" />
                                 <x-form.date-picker name="probation_end_date" label="Probation End Date" type="date"
-                                    :value="old('probation_end_date', $employment?->probation_end_date?->format('Y-m-d'))" placeholder="YYYY-MM-DD" />
+                                    :value="old(
+                                        'probation_end_date',
+                                        $employment?->probation_end_date?->format('Y-m-d'),
+                                    )" placeholder="YYYY-MM-DD" />
 
                             </div>
 
@@ -275,8 +304,9 @@
                                         Resignation Date <span class="text-red-500">*</span>
                                     </label>
 
-                                    <input type="date" id="resignation_date" name="resignation_date" value="{{ old('resignation_date', $employment?->resignation_date?->format('Y-m-d')) }}"
-                                    :required="status === 'resigned'" :disabled="status !== 'resigned'"
+                                    <input type="date" id="resignation_date" name="resignation_date"
+                                        value="{{ old('resignation_date', $employment?->resignation_date?->format('Y-m-d')) }}"
+                                        :required="status === 'resigned'" :disabled="status !== 'resigned'"
                                         class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
 
                                     @error('resignation_date')
@@ -291,7 +321,8 @@
                                     </label>
 
                                     <input type="date" id="resigned_last_working_day" name="last_working_day"
-                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}" :required="status === 'resigned'" :disabled="status !== 'resigned'"
+                                        value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}"
+                                        :required="status === 'resigned'" :disabled="status !== 'resigned'"
                                         class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
 
                                     @error('last_working_day')
@@ -329,14 +360,16 @@
                                 </label>
 
                                 <input type="date" id="terminated_last_working_day" name="last_working_day"
-                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}" :required="status === 'terminated'" :disabled="status !== 'terminated'"
+                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}"
+                                    :required="status === 'terminated'" :disabled="status !== 'terminated'"
                                     class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white sm:max-w-md">
 
                                 @error('last_working_day')
                                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        </div></section>
+                        </div>
+                </section>
 
 
             </div>

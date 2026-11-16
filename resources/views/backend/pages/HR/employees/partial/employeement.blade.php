@@ -293,7 +293,20 @@
                 'sunday' => 'Sunday',
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])" />
         </div>
+{{-- Employee Code --}}
+        <div>
+            <label for="employee_code" class="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+                Current Salary <span class="text-red-500">*</span>
+            </label>
 
+            <input type="text" id="employee_code" name="employee_code" value="{{ old('employee_code', $employment?->employee_code) }}" required maxlength="50"
+                placeholder="e.g. EMP-001"
+                class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+
+            @error('employee_code')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
+        </div>
       
     </div>
 </section>
