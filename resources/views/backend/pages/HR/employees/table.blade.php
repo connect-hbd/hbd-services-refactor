@@ -11,10 +11,10 @@
             'email' => $employee->user?->email ?? 'No account',
             'phone' => $employee->user?->phone ?? '—',
             'country' => $employee->country?->name ?? '—',
-            'verified' => (bool) $employee->is_verified,
+            'status' => data_get($employee, 'current_employment.employment_status', '—'),
         ];
     })->values();
-
+@dd($tableRowData);
     $role = request()->route('role');
 @endphp
 
@@ -93,7 +93,7 @@
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Email</th>
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Phone</th>
                         <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Country</th>
-                        <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Verification</th>
+                        <th class="px-5 py-4 text-xs font-medium uppercase tracking-wider text-neutral-500">Status</th>
                         <th class="px-5 py-4 text-right text-xs font-medium uppercase tracking-wider text-neutral-500">Actions</th>
                     </tr>
                 </thead>
@@ -133,13 +133,16 @@
                             <td class="px-5 py-4 text-sm text-neutral-500 dark:text-neutral-400"
                                 x-text="row.country"></td>
 
-                            <td class="px-5 py-4">
+                            <td class="px-5 py-4 text-sm text-neutral-500 dark:text-neutral-400"
+                                x-text="row.verified"></td>
+
+                            {{-- <td class="px-5 py-4">
                                 <span
                                     :class="row.verified ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'"
                                     class="rounded-full px-2.5 py-1 text-xs font-medium"
                                     x-text="row.verified ? 'Verified' : 'Pending'">
                                 </span>
-                            </td>
+                            </td> --}}
 
                             <td class="px-5 py-4 text-right">
                                 <div class="flex justify-end gap-2">

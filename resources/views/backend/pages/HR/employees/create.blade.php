@@ -57,7 +57,7 @@
             </div>
         @endif
 
-        <form id="employee-form" action="{{ $isEdit ? role_route('role.employees.update', $employee->id) : role_route('role.employees.store') }}" method="POST" novalidate>
+        <form id="employee-form" action="{{ $isEdit ? role_route('role.employees.update', ['employee' => $employee->id]) : role_route('role.employees.store') }}" method="POST" novalidate>
             @csrf
             @if ($isEdit) @method('PUT') @endif
             <div class="space-y-6">

@@ -49,6 +49,8 @@ class EmployeeController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        // return $employees;
+
         return view('backend.pages.HR.employees.index', compact('employees'));
     }
 
