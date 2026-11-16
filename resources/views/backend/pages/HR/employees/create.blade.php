@@ -136,14 +136,14 @@
                 {{-- Account Settings --}}
 
                 @php
-    $currentStatus = old('employment_status', $employment?->employment_status ?? 'probation');
-@endphp
+                    $currentStatus = old('employment_status', $employment?->employment_status ?? 'probation');
+                @endphp
 
                 <section x-data="{
-        status: @js($currentStatus),
-        probationMonths: @js(old('probation_period_months')),
-    }"
-                  class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+                    status: @js($currentStatus),
+                    probationMonths: @js(old('probation_period_months')),
+                }"
+                    class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
 
                     {{-- Header --}}
                     <header
@@ -206,7 +206,7 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">                        
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                                 <x-form.select-input name="work_type" label="Work Type" :options="[
                                     '3' => '3 Months',
