@@ -15,7 +15,28 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Employment
+            /*
+            |--------------------------------------------------------------------------
+            | Employee Account
+            |--------------------------------------------------------------------------
+            */
+
+            'first_name' => ['required', 'string', 'max:100'],
+
+            'last_name' => ['required', 'string', 'max:100'],
+
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
+
+            'phone' => ['nullable', 'string', 'max:32'],
+
+            'password' => ['required', 'string', 'min:8'],
+
+            /*
+            |--------------------------------------------------------------------------
+            | Employee Code & Organization
+            |--------------------------------------------------------------------------
+            */
+
             'employee_code' => ['required', 'string', 'max:50', Rule::unique('employments', 'employee_code')],
 
             'branch_id' => ['nullable', 'integer', 'exists:branches,id', 'required_with:department_id,team_id'],
@@ -41,87 +62,73 @@ class StoreEmployeeRequest extends FormRequest
                 }),
             ],
 
-            'designation_id' => ['required', 'integer', 'exists:designations,id'],
+            'designation_id' => ['nullable', 'integer', 'exists:designations,id'],
 
-            'work_type' => ['required', Rule::in(['onsite', 'remote', 'hybrid'])],
+            /*
+            |--------------------------------------------------------------------------
+            | Employment Details
+            |--------------------------------------------------------------------------
+            */
+
+            'work_type' => ['nullable', Rule::in(['onsite', 'remote', 'hybrid'])],
+
+            'joining_date' => ['required', 'date'],
 
             'weekend_days' => ['nullable', 'array'],
-            'weekend_days.*' => [
-                'required',
-                'string',
-                Rule::in([
-                    'monday',
-                    'tuesday',
-                    'wednesday',
-                    'thursday',
-                    'friday',
-                    'saturday',
-                    'sunday',
-                ]),
-            ],
+
+            'weekend_days.*' => ['required', 'string', Rule::in(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])],
+
+            /*
+            |--------------------------------------------------------------------------
+            | Employment Status
+            |--------------------------------------------------------------------------
+            */
 
             'employment_status' => ['required', Rule::in(['probation', 'permanent', 'resigned', 'terminated'])],
 
-            'joining_date' => ['required', 'date'],
-            'resignation_date' => ['nullable', 'date', 'after_or_equal:joining_date'],
-            'last_working_day' => ['nullable', 'date', 'after_or_equal:joining_date'],
+            /*
+            |--------------------------------------------------------------------------
+            | Probation
+            |--------------------------------------------------------------------------
+            */
 
-            // User account
-            'first_name' => ['required', 'string', 'max:100'],
-            'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'phone' => ['nullable', 'string', 'max:32'],
-            'password' => ['required', 'string', 'min:8'],
+            'probation_period_months' => ['exclude_unless:employment_status,probation', 'required', 'integer', 'between:3,6'],
 
-            // Personal information
-            'date_of_birth' => ['nullable', 'date', 'before:today'],
-            'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
-            'religion' => ['nullable', 'string', 'max:64'],
-            'blood_group' => ['nullable', Rule::in(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])],
-            'national_id' => ['nullable', 'string', 'max:255'],
-            'address' => ['nullable', 'string'],
+            'probation_end_date' => ['exclude_unless:employment_status,probation', 'required', 'date', 'after:joining_date'],
 
-            // Professional information
-            'bio' => ['nullable', 'string'],
-            'education' => ['nullable', 'string'],
-            'institution' => ['nullable', 'string', 'max:200'],
-            'experience_years' => ['nullable', 'integer', 'min:0', 'max:65535'],
+            /*
+            |--------------------------------------------------------------------------
+            | Resignation
+            |--------------------------------------------------------------------------
+            */
 
-            // Languages and expertise
-            'languages' => ['nullable', 'array'],
-            'languages.*' => ['string', 'max:100'],
-            'expertise' => ['nullable', 'array'],
-            'expertise.*' => ['string', 'max:150'],
+            'resignation_date' => ['exclude_unless:employment_status,resigned', 'required', 'date', 'after_or_equal:joining_date'],
 
-            // Location
-            'country_id' => ['nullable', 'uuid', 'exists:countries,id'],
-            'city_id' => ['nullable', 'uuid', Rule::exists('cities', 'id')->where('country_id', $this->input('country_id')), 'required_with:country_id'],
+            /*
+            |--------------------------------------------------------------------------
+            | Last Working Day
+            |--------------------------------------------------------------------------
+            */
 
-            // Emergency contact
+            'last_working_day' => ['exclude_unless:employment_status,resigned,terminated', 'required', 'date', 'after_or_equal:joining_date'],
+
+            /*
+            |--------------------------------------------------------------------------
+            | Emergency Contact
+            |--------------------------------------------------------------------------
+            */
+
             'emergency_contact_name' => ['nullable', 'string', 'max:150'],
+
             'emergency_contact_phone' => ['nullable', 'string', 'max:32'],
 
-            // Status
+            /*
+            |--------------------------------------------------------------------------
+            | Account Verification
+            |--------------------------------------------------------------------------
+            */
+
             'is_verified' => ['sometimes', 'boolean'],
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        foreach (['languages', 'expertise'] as $field) {
-            $value = $this->input($field, []);
-
-            if (is_string($value)) {
-                $value = explode(',', $value);
-            }
-
-            if (!is_array($value)) {
-                $value = [];
-            }
-
-            $this->merge([
-                $field => array_values(array_filter(array_map(static fn($item) => is_string($item) ? trim($item) : $item, $value), static fn($item) => is_string($item) && $item !== '')),
-            ]);
-        }
     }
 }

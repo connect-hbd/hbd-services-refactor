@@ -20,6 +20,8 @@ class Employment extends Model
         'work_type',
         'weekend_days',
         'employment_status',
+        'probation_period_months',
+        'probation_end_date',
         'joining_date',
         'resignation_date',
         'last_working_day',
@@ -29,11 +31,13 @@ class Employment extends Model
     protected function casts(): array
     {
         return [
-            'joining_date' => 'date',
-            'resignation_date' => 'date',
-            'last_working_day' => 'date',
-            'is_current' => 'boolean',
-            'weekend_days' => 'array',
+        'joining_date' => 'date',
+        'probation_end_date' => 'date',
+        'resignation_date' => 'date',
+        'last_working_day' => 'date',
+        'weekend_days' => 'array',
+        'is_current' => 'boolean',
+        'probation_period_months' => 'integer',
         ];
     }
 

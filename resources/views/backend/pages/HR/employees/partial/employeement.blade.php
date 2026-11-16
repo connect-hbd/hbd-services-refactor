@@ -278,18 +278,11 @@
                 'hybrid' => 'Hybrid',
             ]" value="" />
 
-            <x-form.select-input name="employment_status" label="Employment Status" :options="[
-                'probation' => 'Probation',
-                'permanent' => 'Permanent',
-                'resigned' => 'Resigned',
-                'terminated' => 'Terminated',
-            ]" value="" />
+           
 
             <x-form.date-picker name="joining_date" label="Joining Date" type="date" value=""
                 placeholder="YYYY-MM-DD" />
-        </div>
 
-        <div>
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
                 'monday' => 'Monday',
                 'tuesday' => 'Tuesday',
@@ -300,5 +293,7 @@
                 'sunday' => 'Sunday',
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])" />
         </div>
+
+      
     </div>
 </section>

@@ -66,7 +66,7 @@ class EmployeeController extends Controller
         $teams = Team::all();
         $designations = Designation::all();
 
-        return view('backend.pages.HR.employees.create',[
+        return view('backend.pages.HR.employees.create', [
             'countries' => $countries,
             'cities' => $cities,
             'branches' => $branches,
@@ -85,20 +85,24 @@ class EmployeeController extends Controller
 
         try {
             DB::transaction(function () use ($validated) {
-                // 1. Login account.
-                $user = User::createEmployee([
-                    'name' => trim($validated['first_name'] . ' ' . $validated['last_name']),
-                    'email' => $validated['email'],
-                    'phone' => $validated['phone'] ?? null,
-                    'password' => $validated['password'],
-                    'status' => 'active',
-                ]);
 
-                // 2. Personal employee profile.
-                $employee = Employee::create(array_merge($this->prepareEmployeeData($validated), ['user_id' => $user->id]));
+                // Create User
+                $user = User::createEmployee(
+                    $this->prepareUserData($validated)
+                );
 
-                // 3. First employment record.
-                $employee->employments()->create($this->prepareEmploymentData($validated, true));
+                // Create Employee
+                $employee = Employee::create(
+                    array_merge(
+                        $this->prepareEmployeeData($validated),
+                        ['user_id' => $user->id]
+                    )
+                );
+
+                // Create Employment
+                $employee->employments()->create(
+                    $this->prepareEmploymentData($validated, true)
+                );
             });
 
             return redirect()
@@ -109,7 +113,9 @@ class EmployeeController extends Controller
         } catch (Throwable $e) {
             report($e);
 
-            return back()->withInput()->with('error', 'Unable to create employee. Please try again.');
+            return back()
+                ->withInput()
+                ->with('error', 'Unable to create employee. Please try again.');
         }
     }
 
@@ -268,23 +274,18 @@ class EmployeeController extends Controller
     /**
      * Map only fields that belong to the employees table.
      */
+
     private function prepareEmployeeData(array $validated): array
     {
-        $fields = ['first_name', 'last_name', 'date_of_birth', 'gender', 'religion', 'blood_group', 'national_id', 'address', 'bio', 'education', 'institution', 'experience_years', 'languages', 'expertise', 'emergency_contact_name', 'emergency_contact_phone', 'country_id', 'city_id', 'is_verified'];
+        $fields = [
+            'first_name',
+            'last_name',
+            'emergency_contact_name',
+            'emergency_contact_phone',
+            'is_verified',
+        ];
 
         $data = array_intersect_key($validated, array_flip($fields));
-
-        if (array_key_exists('languages', $data)) {
-            $data['languages'] = $this->cleanArray($data['languages'] ?? []);
-        }
-
-        if (array_key_exists('expertise', $data)) {
-            $data['expertise'] = $this->cleanArray($data['expertise'] ?? []);
-        }
-
-        if (array_key_exists('experience_years', $data)) {
-            $data['experience_years'] = $data['experience_years'] ?? 0;
-        }
 
         if (array_key_exists('is_verified', $data)) {
             $data['is_verified'] = (bool) $data['is_verified'];
@@ -293,16 +294,44 @@ class EmployeeController extends Controller
         return $data;
     }
 
+    private function prepareUserData(array $validated): array
+    {
+        return [
+            'name' => trim($validated['first_name'] . ' ' . $validated['last_name']),
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'password' => $validated['password'],
+            'status' => 'active',
+        ];
+    }
+
     /**
      * Map only fields that belong to the employments table.
      */
-    private function prepareEmploymentData(array $validated, bool $creating): array
+    private function prepareEmploymentData(array $validated, bool $creating = false): array
     {
-        $fields = ['employee_code', 'branch_id', 'department_id', 'team_id', 'designation_id', 'work_type', 'weekend_days', 'employment_status', 'joining_date', 'resignation_date', 'last_working_day'];
+        $fields = [
+            'employee_code',
+            'branch_id',
+            'department_id',
+            'team_id',
+            'designation_id',
+            'work_type',
+            'joining_date',
+            'weekend_days',
+            'employment_status',
+            'probation_period_months',
+            'probation_end_date',
+            'resignation_date',
+            'last_working_day',
+        ];
 
         $data = array_intersect_key($validated, array_flip($fields));
 
-        // New employees always begin with a current employment.
+        if (array_key_exists('weekend_days', $data)) {
+            $data['weekend_days'] = $this->cleanArray($data['weekend_days'] ?? []);
+        }
+
         if ($creating) {
             $data['is_current'] = true;
         }

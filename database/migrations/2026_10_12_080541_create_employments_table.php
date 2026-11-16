@@ -46,6 +46,10 @@ return new class extends Migration
             $table->string('employment_status', 32)
                 ->default('probation');
 
+            $table->unsignedTinyInteger('probation_period_months')->nullable();
+            $table->date('probation_end_date')->nullable();
+
+
             $table->json('weekend_days')->nullable();
 
             $table->date('joining_date');
