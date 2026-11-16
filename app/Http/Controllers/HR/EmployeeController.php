@@ -55,25 +55,15 @@ class EmployeeController extends Controller
     /**
      * Show the create form.
      */
-    public function create(Request $request)
+    public function create(string $role,Request $request)
     {
         $request->user()->can('employee.create') || abort(403);
 
-        $countries = Country::all();
-        $cities = City::all();
-        $branches = Branch::all();
-        $departments = Department::all();
-        $teams = Team::all();
-        $designations = Designation::all();
-
-        return view('backend.pages.HR.employees.create', [
-            'countries' => $countries,
-            'cities' => $cities,
-            'branches' => $branches,
-            'departments' => $departments,
-            'teams' => $teams,
-            'designations' => $designations
-        ]);
+        return view('backend.pages.HR.employees.create', array_merge($this->formOptions(), [
+            'employee' => null,
+            'employment' => null,
+            'isEdit' => false,
+        ]));
     }
 
     /**
@@ -131,10 +121,11 @@ class EmployeeController extends Controller
             ->findOrFail($employee);
 
         return view(
-            'backend.pages.HR.employees.edit',
+            'backend.pages.HR.employees.create',
             array_merge($this->formOptions(), [
                 'employee' => $employee,
-                'title' => 'Edit Employee',
+                'employment' => $employee->currentEmployment,
+                'isEdit' => true,
             ]),
         );
     }
@@ -155,7 +146,7 @@ class EmployeeController extends Controller
 
                 if (array_key_exists('first_name', $validated) || array_key_exists('last_name', $validated)) {
                     $userData['name'] = trim(
-                        ($validated['first_name'] ?? $employee->first_name) . ' ' .
+                        ($validated['first_name'] ?? $employee->first_name).' '.
                             ($validated['last_name'] ?? $employee->last_name)
                     );
                 }
@@ -166,7 +157,7 @@ class EmployeeController extends Controller
                     }
                 }
 
-                if (!empty($validated['password'])) {
+                if (! empty($validated['password'])) {
                     $userData['password'] = Hash::make($validated['password']);
                 }
 
@@ -274,7 +265,6 @@ class EmployeeController extends Controller
     /**
      * Map only fields that belong to the employees table.
      */
-
     private function prepareEmployeeData(array $validated): array
     {
         $fields = [
@@ -282,14 +272,9 @@ class EmployeeController extends Controller
             'last_name',
             'emergency_contact_name',
             'emergency_contact_phone',
-            'is_verified',
         ];
 
         $data = array_intersect_key($validated, array_flip($fields));
-
-        if (array_key_exists('is_verified', $data)) {
-            $data['is_verified'] = (bool) $data['is_verified'];
-        }
 
         return $data;
     }
@@ -297,7 +282,7 @@ class EmployeeController extends Controller
     private function prepareUserData(array $validated): array
     {
         return [
-            'name' => trim($validated['first_name'] . ' ' . $validated['last_name']),
+            'name' => trim($validated['first_name'].' '.$validated['last_name']),
             'email' => $validated['email'],
             'phone' => $validated['phone'] ?? null,
             'password' => $validated['password'],
@@ -344,7 +329,7 @@ class EmployeeController extends Controller
      */
     private function cleanArray(array $items): array
     {
-        return array_values(array_filter(array_map(static fn($item) => is_string($item) ? trim($item) : $item, $items), static fn($item) => filled($item)));
+        return array_values(array_filter(array_map(static fn ($item) => is_string($item) ? trim($item) : $item, $items), static fn ($item) => filled($item)));
     }
 
     public function updateBasicInfo(Request $request, string $role, string $employee)

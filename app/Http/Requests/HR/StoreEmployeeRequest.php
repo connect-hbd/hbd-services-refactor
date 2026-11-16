@@ -70,7 +70,7 @@ class StoreEmployeeRequest extends FormRequest
             |--------------------------------------------------------------------------
             */
 
-            'work_type' => ['nullable', Rule::in(['onsite', 'remote', 'hybrid'])],
+            'work_type' => ['required', Rule::in(['onsite', 'remote', 'hybrid'])],
 
             'joining_date' => ['required', 'date'],
 
@@ -128,7 +128,6 @@ class StoreEmployeeRequest extends FormRequest
             |--------------------------------------------------------------------------
             */
 
-            'is_verified' => ['sometimes', 'boolean'],
         ];
     }
 }

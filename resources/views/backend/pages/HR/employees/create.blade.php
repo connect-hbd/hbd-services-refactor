@@ -6,7 +6,7 @@
             class="sticky top-19 z-20  mb-6 rounded-2xl border-b border-neutral-200/60 bg-white/80 px-4 py-4 backdrop-blur-lg dark:border-neutral-800 dark:bg-neutral-900/80 sm:-mx-6 sm:px-6">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-lg font-semibold text-neutral-900 dark:text-white">Create Employee</h1>
+                    <h1 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $isEdit ? 'Edit Employee' : 'Create Employee' }}</h1>
                     <p class="text-sm text-neutral-500 dark:text-neutral-400">Add a new employee with personal, contact and
                         account details.</p>
                 </div>
@@ -25,7 +25,7 @@
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                        Create Employee
+                        {{ $isEdit ? 'Save Changes' : 'Create Employee' }}
                     </button>
                 </div>
             </div>
@@ -57,8 +57,9 @@
             </div>
         @endif
 
-        <form id="employee-form" action="{{ role_route('role.employees.store') }}" method="POST" novalidate>
+        <form id="employee-form" action="{{ $isEdit ? role_route('role.employees.update', $employee->id) : role_route('role.employees.store') }}" method="POST" novalidate>
             @csrf
+            @if ($isEdit) @method('PUT') @endif
             <div class="space-y-6">
                 {{-- Personal Information  --}}
                 <section
@@ -84,22 +85,22 @@
                         {{-- Names --}}
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <x-form.input-text name="first_name" label="First Name" required autocomplete="given-name"
-                                value="" placeholder="e.g. John" />
+                                :value="old('first_name', $employee?->first_name) ?? ''" placeholder="e.g. John" />
 
                             <x-form.input-text name="last_name" label="Last Name" required autocomplete="family-name"
-                                value="" placeholder="e.g. Doe" />
+                                :value="old('last_name', $employee?->last_name) ?? ''" placeholder="e.g. Doe" />
                         </div>
 
                         {{-- Contact --}}
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
                             <x-form.input-text name="email" label="Email Address" type="email" required
-                                autocomplete="email" value="" placeholder="john@example.com" />
+                                autocomplete="email" :value="old('email', $employee?->user?->email) ?? ''" placeholder="john@example.com" />
 
                             <x-form.input-text name="phone" label="Phone Number" type="tel" autocomplete="tel"
-                                value="" placeholder="+1 (555) 000-0000" />
+                                :value="old('phone', $employee?->user?->phone) ?? ''" placeholder="+1 (555) 000-0000" />
 
                             <x-form.input-text name="password" label="Password" type="password" required
-                                autocomplete="new-password" placeholder="Minimum 8 characters" />
+                                 placeholder="Minimum 8 characters" />
                         </div>
 
                         {{-- Emergency Contact --}}
@@ -120,11 +121,11 @@
                             </div>
 
                             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                                <x-form.input-text name="emergency_contact_name" label="Contact Name" value=""
+                                <x-form.input-text name="emergency_contact_name" label="Contact Name" :value="old('emergency_contact_name', $employee?->emergency_contact_name) ?? ''"
                                     placeholder="Full name" />
 
                                 <x-form.input-text name="emergency_contact_phone" label="Phone Number" type="tel"
-                                    value="" placeholder="+1 (555) 000-0000" />
+                                    :value="old('emergency_contact_phone', $employee?->emergency_contact_phone) ?? ''" placeholder="+1 (555) 000-0000" />
                             </div>
                         </fieldset>
                     </div>
@@ -141,7 +142,7 @@
 
                 <section x-data="{
                     status: @js($currentStatus),
-                    probationMonths: @js(old('probation_period_months')),
+                    probationMonths: @js(old('probation_period_months', $employment?->probation_period_months)),
                 }"
                     class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
 
@@ -208,15 +209,15 @@
 
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-                                <x-form.select-input name="work_type" label="Work Type" :options="[
+                                <x-form.select-input name="probation_period_months" label="Probation Period" :options="[
                                     '3' => '3 Months',
                                     '4' => '4 Months',
                                     '5' => '5 Months',
                                     '6' => '6 Months',
                                 ]"
-                                    value="" />
+                                    :value="old('probation_period_months', $employment?->probation_period_months) ?? ''" />
                                 <x-form.date-picker name="probation_end_date" label="Probation End Date" type="date"
-                                    value="" placeholder="YYYY-MM-DD" />
+                                    :value="old('probation_end_date', $employment?->probation_end_date?->format('Y-m-d'))" placeholder="YYYY-MM-DD" />
 
                             </div>
 
@@ -274,8 +275,8 @@
                                         Resignation Date <span class="text-red-500">*</span>
                                     </label>
 
-                                    <input type="date" id="resignation_date" name="resignation_date" value=""
-                                        :required="status === 'resigned'"
+                                    <input type="date" id="resignation_date" name="resignation_date" value="{{ old('resignation_date', $employment?->resignation_date?->format('Y-m-d')) }}"
+                                    :required="status === 'resigned'" :disabled="status !== 'resigned'"
                                         class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
 
                                     @error('resignation_date')
@@ -290,7 +291,7 @@
                                     </label>
 
                                     <input type="date" id="resigned_last_working_day" name="last_working_day"
-                                        value="" :required="status === 'resigned'"
+                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}" :required="status === 'resigned'" :disabled="status !== 'resigned'"
                                         class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
 
                                     @error('last_working_day')
@@ -328,54 +329,14 @@
                                 </label>
 
                                 <input type="date" id="terminated_last_working_day" name="last_working_day"
-                                    value="" :required="status === 'terminated'"
+                                    value="{{ old('last_working_day', $employment?->last_working_day?->format('Y-m-d')) }}" :required="status === 'terminated'" :disabled="status !== 'terminated'"
                                     class="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white sm:max-w-md">
 
                                 @error('last_working_day')
                                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        </div>
-
-                        {{-- Divider --}}
-                        <div class="border-t border-neutral-100 dark:border-neutral-800"></div>
-
-                        {{-- Employee Verification --}}
-                        <div>
-                            <h3 class="mb-3 text-sm font-semibold text-neutral-900 dark:text-white">
-                                Account Verification
-                            </h3>
-
-                            <label for="is_verified"
-                                class="group flex cursor-pointer items-start justify-between gap-4 rounded-xl border border-neutral-200 p-4 transition hover:border-brand-400/60 hover:bg-brand-50/40 dark:border-neutral-700 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/5 sm:items-center">
-
-                                <div class="flex items-start gap-3">
-                                    <input type="hidden" name="is_verified" value="0">
-
-                                    <input type="checkbox" id="is_verified" name="is_verified" value="1"
-                                        @checked(old('is_verified', $employee?->is_verified ?? false))
-                                        class="mt-0.5 h-5 w-5 rounded-md border-neutral-300 text-brand-600 accent-brand-600 focus:ring-2 focus:ring-brand-500/30 dark:border-neutral-600 sm:mt-0">
-
-                                    <div>
-                                        <span class="text-sm font-semibold text-neutral-900 dark:text-white">
-                                            Verified Employee
-                                        </span>
-
-                                        <p class="mt-0.5 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
-                                            Mark this employee as verified across the platform.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <span
-                                    class="hidden rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] font-medium text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400 sm:inline-block">
-                                    Optional
-                                </span>
-                            </label>
-                        </div>
-
-                    </div>
-                </section>
+                        </div></section>
 
 
             </div>
