@@ -1,5 +1,5 @@
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: false }">
+    x-data="{ isEditing: {{ $errors->hasAny(['bank_account_id', 'bank_name', 'bank_branch', 'account_name', 'account_number', 'routing_number', 'is_primary']) ? 'true' : 'false' }} }">
 
     {{-- Header --}}
     <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
@@ -21,7 +21,10 @@
         </div>
     </div>
 
-    <div class="space-y-6 p-6">
+    <form action="{{ role_route('role.update.bank', ['employee' => $employee->id]) }}" method="POST" class="space-y-6 p-6">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="bank_account_id" value="{{ $bankAccount?->id }}">
 
         {{-- Bank Name & Bank Branch --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -64,7 +67,7 @@
                     :class="isEditing ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'">
                     <input type="hidden" name="is_primary" value="0">
                     <input type="checkbox" id="is_primary" name="is_primary" value="1"
-                        @checked(old('is_primary', $employee?->is_primary ?? false))
+                        @checked(old('is_primary', $bankAccount?->is_primary ?? false))
                         x-bind:disabled="!isEditing"
                         class="mt-0.5 h-4 w-4 rounded border-neutral-300 text-brand-600 focus:ring-brand-500 disabled:cursor-not-allowed">
                     <div>
@@ -87,5 +90,5 @@
                 Save Changes
             </button>
         </div>
-    </div>
+    </form>
 </section>

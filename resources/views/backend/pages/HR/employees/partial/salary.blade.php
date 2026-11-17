@@ -1,5 +1,7 @@
+@php($currentSalary ??= null)
+
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: false }">
+    x-data="{ isEditing: {{ $errors->hasAny(['salary_amount', 'currency_code', 'salary_type', 'effective_from', 'effective_to', 'remarks']) ? 'true' : 'false' }} }">
 
     {{-- Header --}}
     <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
@@ -21,11 +23,13 @@
         </div>
     </div>
 
-    <div class="space-y-6 p-6">
+    <form action="{{ role_route('role.update.salary', ['employee' => $employee->id]) }}" method="POST" class="space-y-6 p-6">
+        @csrf
+        @method('PUT')
 
         {{-- Employee and Salary Amount --}}
         <x-form.input-text name="salary_amount" label="Salary Amount" type="number" step="0.01"
-            value="{{ old('salary_amount') }}"
+            value="{{ old('salary_amount', $currentSalary?->salary_amount) }}"
             placeholder="e.g. 50000.00"
             ::disabled="!isEditing" />
 
@@ -35,7 +39,7 @@
                 'bdt' => 'BDT - Bangladeshi Taka',
                 'usd' => 'USD - US Dollar',
                 'eur' => 'EUR - Euro',
-            ]" :value="old('currency_code', 'bdt')"
+            ]" :value="old('currency_code', strtolower($currentSalary?->currency_code ?? 'bdt'))"
                 ::disabled="!isEditing" />
 
             <x-form.select-input name="salary_type" label="Salary Type" :options="[
@@ -43,19 +47,21 @@
                 'hourly' => 'Hourly',
                 'weekly' => 'Weekly',
                 'annual' => 'Annual',
-            ]" :value="old('salary_type', 'monthly')"
+            ]" :value="old('salary_type', $currentSalary?->salary_type ?? 'monthly')"
                 ::disabled="!isEditing" />
         </div>
 
         {{-- Effective Dates --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <x-form.date-picker name="effective_from" label="Effective From" type="date"
-                :value="old('effective_from', now()->toDateString())"
+            <x-form.date-picker name="effective_from" label="Effective From"
+                defaultDate="{{ old('effective_from', $currentSalary?->effective_from?->format('Y-m-d') ?? now()->toDateString()) }}"
+                dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
                 ::disabled="!isEditing" />
 
-            <x-form.date-picker name="effective_to" label="Effective To (Optional)" type="date"
-                :value="old('effective_to')"
+            <x-form.date-picker name="effective_to" label="Effective To (Optional)"
+                defaultDate="{{ old('effective_to', $currentSalary?->effective_to?->format('Y-m-d')) }}"
+                dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
                 ::disabled="!isEditing" />
         </div>
@@ -63,7 +69,7 @@
         {{-- Remarks --}}
         <div>
             <x-form.textarea-input name="remarks" label="Remarks / Notes"
-                value="{{ old('remarks') }}"
+                value="{{ old('remarks', $currentSalary?->remarks) }}"
                 placeholder="e.g. Annual increment based on performance review"
                 ::disabled="!isEditing" />
         </div>
@@ -80,5 +86,5 @@
                 Save Changes
             </button>
         </div>
-    </div>
+    </form>
 </section>

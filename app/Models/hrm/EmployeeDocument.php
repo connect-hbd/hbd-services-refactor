@@ -38,6 +38,28 @@ class EmployeeDocument extends Model
         ];
     }
 
+    /**
+     * Public URL for the stored file.
+     *
+     * All files handled by HandlesFiles live under public/uploads, so paths
+     * are stored as "uploads/...". Older rows may still hold public-disk
+     * style paths; those are normalised for the URL as a safety net.
+     */
+    public function getUrlAttribute(): ?string
+    {
+        $path = $this->file_path;
+
+        if (! $path) {
+            return null;
+        }
+
+        $path = str_starts_with($path, 'uploads/')
+            ? $path
+            : 'uploads/'.ltrim($path, '/');
+
+        return asset($path);
+    }
+
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);

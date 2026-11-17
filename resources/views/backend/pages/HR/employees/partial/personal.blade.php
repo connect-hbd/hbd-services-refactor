@@ -1,5 +1,5 @@
 <div class="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: false }">
+    x-data="{ isEditing: {{ $errors->hasAny(['first_name', 'last_name', 'email', 'phone', 'password', 'date_of_birth', 'gender', 'blood_group', 'religion', 'national_id', 'emergency_contact_name', 'emergency_contact_phone']) ? 'true' : 'false' }} }">
 
     {{-- Section Header & Edit Toggle Button --}}
     <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <form action="" method="POST" class="p-6 space-y-6">
+    <form action="{{ role_route('role.update.basic-information', ['employee' => $employee->id]) }}" method="POST" class="p-6 space-y-6">
         @csrf
         @method('PUT')
 

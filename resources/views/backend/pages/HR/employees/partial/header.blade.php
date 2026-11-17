@@ -3,19 +3,25 @@
 {{-- ========================================================= --}}
 
 <div x-data="{
-    statusModalOpen: false,
+    statusModalOpen: {{ $errors->hasAny(['employment_status', 'probation_period_months', 'probation_end_date', 'resignation_date', 'last_working_day']) ? 'true' : 'false' }},
 
-    status: @js($employee->currentEmployment?->employment_status ?? 'probation'),
+    status: @js(old('employment_status', $employee->currentEmployment?->employment_status ?? 'probation')),
 
-    probationMonths: @js((string) ($employee->currentEmployment?->probation_period_months ?? '')),
+    probationMonths: @js((string) old('probation_period_months', $employee->currentEmployment?->probation_period_months ?? '')),
 
     joiningDate: @js($employee->currentEmployment?->joining_date?->format('Y-m-d') ?? ''),
 
-    probationEndDate: @js($employee->currentEmployment?->probation_end_date?->format('Y-m-d') ?? ''),
+    probationEndDate: @js(old('probation_end_date', $employee->currentEmployment?->probation_end_date?->format('Y-m-d') ?? '')),
 
-    resignationDate: @js($employee->currentEmployment?->resignation_date?->format('Y-m-d') ?? ''),
+    resignationDate: @js(old('resignation_date', $employee->currentEmployment?->resignation_date?->format('Y-m-d') ?? '')),
 
-    lastWorkingDay: @js($employee->currentEmployment?->last_working_day?->format('Y-m-d') ?? ''),
+    lastWorkingDay: @js(old('last_working_day', $employee->currentEmployment?->last_working_day?->format('Y-m-d') ?? '')),
+
+    init() {
+        if (!this.probationEndDate && this.joiningDate && this.probationMonths) {
+            this.calculateProbationEndDate();
+        }
+    },
 
     calculateProbationEndDate() {
         if (!this.joiningDate || !this.probationMonths) {
@@ -56,7 +62,7 @@
     closeModal() {
         this.statusModalOpen = false;
     }
-}" @keydown.escape.window="closeModal()">
+}" x-init="init()" @keydown.escape.window="closeModal()">
 
     {{-- ========================================================= --}}
     {{-- EMPLOYEE PROFILE CARD --}}
@@ -213,10 +219,23 @@
             {{-- FORM --}}
             {{-- ================================================= --}}
 
-            <form action="" method="POST">
+            <form action="{{ role_route('role.update.employment-status', ['employee' => $employee->id]) }}" method="POST">
 
                 @csrf
-                @method('PATCH')
+                @method('PUT')
+
+                @if ($errors->hasAny(['employment_status', 'probation_period_months', 'probation_end_date', 'resignation_date', 'last_working_day']))
+                    <div class="mx-6 mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
+                        <p class="mb-1 font-semibold">Please fix the following:</p>
+                        <ul class="list-disc space-y-1 pl-5">
+                            @foreach (['employment_status', 'probation_period_months', 'probation_end_date', 'resignation_date', 'last_working_day'] as $field)
+                                @foreach ($errors->get($field) as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="max-h-[70vh] space-y-5 overflow-y-auto p-6">
 

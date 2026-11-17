@@ -12,7 +12,7 @@
 
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
     x-data="{
-        isEditing: false,
+        isEditing: {{ $errors->hasAny(['employee_code', 'branch_id', 'department_id', 'team_id', 'designation_id', 'work_type', 'joining_date', 'weekend_days']) ? 'true' : 'false' }},
         branchId: @js((string) ($branchId ?? '')),
         departmentId: @js((string) ($departmentId ?? '')),
         teamId: @js((string) ($teamId ?? '')),
@@ -178,7 +178,9 @@
         </div>
     </div>
 
-    <div class="space-y-6 p-6">
+    <form action="{{ role_route('role.update.employment', ['employee' => $employee->id]) }}" method="POST" class="space-y-6 p-6">
+        @csrf
+        @method('PUT')
 
         {{-- Employee Code --}}
         <div>
@@ -311,8 +313,9 @@
 
            
 
-            <x-form.date-picker name="joining_date" label="Joining Date" type="date"
-                value="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}"
+            <x-form.date-picker name="joining_date" label="Joining Date"
+                defaultDate="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}"
+                dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
                 ::disabled="!isEditing" />
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
@@ -341,5 +344,5 @@
                 Save Changes
             </button>
         </div>
-    </div>
+    </form>
 </section>

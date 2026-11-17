@@ -1,5 +1,21 @@
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: false }">
+    x-data="{
+        isEditing: {{ $errors->hasAny(['country_id', 'city_id', 'address']) ? 'true' : 'false' }},
+        countryId: @js((string) ($employee?->country_id ?? '')),
+        cityId: @js((string) ($employee?->city_id ?? '')),
+        countries: @js($countries->map(fn ($country) => ['id' => (string) $country->id, 'name' => $country->name])->values()),
+        cities: @js($cities->map(fn ($city) => ['id' => (string) $city->id, 'country_id' => (string) $city->country_id, 'name' => $city->name])->values()),
+        get filteredCities() {
+            return this.cities.filter(city => !this.countryId || city.country_id === this.countryId);
+        },
+        countryChanged() {
+            const city = this.cities.find(item => item.id === this.cityId);
+
+            if (!city || city.country_id !== this.countryId) {
+                this.cityId = '';
+            }
+        }
+    }">
     
     {{-- Section Header & Edit Toggle Button --}}
     <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
@@ -20,7 +36,7 @@
     </div>
 
     {{-- Form Container --}}
-    <form action="" method="POST" class="p-6 space-y-6">
+    <form action="{{ role_route('role.update.address', ['employee' => $employee->id]) }}" method="POST" class="p-6 space-y-6">
         @csrf
         @method('PUT')
 

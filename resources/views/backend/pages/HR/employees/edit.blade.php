@@ -3,9 +3,40 @@
 @section('content')
     <div class="mx-auto max-w-6xl space-y-8 pb-16">
 
+        {{-- Flash / validation feedback --}}
+        @if (session('success') || session('error') || $errors->any())
+            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 6000)" x-show="show" x-transition
+                class="fixed right-5 top-3 z-[99999] w-full max-w-sm space-y-3">
+                @if (session('success'))
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="success" title="" message="{{ session('success') }}" />
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="error" title="" message="{{ session('error') }}" />
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="error" title="Please check the highlighted fields"
+                            message="{{ $errors->first() }}" />
+                    </div>
+                @endif
+            </div>
+        @endif
+
         {{-- Top Navigation / Back --}}
         <div class="flex items-center justify-between">
-            <a href=""
+            <a href="{{ role_route('role.employees.index') }}"
                 class="inline-flex items-center text-sm font-medium text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200">
                 <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />

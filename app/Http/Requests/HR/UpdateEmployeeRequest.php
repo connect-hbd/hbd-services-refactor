@@ -30,8 +30,11 @@ class UpdateEmployeeRequest extends FormRequest
 
     public function authorize(): bool
     {
-      return $this->user()?->can('employee.create') ?? false;
-
+        return $this->user()?->canAny([
+            'employee.edit',
+            'employee.update',
+            'employee.manage',
+        ]) ?? false;
     }
 
     public function rules(): array

@@ -1,5 +1,5 @@
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: false }">
+    x-data="{ isEditing: {{ $errors->hasAny(['documents', 'documents.cv', 'documents.nid']) ? 'true' : 'false' }} }">
 
     {{-- Header --}}
     <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
@@ -19,7 +19,7 @@
     </div>
 
     {{-- Form Container --}}
-    <form action="" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+    <form action="{{ role_route('role.update.documents', ['employee' => $employee->id]) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
         @csrf
         @method('PUT')
 
@@ -29,7 +29,7 @@
             <div class="rounded-xl border border-neutral-200/80 p-4 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30">
                 <span class="block text-xs font-medium text-neutral-400 uppercase tracking-wider mb-2">CV / Professional Resume</span>
                 @php
-                    $cvDocument = $employee?->employeeDocuments?->firstWhere('document_key', 'cv');
+                    $cvDocument = $employee?->documents?->firstWhere('document_key', 'cv');
                 @endphp
                 @if($cvDocument && $cvDocument->file_path)
                     <div class="flex items-center justify-between">
@@ -42,7 +42,7 @@
                                 <p class="text-xs text-neutral-400">{{ $cvDocument->created_at?->format('M d, Y') ?? 'Uploaded' }}</p>
                             </div>
                         </div>
-                        <a href="{{ Storage::url($cvDocument->file_path) }}" target="_blank" class="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">View File</a>
+                        <a href="{{ $cvDocument->url }}" target="_blank" class="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">View File</a>
                     </div>
                 @else
                     <p class="text-sm text-neutral-500 dark:text-neutral-400 italic">No CV uploaded yet.</p>
@@ -53,7 +53,7 @@
             <div class="rounded-xl border border-neutral-200/80 p-4 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30">
                 <span class="block text-xs font-medium text-neutral-400 uppercase tracking-wider mb-2">NID / Passport</span>
                 @php
-                    $nidDocument = $employee?->employeeDocuments?->firstWhere('document_key', 'nid');
+                    $nidDocument = $employee?->documents?->firstWhere('document_key', 'nid');
                 @endphp
                 @if($nidDocument && $nidDocument->file_path)
                     <div class="flex items-center justify-between">
@@ -66,7 +66,7 @@
                                 <p class="text-xs text-neutral-400">{{ $nidDocument->created_at?->format('M d, Y') ?? 'Uploaded' }}</p>
                             </div>
                         </div>
-                        <a href="{{ Storage::url($nidDocument->file_path) }}" target="_blank" class="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">View File</a>
+                        <a href="{{ $nidDocument->url }}" target="_blank" class="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400">View File</a>
                     </div>
                 @else
                     <p class="text-sm text-neutral-500 dark:text-neutral-400 italic">No NID / Passport uploaded yet.</p>
@@ -80,14 +80,20 @@
                 <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     CV / Professional Resume
                 </label>
-                <x-form.dropzone name="documents[cv]" label="Upload CV / Resume" />
+                <x-form.dropzone name="documents[cv]" label="Upload CV / Resume"
+                accept=".png,.jpg,.jpeg,.svg,.webp,.pdf,.doc,.docx"
+                :types="['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']"
+                hint="PNG, JPG, SVG, WebP, PDF, DOC or DOCX (max 10 MB)" />
             </div>
 
             <div>
                 <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     NID / Passport
                 </label>
-                <x-form.dropzone name="documents[nid]" label="Upload NID or Passport" />
+                <x-form.dropzone name="documents[nid]" label="Upload NID or Passport"
+                accept=".png,.jpg,.jpeg,.svg,.webp,.pdf,.doc,.docx"
+                :types="['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']"
+                hint="PNG, JPG, SVG, WebP, PDF, DOC or DOCX (max 10 MB)" />
             </div>
         </div>
 

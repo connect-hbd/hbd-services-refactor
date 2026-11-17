@@ -122,28 +122,29 @@ Route::prefix('{role}')
         Route::resource('teams', TeamController::class);             
         Route::resource('employees', EmployeeController::class);
 
-        // Update Personal / Basic Information
-        Route::put('/basic-info', [EmployeeController::class, 'updateInformation'])->name('update.basic-information');
+        // Employee profile section endpoints (partial updates)
+        Route::prefix('employees/{employee}')->group(function () {
+            // Update Personal / Basic Information
+            Route::put('/basic-information', [EmployeeController::class, 'updateInformation'])->name('update.basic-information');
 
-        // Update Address & Location
-        Route::put('/address', [EmployeeController::class, 'updateAddress'])->name('update.address');
+            // Update Address & Location
+            Route::put('/address', [EmployeeController::class, 'updateAddress'])->name('update.address');
 
-       
+            // Update Employment Status
+            Route::put('/employment-status', [EmployeeController::class, 'updateEmploymentStatus'])->name('update.employment-status');
 
-        // Update Employment Details
-        Route::put('/employment-status', [EmployeeController::class, 'updateEmploymentStatus'])->name('update.employment-status');
+            // Update Employment Details
+            Route::put('/employment', [EmployeeController::class, 'updateEmployment'])->name('update.employment');
 
-         // Update Employment Details
-        Route::put('/employment', [EmployeeController::class, 'updateEmployment'])->name('update.employment');
+            // Update Salary Details
+            Route::put('/salary', [EmployeeController::class, 'updateSalary'])->name('update.salary');
 
-        // Update Salary Details
-        Route::put('/salary', [EmployeeController::class, 'updateSalary'])->name('update.salary');
+            // Update Bank Accounts
+            Route::put('/bank', [EmployeeController::class, 'updateBank'])->name('update.bank');
 
-        // Update Bank Accounts
-        Route::put('/bank', [EmployeeController::class, 'updateBank'])->name('update.bank');
-
-        // Update / Upload Documents
-        Route::put('/documents', [EmployeeController::class, 'updateDocuments'])->name('update.documents');
+            // Update / Upload Documents
+            Route::put('/documents', [EmployeeController::class, 'updateDocuments'])->name('update.documents');
+        });
 
         Route::patch('holidays/{holiday}/toggle', [HolidayController::class,'toggle'])->name('holidays.toggle');
         Route::resource('holidays', HolidayController::class);

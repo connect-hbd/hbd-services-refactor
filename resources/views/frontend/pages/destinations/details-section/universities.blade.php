@@ -33,9 +33,9 @@
                         <div class="flex items-center gap-3">
 
                             <div
-                                class="group flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-brand-100 bg-white p-2.5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                                class="group flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-brand-100 bg-white  shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                                 <img src="{{ $university['logo'] }}" alt="{{ $university['name'] }} logo"
-                                    class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                                    class="h-full w-full rounded-2xl object-contain transition-transform duration-300 group-hover:scale-105"
                                     loading="lazy">
                             </div>
                             <div class="flex flex-wrap gap-2">
