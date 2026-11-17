@@ -5,7 +5,7 @@
 
         {{-- Top Navigation / Back --}}
         <div class="flex items-center justify-between">
-            <a href=""
+            <a href="{{ route('role.employees.index', request()->route('role')) }}"
                 class="inline-flex items-center text-sm font-medium text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200">
                 <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />

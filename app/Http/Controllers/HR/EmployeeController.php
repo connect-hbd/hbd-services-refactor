@@ -72,12 +72,7 @@ class EmployeeController extends Controller
     {
         $request->user()->can('employee.create') || abort(403);
 
-        return view('backend.pages.HR.employees.create', array_merge($this->formOptions(), [
-            'employee' => null,
-            'employment' => null,
-            'salaryHistory' => null,
-            'isEdit' => false,
-        ]));
+        return view('backend.pages.HR.employees.create', array_merge($this->formOptions()));
     }
 
     /**
@@ -138,125 +133,12 @@ class EmployeeController extends Controller
         $request->user()->can('employee.edit') || abort(403);
 
         $employee = Employee::query()
-            ->with(['user', 'country', 'city', 'currentEmployment', 'salaryHistories' => fn ($query) => $query
-                ->whereNull('effective_to')
-                ->latest('effective_from')])
-            ->findOrFail($employee);
+             ->findOrFail($employee);
 
-        return view(
-            'backend.pages.HR.employees.create',
-            array_merge($this->formOptions(), [
+        return view( 'backend.pages.HR.employees.edit', array_merge($this->formOptions(), [
                 'employee' => $employee,
-                'employment' => $employee->currentEmployment,
-                'salaryHistory' => $employee->salaryHistories->first(),
-                'isEdit' => true,
             ]),
         );
-    }
-
-    /**
-     * Update user, employee profile and current employment.
-     */
-    public function update(UpdateEmployeeRequest $request, string $role, string $employee)
-    {
-        $validated = $request->validated();
-
-        try {
-            DB::transaction(function () use ($validated, $employee) {
-                $employee = Employee::query()->with('user')->lockForUpdate()->findOrFail($employee);
-
-                // 1. Update or restore the associated login account.
-                $userData = [];
-
-                if (array_key_exists('first_name', $validated) || array_key_exists('last_name', $validated)) {
-                    $userData['name'] = trim(
-                        ($validated['first_name'] ?? $employee->first_name).' '.
-                            ($validated['last_name'] ?? $employee->last_name)
-                    );
-                }
-
-                foreach (['email', 'phone'] as $field) {
-                    if (array_key_exists($field, $validated)) {
-                        $userData[$field] = $validated[$field];
-                    }
-                }
-
-                if (! empty($validated['password'])) {
-                    $userData['password'] = Hash::make($validated['password']);
-                }
-
-                if ($employee->user) {
-                    if ($userData !== []) {
-                        $employee->user->update($userData);
-                    }
-                } else {
-                    if (empty($validated['password']) || empty($validated['email']) || empty($validated['first_name']) || empty($validated['last_name'])) {
-                        throw ValidationException::withMessages([
-                            'email' => 'Name, email, and password are required to create the login account.',
-                        ]);
-                    }
-
-                    $userData['password'] = Hash::make($validated['password']);
-
-                    $userData['status'] = 'active';
-
-                    $user = User::create($userData);
-
-                    $employee->user_id = $user->id;
-                }
-
-                // 2. Update personal profile only.
-                $employee->fill($this->prepareEmployeeData($validated));
-
-                $employee->save();
-
-                // 3. Update the current employment, or create it if missing.
-                $employmentData = $this->prepareEmploymentData($validated, false);
-
-                if ($employmentData !== []) {
-                    $currentEmployment = $employee->employments()->where('is_current', true)->lockForUpdate()->first();
-
-                    if ($currentEmployment) {
-                        $currentEmployment->update($employmentData);
-                    } else {
-                        $employee->employments()->create(array_merge($employmentData, ['is_current' => true]));
-                    }
-                }
-
-                $effectiveFrom = $validated['joining_date'];
-                $salaryHistory = $employee->salaryHistories()
-                    ->whereNull('effective_to')
-                    ->latest('effective_from')
-                    ->first();
-
-                if ($salaryHistory && $salaryHistory->effective_from->toDateString() === $effectiveFrom) {
-                    $salaryHistory->update(['salary_amount' => $validated['salary_amount']]);
-                } else {
-                    if ($salaryHistory) {
-                        $salaryHistory->update([
-                            'effective_to' => \Illuminate\Support\Carbon::parse($effectiveFrom)->subDay()->toDateString(),
-                        ]);
-                    }
-
-                    $employee->salaryHistories()->create([
-                        'salary_amount' => $validated['salary_amount'],
-                        'effective_from' => $effectiveFrom,
-                    ]);
-                }
-            });
-
-            return redirect()
-                ->route('role.employees.index', [
-                    'role' => $role,
-                ])
-                ->with('success', 'Employee updated successfully.');
-        } catch (ValidationException $e) {
-            throw $e;
-        } catch (Throwable $e) {
-            report($e);
-
-            return back()->withInput()->with('error', 'Unable to update employee. Please try again.');
-        }
     }
 
     /**
