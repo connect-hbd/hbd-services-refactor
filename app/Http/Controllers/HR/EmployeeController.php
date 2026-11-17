@@ -260,7 +260,12 @@ class EmployeeController extends Controller
         return array_values(array_filter(array_map(static fn ($item) => is_string($item) ? trim($item) : $item, $items), static fn ($item) => filled($item)));
     }
 
-    public function updateBasicInfo(Request $request, string $role, string $employee)
+     public function updateEmploymentStatus(Request $request, string $role, string $employee)
+    {
+        $request->user()->can('employee.update') || abort(403);
+    }
+
+    public function updateInformation(Request $request, string $role, string $employee)
     {
         $request->user()->can('employee.update') || abort(403);
     }
@@ -270,10 +275,6 @@ class EmployeeController extends Controller
         $request->user()->can('employee.update') || abort(403);
     }
 
-    public function updateProfessionalInfo(Request $request, string $role, string $employee)
-    {
-        $request->user()->can('employee.update') || abort(403);
-    }
 
     public function updateEmployment(Request $request, string $role, string $employee)
     {

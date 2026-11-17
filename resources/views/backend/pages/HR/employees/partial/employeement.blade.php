@@ -1,9 +1,9 @@
 <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
     x-data="{
-        branchId: @js((string) old('branch_id', $employment?->branch_id ?? '')),
-        departmentId: @js((string) old('department_id', $employment?->department_id ?? '')),
-        teamId: @js((string) old('team_id', $employment?->team_id ?? '')),
-        designationId: @js((string) old('designation_id', $employment?->designation_id ?? '')),
+        branchId: @js((string) old('branch_id', '')),
+        departmentId: @js((string) old('department_id', '')),
+        teamId: @js((string) old('team_id', '')),
+        designationId: @js((string) old('designation_id', '')),
     
         departments: @js(
     $departments
@@ -162,7 +162,7 @@
                 Employee Code <span class="text-red-500">*</span>
             </label>
 
-            <input type="text" id="employee_code" name="employee_code" value="{{ old('employee_code', $employment?->employee_code) }}" required maxlength="50"
+            <input type="text" id="employee_code" name="employee_code" value="{{ old('employee_code') }}" required maxlength="50"
                 placeholder="e.g. EMP-001"
                 class="h-11 w-full placeholder:text-slate-400 rounded-lg border border-neutral-300 bg-white px-4 text-sm text-neutral-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
 
@@ -185,7 +185,7 @@
                     <option value="">Select Branch</option>
 
                     @foreach ($branches as $branch)
-                        <option value="{{ $branch['id'] }}" @selected(old('branch_id', $employment?->branch_id) == $branch['id'])>
+                        <option value="{{ $branch['id'] }}" @selected(old('branch_id') == $branch['id'])>
                             {{ $branch['name'] }}
                             @if ($branch['code'] === 'DHK-HO')
                                 (Main Branch)
@@ -276,11 +276,11 @@
                 'onsite' => 'Onsite',
                 'remote' => 'Remote',
                 'hybrid' => 'Hybrid',
-            ]" :value="old('work_type', $employment?->work_type) ?? ''" />
+            ]" :value="old('work_type') ?? ''" />
 
             <x-form.date-picker id="joining_date" name="joining_date" label="Joining Date" required
                 placeholder="Select joining date" dateFormat="Y-m-d"
-                :defaultDate="old('joining_date', $employment?->joining_date?->format('Y-m-d'))" />
+                :defaultDate="old('joining_date')" />
 
 
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
@@ -291,7 +291,7 @@
                 'friday' => 'Friday',
                 'saturday' => 'Saturday',
                 'sunday' => 'Sunday',
-            ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])" />
+            ]" :selected="old('weekend_days', ['saturday'])" />
         </div>   
     </div>
 </section>

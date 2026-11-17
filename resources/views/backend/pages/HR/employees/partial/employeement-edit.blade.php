@@ -309,22 +309,12 @@
                 value="{{ old('work_type', $employment?->work_type ?? 'onsite') }}"
                 ::disabled="!isEditing" />
 
-            <x-form.select-input name="employment_status" label="Employment Status" :options="[
-                'probation' => 'Probation',
-                'permanent' => 'Permanent',
-                'resigned' => 'Resigned',
-                'terminated' => 'Terminated',
-            ]"
-                value="{{ old('employment_status', $employment?->employment_status ?? 'probation') }}"
-                ::disabled="!isEditing" />
+           
 
             <x-form.date-picker name="joining_date" label="Joining Date" type="date"
                 value="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}"
                 placeholder="YYYY-MM-DD"
                 ::disabled="!isEditing" />
-        </div>
-
-        <div>
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
                 'monday' => 'Monday',
                 'tuesday' => 'Tuesday',
@@ -336,6 +326,8 @@
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])"
                 ::disabled="!isEditing" />
         </div>
+
+     
 
         {{-- Submit Button (Visible only when Editing) --}}
         <div x-show="isEditing" x-cloak x-transition

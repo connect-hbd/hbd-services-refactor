@@ -123,15 +123,17 @@ Route::prefix('{role}')
         Route::resource('employees', EmployeeController::class);
 
         // Update Personal / Basic Information
-        Route::put('/basic-info', [EmployeeController::class, 'updateBasicInfo'])->name('update.basic-info');
+        Route::put('/basic-info', [EmployeeController::class, 'updateInformation'])->name('update.basic-information');
 
         // Update Address & Location
         Route::put('/address', [EmployeeController::class, 'updateAddress'])->name('update.address');
 
-        // Update Professional Information
-        Route::put('/professional-info', [EmployeeController::class, 'updateProfessionalInfo'])->name('update.professional-info');
+       
 
         // Update Employment Details
+        Route::put('/employment-status', [EmployeeController::class, 'updateEmploymentStatus'])->name('update.employment-status');
+
+         // Update Employment Details
         Route::put('/employment', [EmployeeController::class, 'updateEmployment'])->name('update.employment');
 
         // Update Salary Details
