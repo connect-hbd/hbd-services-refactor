@@ -7,7 +7,11 @@
 
     @include('frontend.pages.common-section.destination', ['destinations' => $destinations])
 
+    <section class="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
     @include('frontend.pages.common-section.service-section')
+
+    </section>
+
 
     @include('frontend.pages.home.sections.language-academy')
 
@@ -24,46 +28,4 @@
     @include('frontend.pages.common-section.cta-section')
 @endsection
 
-@push('scripts')
-    <noscript>
-        <style>
-            [data-reveal] {
-                opacity: 1 !important;
-                transform: none !important;
-            }
-        </style>
-    </noscript>
-
-    <script>
-        (function () {
-            var nodes = document.querySelectorAll('[data-reveal]');
-
-            if (!nodes.length) {
-                return;
-            }
-
-            if (!('IntersectionObserver' in window)) {
-                nodes.forEach(function (node) {
-                    node.classList.add('is-revealed');
-                });
-                return;
-            }
-
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-revealed');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.12,
-                rootMargin: '0px 0px -60px 0px'
-            });
-
-            nodes.forEach(function (node) {
-                observer.observe(node);
-            });
-        })();
-    </script>
-@endpush
+{{-- Scroll reveal script is now loaded globally in frontend.layouts.app --}}

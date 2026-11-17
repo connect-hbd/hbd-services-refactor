@@ -105,6 +105,49 @@
     @endif
 @endauth
 
+    {{-- Global scroll reveal for every frontend page (any [data-reveal] element). --}}
+    <noscript>
+        <style>
+            [data-reveal] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
+
+    <script>
+        (function () {
+            var nodes = document.querySelectorAll('[data-reveal]');
+
+            if (!nodes.length) {
+                return;
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                nodes.forEach(function (node) {
+                    node.classList.add('is-revealed');
+                });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -60px 0px'
+            });
+
+            nodes.forEach(function (node) {
+                observer.observe(node);
+            });
+        })();
+    </script>
+
     @stack('scripts')
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
     

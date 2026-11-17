@@ -44,7 +44,6 @@
     $services = !empty($services) ? $services : $defaultServices;
 @endphp
 
-<section class="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
     <div class="mx-auto w-full max-w-7xl px-6 lg:px-8">
 
         {{-- Section header --}}
@@ -92,4 +91,3 @@
             @endforeach
         </div>
     </div>
-</section>
