@@ -314,9 +314,9 @@
                          </a>
                          <a href="{{ route('login') }}"
                              class="text-[13px] sm:text-sm font-medium uppercase text-neutral-600 hover:text-brand-600
+
                                 max-[539px]:rounded-lg max-[539px]:bg-success-600
-                                max-[539px]:px-4 max-[539px]:py-1.5 max-[539px]:text-white
-                                lg:px-6 lg:py-2.5">
+                                max-[539px]:px-4 max-[539px]:py-1.5 max-[539px]:text-white">
                              Login
                          </a>
                      @endguest
