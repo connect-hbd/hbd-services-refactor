@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\LeadsController;
 use App\Http\Controllers\Admin\CounsellorBookingController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Employee\EmployeeProfileController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\HR\BranchController;
 use App\Http\Controllers\HR\DepartmentController;
@@ -156,4 +157,6 @@ Route::prefix('{role}')
 
         Route::resource('holidays', HolidayController::class);
         Route::resource('leave-types', LeaveTypeController::class);
+
+          Route::get('employees/{employee}', [EmployeeProfileController::class, 'index'])->name('employee.profile');
     });

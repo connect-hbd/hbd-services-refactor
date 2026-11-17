@@ -156,6 +156,11 @@
 
                             <td class="px-5 py-4 text-right">
                                 <div class="flex justify-end gap-2">
+                                      <a :href="baseUrl + '/' + row.id + '/employee.profile'"
+                                        title="Employee Profile"
+                                        class="flex items-center justify-center rounded-lg p-2 text-neutral-500 transition hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/10">
+                                       <iconify-icon icon="lucide:eye" class="text-lg"></iconify-icon>
+                                    </a>
                                     <a :href="baseUrl + '/' + row.id + '/edit'"
                                         title="Edit Employee"
                                         class="rounded-lg p-2 text-neutral-500 transition hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/10">
@@ -165,6 +170,8 @@
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>
                                     </a>
+
+                                  
 
                                     <button type="button"
                                         @click="openDeleteModal(row)"
