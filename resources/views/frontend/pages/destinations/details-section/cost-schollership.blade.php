@@ -73,7 +73,7 @@
 
                                 –
 
-                                {{ $fee['currency'] ?? '' }} {{ number_format($fee['maximum'] ?? 0) }}
+                                {{ $fee['currency'] ?? '' }} {{ number_format($fee['maximum'] ?? 0) }} +
 
                             </div>
 
