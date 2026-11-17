@@ -10,6 +10,7 @@
 <!-- 2. Statistics Highlight Bar -->
 <section class="">
     <div
+        data-reveal
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-r from-brand-900 via-brand-600 to-brand-900 rounded-3xl text-white shadow-xl">
         <div
             class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/10">
@@ -32,7 +33,7 @@
 <!-- 3. Why Partner With HBD ServicesSection -->
 <section class="">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header class="mx-auto max-w-2xl px-4 py-12 text-center  translate-y-10 transition-all duration-1000 ease-out">
+        <header class="mx-auto max-w-2xl px-4 py-12 text-center  translate-y-10 transition-all duration-1000 ease-out" data-reveal>
             <div
                 class="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 rounded-full mb-6 transition-all duration-700 delay-100">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -59,7 +60,7 @@
             </p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch my-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch my-8" data-reveal style="--reveal-delay: 100ms">
             <!-- Feature Cards Column -->
             <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="bg-white p-6 rounded-2xl border border-slate-100  hover:shadow-md transition">
@@ -102,7 +103,7 @@
             </div>
 
             <!-- Visual Image Column -->
-            <div class="lg:col-span-6 rounded-2xl overflow-hidden shadow-md relative min-h-[300px]">
+            <div class="lg:col-span-6 rounded-2xl overflow-hidden shadow-md relative min-h-[300px]" data-reveal style="--reveal-delay: 140ms">
                 <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
                     alt="Office Team" class="w-full h-full object-cover" />
             </div>
@@ -113,7 +114,7 @@
 
 <section class="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden bg-brand-25">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-brand-950 shadow-2xl">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-brand-950 shadow-2xl" data-reveal>
 
             {{-- Background Decorations --}}
             <div class="absolute inset-0 pointer-events-none overflow-hidden">
@@ -131,7 +132,7 @@
             <div class="relative z-10 p-6 sm:p-8 md:p-10 lg:p-14">
 
                 {{-- Section Heading --}}
-                <div class="max-w-4xl mb-10 sm:mb-12 lg:mb-16">
+                <div class="max-w-4xl mb-10 sm:mb-12 lg:mb-16" data-reveal>
                     <div
                         class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-brand-400/30 bg-brand-500/10 mb-5 sm:mb-6">
                         <span class="w-2 h-2 rounded-full bg-brand-400"></span>
@@ -154,7 +155,7 @@
                 </div>
 
                 {{-- Vision / Purpose / Mission --}}
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6" data-reveal style="--reveal-delay: 100ms">
 
                     {{-- Vision --}}
                     <div
@@ -247,7 +248,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Header -->
-        <header class="mx-auto max-w-2xl mb-10 sm:mb-12 text-center">
+        <header class="mx-auto max-w-2xl mb-10 sm:mb-12 text-center" data-reveal>
             <div
                 class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-brand-500/10 rounded-full mb-5 sm:mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -272,10 +273,10 @@
         </header>
 
         <!-- Content Grid -->
-        <div class="grid grid-cols-1 items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="grid grid-cols-1 items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12" data-reveal style="--reveal-delay: 100ms">
 
             {{-- Image --}}
-            <div class="lg:col-span-6 order-1">
+            <div class="lg:col-span-6 order-1" data-reveal>
                 <div class="group relative overflow-hidden rounded-2xl sm:rounded-[1.5rem]">
                     <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=80"
                         alt="Consultation Meeting"
@@ -297,7 +298,7 @@
             </div>
 
             {{-- Promises List --}}
-            <div class="lg:col-span-6 order-2">
+            <div class="lg:col-span-6 order-2" data-reveal style="--reveal-delay: 120ms">
                 <ul class="space-y-4 sm:space-y-5 md:space-y-6">
 
                     <li
@@ -380,10 +381,11 @@
 <section class="my-12 sm:my-16 md:my-20 lg:my-24">
     <div class="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <div
+            data-reveal
             class="bg-white p-6 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border border-slate-100 space-y-8 sm:space-y-10">
 
             <!-- Header -->
-            <header class="mx-auto max-w-2xl mb-8 sm:mb-12 text-center">
+            <header class="mx-auto max-w-2xl mb-8 sm:mb-12 text-center" data-reveal>
                 <div
                     class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-brand-500/10 rounded-full mb-5 sm:mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -413,7 +415,7 @@
                 class="relative border-l-2 border-slate-200 ml-3 sm:ml-4 md:ml-28 lg:ml-32 space-y-8 sm:space-y-10 md:space-y-12 text-left">
 
                 <!-- 2023 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-brand-500">
@@ -443,7 +445,7 @@
                 </div>
 
                 <!-- 2022 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-slate-400 group-hover:text-brand-500 transition">
@@ -465,7 +467,7 @@
                 </div>
 
                 <!-- 2020 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-slate-400 group-hover:text-brand-500 transition">
@@ -487,7 +489,7 @@
                 </div>
 
                 <!-- 2019 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-slate-400 group-hover:text-brand-500 transition">
@@ -505,7 +507,7 @@
                 </div>
 
                 <!-- 2018 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-slate-400 group-hover:text-brand-500 transition">
@@ -527,7 +529,7 @@
                 </div>
 
                 <!-- 2017 -->
-                <div class="relative pl-6 sm:pl-8 group">
+                <div class="relative pl-6 sm:pl-8 group" data-reveal>
                     <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white"></div>
                     <span
                         class="block mb-2 md:mb-0 md:absolute md:-left-24 lg:-left-28 md:top-0 font-black text-xl sm:text-2xl text-slate-400 group-hover:text-brand-500 transition">

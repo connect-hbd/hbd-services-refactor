@@ -1,5 +1,5 @@
    {{-- <div class="max-w-7xl mx-auto px-5 md:px-8"> --}}
-   <form action="" method="POST" class="space-y-4 ">
+   <form action="" method="POST" class="space-y-4 " data-reveal>
        @csrf
 
        <div class="grid md:grid-cols-2 gap-4">

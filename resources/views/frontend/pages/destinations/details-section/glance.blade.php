@@ -38,17 +38,17 @@
 
 <section class="relative overflow-hidden bg-slate-50/50 py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 ring-1 ring-brand-700/10">
+                <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-brand-700 ring-1 ring-brand-700/10" data-reveal>
                     <span class="h-1.5 w-1.5 rounded-full bg-brand-600"></span>
                     {{ $eyebrow }}
                 </div>
 
-                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-[42px] lg:leading-[1.15]">
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-[42px] lg:leading-[1.15]" data-reveal style="--reveal-delay: 80ms">
                     {{ $title }}
                 </h2>
 
                 @if ($description)
-                    <p class="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg sm:leading-8">
+                    <p class="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg sm:leading-8" data-reveal style="--reveal-delay: 140ms">
                         {{ $description }}
                     </p>
                 @endif
@@ -56,7 +56,7 @@
         {{-- Cards Grid --}}
         <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             @foreach($cards as $card)
-                <div class="group relative rounded-3xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-900/5">
+                <div class="group relative rounded-3xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-900/5" data-reveal style="--reveal-delay: {{ ($loop->index % 3) * 80 }}ms">
                     
                     {{-- Icon Container --}}
                     <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-md shadow-brand-600/20 transition-transform duration-300 group-hover:scale-110">

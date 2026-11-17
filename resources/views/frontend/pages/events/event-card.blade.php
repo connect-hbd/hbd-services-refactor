@@ -1,5 +1,7 @@
 <div
     x-data
+    data-reveal
+    style="--reveal-delay: {{ (($loop->index ?? 0) % 3) * 80 }}ms"
     @click="window.location.href = '{{ route('event-details', $event->slug) }}'"
     class="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
 >

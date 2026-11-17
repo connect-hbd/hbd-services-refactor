@@ -3,7 +3,7 @@
 @section('content')
 
   <main class="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 z-10">
-    <div class="w-full max-w-2xl text-center">
+    <div class="w-full max-w-2xl text-center" data-reveal>
       
       <!-- 404 Status Pill -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-300 text-xs font-mono font-semibold tracking-wider uppercase mb-6 backdrop-blur-md animate-float">

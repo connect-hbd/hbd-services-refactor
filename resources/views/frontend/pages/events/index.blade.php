@@ -72,7 +72,7 @@
         <div class="absolute -bottom-40 -left-32 -z-10 h-96 w-96 rounded-full bg-accent-two-500/10 blur-3xl"></div>
 
         <div class="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 sm:pb-36 sm:pt-20 lg:px-8 lg:pb-40 lg:pt-24">
-            <div class="mx-auto max-w-4xl text-center">
+            <div class="mx-auto max-w-4xl text-center" data-reveal>
                 <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur">
                     <iconify-icon icon="lucide:calendar-days" class="text-base text-accent-two-500"></iconify-icon>
                     <span class="text-xs font-semibold tracking-[0.14em] text-brand-100">CONNECT • LEARN • EXPLORE</span>
@@ -118,7 +118,7 @@
     {{-- EVENT EXPLORER --}}
     <section id="events-list" class="relative mx-auto -mt-20 max-w-7xl scroll-mt-8 px-4 pb-20 sm:px-6 lg:px-8">
         {{-- FILTER PANEL --}}
-        <div class="rounded-2xl border border-brand-100 bg-white p-5 shadow-[0_12px_40px_rgba(6,29,52,0.07)] sm:p-6">
+        <div class="rounded-2xl border border-brand-100 bg-white p-5 shadow-[0_12px_40px_rgba(6,29,52,0.07)] sm:p-6" data-reveal style="--reveal-delay: 80ms">
             <div class="flex flex-col gap-5">
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -183,7 +183,7 @@
         </div>
 
         {{-- RESULTS HEADER --}}
-        <div class="mb-6 mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div class="mb-6 mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between" data-reveal>
             <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">What's happening</p>
                 <h2 class="mt-2 text-3xl font-semibold tracking-tight text-brand-950">Explore Our Events</h2>

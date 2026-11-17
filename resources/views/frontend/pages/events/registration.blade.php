@@ -5,7 +5,7 @@
         <div class="max-w-7xl mx-auto px-5 md:px-8">
 
             {{-- Header --}}
-            <div class="text-center mb-10 md:mb-14">
+            <div class="text-center mb-10 md:mb-14" data-reveal>
                 <span
                     class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 text-brand-700 text-sm font-medium mb-4">
                     <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
@@ -24,6 +24,7 @@
                 {{-- Left: Event Summary Card --}}
                 {{-- Left: Event Summary --}}
                 <div
+                    data-reveal
                     class="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
 
                     {{-- Banner --}}
@@ -227,7 +228,7 @@
 
                 {{-- Right: Registration Form --}}
                 <div class="">
-                    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 md:p-10">
+                    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 md:p-10" data-reveal style="--reveal-delay: 120ms">
 
                         {{-- Flash success --}}
                         @if (session('success'))

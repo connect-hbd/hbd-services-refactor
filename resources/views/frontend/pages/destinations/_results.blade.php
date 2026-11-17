@@ -11,7 +11,7 @@
             @include('frontend.pages.destinations.card', ['destination' => $destination])
         </a>
     @empty
-        <div class="col-span-full rounded-3xl border border-dashed border-neutral-300 bg-white px-6 py-20 text-center">
+        <div class="col-span-full rounded-3xl border border-dashed border-neutral-300 bg-white px-6 py-20 text-center" data-reveal>
             <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-500">
                 <i class="fa-solid fa-compass text-3xl"></i>
             </div>

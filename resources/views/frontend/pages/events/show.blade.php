@@ -5,7 +5,7 @@
 @section('content')
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
         <!-- Main Grid Content -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" data-reveal>
             <!-- Left Side: Overview & Features -->
             <div class="lg:col-span-2 space-y-6 sm:space-y-8">
                 <div>
@@ -64,7 +64,7 @@
                 </div>
 
                 <!-- About Event Section -->
-                <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-neutral-200/80">
+                <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-neutral-200/80" data-reveal style="--reveal-delay: 80ms">
                     <h2 class="text-xs font-bold uppercase tracking-wider text-brand-500 mb-2">Event Details</h2>
                     <h3 class="text-base sm:text-lg md:text-xl font-bold text-neutral-900 mb-3 sm:mb-4">
                         {{ $event->short_description }}
@@ -133,7 +133,7 @@
             </div>
 
             <!-- Right Side: Logistics Sidebar -->
-            <div class="space-y-5 sm:space-y-6">
+            <div class="space-y-5 sm:space-y-6" data-reveal style="--reveal-delay: 120ms">
                 <!-- Physical & Virtual Session Info Card -->
                 <div
                     class="bg-white p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-neutral-200/80 space-y-5 sm:space-y-6">
@@ -414,6 +414,7 @@
     <!-- Tabs Section -->
     <section x-data="{ activeTab: 'facilities' }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-10 sm:pb-12">
         <div
+            data-reveal
             class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 border border-neutral-100 space-y-8 sm:space-y-10 mt-8 sm:mt-12">
 
             <!-- TAB NAVIGATION -->
