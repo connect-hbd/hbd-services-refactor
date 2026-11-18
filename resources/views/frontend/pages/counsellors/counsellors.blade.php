@@ -88,16 +88,26 @@
                     <!-- Top Navigation & Utility Controls -->
                     <div
                         class="flex flex-col sm:flex-row sm:items-end justify-end gap-4 rounded-2xl bg-white p-3 shadow-xs">
-                        <div class="flex items-center gap-2 ">
-                            <span class="text-sm font-medium text-neutral-400">Sort:</span>
-                            <select
-                                class="rounded-lg border-none bg-neutral-50 py-1.5 pl-2 pr-7 text-sm font-semibold text-neutral-800 focus:ring-0 cursor-pointer">
-                                <option value="relevance">Branch</option>
-                                <option value="fee_asc">Location:Dhanmondi</option>
-                                <option value="fee_asc">Location:Bangla Motor</option>
-                                <option value="fee_asc">Location:Gulshan</option>
-                                <option value="fee_asc">Location:Banani</option>
-                            </select>
+                       <div>
+                            <div class="mb-3 flex items-center justify-between">
+                                <span class="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Filter by
+                                    Region</span>
+                                <button type="button" x-show="region" x-cloak @click="setRegion('')"
+                                    class="text-xs font-medium text-brand-600 hover:text-brand-800">Reset Region</button>
+                            </div>
+                            <div class="flex gap-2 overflow-x-auto pb-2">
+                                <button type="button" @click="setRegion('')"
+                                    :class="region === '' ? 'border-neutral-900 bg-neutral-900 text-white' :
+                                        'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'"
+                                    class="shrink-0 rounded-xl border px-4 py-2 text-xs font-medium transition-all">All
+                                    Regions</button>
+                                <template x-for="item in regionOptions" :key="item"><button type="button"
+                                        @click="setRegion(item)"
+                                        :class="region === item ? 'border-neutral-900 bg-neutral-900 text-white' :
+                                            'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'"
+                                        class="shrink-0 rounded-xl border px-4 py-2 text-xs font-medium transition-all"
+                                        x-text="item"></button></template>
+                            </div>
                         </div>
                         <!-- Sort By Select -->
                         <div class="flex items-center gap-2 ">

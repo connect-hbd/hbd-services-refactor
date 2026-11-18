@@ -23,7 +23,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">My Profile</h2>
+                        <h2 class="text-lg font-bold text-slate-900">My Profile mannan</h2>
                         <p class="text-xs text-slate-500">Update your personal information and password</p>
                     </div>
                 </div>

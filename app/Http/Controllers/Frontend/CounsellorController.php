@@ -5,26 +5,42 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Counsellor;
 use App\Models\CounsellorBooking;
+use App\Models\hrm\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CounsellorController extends Controller
 {
 
-    public function index()
-    {
-        $counsellors = Counsellor::query()
-            ->with('user')
-            ->where('is_active', true)
-            ->latest()
-            ->paginate(12);
+public function index()
+{
+    $counsellors = Employee::query()
+        ->select([
+            'id',
+            'user_id',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'gender',
+            'religion',
+            'blood_group',
+            'national_id',
+            'address',
+            'bio',
+            'education',
+            'institution',
+            'experience_years',
+            'languages',
+            'expertise',
+        ])
+        ->with('user:id,name,email,phone,avatar')
+        ->latest()
+        ->paginate(12);
 
-        // return $counsellors;
+    // return $counsellors;
 
-         return view('frontend.pages.counsellors.counsellors',
-            compact('counsellors')
-        );
-    }
+    return view('frontend.pages.counsellors.counsellors', compact('counsellors'));
+}
 
      public function show(Counsellor $counsellor)
     {      
