@@ -85,7 +85,7 @@
                         <div class="mt-6 border-t border-brand-100 pt-4">
                             <a href="#"
                                 class="inline-flex w-full items-center justify-between text-xs font-semibold text-brand-600 transition group-hover:text-brand-700">
-                                <span>Check Eligibility</span>
+                                <span>Get Free Consultation</span>
                                 <span
                                     class="flex h-8 w-8 items-center justify-center rounded-lg border border-brand-200 bg-brand-50 text-brand-600 transition group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-white">
                                     <iconify-icon icon="lucide:arrow-right" class="text-sm"></iconify-icon>
