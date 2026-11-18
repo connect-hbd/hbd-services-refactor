@@ -108,9 +108,9 @@ public static function getMainItems()
                     ],
 
                     [
-                        'name' => 'Career Pathways',
-                        'route' => 'role.career-pathways.index',
-                        'permission' => 'career-pathways.list',
+                        'name' => 'Expo',
+                        'route' => 'role.events.index',
+                        'permission' => 'expo.list',
                     ],
                 ],
             ],
@@ -180,29 +180,12 @@ public static function getMainItems()
 
     public static function getHRMItems()
     {
-        return [
-          
-            [
-                'name' => 'Access Control',
-                'icon' => 'authentication',
-                'subItems' => [
-                    [
-                        'name' => 'Roles & Permissions',
-                        'route' => 'role.roles-permissions.index',
-                        'permission' => 'role.list',
-                    ],
-                    [
-                        'name' => 'Users Permissions',
-                        'route' => 'role.users.index',
-                        'permission' => 'user.list',
-                    ],
-                ],
-            ],
-           
-            [
-                'name' => ' Employee Manage',
-                'icon' => 'user-profile',
-                'subItems' => [                   
+        return [         
+            
+              [
+                'name' => 'HRM Catalog',
+                'icon' => 'catalog',
+                   'subItems' => [                   
                     [
                         'name' => 'Branches',
                         'route' => 'role.branches.index',
@@ -222,13 +205,38 @@ public static function getMainItems()
                         'name' => 'Designations',
                         'route' => 'role.designations.index',
                         'permission' => 'designation.list',
-                    ],
+                    ]
+                    
+                ],
+            ],
+                       
+            [
+                'name' => ' Employee Manage',
+                'icon' => 'user-profile',
+                'subItems' => [           
+                   
                      [
                         'name' => 'Employees',
                         'route' => 'role.employees.index',
                         'permission' => 'employee.list',
                     ],
                     
+                ],
+            ],
+            [
+                'name' => 'Access Control',
+                'icon' => 'authentication',
+                'subItems' => [
+                    [
+                        'name' => 'Roles & Permissions',
+                        'route' => 'role.roles-permissions.index',
+                        'permission' => 'role.list',
+                    ],
+                    [
+                        'name' => 'Users Permissions',
+                        'route' => 'role.users.index',
+                        'permission' => 'user.list',
+                    ],
                 ],
             ],
             [
@@ -239,20 +247,30 @@ public static function getMainItems()
                         'name' => 'Holidays',
                         'route' => 'role.holidays.index',
                         'permission' => 'holiday.list',
-                    ],                   
+                    ],
+                    [
+                        'name' => 'Notices',
+                        'route' => 'role.notices.index',
+                        'permission' => 'notice.list',
+                    ],                
                     
                 ],
             ],
 
             [
-                'name' => 'Leaves',
+                'name' => 'Leave Manages',
                 'icon' => 'leave',
                 'subItems' => [ 
                     [
-                        'name' => 'Leave Types',
+                        'name' => 'Leaves',
                         'route' => 'role.leave-types.index',
                         'permission' => 'leave-type.list',
-                    ],                   
+                    ], 
+                    [
+                        'name' => 'Leave Applications',
+                        'route' => 'role.leave-application.index',
+                        'permission' => 'leave-application.list',
+                    ],                  
                     
                 ],
             ],

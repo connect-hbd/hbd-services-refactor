@@ -86,26 +86,6 @@
                     Join application days, education expos, delegate sessions and open days. Find the right event for your next step.
                 </p>
 
-                {{-- Search --}}
-                <div class="mx-auto mt-9 max-w-3xl rounded-2xl border border-white/20 bg-white p-2 shadow-2xl sm:flex sm:items-center sm:rounded-full sm:p-2.5">
-                    <div class="flex min-w-0 flex-1 items-center gap-3 px-4">
-                        <iconify-icon icon="lucide:search" class="shrink-0 text-xl text-brand-500"></iconify-icon>
-                        <input
-                            type="search"
-                            x-model.debounce.250ms="search"
-                            @input="resetLimit()"
-                            placeholder="Search events, categories or locations..."
-                            aria-label="Search events"
-                            class="h-11 w-full border-0 bg-transparent px-1 text-base text-brand-950 placeholder:text-neutral-400 focus:outline-none focus:ring-0"
-                        >
-                    </div>
-                    <button type="button" @click="scrollToResults()"
-                            class="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 text-sm font-semibold text-white transition hover:bg-brand-600 sm:mt-0 sm:w-auto sm:rounded-full">
-                        Explore Events
-                        <iconify-icon icon="lucide:arrow-right"></iconify-icon>
-                    </button>
-                </div>
-
                 <div class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm font-medium text-brand-100">
                     <span class="inline-flex items-center gap-2"><iconify-icon icon="lucide:users" class="text-accent-two-500"></iconify-icon>Meet universities</span>
                     <span class="inline-flex items-center gap-2"><iconify-icon icon="lucide:graduation-cap" class="text-accent-two-500"></iconify-icon>Explore opportunities</span>

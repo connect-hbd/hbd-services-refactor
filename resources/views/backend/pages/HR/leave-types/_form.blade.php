@@ -24,7 +24,7 @@
 
             <a href="{{ role_route('role.leave-types.index', ['role' => $role]) }}"
                 class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800">
-                <span aria-hidden="true">&larr;</span> Back to Leave Types
+               <iconify-icon icon="heroicons-outline:arrow-left"></iconify-icon> Back to Leave Types
             </a>
         </div>
 

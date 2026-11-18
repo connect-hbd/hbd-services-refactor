@@ -4,11 +4,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\Calculator;
-use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CounsellorController;
-use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\DestinationController;
-use App\Http\Controllers\Frontend\ProviderController;
 use App\Http\Controllers\Frontend\EventController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\EventRegistrationController;
@@ -37,19 +34,18 @@ Route::get('/terms-conditions', [FrontendController::class, 'termsConditions'])-
 Route::get('/ceo', [FrontendController::class, 'owner'])->name('owner');
 Route::get('/digital-solutions', [FrontendController::class, 'digitalSolution'])->name('digital-solution');
 Route::get('/services', [ServicesController::class, 'index'])->name('services');
-Route::get('/visa-points-calculator', [Calculator::class, 'visaPoints'])->name('visa-points-calculator');
-Route::get('/referral', [ReferralController::class, 'index'])->name('referral');
+// Route::get('/visa-points-calculator', [Calculator::class, 'visaPoints'])->name('visa-points-calculator');
+// Route::get('/referral', [ReferralController::class, 'index'])->name('referral');
 
+//blog pages
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
+Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blog-details');
 
 //event pages
 Route::get('/events', [EventController::class, 'index'])->name('events');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('event-details');
 Route::get('/events/{event}/register', [EventRegistrationController::class, 'create'])->name('events.register');
 Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register.store');
-
-//blog pages
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blog-details');
 
 //destinations
 Route::get('/destinations', [DestinationController::class, 'destinations'])->name('destinations');
@@ -68,15 +64,14 @@ Route::get('/universities/{slug}', [UniversityController::class, 'show'])->name(
 
 // counsellors
 Route::get('/counsellors', [CounsellorController::class, 'index'])->name('counsellors');
-Route::get('/counsellors/{counsellor}', [CounsellorController::class, 'show'])
-    ->name('counsellor.details');
-Route::get('/counsellors/{counsellor}/booking', [CounsellorController::class, 'bookingCounsellor'])
-    ->name('counsellor.booking');
+Route::get('/counsellors/{counsellor}', [CounsellorController::class, 'show'])->name('counsellor.details');
+
+Route::get('/counsellors/{counsellor}/booking', [CounsellorController::class, 'bookingCounsellor'])->name('counsellor.booking');
 
 Route::post('/counsellors/{counsellor}/booking', [CounsellorController::class, 'storeBooking'])
     ->name('booking-session');
 
-Route::get('/counselling', [CounsellorController::class, 'bookingAppointment'])->name('counselling');
+// Route::get('/counselling', [CounsellorController::class, 'bookingAppointment'])->name('counselling');
 
 // Route::post('/inquiry-us', [ContactController::class, 'store'])->name('contact.store');
 // Route::post('/subscribe', [SubscriberController::class, 'store'])

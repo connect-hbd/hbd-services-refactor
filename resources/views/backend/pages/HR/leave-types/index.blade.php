@@ -23,7 +23,7 @@
             </div>
             <a href="{{ role_route('role.leave-types.create') }}"
                 class="px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-600 transition-colors">
-                + Add New Designation
+                + Add Leave Type
             </a>
         </div>
         
