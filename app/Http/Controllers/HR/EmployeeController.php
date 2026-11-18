@@ -51,7 +51,7 @@ class EmployeeController extends Controller
                 'currentEmployment.department',
                 'currentEmployment.team',
                 'currentEmployment.designation',
-                'employments' => fn ($query) => $query
+                'employments' => fn($query) => $query
                     ->latest('id')
                     ->select(['id', 'employee_id', 'employment_status']),
             ])
@@ -119,7 +119,6 @@ class EmployeeController extends Controller
                     'salary_amount' => $validated['salary_amount'],
                     'effective_from' => $validated['joining_date'],
                 ]);
-
             });
 
             return redirect()
@@ -221,8 +220,9 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncPersonalInformation($employee, $validated),
+            $role,
+            $employee,
+            fn() => $this->syncPersonalInformation($employee, $validated),
             'Personal information updated successfully.'
         );
     }
@@ -244,8 +244,9 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncEmploymentStatus($employee, $validated),
+            $role,
+            $employee,
+            fn() => $this->syncEmploymentStatus($employee, $validated),
             'Employment status updated successfully.'
         );
     }
@@ -255,8 +256,9 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncEmployment($employee, $validated),
+            $role,
+            $employee,
+            fn() => $this->syncEmployment($employee, $validated),
             'Employment information updated successfully.'
         );
     }
@@ -266,8 +268,9 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncSalary($employee, $validated),
+            $role,
+            $employee,
+            fn() => $this->syncSalary($employee, $validated),
             'Salary updated successfully.'
         );
     }
@@ -277,8 +280,9 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncBankAccount($employee, $validated),
+            $role,
+            $employee,
+            fn() => $this->syncBankAccount($employee, $validated),
             'Bank account updated successfully.'
         );
     }
@@ -290,8 +294,9 @@ class EmployeeController extends Controller
         $uploadedBy = $request->user()->id;
 
         return $this->persist(
-            $role, $employee,
-            fn () => $this->syncDocuments($employee, $documents, $uploadedBy),
+            $role,
+            $employee,
+            fn() => $this->syncDocuments($employee, $documents, $uploadedBy),
             'Documents updated successfully.'
         );
     }
@@ -339,8 +344,15 @@ class EmployeeController extends Controller
     private function syncPersonalInformation(Employee $employee, array $validated): void
     {
         $fields = [
-            'first_name', 'last_name', 'date_of_birth', 'gender', 'religion',
-            'blood_group', 'national_id', 'emergency_contact_name', 'emergency_contact_phone',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'gender',
+            'religion',
+            'blood_group',
+            'national_id',
+            'emergency_contact_name',
+            'emergency_contact_phone',
         ];
 
         $employee->update($this->nullifyBlanks(
@@ -348,7 +360,7 @@ class EmployeeController extends Controller
             array_slice($fields, 2)
         ));
 
-        $fullName = trim($validated['first_name'].' '.$validated['last_name']);
+        $fullName = trim($validated['first_name'] . ' ' . $validated['last_name']);
         $user = $employee->user;
 
         // Employees created without an account get one on their first profile save.
@@ -410,8 +422,14 @@ class EmployeeController extends Controller
         $employment = $this->currentEmploymentFor($employee);
 
         $fields = [
-            'employee_code', 'branch_id', 'department_id', 'team_id',
-            'designation_id', 'work_type', 'joining_date', 'weekend_days',
+            'employee_code',
+            'branch_id',
+            'department_id',
+            'team_id',
+            'designation_id',
+            'work_type',
+            'joining_date',
+            'weekend_days',
         ];
 
         $data = $this->nullifyBlanks(
@@ -504,7 +522,7 @@ class EmployeeController extends Controller
         if ($attributes['is_primary']) {
             $employee->bankAccounts()
                 ->where('is_primary', true)
-                ->when($account, fn ($query) => $query->whereKeyNot($account->id))
+                ->when($account, fn($query) => $query->whereKeyNot($account->id))
                 ->update(['is_primary' => false]);
         }
 
@@ -533,8 +551,8 @@ class EmployeeController extends Controller
                 }
 
                 $relative = ltrim($path, '/');
-                $legacy = storage_path('app/public/'.$relative);
-                $target = public_path('uploads/'.$relative);
+                $legacy = storage_path('app/public/' . $relative);
+                $target = public_path('uploads/' . $relative);
 
                 if (! File::exists($legacy)) {
                     continue;
@@ -543,7 +561,7 @@ class EmployeeController extends Controller
                 File::ensureDirectoryExists(dirname($target));
                 File::copy($legacy, $target);
 
-                $document->update(['file_path' => 'uploads/'.$relative]);
+                $document->update(['file_path' => 'uploads/' . $relative]);
             }
         } catch (Throwable $e) {
             report($e);
@@ -578,7 +596,7 @@ class EmployeeController extends Controller
             $path = $this->replaceFile(
                 $file,
                 $oldPath,
-                'employees/'.$employee->id.'/documents'
+                'employees/' . $employee->id . '/documents'
             );
 
             $document->fill($attributes + ['file_path' => $path])->save();
@@ -597,7 +615,7 @@ class EmployeeController extends Controller
         }
 
         do {
-            $code = 'EMP-'.strtoupper(Str::random(6));
+            $code = 'EMP-' . strtoupper(Str::random(6));
         } while ($employee->employments()->where('employee_code', $code)->exists());
 
         return $employee->employments()->create([
@@ -654,7 +672,7 @@ class EmployeeController extends Controller
     private function prepareUserData(array $validated): array
     {
         return [
-            'name' => trim($validated['first_name'].' '.$validated['last_name']),
+            'name' => trim($validated['first_name'] . ' ' . $validated['last_name']),
             'email' => $validated['email'],
             'phone' => $validated['phone'] ?? null,
             'password' => $validated['password'],
@@ -702,8 +720,8 @@ class EmployeeController extends Controller
     private function cleanArray(array $items): array
     {
         return array_values(array_filter(
-            array_map(static fn ($item) => is_string($item) ? trim($item) : $item, $items),
-            static fn ($item) => filled($item)
+            array_map(static fn($item) => is_string($item) ? trim($item) : $item, $items),
+            static fn($item) => filled($item)
         ));
     }
 
@@ -720,4 +738,19 @@ class EmployeeController extends Controller
 
         return $data;
     }
+
+   public function employeeProfile(Request $request)
+{
+    $employee = Employee::with('user')
+        ->where('user_id', $request->user()->id)
+        ->firstOrFail();
+
+
+    return view('backend.pages.HR.employees.profile', array_merge(
+        $this->formOptions(),
+        [
+            'employee' => $employee,
+        ]
+    ));
+}
 }

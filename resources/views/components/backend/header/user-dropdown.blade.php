@@ -52,7 +52,7 @@
                                 fill="currentColor"
                             />
                         </svg>',
-                        'path' => route('role.profile.edit', [
+                        'path' => route('role.employee.profile', [
                             'role' => request()->route('role'),
                         ]),
                     ],
