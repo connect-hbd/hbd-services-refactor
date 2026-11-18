@@ -14,10 +14,8 @@
                         </a>
                     </div>
                 </div>
-                <p
-                    class="text-sm sm:text-[15px] text-neutral-400 max-w-sm leading-relaxed mb-3 sm:mb-4 text-center sm:text-left">
-                    HBD Services is one of the prominent study abroad counseling services with a remarkable visa success
-                    rate & operating across multiple destinations.
+                 <p class="text-sm sm:text-[15px] text-neutral-400 w-[90%] leading-relaxed mb-6">
+                    HBD Services is a leading study abroad consultancy operating in Bangladesh, partnering with top-ranked institutions worldwide. we provide education, training, and student counselling services across multiple destinations.
                 </p>
                 <div
                     class="mb-4 sm:mb-5 flex flex-col items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors duration-200 hover:border-accent-one-400/30 hover:bg-white/[0.06]">

@@ -6,7 +6,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 mb-10 sm:mb-12">
 
             <!-- Brand + Social -->
-            <div class="lg:col-span-4 -mt-10 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <div class="lg:col-span-5 -mt-10 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <div class="flex items-center justify-center sm:justify-start sm:items-start space-x-2 mb-4">
                     <div class="w-36 sm:w-40 p-1.5">
                         <a href="/">
@@ -14,9 +14,8 @@
                         </a>
                     </div>
                 </div>
-                <p class="text-sm sm:text-[15px] text-neutral-400 max-w-sm leading-relaxed mb-6">
-                    HBD Services is one of the prominent study abroad counseling services with a remarkable visa success
-                    rate & operating across multiple destinations.
+                <p class="text-sm sm:text-[15px] text-neutral-400 w-[90%] leading-relaxed mb-6">
+                    HBD Services is a leading study abroad consultancy operating in Bangladesh, partnering with top-ranked institutions worldwide. we provide education, training, and student counselling services across multiple destinations.
                 </p>
                 <h4
                     class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-white flex items-center justify-center sm:items-start sm:justify-start">
@@ -43,7 +42,7 @@
             </div>
 
             <!-- Quick Links -->
-            <div class="lg:col-span-3 flex flex-col items-center justify-center sm:items-start sm:justify-start">
+            <div class="lg:col-span-2 flex flex-col items-center justify-center sm:items-start sm:justify-start">
                 <h4 class="text-white text-sm sm:text-base font-bold uppercase tracking-wider mb-3 sm:mb-4">Quick Links
                 </h4>
                 <ul class="space-y-2.5 text-sm sm:text-[15px] text-center sm:text-left">
@@ -89,11 +88,11 @@
                 <div class="w-full ">
 
                     {{-- Top Row: Admissions (Book Meeting) & IELTS/PTE (Register) --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                         <!-- Admissions Action Box -->
                         <div
-                            class="group flex flex-col justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-200 hover:border-accent-one-400/40 hover:bg-white/[0.06]">
+                            class="group flex flex-col justify-between rounded-xl border border-white/10 bg-white/3 p-4 transition-all duration-200 hover:border-accent-one-400/40 hover:bg-white/[0.06]">
                             <div class="flex items-center gap-3 mb-3.5">
                                 <div
                                     class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-accent-one-400 transition-colors group-hover:bg-accent-one-500/15">
@@ -107,7 +106,7 @@
                                 </div>
                             </div>
 
-                            <a href="https://api.leadconnectorhq.com/widget/form/jadiRoOtql1Up7tjqLaa" target="_blank"
+                            <a href="#" target="_blank"
                                 rel="noopener noreferrer"
                                 class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-brand-500">
                                 <iconify-icon icon="lucide:calendar" class="text-sm shrink-0"></iconify-icon>
@@ -117,7 +116,7 @@
 
                         <!-- IELTS / PTE Action Box -->
                         <div
-                            class="group flex flex-col justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-200 hover:border-accent-one-400/40 hover:bg-white/[0.06]">
+                            class="group flex flex-col justify-between rounded-xl border border-white/10 bg-white/3 p-4 transition-all duration-200 hover:border-accent-one-400/40 hover:bg-white/[0.06]">
                             <div class="flex items-center gap-3 mb-3.5">
                                 <div
                                     class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-accent-one-400 transition-colors group-hover:bg-accent-one-500/15">
@@ -141,11 +140,11 @@
                     </div>
 
                     {{-- Bottom Row: Main Email, Phone Contact & WhatsApp --}}
-                    <div class="mt-4 flex flex-col gap-3">
+                    <div class="mt-5 flex flex-col gap-3 rounded-xl border border-white/10 bg-white/2 p-4 ">
 
                         {{-- Main Email --}}
                         <a href="mailto:info@hbdservices.com"
-                            class="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.02] px-3.5 py-2.5 transition-colors hover:border-accent-one-400/30 hover:bg-white/[0.05]">
+                            class="flex items-center justify-between ">
                             <div class="flex items-center gap-2.5 min-w-0">
                                 <iconify-icon icon="lucide:mail"
                                     class="text-base shrink-0 text-accent-one-400"></iconify-icon>
@@ -161,7 +160,7 @@
                         </a>
 
                         {{-- Contact Number & WhatsApp Buttons --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                             {{-- Direct Call --}}
                             <a href="tel:09617990099"
@@ -224,7 +223,7 @@
                         <div class="flex items-center justify-between gap-2 w-full">
                             <div class="flex items-center gap-2.5">
                                 <div
-                                    class="flex h-6 w-8 shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5">
+                                    class="flex h-6 w-8 shrink-0 items-center justify-center overflow-hidden rounded  bg-white/5">
                                     <img src="https://flagcdn.com/w40/au.png" alt="Australia flag" width="40"
                                         height="30" class="h-full w-full object-cover" loading="lazy">
                                 </div>
@@ -282,7 +281,7 @@
                         <div class="flex items-center justify-between gap-2 w-full">
                             <div class="flex items-center gap-2.5">
                                 <div
-                                    class="flex h-6 w-8 shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-white/5">
+                                    class="flex h-6 w-8 shrink-0 items-center justify-center overflow-hidden rounded  bg-white/5">
                                     <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh flag" width="40"
                                         height="30" class="h-full w-full object-cover" loading="lazy">
                                 </div>
