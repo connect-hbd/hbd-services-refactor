@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', $counsellor->user?->name ?? 'Counsellor')
+@section('title', $counsellor['user']['name'] ?? 'Counsellor')
 
 
 @section('content')
@@ -16,7 +16,7 @@
 
             <!-- RIGHT COLUMN: Booking Form & Selection (8 Cols) -->
             <div class="lg:col-span-8 ">
-                @include('frontend.pages.counsellors.appointment', ['counsellor' => $counsellor])               
+                @include('frontend.pages.counsellors.appointment', ['counsellor' => $counsellorRecord])
 
             </div>
 

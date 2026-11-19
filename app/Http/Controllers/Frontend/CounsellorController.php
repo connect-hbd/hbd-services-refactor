@@ -69,17 +69,66 @@ public function index()
     return view('frontend.pages.counsellors.index', compact('counsellors'));
 }
 
-     public function show(Employee $counsellor)
-    {      
-        $counsellor->load([
-            'user',
-            'currentEmployment.designation',
-            'city',
-            'country',
-        ]);
+public function show(Employee $counsellor)
+{
+    $counsellor->loadMissing([
+        'user:id,name,email,phone,avatar',
+        'currentEmployment.designation:id,name,code',
+    ]);
 
-        return view('frontend.pages.counsellors.counsellor-details',compact('counsellor'));
+    $counsellorData = $this->counsellorDetailsData($counsellor);
+
+    if (request()->expectsJson()) {
+        return response()->json($counsellorData);
     }
+
+    return view('frontend.pages.counsellors.counsellor-details', [
+        'counsellor' => $counsellorData,
+        'counsellorRecord' => $counsellor,
+    ]);
+}
+
+/** Build the public counsellor details payload used by the details page/API. */
+private function counsellorDetailsData(Employee $employee): array
+{
+    $employment = $employee->currentEmployment;
+    $destinationIds = collect($employee->work_destinations ?? [])->filter();
+    $destinationNames = Country::query()
+        ->whereIn('id', $destinationIds)
+        ->pluck('name', 'id');
+
+    return [
+        'id' => $employee->id,
+        'user_id' => $employee->user_id,
+        'first_name' => $employee->first_name,
+        'last_name' => $employee->last_name,
+        'bio' => $employee->bio,
+        'education' => $employee->education,
+        'institution' => $employee->institution,
+        'experience_years' => $employee->experience_years,
+        'languages' => $employee->languages ?? [],
+        'expertise' => $employee->expertise ?? [],
+        'work_destinations' => $destinationIds
+            ->map(fn ($destinationId) => $destinationNames[$destinationId] ?? $destinationId)
+            ->values()
+            ->all(),
+        'user' => $employee->user ? [
+            'id' => $employee->user->id,
+            'name' => $employee->user->name,
+            'email' => $employee->user->email,
+            'phone' => $employee->user->phone,
+            'avatar' => $employee->user->avatar,
+        ] : null,
+        'current_employment' => $employment ? [
+            'designation_id' => $employment->designation_id,
+            'designation' => $employment->designation ? [
+                'id' => $employment->designation->id,
+                'name' => $employment->designation->name,
+                'code' => $employment->designation->code,
+            ] : null,
+        ] : null,
+    ];
+}
 
    /**
      * Store counsellor booking.
