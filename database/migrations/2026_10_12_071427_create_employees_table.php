@@ -45,7 +45,7 @@ return new class extends Migration {
             $table->string('emergency_contact_phone', 32)->nullable();
 
             //Work Destination
-            $table->foreignUuid('work_destination_id')->nullable()->constrained('countries')->nullOnDelete();
+            $table->json('work_destinations')->nullable();
 
             // Verification of employee/profile information
             $table->boolean('is_verified')->default(false);

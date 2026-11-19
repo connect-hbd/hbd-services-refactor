@@ -24,7 +24,8 @@
     <form action="{{ role_route('role.update.bank', ['employee' => $employee->id]) }}" method="POST" class="space-y-6 p-6">
         @csrf
         @method('PUT')
-        <input type="hidden" name="bank_account_id" value="{{ $bankAccount?->id }}">
+        {{-- {{ $bankAccount?->id }} --}}
+        <input type="hidden" name="bank_account_id" value="">
 
         {{-- Bank Name & Bank Branch --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -40,7 +41,7 @@
         </div>
 
         {{-- Account Name & Account Number --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
             <x-form.input-text name="account_name" label="Account Name"
                 value="{{ old('account_name', $bankAccount?->account_name ?? '') }}"
                 placeholder="e.g. John Doe"
@@ -50,33 +51,13 @@
                 value="{{ old('account_number', $bankAccount?->account_number ?? '') }}"
                 placeholder="e.g. 1234567890123"
                 ::disabled="!isEditing" />
-        </div>
-
-        {{-- Routing Number & Primary Toggle --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2 items-center">
             <x-form.input-text name="routing_number" label="Routing Number"
                 value="{{ old('routing_number', $bankAccount?->routing_number ?? '') }}"
                 placeholder="e.g. 125261234"
                 ::disabled="!isEditing" />
-
-            <div>
-                <h2 class="block mb-1 text-sm font-medium text-slate-700">
-                    Account Settings
-                </h2>
-                <label class="relative flex items-start gap-3"
-                    :class="isEditing ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'">
-                    <input type="hidden" name="is_primary" value="0">
-                    <input type="checkbox" id="is_primary" name="is_primary" value="1"
-                        @checked(old('is_primary', $bankAccount?->is_primary ?? false))
-                        x-bind:disabled="!isEditing"
-                        class="mt-0.5 h-4 w-4 rounded border-neutral-300 text-brand-600 focus:ring-brand-500 disabled:cursor-not-allowed">
-                    <div>
-                        <span class="text-sm font-medium text-neutral-900 dark:text-white">Is Primary</span>
-                        <p class="text-xs text-neutral-500 dark:text-neutral-400">Set this as the primary account for salary disbursement</p>
-                    </div>
-                </label>
-            </div>
         </div>
+
+       
 
         {{-- Submit Button (Visible only when Editing) --}}
         <div x-show="isEditing" x-cloak x-transition

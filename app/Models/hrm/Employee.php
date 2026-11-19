@@ -30,6 +30,7 @@ class Employee extends Model
         'experience_years',
         'languages',
         'expertise',
+        'work_destinations',
         'emergency_contact_name',
         'emergency_contact_phone',
         'city_id',
@@ -45,6 +46,7 @@ class Employee extends Model
             'languages' => 'array',
             'expertise' => 'array',
             'is_verified' => 'boolean',
+            'work_destinations' => 'array',
         ];
     }
 

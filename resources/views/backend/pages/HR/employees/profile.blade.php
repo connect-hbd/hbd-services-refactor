@@ -1,9 +1,7 @@
 @extends('backend.layouts.app')
 
-@section('content')
     @php
-        $selectedCountryId = old('country_id', $employee?->country_id);
-        $selectedCityId = old('city_id', $employee?->city_id);
+     
 
         $normalizeArrayInput = function ($value) {
             if (is_string($value)) {
@@ -28,480 +26,370 @@
         $expertise = $normalizeArrayInput(old('expertise', $employee?->expertise ?? []));
     @endphp
 
-    <div class="min-h-screen bg-slate-50 dark:bg-slate-950" x-data="{
-        countryId: @js($selectedCountryId),
-        cityId: @js($selectedCityId),
-    
-        cities: @js(
-    $cities
-        ->map(function ($city) {
-            return [
-                'id' => $city->id,
-                'name' => $city->name,
-                'country_id' => $city->country_id,
-            ];
-        })
-        ->values(),
-),
-    
-        get filteredCities() {
-            if (!this.countryId) {
-                return [];
-            }
-    
-            return this.cities.filter(
-                city => String(city.country_id) === String(this.countryId)
-            );
-        },
-    
-        countryChanged() {
-            const cityExists = this.filteredCities.some(
-                city => String(city.id) === String(this.cityId)
-            );
-    
-            if (!cityExists) {
-                this.cityId = '';
-            }
-        }
-    }" x-init="countryChanged()">
-        <form action="" method="POST" enctype="multipart/form-data" class="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-            @csrf
-            @method('PUT')
+@section('content')
+    <div class="mx-auto max-w-6xl space-y-8 pb-16">
+
+        {{-- Flash / validation feedback --}}
+        @if (session('success') || session('error') || $errors->any())
+            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 6000)" x-show="show" x-transition
+                class="fixed right-5 top-3 z-[99999] w-full max-w-sm space-y-3">
+                @if (session('success'))
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="success" title="" message="{{ session('success') }}" />
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="error" title="" message="{{ session('error') }}" />
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="relative">
+                        <button @click="show = false" aria-label="Dismiss"
+                            class="absolute right-3 top-3 z-10 text-neutral-500 hover:text-neutral-700">✕</button>
+                        <x-ui.alert variant="error" title="Please check the highlighted fields"
+                            message="{{ $errors->first() }}" />
+                    </div>
+                @endif
+            </div>
+        @endif
 
 
-            <div class="space-y-6">
-                {{-- Personal Information --}}
-                <section
-                    class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        {{-- Hero Banner / Header Card --}}
+        <div
+            class="relative overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
 
-                    <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800">
-                        <h2 class="text-base font-semibold text-slate-900 dark:text-white">
-                            Personal Information
-                        </h2>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Manage your personal and identification details.
-                        </p>
+            {{-- Banner --}}
+            <div class="h-32 bg-gradient-to-r from-brand-600 via-brand-500 to-indigo-600"></div>
+
+            <div class="relative -mt-10 flex flex-col gap-4 px-6 pb-6 pt-0 sm:flex-row sm:items-end sm:justify-between">
+
+                {{-- Employee Information --}}
+                <div class="flex items-end gap-5">
+
+                    {{-- Avatar --}}
+                    <div
+                        class="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 text-2xl font-bold text-neutral-700 shadow-md ring-4 ring-white dark:bg-neutral-800 dark:text-neutral-200 dark:ring-neutral-900">
+
+                        @if ($employee->avatar ?? false)
+                            <img src="{{ Storage::url($employee->avatar) }}" alt="{{ $employee->first_name }}"
+                                class="h-full w-full object-cover">
+                        @else
+                            {{ strtoupper(substr($employee->first_name, 0, 1) . substr($employee->last_name, 0, 1)) }}
+                        @endif
+
                     </div>
 
-                    <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {{-- Name & Details --}}
+                    <div class="mb-1 min-w-0">
 
-                        <x-form.input-text name="first_name" label="First Name" value=""
-                            placeholder="Enter first name" />
+                        <h1 class="text-xl font-bold text-neutral-900 dark:text-white">
+                            {{ $employee->first_name }} {{ $employee->last_name }}
+                        </h1>
 
-                        <x-form.input-text name="last_name" label="Last Name" value=""
-                            placeholder="Enter last name" />
+                        <div class="mt-1 flex flex-wrap items-center gap-3">
 
-                        <x-form.input-text name="date_of_birth" label="Date of Birth" type="date" value="" />
+                            <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                                {{ $employee->currentEmployment?->designation?->name ?? 'No Designation' }}
 
-                        <div>
-                            <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Gender
-                            </label>
+                                <span class="mx-1.5">&middot;</span>
 
-                            <select name="gender"
-                                class="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white">
-                                <option value="">Select Gender</option>
-                                @foreach (['Male', 'Female', 'Other'] as $gender)
-                                    <option value="{{ $gender }}">
-                                        {{ $gender }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <x-form.input-text name="religion" label="Religion" value="" placeholder="Enter religion" />
-
-                        <div>
-                            <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Blood Group
-                            </label>
-
-                            <select name="blood_group"
-                                class="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white">
-                                <option value="">Select Blood Group</option>
-                                @foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $group)
-                                    <option value="{{ $group }}">
-                                        {{ $group }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="sm:col-span-2 lg:col-span-3">
-                            <x-form.input-text name="national_id" label="National ID / Passport Number" value=""
-                                placeholder="Enter identification number" />
-                        </div>
-
-                    </div>
-                </section>
-                {{-- Address Information --}}
-                <section
-                    class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-
-                    <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800">
-                        <h2 class="text-base font-semibold text-slate-900 dark:text-white">
-                            Address & Location
-                        </h2>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Manage your current address and work destination.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2">
-
-                        <div class="sm:col-span-2">
-                            <x-form.textarea-input name="address" label="Full Address" rows="3" value=""
-                                placeholder="Enter your complete address..." />
-                        </div>
-
-                        <div>
-                            <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Work Destination
-                            </label>
-
-                            {{-- <select name="work_destination_id"
-                class="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white">
-
-                <option value="">Select Country</option>
-
-                @foreach ($countries as $country)
-                    <option value="{{ $country->id }}">
-                        {{ $country->name }}
-                    </option>
-                @endforeach
-
-            </select> --}}
-                        </div>
-
-                    </div>
-                </section>
-
-                {{-- Emergency Contact --}}
-                <section
-                    class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-
-                    <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800">
-                        <h2 class="text-base font-semibold text-slate-900 dark:text-white">
-                            Emergency Contact
-                        </h2>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Provide someone we can contact in an emergency.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2">
-
-                        <x-form.input-text name="emergency_contact_name" label="Contact Person Name" value=""
-                            placeholder="Enter contact person name" />
-
-                        <x-form.input-text name="emergency_contact_phone" label="Emergency Phone" value=""
-                            placeholder="+8801XXXXXXXXX" />
-
-                    </div>
-                </section>
-
-                {{-- Bio --}}
-                <x-form.textarea-input name="bio" label="Bio" rows="5"
-                    placeholder="Write something about yourself..." value="" />
-
-                {{-- Languages / Expertise --}}
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-
-                    {{-- Languages --}}
-                    <div x-data="{
-                        items: @js($languages),
-                    
-                        add() {
-                            this.items.push('');
-                        },
-                    
-                        remove(index) {
-                            if (this.items.length === 1) {
-                                this.items = [''];
-                                return;
-                            }
-                    
-                            this.items.splice(index, 1);
-                        }
-                    }" class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Languages
-                            </label>
-                            <button type="button" @click="add()"
-                                class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-brand-600 transition-colors hover:bg-brand-50 hover:text-brand-700 dark:text-brand-400 dark:hover:bg-brand-500/10 dark:hover:text-brand-300">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                    stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
-                                Add Language
-                            </button>
-                        </div>
-
-                        <div class="space-y-2.5">
-                            <template x-for="(item, index) in items" :key="index">
-                                <div class="group flex items-center gap-2">
-                                    <input type="text" name="languages[]" x-model="items[index]" placeholder="English"
-                                        class="h-10 w-full rounded-lg border border-slate-200 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-500 dark:focus:ring-brand-500/20">
-                                    <button type="button" @click="remove(index)"
-                                        class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:text-slate-500 dark:hover:border-red-900/50 dark:hover:bg-red-500/10 dark:hover:text-red-400">
-                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </template>
-                        </div>
-
-                        @error('languages')
-                            <p class="text-sm text-red-500">
-                                {{ $message }}
+                                <span
+                                    class="rounded bg-neutral-100 px-2 py-0.5 font-mono text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+                                    {{ $employee->currentEmployment?->employee_code ?? 'EMP-XXX' }}
+                                </span>
                             </p>
-                        @enderror
 
-                        @error('languages.*')
-                            <p class="text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                        @enderror
+                            <span
+                                class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                {{ ucfirst($employee->currentEmployment?->employment_status ?? 'Active') }}
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Quick Stats --}}
+                <div class="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
+
+                    <div>
+                        <span class="block font-semibold text-neutral-900 dark:text-white">
+                            Branch
+                        </span>
+
+                        <span>
+                            {{ $employee->currentEmployment?->branch?->name ?? 'N/A' }}
+                        </span>
                     </div>
 
-                    {{-- Expertise --}}
-                    <div x-data="{
-                        items: @js($expertise),
-                    
-                        add() {
-                            this.items.push('');
-                        },
-                    
-                        remove(index) {
-                            if (this.items.length === 1) {
-                                this.items = [''];
-                                return;
-                            }
-                    
-                            this.items.splice(index, 1);
-                        }
-                    }" class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Expertise
-                            </label>
-                            <button type="button" @click="add()"
-                                class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-brand-600 transition-colors hover:bg-brand-50 hover:text-brand-700 dark:text-brand-400 dark:hover:bg-brand-500/10 dark:hover:text-brand-300">
-                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                    stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
-                                Add Expertise
-                            </button>
-                        </div>
+                    <div class="border-l border-neutral-200 pl-4 dark:border-neutral-800">
+                        <span class="block font-semibold text-neutral-900 dark:text-white">
+                            Department
+                        </span>
 
-                        <div class="space-y-2.5">
-                            <template x-for="(item, index) in items" :key="index">
-                                <div class="group flex items-center gap-2">
-                                    <input type="text" name="expertise[]" x-model="items[index]"
-                                        placeholder="SOP Writing"
-                                        class="h-10 w-full rounded-lg border border-slate-200 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-500 dark:focus:ring-brand-500/20">
-                                    <button type="button" @click="remove(index)"
-                                        class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:text-slate-500 dark:hover:border-red-900/50 dark:hover:bg-red-500/10 dark:hover:text-red-400">
-                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </template>
-                        </div>
-
-                        @error('expertise')
-                            <p class="text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                        @enderror
-
-                        @error('expertise.*')
-                            <p class="text-sm text-red-500">
-                                {{ $message }}
-                            </p>
-                        @enderror
+                        <span>
+                            {{ $employee->currentEmployment?->department?->name ?? 'N/A' }}
+                        </span>
                     </div>
 
                 </div>
+            </div>
+        </div>
+
+        {{-- Sticky Section Navigation Tabs --}}
+        <div
+            class="sticky top-19 z-50 backdrop-blur-md bg-white/80 dark:bg-neutral-900/80 p-1.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm">
+            <nav class="flex flex-wrap gap-1.5" x-data="{ activeTab: 'profile' }">
+                {{-- profile --}}
+                <a href="#profile" @click="activeTab = 'profile'"
+                    :class="activeTab === 'profile' ? 'bg-brand-600 text-white shadow-sm' :
+                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800'"
+                    class="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all group">
+                    <iconify-icon icon="lucide:user"
+                        class="text-[16px] text-neutral-400 transition-colors group-hover:text-brand-600"
+                        :class="activeTab === 'profile' ? 'text-white' : ''"></iconify-icon>
+                    <span>Profile</span>
+                </a>
+
+                 {{-- Personal --}}
+                <a href="#personal" @click="activeTab = 'personal'"
+                    :class="activeTab === 'personal' ? 'bg-brand-600 text-white shadow-sm' :
+                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800'"
+                    class="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all group">
+                    <iconify-icon icon="lucide:lock"
+                        class="text-[16px] text-neutral-400 transition-colors group-hover:text-brand-600"
+                        :class="activeTab === 'personal' ? 'text-white' : ''"></iconify-icon>
+                    <span>Personal</span>
+                </a>
+
+                {{-- Address --}}
+                <a href="#address" @click="activeTab = 'address'"
+                    :class="activeTab === 'address' ? 'bg-brand-600 text-white shadow-sm' :
+                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800'"
+                    class="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all group">
+                    <iconify-icon icon="lucide:map-pin"
+                        class="text-[16px] text-neutral-400 transition-colors group-hover:text-brand-600"
+                        :class="activeTab === 'address' ? 'text-white' : ''"></iconify-icon>
+                    <span>Address</span>
+                </a>
 
                 {{-- Bank Accounts --}}
-              <section class="rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
-    x-data="{ isEditing: {{ $errors->hasAny(['bank_account_id', 'bank_name', 'bank_branch', 'account_name', 'account_number', 'routing_number', 'is_primary']) ? 'true' : 'false' }} }">
+                <a href="#bank" @click="activeTab = 'bank'"
+                    :class="activeTab === 'bank' ? 'bg-brand-600 text-white shadow-sm' :
+                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800'"
+                    class="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all group">
+                    <iconify-icon icon="lucide:landmark"
+                        class="text-[16px] text-neutral-400 transition-colors group-hover:text-brand-600"
+                        :class="activeTab === 'bank' ? 'text-white' : ''"></iconify-icon>
+                    <span>Bank Accounts</span>
+                </a>
 
-    {{-- Header --}}
-    <div class="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4 dark:border-neutral-800 dark:bg-neutral-800/50 flex items-center justify-between">
-        <div>
-            <h2 class="text-base font-semibold text-neutral-900 dark:text-white">
-                Bank Account Information
-            </h2>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400">
-                Manage employee bank account details, routing numbers, and primary disbursement preferences.
-            </p>
+                {{-- Documents --}}
+                <a href="#documents" @click="activeTab = 'documents'"
+                    :class="activeTab === 'documents' ? 'bg-brand-600 text-white shadow-sm' :
+                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800'"
+                    class="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all group">
+                    <iconify-icon icon="lucide:file-text"
+                        class="text-[16px] text-neutral-400 transition-colors group-hover:text-brand-600"
+                        :class="activeTab === 'documents' ? 'text-white' : ''"></iconify-icon>
+                    <span>Documents</span>
+                </a>
+            </nav>
         </div>
 
-        {{-- Toggle Edit Button --}}
-        <div>
-            <button type="button" @click="isEditing = !isEditing"
-                x-text="isEditing ? 'Cancel Edit' : 'Edit Information'"
-                class="inline-flex items-center px-3.5 py-1.5 text-xs font-medium rounded-lg border border-neutral-300 bg-white text-neutral-700 shadow-sm hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 transition-all">
-            </button>
-        </div>
-    </div>
+        {{-- Main Sections --}}
+        <div class="space-y-8">
+             <section id="profile" class="scroll-mt-31">
+                @include('backend.pages.HR.employees.partial.profile-update')
+            </section>
+            <section id="personal" class="scroll-mt-31">
+                @include('backend.pages.HR.employees.partial.personal')
+            </section>
+            <section id="address" class="scroll-mt-31">
+                @include('backend.pages.HR.employees.partial.address')
+            </section>
 
-    <form action="{{ role_route('role.update.bank', ['employee' => $employee->id]) }}" method="POST" class="space-y-6 p-6">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="bank_account_id" value="">
-
-        {{-- Bank Name & Bank Branch --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <x-form.input-text name="bank_name" label="Bank Name"
-                value=""
-                placeholder="e.g. Dutch-Bangla Bank Ltd"
-                ::disabled="!isEditing" />
-
-            <x-form.input-text name="bank_branch" label="Bank Branch"
-                value=""
-                placeholder="e.g. Gulshan Branch"
-                ::disabled="!isEditing" />
-        </div>
-
-        {{-- Account Name & Account Number --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <x-form.input-text name="account_name" label="Account Name"
-                value=""
-                placeholder="e.g. John Doe"
-                ::disabled="!isEditing" />
-
-            <x-form.input-text name="account_number" label="Account Number" type="text"
-                value=""
-                placeholder="e.g. 1234567890123"
-                ::disabled="!isEditing" />
-        </div>
-
-        {{-- Routing Number & Primary Toggle --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2 items-center">
-            <x-form.input-text name="routing_number" label="Routing Number"
-                value=""
-                placeholder="e.g. 125261234"
-                ::disabled="!isEditing" />
-
-           
-        </div>
-
-        {{-- Submit Button (Visible only when Editing) --}}
-        <div x-show="isEditing" x-cloak x-transition
-            class="flex items-center justify-end space-x-3 pt-4 border-t border-neutral-200 dark:border-neutral-800">
-            <button type="button" @click="isEditing = false"
-                class="px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg shadow-sm hover:bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700">
-                Cancel
-            </button>
-            <button type="submit"
-                class="px-5 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-3 focus:ring-brand-500/10">
-                Save Changes
-            </button>
-        </div>
-    </form>
-</section>
-
-                {{-- Employee Documents --}}
-                <section
-                    class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-
+            <section
+                    class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/50 dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-black/20">
                     <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800">
-                        <h2 class="text-base font-semibold text-slate-900 dark:text-white">
-                            My Documents
-                        </h2>
-                        <p class="mt-1 text-xs text-slate-500">
-                            Upload or update your identification and educational documents.
-                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+                                <svg class="h-4 w-4 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-semibold text-slate-900 dark:text-white">
+                                    Employee Information
+                                </h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">
+                                    Update your professional profile information.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="space-y-4 p-6">
+                    <div class="space-y-8 p-6">
 
-                        @php
-                            $documentTypes = [
-                                'national_id' => 'National ID',
-                                'passport' => 'Passport',
-                                'educational_certificate' => 'Educational Certificate',
-                                'experience_certificate' => 'Experience Certificate',
-                                'cv' => 'Resume / CV',
-                                'other' => 'Other Document',
-                            ];
-                        @endphp
+                        {{-- Designation / Experience --}}
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 
-                        @foreach ($documentTypes as $key => $label)
-                            @php
-                                $document = $employee?->documents?->firstWhere('document_key', $key);
-                            @endphp
+                            <x-form.input-text name="experience_years" label="Experience (Years)" type="number"
+                                min="0" value=""
+                                placeholder="0" />
+                             <x-form.multi-select name="destination[]" label="Work Destinations" />
+                        </div>
 
-                            <div
-                                class="flex flex-col justify-between gap-4 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center dark:border-slate-700">
+                        {{-- Bio --}}
+                        <x-form.textarea-input name="bio" label="Bio" rows="5"
+                            placeholder="Write something about yourself..." value="" />
 
-                                <div class="flex min-w-0 items-center gap-3">
+                        {{-- Languages / Expertise --}}
+                        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 
-                                    <div
-                                        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                            stroke-width="1.7">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19.5 14.25v-8.5A2.25 2.25 0 0017.25 3.5H8.25L3.5 8.25v10.5A2.25 2.25 0 005.75 21h11.5a2.25 2.25 0 002.25-2.25v-4.5M8.25 3.5v4.75H3.5" />
-                                        </svg>
-                                    </div>
-
-                                    <div class="min-w-0">
-                                        <h3 class="text-sm font-semibold text-slate-800 dark:text-white">
-                                            {{ $label }}
-                                        </h3>
-
-                                        @if ($document)
-                                            <p class="mt-1 truncate text-xs text-green-600">
-                                                Uploaded: {{ $document->original_name }}
-                                            </p>
-                                        @else
-                                            <p class="mt-1 text-xs text-slate-400">
-                                                Not uploaded yet
-                                            </p>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="flex shrink-0 items-center gap-3">
-
-                                    @if ($document)
-                                        <a href="" target="_blank"
-                                            class="text-sm font-medium text-brand-600 hover:underline">
-                                            View
-                                        </a>
-                                    @endif
-
-                                    <input type="hidden" name="documents[{{ $key }}][document_key]"
-                                        value="{{ $key }}">
-
-                                    <label
-                                        class="cursor-pointer rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
-
-                                        {{ $document ? 'Replace File' : 'Upload File' }}
-
-                                        <input type="file" name="documents[{{ $key }}][file]" class="hidden"
-                                            accept=".pdf,.jpg,.jpeg,.png">
+                            {{-- Languages --}}
+                            <div x-data="{
+                                items: @js($languages),
+                            
+                                add() {
+                                    this.items.push('');
+                                },
+                            
+                                remove(index) {
+                                    if (this.items.length === 1) {
+                                        this.items = [''];
+                                        return;
+                                    }
+                            
+                                    this.items.splice(index, 1);
+                                }
+                            }" class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        Languages
                                     </label>
-
+                                    <button type="button" @click="add()"
+                                        class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-brand-600 transition-colors hover:bg-brand-50 hover:text-brand-700 dark:text-brand-400 dark:hover:bg-brand-500/10 dark:hover:text-brand-300">
+                                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                        Add Language
+                                    </button>
                                 </div>
 
-                            </div>
-                        @endforeach
+                                <div class="space-y-2.5">
+                                    <template x-for="(item, index) in items" :key="index">
+                                        <div class="group flex items-center gap-2">
+                                            <input type="text" name="languages[]" x-model="items[index]"
+                                                placeholder="English"
+                                                class="h-10 w-full rounded-lg border border-slate-200 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-500 dark:focus:ring-brand-500/20">
+                                            <button type="button" @click="remove(index)"
+                                                class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:text-slate-500 dark:hover:border-red-900/50 dark:hover:bg-red-500/10 dark:hover:text-red-400">
+                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
 
+                                @error('languages')
+                                    <p class="text-sm text-red-500">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
+                                @error('languages.*')
+                                    <p class="text-sm text-red-500">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            {{-- Expertise --}}
+                            <div x-data="{
+                                items: @js($expertise),
+                            
+                                add() {
+                                    this.items.push('');
+                                },
+                            
+                                remove(index) {
+                                    if (this.items.length === 1) {
+                                        this.items = [''];
+                                        return;
+                                    }
+                            
+                                    this.items.splice(index, 1);
+                                }
+                            }" class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        Expertise
+                                    </label>
+                                    <button type="button" @click="add()"
+                                        class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-brand-600 transition-colors hover:bg-brand-50 hover:text-brand-700 dark:text-brand-400 dark:hover:bg-brand-500/10 dark:hover:text-brand-300">
+                                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                        Add Expertise
+                                    </button>
+                                </div>
+
+                                <div class="space-y-2.5">
+                                    <template x-for="(item, index) in items" :key="index">
+                                        <div class="group flex items-center gap-2">
+                                            <input type="text" name="expertise[]" x-model="items[index]"
+                                                placeholder="SOP Writing"
+                                                class="h-10 w-full rounded-lg border border-slate-200 bg-white px-3.5 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-500 dark:focus:ring-brand-500/20">
+                                            <button type="button" @click="remove(index)"
+                                                class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:text-slate-500 dark:hover:border-red-900/50 dark:hover:bg-red-500/10 dark:hover:text-red-400">
+                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+
+                                @error('expertise')
+                                    <p class="text-sm text-red-500">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+
+                                @error('expertise.*')
+                                    <p class="text-sm text-red-500">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                        </div>
                     </div>
                 </section>
 
-            </div>
-        </form>
+            <section id="bank" class="scroll-mt-31">
+                @include('backend.pages.HR.employees.partial.bank_accounts')
+            </section>
+
+            <section id="documents" class="scroll-mt-31">
+                @include('backend.pages.HR.employees.partial.employee_documents')
+            </section>
+        </div>
     </div>
 @endsection
