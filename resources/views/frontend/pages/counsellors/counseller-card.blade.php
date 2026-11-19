@@ -1,6 +1,7 @@
 @isset($counsellor)
     @php
         $user = $counsellor->user;
+        $designation = $counsellor->currentEmployment?->designation;
         $destinations = collect($counsellor->work_destinations ?? [])->filter()->values();
         $expertiseTags = collect($counsellor->expertise ?? [])
             ->filter()
@@ -28,7 +29,7 @@
                             {{ $user?->name ?? 'N/A' }}
                         </h3>
                         <p class="truncate text-xs font-medium text-slate-500">
-                            {{ $counsellor->designation ?? 'Senior Counsellor' }}
+                            {{ $designation?->name ?? 'Senior Counsellor' }}
                         </p>
                     </div>
                 </div>

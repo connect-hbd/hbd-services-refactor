@@ -7,16 +7,9 @@
         <span class="absolute bottom-1 right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white"
             title="Available Online"></span>
     </div>
-    <h2 class="text-xl font-bold text-neutral-900">{{ $counsellor->user?->name ?? 'N/A' }}</h2>
+    <h2 class="text-xl font-bold text-neutral-900">{{ $counsellor->user?->name ?? $counsellor->full_name }}</h2>
     <p class="text-xs font-medium text-brand-600 uppercase tracking-wider mt-0.5">
-        {{ $counsellor->designation ?? 'Counsellor' }}</p>
-
-    <!-- Rating Badge -->
-    <div class="flex items-center justify-center space-x-1 mt-3">
-        <i class="fa-solid fa-star text-amber-400 text-sm"></i>
-        <span class="text-sm font-bold text-neutral-900">4.9</span>
-        <span class="text-xs text-neutral-400">(128 reviews)</span>
-    </div>
+        {{ $counsellor->currentEmployment?->designation?->name ?? 'Counsellor' }}</p>
 </div>
 
 <hr class="border-neutral-100">
@@ -28,8 +21,8 @@
         <span class="text-base font-bold text-brand-700">{{ $counsellor->experience_years ?? 0 }}+ Years</span>
     </div>
     <div class="bg-brand-50/50 border border-brand-100 p-3 rounded-2xl">
-        <span class="block text-xs text-neutral-500">Sessions</span>
-        <span class="text-base font-bold text-brand-700">1,400+</span>
+        <span class="block text-xs text-neutral-500">Education</span>
+        <span class="text-sm font-bold text-brand-700">{{ $counsellor->education ?: 'Not provided' }}</span>
     </div>
 </div>
 
@@ -63,7 +56,7 @@
                         <path
                             d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
                     </svg> <span> <strong class="font-semibold text-slate-700"> Languages : </strong>
-                        {{ implode(', ', $counsellor->languages) }} </span> </div>
+                        {{ collect($counsellor->languages)->filter()->implode(', ') }} </span> </div>
             @endif
             {{-- Location --}}
             <div class="mt-4 flex items-center gap-1.5 text-sm text-slate-500">
@@ -72,7 +65,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg> <span> <strong class="font-semibold text-slate-700"> Location : </strong> Bangladesh
+                </svg> <span> <strong class="font-semibold text-slate-700"> Location : </strong>
+                    {{ collect([$counsellor->city?->name, $counsellor->country?->name])->filter()->implode(', ') ?: 'Not provided' }}
                 </span>
             </div>
 

@@ -7,7 +7,6 @@ use App\Models\Counsellor;
 use App\Models\CounsellorBooking;
 use App\Models\Country;
 use App\Models\hrm\Employee;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CounsellorController extends Controller
@@ -37,7 +36,7 @@ public function index()
         ])
        ->with([
         'user:id,name,email,phone,avatar',
-        'currentEmployment:id,employee_id,designation_id,is_current',
+        'currentEmployment:employments.id,employments.employee_id,employments.designation_id,employments.is_current',
         'currentEmployment.designation:id,name',
     ])
         ->latest()
@@ -65,15 +64,19 @@ public function index()
         return $counsellor;
     });
 
-    return $counsellors;
+    // return $counsellors;
 
     return view('frontend.pages.counsellors.index', compact('counsellors'));
 }
 
-     public function show(Counsellor $counsellor)
+     public function show(Employee $counsellor)
     {      
-        $counsellor->load('user');
-               return $counsellor;
+        $counsellor->load([
+            'user',
+            'currentEmployment.designation',
+            'city',
+            'country',
+        ]);
 
         return view('frontend.pages.counsellors.counsellor-details',compact('counsellor'));
     }
