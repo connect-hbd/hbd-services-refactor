@@ -127,6 +127,9 @@ Route::prefix('{role}')
             // Update Personal / Basic Information
             Route::put('/basic-information', [EmployeeController::class, 'updateInformation'])->name('update.basic-information');
 
+            // Update Employee Information (bio, experience, languages, ...)
+            Route::put('/employee-profile', [EmployeeController::class, 'updateEmployeeProfile'])->name('update.employee-profile');
+
             // Update Address & Location
             Route::put('/address', [EmployeeController::class, 'updateAddress'])->name('update.address');
 

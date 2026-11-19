@@ -1,3 +1,9 @@
+@php
+    // When an employee edits their own profile (self-service) the account
+    // credentials (email, phone, password) are read-only; managers may edit them.
+    $selfService = $selfService ?? false;
+@endphp
+
 <div class="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
     x-data="{ isEditing: {{ $errors->hasAny(['first_name', 'last_name', 'email', 'phone', 'password', 'date_of_birth', 'gender', 'blood_group', 'religion', 'national_id', 'emergency_contact_name', 'emergency_contact_phone']) ? 'true' : 'false' }} }">
 
@@ -42,12 +48,12 @@
         </div>
 
         {{-- Credentials & Contact --}}
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-5 {{ $selfService ? 'md:grid-cols-2' : 'md:grid-cols-3' }}">
             <div>
                 <label for="email" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email Address</label>
                 <input type="email" id="email" name="email"
                     value="{{ old('email', $employee?->user?->email) }}" placeholder="john@example.com"
-                    x-bind:disabled="!isEditing"
+                    @if ($selfService) disabled @else x-bind:disabled="!isEditing" @endif
                     class="w-full rounded-lg h-11 border placeholder:text-neutral-400 border-neutral-300 bg-white px-4 py-2.5 text-sm disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-not-allowed dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:disabled:bg-neutral-800/50">
                 @error('email')<p class="mt-1.5 text-xs font-medium text-red-500">{{ $message }}</p>@enderror
             </div>
@@ -56,20 +62,28 @@
                 <label for="phone" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Phone Number</label>
                 <input type="text" id="phone" name="phone"
                     value="{{ old('phone', $employee?->user?->phone) }}" placeholder="+1 (555) 000-0000"
-                    x-bind:disabled="!isEditing"
+                    @if ($selfService) disabled @else x-bind:disabled="!isEditing" @endif
                     class="w-full rounded-lg h-11 border placeholder:text-neutral-400 border-neutral-300 bg-white px-4 py-2.5 text-sm disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-not-allowed dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:disabled:bg-neutral-800/50">
                 @error('phone')<p class="mt-1.5 text-xs font-medium text-red-500">{{ $message }}</p>@enderror
             </div>
 
-            <div>
-                <label for="password" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Password</label>
-                <input type="password" id="password" name="password"
-                    value="" placeholder="Keep blank to retain current password"
-                    x-bind:disabled="!isEditing"
-                    class="w-full rounded-lg h-11 border placeholder:text-neutral-400 border-neutral-300 bg-white px-4 py-2.5 text-sm disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-not-allowed dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:disabled:bg-neutral-800/50">
-                @error('password')<p class="mt-1.5 text-xs font-medium text-red-500">{{ $message }}</p>@enderror
-            </div>
+            @unless ($selfService)
+                <div>
+                    <label for="password" class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">Password</label>
+                    <input type="password" id="password" name="password"
+                        value="" placeholder="Keep blank to retain current password"
+                        x-bind:disabled="!isEditing"
+                        class="w-full rounded-lg h-11 border placeholder:text-neutral-400 border-neutral-300 bg-white px-4 py-2.5 text-sm disabled:bg-neutral-100 disabled:text-neutral-500 disabled:cursor-not-allowed dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:disabled:bg-neutral-800/50">
+                    @error('password')<p class="mt-1.5 text-xs font-medium text-red-500">{{ $message }}</p>@enderror
+                </div>
+            @endunless
         </div>
+
+        @if ($selfService)
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                Email and phone number are managed by HR. Update your password or photo from the Profile section above.
+            </p>
+        @endif
 
         {{-- Demographics & Details --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-3">

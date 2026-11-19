@@ -6,6 +6,14 @@ use Illuminate\Validation\Rule;
 
 class UpdateEmployeeEmploymentRequest extends EmployeeRequest
 {
+    /**
+     * Employment details are managed by HR, never by the employee themselves.
+     */
+    public function authorize(): bool
+    {
+        return $this->canManageEmployees();
+    }
+
     public function rules(): array
     {
         $employment = $this->employee()->currentEmployment;

@@ -80,7 +80,7 @@
 
         <x-form.textarea-input name="address" label="Street Address" rows="2"
             placeholder="Enter complete building or street address..."
-            value="{{ old('address', $employee?->address) }}" ::disabled="!isEditing" />
+            value="{{ old('address', $employee?->address) }}" x-bind:disabled="!isEditing" />
 
         {{-- Submit Button (Visible only when Editing) --}}
         <div x-show="isEditing" x-cloak x-transition

@@ -10,6 +10,7 @@ use App\Http\Requests\HR\UpdateEmployeeBankRequest;
 use App\Http\Requests\HR\UpdateEmployeeDocumentsRequest;
 use App\Http\Requests\HR\UpdateEmployeeEmploymentRequest;
 use App\Http\Requests\HR\UpdateEmployeeInformationRequest;
+use App\Http\Requests\HR\UpdateEmployeeProfileRequest;
 use App\Http\Requests\HR\UpdateEmployeeRequest;
 use App\Http\Requests\HR\UpdateEmployeeSalaryRequest;
 use App\Http\Requests\HR\UpdateEmploymentStatusRequest;
@@ -74,6 +75,23 @@ class EmployeeController extends Controller
             ->withQueryString();
 
         return view('backend.pages.HR.employees.index', compact('employees'));
+    }
+
+    /**
+     * Show a read-only employee profile (admin list "view" action).
+     */
+    public function show(Request $request, string $role, Employee $employee)
+    {
+        $request->user()->can('employee.list') || abort(403);
+
+        $employee->load([
+            'user',
+            'country',
+            'city',
+            'currentEmployment.designation',
+        ]);
+
+        return view('backend.pages.HR.employees.show', compact('employee'));
     }
 
     /**
@@ -184,7 +202,7 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         return $this->persist($role, $employee, function () use ($employee, $validated) {
-            $this->syncPersonalInformation($employee, $validated);
+            $this->syncPersonalInformation($employee, $validated, true);
             $this->syncEmployment($employee, $validated);
             $this->syncEmploymentStatus($employee, $validated);
             $this->syncSalary($employee, $validated);
@@ -218,12 +236,29 @@ class EmployeeController extends Controller
     public function updateInformation(string $role, UpdateEmployeeInformationRequest $request, Employee $employee)
     {
         $validated = $request->validated();
+        $canManageAccount = $request->user()->canAny(['employee.edit', 'employee.update', 'employee.manage']);
 
         return $this->persist(
             $role,
             $employee,
-            fn() => $this->syncPersonalInformation($employee, $validated),
+            fn() => $this->syncPersonalInformation($employee, $validated, $canManageAccount),
             'Personal information updated successfully.'
+        );
+    }
+
+    /**
+     * Biography, experience and free-form profile lists. Available to both
+     * managers and employees editing their own record.
+     */
+    public function updateEmployeeProfile(string $role, UpdateEmployeeProfileRequest $request, Employee $employee)
+    {
+        $validated = $request->validated();
+
+        return $this->persist(
+            $role,
+            $employee,
+            fn() => $this->syncEmployeeProfile($employee, $validated),
+            'Employee information updated successfully.'
         );
     }
 
@@ -326,22 +361,37 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Always redirect to the edit screen with the role prefix intact.
+     * Redirect back to the screen the form belongs to: the admin edit page for
+     * managers, or the employee's own profile page for self-service.
      * `back()` is unreliable here because browsers often omit the Referer
      * header for these PUT requests, which would send flashes to "/".
      */
     private function editUrl(string $role, Employee $employee): string
     {
-        return route('role.employees.edit', [
-            'role' => $role,
-            'employee' => $employee->id,
-        ]);
+        $canManage = request()->user()?->canAny([
+            'employee.edit',
+            'employee.update',
+            'employee.manage',
+        ]) ?? false;
+
+        if ($canManage) {
+            return route('role.employees.edit', [
+                'role' => $role,
+                'employee' => $employee->id,
+            ]);
+        }
+
+        return route('role.employee.profile', ['role' => $role]);
     }
 
     /**
      * Personal details (employees table) plus the linked user account.
+     *
+     * Account credentials (email, phone, password) are only written when
+     * $canManageAccount is true — i.e. the editor is a manager, not the
+     * employee themselves.
      */
-    private function syncPersonalInformation(Employee $employee, array $validated): void
+    private function syncPersonalInformation(Employee $employee, array $validated, bool $canManageAccount): void
     {
         $fields = [
             'first_name',
@@ -363,8 +413,13 @@ class EmployeeController extends Controller
         $fullName = trim($validated['first_name'] . ' ' . $validated['last_name']);
         $user = $employee->user;
 
-        // Employees created without an account get one on their first profile save.
+        // Employees created without an account get one on their first save.
+        // Only a manager can supply the credentials this needs.
         if (! $user) {
+            if (! $canManageAccount) {
+                return;
+            }
+
             $user = User::createEmployee([
                 'name' => $fullName,
                 'email' => $validated['email'],
@@ -380,17 +435,32 @@ class EmployeeController extends Controller
             return;
         }
 
-        $userData = [
-            'name' => $fullName,
-            'email' => $validated['email'],
-            'phone' => $validated['phone'] ?? null,
-        ];
+        $userData = ['name' => $fullName];
 
-        if (filled($validated['password'] ?? null)) {
-            $userData['password'] = $validated['password'];
+        if ($canManageAccount) {
+            $userData['email'] = $validated['email'];
+            $userData['phone'] = $validated['phone'] ?? null;
+
+            if (filled($validated['password'] ?? null)) {
+                $userData['password'] = $validated['password'];
+            }
         }
 
         $user->update($userData);
+    }
+
+    /**
+     * Biography, experience and free-form lists on the employee profile.
+     */
+    private function syncEmployeeProfile(Employee $employee, array $validated): void
+    {
+        $employee->update([
+            'experience_years' => $validated['experience_years'] ?? 0,
+            'bio' => $validated['bio'] ?? null,
+            'languages' => $this->cleanArray($validated['languages'] ?? []),
+            'expertise' => $this->cleanArray($validated['expertise'] ?? []),
+            'work_destinations' => $this->cleanArray($validated['work_destinations'] ?? []),
+        ]);
     }
 
     /**
@@ -515,7 +585,9 @@ class EmployeeController extends Controller
             'account_name' => $validated['account_name'],
             'account_number' => $validated['account_number'],
             'routing_number' => $validated['routing_number'] ?? null,
-            'is_primary' => (bool) ($validated['is_primary'] ?? false),
+            // The section form does not expose the primary flag, so keep the
+            // existing value (a brand-new account becomes the primary one).
+            'is_primary' => (bool) ($validated['is_primary'] ?? $account?->is_primary ?? true),
         ];
 
         // The database enforces a single primary account per employee.
@@ -739,18 +811,32 @@ class EmployeeController extends Controller
         return $data;
     }
 
-   public function employeeProfile(Request $request)
-{
-    $employee = Employee::with('user')
-        ->where('user_id', $request->user()->id)
-        ->firstOrFail();
+    /**
+     * The signed-in employee's own profile screen.
+     */
+    public function employeeProfile(Request $request)
+    {
+        $employee = Employee::query()
+            ->with([
+                'user',
+                'country',
+                'city',
+                'currentEmployment.branch',
+                'currentEmployment.department',
+                'currentEmployment.team',
+                'currentEmployment.designation',
+                'documents',
+                'primaryBankAccount',
+            ])
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
 
-
-    return view('backend.pages.HR.employees.profile', array_merge(
-        $this->formOptions(),
-        [
-            'employee' => $employee,
-        ]
-    ));
-}
+        return view('backend.pages.HR.employees.profile', array_merge(
+            $this->formOptions(),
+            [
+                'employee' => $employee,
+                'bankAccount' => $employee->primaryBankAccount ?? $employee->bankAccounts()->first(),
+            ]
+        ));
+    }
 }

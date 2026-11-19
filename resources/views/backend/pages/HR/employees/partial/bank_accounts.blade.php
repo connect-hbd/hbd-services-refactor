@@ -32,12 +32,12 @@
             <x-form.input-text name="bank_name" label="Bank Name"
                 value="{{ old('bank_name', $bankAccount?->bank_name ?? '') }}"
                 placeholder="e.g. Dutch-Bangla Bank Ltd"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
 
             <x-form.input-text name="bank_branch" label="Bank Branch"
                 value="{{ old('bank_branch', $bankAccount?->bank_branch ?? '') }}"
                 placeholder="e.g. Gulshan Branch"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
         {{-- Account Name & Account Number --}}
@@ -45,16 +45,16 @@
             <x-form.input-text name="account_name" label="Account Name"
                 value="{{ old('account_name', $bankAccount?->account_name ?? '') }}"
                 placeholder="e.g. John Doe"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
 
             <x-form.input-text name="account_number" label="Account Number" type="text"
                 value="{{ old('account_number', $bankAccount?->account_number ?? '') }}"
                 placeholder="e.g. 1234567890123"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
             <x-form.input-text name="routing_number" label="Routing Number"
                 value="{{ old('routing_number', $bankAccount?->routing_number ?? '') }}"
                 placeholder="e.g. 125261234"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
        

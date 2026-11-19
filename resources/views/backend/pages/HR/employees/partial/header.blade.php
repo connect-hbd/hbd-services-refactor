@@ -2,6 +2,16 @@
 {{-- EMPLOYEE PROFILE + EMPLOYMENT STATUS --}}
 {{-- ========================================================= --}}
 
+@php
+    // Employment status is HR data: only managers may change it.
+    $canManageEmployment = auth()->user()?->canAny([
+        'employee.status.change',
+        'employee.edit',
+        'employee.update',
+        'employee.manage',
+    ]);
+@endphp
+
 <div x-data="{
     statusModalOpen: {{ $errors->hasAny(['employment_status', 'probation_period_months', 'probation_end_date', 'resignation_date', 'last_working_day']) ? 'true' : 'false' }},
 
@@ -83,8 +93,8 @@
                 <div
                     class="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 text-2xl font-bold text-neutral-700 shadow-md ring-4 ring-white dark:bg-neutral-800 dark:text-neutral-200 dark:ring-neutral-900">
 
-                    @if ($employee->avatar ?? false)
-                        <img src="{{ Storage::url($employee->avatar) }}" alt="{{ $employee->first_name }}"
+                    @if ($employee->user?->avatar)
+                        <img src="{{ asset($employee->user->avatar) }}" alt="{{ $employee->first_name }}"
                             class="h-full w-full object-cover">
                     @else
                         {{ strtoupper(substr($employee->first_name, 0, 1) . substr($employee->last_name, 0, 1)) }}
@@ -147,23 +157,26 @@
             </div>
         </div>
 
-        {{-- Employment Status Button --}}
-        <div class="absolute right-4 top-4">
+        {{-- Employment Status Button (managers only) --}}
+        @if ($canManageEmployment)
+            <div class="absolute right-4 top-4">
 
-            <button type="button" @click="statusModalOpen = true"
-                class="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-brand-600 shadow-sm transition duration-200 hover:bg-neutral-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-white/50">
-                <iconify-icon icon="lucide:edit" class="text-base"></iconify-icon>
-                <span>Employment Status</span>
-            </button>
+                <button type="button" @click="statusModalOpen = true"
+                    class="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-brand-600 shadow-sm transition duration-200 hover:bg-neutral-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                    <iconify-icon icon="lucide:edit" class="text-base"></iconify-icon>
+                    <span>Employment Status</span>
+                </button>
 
-        </div>
+            </div>
+        @endif
     </div>
 
 
     {{-- ========================================================= --}}
-    {{-- EMPLOYMENT STATUS MODAL --}}
+    {{-- EMPLOYMENT STATUS MODAL (managers only) --}}
     {{-- ========================================================= --}}
 
+    @if ($canManageEmployment)
     <div x-cloak x-show="statusModalOpen" x-transition:enter="transition-opacity duration-300 ease-out"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
         x-transition:leave="transition-opacity duration-200 ease-in" x-transition:leave-start="opacity-100"
@@ -510,5 +523,6 @@
         </div>
 
     </div>
+    @endif
 
 </div>

@@ -20,7 +20,7 @@ class UpdateEmployeeBankRequest extends EmployeeRequest
             'account_name' => ['required', 'string', 'max:120'],
             'account_number' => ['required', 'string'],
             'routing_number' => ['nullable', 'string', 'max:50'],
-            'is_primary' => ['required', 'boolean'],
+            'is_primary' => ['nullable', 'boolean'],
         ];
     }
 }

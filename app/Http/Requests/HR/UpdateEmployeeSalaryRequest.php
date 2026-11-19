@@ -6,6 +6,14 @@ use Illuminate\Validation\Rule;
 
 class UpdateEmployeeSalaryRequest extends EmployeeRequest
 {
+    /**
+     * Salary is managed by HR, never by the employee themselves.
+     */
+    public function authorize(): bool
+    {
+        return $this->canManageEmployees();
+    }
+
     public function rules(): array
     {
         return [

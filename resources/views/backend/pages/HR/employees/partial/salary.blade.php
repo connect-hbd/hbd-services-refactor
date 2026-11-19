@@ -31,7 +31,7 @@
         <x-form.input-text name="salary_amount" label="Salary Amount" type="number" step="0.01"
             value="{{ old('salary_amount', $currentSalary?->salary_amount) }}"
             placeholder="e.g. 50000.00"
-            ::disabled="!isEditing" />
+            x-bind:disabled="!isEditing" />
 
         {{-- Currency and Salary Type --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -40,7 +40,7 @@
                 'usd' => 'USD - US Dollar',
                 'eur' => 'EUR - Euro',
             ]" :value="old('currency_code', strtolower($currentSalary?->currency_code ?? 'bdt'))"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
 
             <x-form.select-input name="salary_type" label="Salary Type" :options="[
                 'monthly' => 'Monthly',
@@ -48,7 +48,7 @@
                 'weekly' => 'Weekly',
                 'annual' => 'Annual',
             ]" :value="old('salary_type', $currentSalary?->salary_type ?? 'monthly')"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
         {{-- Effective Dates --}}
@@ -57,13 +57,13 @@
                 defaultDate="{{ old('effective_from', $currentSalary?->effective_from?->format('Y-m-d') ?? now()->toDateString()) }}"
                 dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
 
             <x-form.date-picker name="effective_to" label="Effective To (Optional)"
                 defaultDate="{{ old('effective_to', $currentSalary?->effective_to?->format('Y-m-d')) }}"
                 dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
         {{-- Remarks --}}
@@ -71,7 +71,7 @@
             <x-form.textarea-input name="remarks" label="Remarks / Notes"
                 value="{{ old('remarks', $currentSalary?->remarks) }}"
                 placeholder="e.g. Annual increment based on performance review"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
         {{-- Submit Button (Visible only when Editing) --}}

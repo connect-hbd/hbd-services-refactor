@@ -17,7 +17,7 @@
             <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 <div><dt class="text-xs uppercase text-neutral-500">Email</dt><dd class="mt-1">{{ $employee->user?->email ?? 'No account' }}</dd></div>
                 <div><dt class="text-xs uppercase text-neutral-500">Phone</dt><dd class="mt-1">{{ $employee->user?->phone ?? '—' }}</dd></div>
-                <div><dt class="text-xs uppercase text-neutral-500">Designation</dt><dd class="mt-1">{{ $employee->designation?->name ?? '—' }}</dd></div>
+                <div><dt class="text-xs uppercase text-neutral-500">Designation</dt><dd class="mt-1">{{ $employee->currentEmployment?->designation?->name ?? '—' }}</dd></div>
                 <div><dt class="text-xs uppercase text-neutral-500">Date of birth</dt><dd class="mt-1">{{ $employee->date_of_birth?->format('Y-m-d') ?? '—' }}</dd></div>
                 <div><dt class="text-xs uppercase text-neutral-500">Gender</dt><dd class="mt-1">{{ $employee->gender ?? '—' }}</dd></div>
                 <div><dt class="text-xs uppercase text-neutral-500">Country / City</dt><dd class="mt-1">{{ $employee->country?->name ?? '—' }}{{ $employee->city ? ', '.$employee->city->name : '' }}</dd></div>

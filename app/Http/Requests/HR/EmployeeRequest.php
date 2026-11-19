@@ -13,7 +13,16 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 abstract class EmployeeRequest extends FormRequest
 {
+    /**
+     * Managers (holding the employee.* permissions) may edit any employee.
+     * An employee may only edit their own record.
+     */
     public function authorize(): bool
+    {
+        return $this->canManageEmployees() || $this->isSelfService();
+    }
+
+    protected function canManageEmployees(): bool
     {
         return $this->user()?->canAny([
             'employee.edit',
@@ -23,8 +32,22 @@ abstract class EmployeeRequest extends FormRequest
     }
 
     /**
-     * Validation failures must return to this employee's edit screen.
-     * The framework default relies on the Referer header, which browsers
+     * True when the authenticated user owns the employee being edited.
+     */
+    protected function isSelfService(): bool
+    {
+        $user = $this->user();
+
+        if (! $user) {
+            return false;
+        }
+
+        return $this->employee()->user_id === $user->id;
+    }
+
+    /**
+     * Validation failures must return to the screen the form was submitted
+     * from. The framework default relies on the Referer header, which browsers
      * often omit for these PUT requests (sending the errors to "/").
      */
     protected function getRedirectUrl()
@@ -36,10 +59,22 @@ abstract class EmployeeRequest extends FormRequest
             return parent::getRedirectUrl();
         }
 
-        return route('role.employees.edit', [
-            'role' => $this->route('role'),
-            'employee' => $employeeId,
-        ]);
+        return $this->redirectUrlFor($this->route('role'), $employeeId);
+    }
+
+    /**
+     * Managers return to the admin edit screen; employees to their profile.
+     */
+    protected function redirectUrlFor(string $role, int|string $employeeId): string
+    {
+        if ($this->canManageEmployees()) {
+            return route('role.employees.edit', [
+                'role' => $role,
+                'employee' => $employeeId,
+            ]);
+        }
+
+        return route('role.employee.profile', ['role' => $role]);
     }
 
     /**

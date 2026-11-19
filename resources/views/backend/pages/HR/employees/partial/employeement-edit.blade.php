@@ -309,7 +309,7 @@
                 'hybrid' => 'Hybrid',
             ]"
                 value="{{ old('work_type', $employment?->work_type ?? 'onsite') }}"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
 
            
 
@@ -317,7 +317,7 @@
                 defaultDate="{{ old('joining_date', $employment?->joining_date?->format('Y-m-d')) }}"
                 dateFormat="Y-m-d"
                 placeholder="YYYY-MM-DD"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
             <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
                 'monday' => 'Monday',
                 'tuesday' => 'Tuesday',
@@ -327,7 +327,7 @@
                 'saturday' => 'Saturday',
                 'sunday' => 'Sunday',
             ]" :selected="old('weekend_days', $employment?->weekend_days ?? ['saturday'])"
-                ::disabled="!isEditing" />
+                x-bind:disabled="!isEditing" />
         </div>
 
      
