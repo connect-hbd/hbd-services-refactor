@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Counsellor;
 use App\Models\CounsellorBooking;
+use App\Models\Country;
 use App\Models\hrm\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -32,20 +33,47 @@ public function index()
             'experience_years',
             'languages',
             'expertise',
+            'work_destinations',
         ])
-        ->with('user:id,name,email,phone,avatar')
+       ->with([
+        'user:id,name,email,phone,avatar',
+        'currentEmployment:id,employee_id,designation_id,is_current',
+        'currentEmployment.designation:id,name',
+    ])
         ->latest()
         ->paginate(12);
+        // Collect all destination country IDs
+    $countryIds = $counsellors->getCollection()
+        ->pluck('work_destinations')
+        ->flatten()
+        ->filter()
+        ->unique()
+        ->values();
 
-    // return $counsellors;
+    // Get country names
+    $countries = Country::whereIn('id', $countryIds)
+        ->pluck('name', 'id');
 
-    return view('frontend.pages.counsellors.counsellors', compact('counsellors'));
+    // Replace destination IDs with country names
+    $counsellors->getCollection()->transform(function ($counsellor) use ($countries) {
+        $counsellor->work_destinations = collect($counsellor->work_destinations ?? [])
+            ->map(fn ($countryId) => $countries[$countryId] ?? null)
+            ->filter()
+            ->values()
+            ->all();
+
+        return $counsellor;
+    });
+
+    return $counsellors;
+
+    return view('frontend.pages.counsellors.index', compact('counsellors'));
 }
 
      public function show(Counsellor $counsellor)
     {      
         $counsellor->load('user');
-            //    return $counsellor;
+               return $counsellor;
 
         return view('frontend.pages.counsellors.counsellor-details',compact('counsellor'));
     }

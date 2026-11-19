@@ -109,7 +109,7 @@
                         {{ $employee->first_name }} {{ $employee->last_name }}
                     </h1>
 
-                    <div class="mt-1 flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
                             {{ $employee->currentEmployment?->designation?->name ?? 'No Designation' }}

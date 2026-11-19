@@ -156,11 +156,11 @@
 
                             <td class="px-5 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                      <a :href="baseUrl + '/' + row.id"
+                                      {{-- <a :href="baseUrl + '/' + row.id"
                                         title="Employee Profile"
                                         class="flex items-center justify-center rounded-lg p-2 text-neutral-500 transition hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/10">
                                        <iconify-icon icon="lucide:eye" class="text-lg"></iconify-icon>
-                                    </a>
+                                    </a> --}}
                                     <a :href="baseUrl + '/' + row.id + '/edit'"
                                         title="Edit Employee"
                                         class="rounded-lg p-2 text-neutral-500 transition hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/10">
