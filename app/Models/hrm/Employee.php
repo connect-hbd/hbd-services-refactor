@@ -2,6 +2,7 @@
 
 namespace App\Models\hrm;
 
+use App\Models\CounsellorBooking;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,7 +55,13 @@ class Employee extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }   
+    }
+
+    // Counselling sessions booked through the public site
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(CounsellorBooking::class);
+    }
 
     // Employment history
     public function employments(): HasMany

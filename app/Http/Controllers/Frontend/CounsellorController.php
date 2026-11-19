@@ -133,7 +133,7 @@ private function counsellorDetailsData(Employee $employee): array
    /**
      * Store counsellor booking.
      */
-    public function storeBooking(Request $request, Counsellor $counsellor)
+    public function bookingCounsellor(Request $request, Employee $counsellor)
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],

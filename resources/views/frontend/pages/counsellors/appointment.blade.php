@@ -16,7 +16,7 @@
 @endif
 
 <form action="{{ route('booking-session', $counsellor) }}" method="POST" class="space-y-6" x-data="bookingCalendar()"
-    x-init="init()" @submit.prevent="submitForm">
+    @submit.prevent="submitForm">
     @csrf
 
     <input type="hidden" name="appointment_date" :value="selectedDate"> <input type="hidden" name="appointment_time"

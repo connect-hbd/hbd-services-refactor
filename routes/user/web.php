@@ -66,10 +66,7 @@ Route::get('/universities/{slug}', [UniversityController::class, 'show'])->name(
 Route::get('/counsellors', [CounsellorController::class, 'index'])->name('counsellors');
 Route::get('/counsellors/{counsellor}', [CounsellorController::class, 'show'])->name('counsellor.details');
 
-Route::get('/counsellors/{counsellor}/booking', [CounsellorController::class, 'bookingCounsellor'])->name('counsellor.booking');
-
-Route::post('/counsellors/{counsellor}/booking', [CounsellorController::class, 'storeBooking'])
-    ->name('booking-session');
+Route::post('/counsellors/{counsellor}/booking', [CounsellorController::class, 'bookingCounsellor'])->name('booking-session');
 
 // Route::get('/counselling', [CounsellorController::class, 'bookingAppointment'])->name('counselling');
 

@@ -92,10 +92,10 @@ class User extends Authenticatable
         return $this->student()->exists();
     }
 
-//     public function counsellor(): HasOne
-// {
-//     return $this->hasOne(Counsellor::class);
-// }
+    public function counsellor(): HasOne
+    {
+        return $this->hasOne(Employee::class);
+    }
 
 // public static function createCounsellor(array $data): self
 // {

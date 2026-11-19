@@ -108,8 +108,8 @@ class CounsellorBookingController extends Controller
     |--------------------------------------------------------------------------
     | Role 5 / Counsellor access
     |--------------------------------------------------------------------------
-    | counsellor_id = counsellors.id
-    | counsellors.user_id = users.id
+    | counsellor_id = employees.id
+    | employees.user_id = users.id
     */
     if ($user->primary_role_id == 5) {
         if ($booking->counsellor?->user_id != $user->id) {

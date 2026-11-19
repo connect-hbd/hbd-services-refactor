@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\hrm\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,6 +30,6 @@ class CounsellorBooking extends Model
 
     public function counsellor(): BelongsTo
     {
-        return $this->belongsTo(Counsellor::class);
+        return $this->belongsTo(Employee::class);
     }
 }

@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="inline-flex items-center gap-1 hover:text-brand-400 transition">
+                        <a href="{{ route('counsellors') }}" class="inline-flex items-center gap-1 hover:text-brand-400 transition">
                             Meet Our Experts
                             <iconify-icon icon="lucide:arrow-up-right" class="text-sm text-neutral-500"></iconify-icon>
                         </a>
