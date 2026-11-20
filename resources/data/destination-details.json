@@ -290,141 +290,114 @@
     }
   ],
   "universities": [
-    {
-      "id": 1,
-      "name": "University of Hertfordshire",
-      "short_name": "UH",
-      "logo": "/images/destinations/united-kingdom/icon-1.jfif",
-      "city": "London",
-      "ranking": "",
-      "description": "Known for strong industry links and employability-focused courses with excellent graduate outcomes."
-    },
-    {
-      "id": 2,
-      "name": "Coventry University",
-      "short_name": "CU",
-      "logo": "/images/destinations/united-kingdom/icon-2.png",
-      "city": "England",
-      "ranking": "",
-      "description": "Award-winning institution with excellent student satisfaction ratings and modern facilities."
-    },
-    {
-      "id": 3,
-      "name": "University of East London",
-      "short_name": "UEL",
-      "logo": "/images/destinations/united-kingdom/icon-3.png",
-      "city": "London, England",
-      "ranking": "",
-      "description": "Career-focused education in the heart of London with strong industry connections."
-    },
-    {
-      "id": 4,
-      "name": "University of Bedfordshire",
-      "short_name": "UOB",
-      "logo": "/images/destinations/united-kingdom/icon-4.png",
-      "city": "United Kingdom",
-      "ranking": "",
-      "description": "Affordable tuition with strong support services dedicated to international students."
-    },
-    {
-      "id": 5,
-      "name": "Birmingham City University",
-      "short_name": "BCU",
-      "logo": "/images/destinations/united-kingdom/icon-5.jfif",
-      "city": "Birmingham, England",
-      "ranking": "",
-      "description": "Practice-led learning with modern facilities and strong industry connections."
-    },
-    {
-      "id": 6,
-      "name": "University of Portsmouth",
-      "short_name": "UOP",
-      "logo": "/images/destinations/united-kingdom/icon-6.png",
-      "city": "Portsmouth, England",
-      "ranking": "",
-      "description": "Coastal city location with excellent student life and affordable living costs."
-    },
-    {
-      "id": 7,
-      "name": "Middlesex University",
-      "short_name": "MDX",
-      "logo": "/images/destinations/united-kingdom/icon-7.ico",
-      "city": "London, England",
-      "ranking": "",
-      "description": "London-based university with a diverse student community and global outlook."
-    },
-    {
-      "id": 8,
-      "name": "University of Greenwich",
-      "short_name": "UOG",
-      "logo": "/images/destinations/united-kingdom/icon-8.jfif",
-      "city": "London, England",
-      "ranking": "",
-      "description": "Historic campus with strong focus on science, engineering and business programs."
-    },
-    {
-      "id": 9,
-      "name": "Queen Mary University",
-      "short_name": "QMU",
-      "logo": "/images/destinations/united-kingdom/favicon.ico",
-      "city": "Leicester, England",
-      "ranking": "",
-      "description": "Known for career-focused education, industry partnerships, practical learning opportunities, and dedicated student support."
-    },
-    {
-      "id": 10,
-      "name": "Northumbria University",
-      "short_name": "NU",
-      "logo": "/images/destinations/united-kingdom/icon-10.png",
-      "city": "Newcastle, England",
-      "ranking": "",
-      "description": "Newcastle-based with strong reputation for graduate employability and careers."
-    },
-    {
-      "id": 11,
-      "name": "University of Nottingham",
-      "short_name": "UON",
-      "logo": "/images/destinations/united-kingdom/icon-11.jfif",
-      "city": "England",
-      "ranking": "",
-      "description": "Affordable education with strong support services for international students."
-    },
-    {
-      "id": 12,
-      "name": "University of Essex",
-      "short_name": "UOE",
-      "logo": "/images/destinations/united-kingdom/icon-12.png",
-      "city": "Essex, England",
-      "ranking": "",
-      "description": "Top-rated for research excellence and outstanding student experience."
-    },
-    {
-      "id": 13,
-      "name": "Brunel University",
-      "short_name": "Brunel",
-      "logo": "/images/destinations/united-kingdom/brunel.ico",
-      "city": "Uxbridge, London, England",
-      "ranking": "",
-      "description": "Known for industry-focused education, practical learning, modern facilities, and strong connections with employers, helping students develop skills for successful careers."
-    },
-    {
-      "id": 14,
-      "name": "Bangor University",
-      "short_name": "BU",
-      "logo": "/images/destinations/united-kingdom/icon-14.png",
-      "city": "Bangor, Wales",
-      "ranking": "",
-      "description": "Known for world-class research, a supportive student community, and outstanding programs in environmental science, psychology, and business."
-    },
-    {
-      "id": 15,
-      "name": "UWE Bristol",
-      "short_name": "UWE Bristol",
-      "logo": "/images/destinations/united-kingdom/uwe.jfif",
-      "city": "Bristol, England",
-      "ranking": "",
-      "description": "Offers career-focused degrees, strong industry partnerships, modern facilities, and practical learning opportunities designed to prepare students for successful careers."
-    }
+   {
+    "id": 1,
+    "name": "University of Bradford",
+    "short_name": "Bradford",
+    "logo": "/images/destinations/united-kingdom/uk-1.png",
+    "city": "Bradford, England",
+    "ranking": "QS 2027: #497",
+    "description": "A public university in Bradford known for career-focused education and strengths in engineering, pharmacy, health sciences, computing, business and criminology."
+  },
+  {
+    "id": 2,
+    "name": "Bangor University",
+    "short_name": "Bangor",
+    "logo": "/images/destinations/united-kingdom/uk-2.png",
+    "city": "Bangor, Wales",
+    "ranking": "Public University in Wales",
+    "description": "A public university in North Wales offering programs in business, banking and finance, ocean sciences, psychology, computer science, environmental science and health."
+  },
+  {
+    "id": 3,
+    "name": "University of Greenwich",
+    "short_name": "Greenwich",
+    "logo": "/images/destinations/united-kingdom/uk-3.png",
+    "city": "London & Medway, England",
+    "ranking": "QS 2027: #791-800",
+    "description": "A public university with campuses in London and Kent offering undergraduate and postgraduate degrees in business, computing, engineering, architecture and health."
+  },
+  {
+    "id": 4,
+    "name": "University of the West of England (UWE Bristol)",
+    "short_name": "UWE Bristol",
+    "logo": "/images/destinations/united-kingdom/uk-4.png",
+    "city": "Bristol, England",
+    "ranking": "Public University in Bristol",
+    "description": "A modern public university in Bristol known for industry links and practical degrees in engineering, computer science, business, design, nursing and health."
+  },
+  {
+    "id": 5,
+    "name": "University of Hull",
+    "short_name": "Hull",
+    "logo": "/images/destinations/united-kingdom/uk-5.png",
+    "city": "Kingston upon Hull, England",
+    "ranking": "Public University in England",
+    "description": "A public research university in Hull offering programs in business, engineering, computer science, renewable energy, biomedical science, law and nursing."
+  },
+  {
+    "id": 6,
+    "name": "Brunel University of London",
+    "short_name": "Brunel",
+    "logo": "/images/destinations/united-kingdom/uk-6.png",
+    "city": "Uxbridge, London",
+    "ranking": "QS 2027: #353",
+    "description": "A campus-based public university in West London recognized for placement opportunities and strengths in engineering, design, computer science, business and health."
+  },
+  {
+    "id": 7,
+    "name": "Middlesex University",
+    "short_name": "Middlesex",
+    "logo": "/images/destinations/united-kingdom/uk-7.png",
+    "city": "Hendon, London",
+    "ranking": "QS 2027: #901-950",
+    "description": "A London public university offering practice-led degrees across business, computing and data science, psychology, nursing, media, design and law."
+  },
+  {
+    "id": 8,
+    "name": "The University of Manchester",
+    "short_name": "Manchester",
+    "logo": "/images/destinations/united-kingdom/uk-8.png",
+    "city": "Manchester, England",
+    "ranking": "QS 2027: #40",
+    "description": "A major Russell Group public research university in Manchester with top programs in engineering, computer science, business, medicine, science and humanities."
+  },
+  {
+    "id": 9,
+    "name": "University of Birmingham",
+    "short_name": "Birmingham",
+    "logo": "/images/destinations/united-kingdom/uk-9.png",
+    "city": "Birmingham, England",
+    "ranking": "Public Research University in England",
+    "description": "A Russell Group public research university in Birmingham offering strong degrees in business, engineering, computer science, medicine, law, science and arts."
+  },
+  {
+    "id": 10,
+    "name": "Queen Mary University of London",
+    "short_name": "QMUL",
+    "logo": "/images/destinations/united-kingdom/uk-10.png",
+    "city": "London, England",
+    "ranking": "QS 2027: #103",
+    "description": "A Russell Group public research university in London known for medicine, dentistry, law, economics, computer science, engineering and international business."
+  },
+  {
+    "id": 11,
+    "name": "Anglia Ruskin University",
+    "short_name": "ARU",
+    "logo": "/images/destinations/united-kingdom/uk-11.png",
+    "city": "Cambridge, Chelmsford & Peterborough",
+    "ranking": "QS 2027: #1001-1200",
+    "description": "A public university in East England with campuses in Cambridge, Chelmsford and Peterborough, offering degrees in business, health, nursing, computing and arts."
+  },
+  {
+    "id": 12,
+    "name": "University of Chester",
+    "short_name": "Chester",
+    "logo": "/images/destinations/united-kingdom/uk-12.png",
+    "city": "Chester, England",
+    "ranking": "Public University in England",
+    "description": "A historic public university in Chester offering teaching-focused programs in business, computing, health and social care, education, psychology and media."
+  }
   ],
   "requirements": [
     {
@@ -1080,114 +1053,159 @@
     }
   ],
   "universities": [
+  {
+    "id": 1,
+    "name": "Macquarie University",
+    "short_name": "MQ",
+    "logo": "/images/destinations/australia/au-macquarie-university.png",
+    "city": "Sydney, New South Wales",
+    "ranking": "QS 2027: #126",
+    "description": "A Sydney public university known for its modern campus and business connections, offering IT, computer science, business, accounting, finance, data science, engineering and health."
+  },
+  {
+    "id": 2,
+    "name": "Western Sydney University",
+    "short_name": "WSU",
+    "logo": "/images/destinations/australia/au-ws.png",
+    "city": "Greater Western Sydney, New South Wales",
+    "ranking": "QS 2027: #384",
+    "description": "A multi-campus public university in Greater Western Sydney offering practical, career-focused programs in business, engineering, IT, nursing, health sciences and social sciences."
+  },
+  {
+    "id": 3,
+    "name": "University of Wollongong",
+    "short_name": "UOW",
+    "logo": "/images/destinations/australia/au-uwa.png",
+    "city": "Wollongong, New South Wales",
+    "ranking": "QS 2027: #184",
+    "description": "A public research university south of Sydney known for computer science, cybersecurity, engineering, business, information technology, data science and health sciences."
+  },
+  {
+    "id": 4,
+    "name": "The University of Newcastle",
+    "short_name": "UON",
+    "logo": "/images/destinations/australia/au-uon.png",
+    "city": "Newcastle, New South Wales",
+    "ranking": "QS 2027: #227",
+    "description": "A public university in Newcastle known for research and global outlook, offering programs in engineering, IT, computer science, business, architecture, medicine and health."
+  },
+  {
+    "id": 5,
+    "name": "TAFE NSW International",
+    "short_name": "TAFE NSW",
+    "logo": "/images/destinations/australia/au-tafe.png",
+    "city": "Sydney & New South Wales",
+    "ranking": "Government VET Provider (CRICOS 00591E)",
+    "description": "New South Wales's public vocational education provider offering hands-on diplomas, certificates and English pathways in business, IT, hospitality, trades and design."
+  },
+  {
+    "id": 6,
+    "name": "University of New England",
+    "short_name": "UNE",
+    "logo": "/images/destinations/australia/au-lne.png",
+    "city": "Armidale, New South Wales",
+    "ranking": "QS 2027: #951-1000",
+    "description": "A regional public university in Armidale, New South Wales, offering programs in business, data science, IT, agriculture, environmental studies, education and health."
+  },
+  {
+    "id": 7,
+    "name": "Victoria University",
+    "short_name": "VU",
+    "logo": "/images/destinations/australia/au-vu.png",
+    "city": "Melbourne, Victoria",
+    "ranking": "QS 2027: #661-670",
+    "description": "A public university in Melbourne offering career-focused degrees across business, IT, engineering, sport science, health, hospitality and education."
+  },
+  {
+    "id": 8,
+    "name": "Southern Cross University",
+    "short_name": "SCU",
+    "logo": "/images/destinations/australia/au-scu.png",
+    "city": "Lismore & Gold Coast, NSW / QLD",
+    "ranking": "QS 2027: #631-640",
+    "description": "A regional public university with campuses across northern NSW and the Gold Coast, known for environmental science, marine ecology, business, IT and health."
+  },
+  {
+    "id": 9,
+    "name": "The University of Notre Dame Australia",
+    "short_name": "UNDA",
+    "logo": "/images/destinations/australia/au-unda.png",
+    "city": "Fremantle & Sydney, WA / NSW",
+    "ranking": "Unranked in QS World Rankings",
+    "description": "A private national university with campuses in Western Australia and New South Wales, offering programs in medicine, nursing, health sciences, law, business and education."
+  },
+  {
+    "id": 10,
+    "name": "Universal Higher Education",
+    "short_name": "UHE",
+    "logo": "/images/destinations/australia/au-uhe.png",
+    "city": "Sydney, New South Wales",
+    "ranking": "Higher Education Provider (TEQSA)",
+    "description": "An Australian higher education provider in Sydney offering undergraduate and postgraduate degrees in business, accounting, information technology and leadership."
+  },
+  {
+    "id": 11,
+    "name": "CQUniversity Australia",
+    "short_name": "CQU",
+    "logo": "/images/destinations/australia/au-cqu.png",
+    "city": "Rockhampton & Multi-Campus, QLD",
+    "ranking": "QS 2027: #537",
+    "description": "One of Australia's most connected public universities with campuses across regional and metropolitan hubs, offering IT, engineering, business, health and trades."
+  },
+  {
+    "id": 12,
+    "name": "University of the Sunshine Coast",
+    "short_name": "UniSC",
+    "logo": "/images/destinations/australia/au-unisc.png",
+    "city": "Sippy Downs, Queensland",
+    "ranking": "QS 2027: #721-730",
+    "description": "A public university on Queensland's Sunshine Coast offering programs in environmental science, business, IT, nursing, health sciences, design and education."
+  },
     {
-      "id": 1,
-      "name": "The University of Melbourne",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-1.png",
-      "city": "Melbourne, Victoria",
-      "ranking": "QS World Ranking 2027: #22",
-      "description": "Founded in 1853, Melbourne is internationally recognised for teaching quality, research and graduate reputation. It offers programs in business, IT, engineering, medicine, law, education and social sciences."
-    },
-    {
-      "id": 2,
-      "name": "The University of Sydney",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-2.png",
-      "city": "Sydney, New South Wales",
-      "ranking": "QS World Ranking 2027: #28",
-      "description": "Australia's first university, founded in 1850, known for business, engineering, IT, health sciences, architecture and law."
-    },
-    {
-      "id": 3,
-      "name": "The University of New South Wales (UNSW Sydney)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-3.png",
-      "city": "Sydney, New South Wales",
-      "ranking": "QS World Ranking 2027: #19",
-      "description": "Known for technology, engineering, business and research, with strengths in computer science, cybersecurity, AI, data science, engineering and finance."
-    },
-    {
-      "id": 4,
-      "name": "The Australian National University (ANU)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-4.png",
-      "city": "Canberra, ACT",
-      "ranking": "QS World Ranking 2027: #29",
-      "description": "Known for research and its international outlook, with programs in computing, IT, engineering, business, economics, science, international relations and public policy."
-    },
-    {
-      "id": 5,
-      "name": "Monash University",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-5.png",
-      "city": "Melbourne, Victoria",
-      "ranking": "QS World Ranking 2027: #31",
-      "description": "A research-intensive university with programs in business, IT, engineering, pharmacy, medicine, education and science, alongside industry engagement and global partnerships."
-    },
-    {
-      "id": 6,
-      "name": "The University of Queensland (UQ)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-6.png",
-      "city": "Brisbane, Queensland",
-      "ranking": "QS World Ranking 2027: #40",
-      "description": "Established in 1909, UQ offers programs in business, engineering, computer science, IT, biotechnology, health sciences and environmental studies."
-    },
-    {
-      "id": 7,
-      "name": "The University of Western Australia (UWA)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-7.png",
-      "city": "Perth, Western Australia",
-      "ranking": "QS World Ranking 2027: #77",
-      "description": "A well-established public research university known for academic quality across engineering, computer science, IT, business, finance, environmental science, agriculture and health sciences."
-    },
-    {
-      "id": 8,
-      "name": "Adelaide University",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-8.png",
-      "city": "Adelaide, South Australia",
-      "ranking": "QS World Ranking 2027: #79",
-      "description": "The source describes Adelaide University as formed in 2026 by merging the University of Adelaide and the University of South Australia, with programs across business, computing, engineering, health, education and creative industries."
-    },
-    {
-      "id": 9,
-      "name": "University of Technology Sydney (UTS)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-9.png",
-      "city": "Sydney, New South Wales",
-      "ranking": "QS World Ranking 2027: #87",
-      "description": "Known for practical education and industry connections, with programs in IT, computer science, cybersecurity, data science, engineering, business and communication."
-    },
-    {
-      "id": 10,
-      "name": "RMIT University",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-10.png",
-      "city": "Melbourne, Victoria",
-      "ranking": "QS World Ranking 2027: #119",
-      "description": "Known for technology, engineering, business, design and professional education, combining academic knowledge with practical skills, hands-on learning and industry projects."
-    },
-    {
-      "id": 11,
-      "name": "Macquarie University",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-11.png",
-      "city": "Sydney, New South Wales",
-      "ranking": "QS World Ranking 2027: #126",
-      "description": "A Sydney public university known for its modern campus and business connections, offering IT, computer science, business, accounting, finance, data science, engineering, education and health sciences."
-    },
-    {
-      "id": 12,
-      "name": "University of Wollongong (UOW)",
-      "short_name": "",
-      "logo": "/images/destinations/australia/icon-12.png",
-      "city": "Wollongong, New South Wales",
-      "ranking": "QS World Ranking 2027: #195",
-      "description": "An established public university with teaching, research and industry engagement, offering computer science, IT, engineering, business, nursing and health sciences."
-    }
+    "id": 13,
+    "name": "Charles Sturt University",
+    "short_name": "CSU",
+    "logo": "/images/destinations/australia/au-csu.png",
+    "city": "Bathurst & Multi-Campus, NSW",
+    "ranking": "QS 2027: #951-1000",
+    "description": "An Australian public university with campuses across regional NSW and metropolitan hubs, offering programs in business, IT, nursing, health, agriculture and education."
+  },
+  {
+    "id": 14,
+    "name": "Edith Cowan College",
+    "short_name": "ECC",
+    "logo": "/images/destinations/australia/au-ecc.png",
+    "city": "Perth, Western Australia",
+    "ranking": "Pathway to ECU (QS 2027: #545)",
+    "description": "A pathway college on Edith Cowan University's campuses offering diplomas and foundation programs leading into degrees in business, IT, engineering, health and media."
+  },
+  {
+    "id": 15,
+    "name": "La Trobe College Australia",
+    "short_name": "LTCA",
+    "logo": "/images/destinations/australia/au-ltca.png",
+    "city": "Melbourne & Sydney, VIC / NSW",
+    "ranking": "Pathway to La Trobe (QS 2027: #241)",
+    "description": "A pathway institution offering foundation, diploma and English programs with direct progression into La Trobe University degrees in business, IT, health and science."
+  },
+  {
+    "id": 16,
+    "name": "Education Centre of Australia",
+    "short_name": "ECA",
+    "logo": "/images/destinations/australia/au-eca.png",
+    "city": "Sydney, Melbourne & Brisbane",
+    "ranking": "Higher Education & VET Provider",
+    "description": "An Australian education group offering undergraduate, postgraduate and vocational programs in business, accounting, information technology, analytics and management."
+  },
+  {
+    "id": 17,
+    "name": "Navitas",
+    "short_name": "Navitas",
+    "logo": "/images/destinations/australia/au-navitas.png",
+    "city": "Sydney, Melbourne, Perth & Brisbane",
+    "ranking": "Global Education & Pathway Provider",
+    "description": "A global education provider operating university pathway colleges and English programs across Australia, supporting entry into business, IT, engineering and health degrees."
+  }
   ],
   "requirements": [
     {
@@ -2062,77 +2080,113 @@
   ],
   "universities": [
     {
-      "id": 1,
-      "name": "University of Auckland",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-1.png",
-      "city": "Auckland",
-      "ranking": "QS 2027: #67",
-      "description": "New Zealand's #1 research university, with 8 faculties and more than 70,000 students. Key subject areas include Business, Engineering, Medicine, Law, and Arts."
-    },
-    {
-      "id": 2,
-      "name": "University of Otago",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-2.png",
-      "city": "Dunedin",
-      "ranking": "QS 2027: #198",
-      "description": "New Zealand's oldest university, established in 1869, with leading medical, dental, and pharmacy schools. Key subject areas include Medicine, Dentistry, Pharmacy, and Public Health."
-    },
-    {
-      "id": 3,
-      "name": "University of Waikato",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-3.png",
-      "city": "Hamilton",
-      "ranking": "QS 2027: #293",
-      "description": "Known for applied research in agri-tech, management, and computer science. Key subject areas include Management, Computer Science, and Environmental Science."
-    },
-    {
-      "id": 4,
-      "name": "Massey University",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-4.png",
-      "city": "Palmerston North / Auckland / Wellington",
-      "ranking": "QS 2027: #215",
-      "description": "Operates three campuses and is noted in the supplied content for veterinary science, aviation, food technology, and design."
-    },
-    {
-      "id": 5,
-      "name": "Victoria University of Wellington",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-5.png",
-      "city": "Wellington",
-      "ranking": "QS 2027: #241",
-      "description": "Located in the capital and known for law, policy, and government relations. Key subject areas include Law, Public Policy, Architecture, and International Relations."
-    },
-    {
-      "id": 6,
-      "name": "University of Canterbury",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-6.png",
-      "city": "Christchurch",
-      "ranking": "QS 2027: #257",
-      "description": "Highlighted as New Zealand's leading engineering university, with a modernised campus. Key subject areas include Engineering, IT and Computer Science, Science, and Education."
-    },
-    {
-      "id": 7,
-      "name": "Lincoln University",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-7.png",
-      "city": "Lincoln (near Christchurch)",
-      "ranking": "QS 2027: #419",
-      "description": "A land-based research university. Key subject areas include Agriculture, Agribusiness, Environmental Science, and Forestry."
-    },
-    {
-      "id": 8,
-      "name": "Auckland University of Technology (AUT)",
-      "short_name": "",
-      "logo": "/images/destinations/new-zealand/icon-8.png",
-      "city": "Auckland",
-      "ranking": "QS 2027: #431",
-      "description": "Known for applied, work-ready programmes and graduate employment. Key subject areas include Hospitality, Sport Science, Journalism, Health, and IT."
-    }
+    "id": 1,
+    "name": "The University of Auckland",
+    "short_name": "UoA",
+    "logo": "/images/destinations/new-zealand/nz-uoa.png",
+    "city": "Auckland, New Zealand",
+    "ranking": "QS 2027: #65",
+    "description": "New Zealand's highest-ranked public research university in Auckland, offering programs in business, engineering, computer science, medicine, health, arts and science."
+  },
+  {
+    "id": 2,
+    "name": "University of Otago",
+    "short_name": "Otago",
+    "logo": "/images/destinations/new-zealand/nz-otago.png",
+    "city": "Dunedin, New Zealand",
+    "ranking": "QS 2027: #214",
+    "description": "New Zealand's oldest university based in Dunedin, known for health sciences, medicine, dentistry, business, sciences, law and humanities."
+  },
+  {
+    "id": 3,
+    "name": "Victoria University of Wellington",
+    "short_name": "VUW",
+    "logo": "/images/destinations/new-zealand/nz-vuw.png",
+    "city": "Wellington, New Zealand",
+    "ranking": "QS 2027: #241",
+    "description": "A public university in New Zealand's capital city, known for public policy, law, business, computer science, design, architecture and humanities."
+  },
+  {
+    "id": 4,
+    "name": "University of Canterbury",
+    "short_name": "UC",
+    "logo": "/images/destinations/new-zealand/nz-uc.png",
+    "city": "Christchurch, New Zealand",
+    "ranking": "QS 2027: #261",
+    "description": "A research-focused public university in Christchurch offering strong programs in engineering, computer science, business, data science, commerce and science."
+  },
+  {
+    "id": 5,
+    "name": "Massey University",
+    "short_name": "Massey",
+    "logo": "/images/destinations/new-zealand/nz-massey.png",
+    "city": "Palmerston North, Auckland & Wellington",
+    "ranking": "QS 2027: #239",
+    "description": "A multi-campus New Zealand public university known for aviation, agriculture, veterinary science, business, design, engineering and health programs."
+  },
+  {
+    "id": 6,
+    "name": "The University of Waikato",
+    "short_name": "Waikato",
+    "logo": "/images/destinations/new-zealand/nz-waikato.png",
+    "city": "Hamilton & Tauranga, New Zealand",
+    "ranking": "QS 2027: #235",
+    "description": "A public university with campuses in Hamilton and Tauranga, offering programs in computer science, business, engineering, environmental science and social sciences."
+  },
+  {
+    "id": 7,
+    "name": "Lincoln University",
+    "short_name": "Lincoln",
+    "logo": "/images/destinations/new-zealand/nz-lincoln.png",
+    "city": "Lincoln, Canterbury",
+    "ranking": "QS 2027: #362",
+    "description": "A specialist land-based public university near Christchurch, focused on agribusiness, agriculture, food science, environmental management, viticulture and commerce."
+  },
+  {
+    "id": 8,
+    "name": "Otago Polytechnic",
+    "short_name": "OP",
+    "logo": "/images/destinations/new-zealand/nz-op.png",
+    "city": "Dunedin & Auckland, New Zealand",
+    "ranking": "NZ Institute of Technology / Polytechnic",
+    "description": "A practical vocational and applied degree provider offering hands-on programs in IT, engineering, design, nursing, business, hospitality and trades."
+  },
+  {
+    "id": 9,
+    "name": "Auckland University of Technology",
+    "short_name": "AUT",
+    "logo": "/images/destinations/new-zealand/nz-aut.png",
+    "city": "Auckland, New Zealand",
+    "ranking": "QS 2027: #407",
+    "description": "A modern public university in Auckland emphasizing industry-connected learning across IT, computer science, business, engineering, design and health sciences."
+  },
+  {
+    "id": 10,
+    "name": "Eastern Institute of Technology",
+    "short_name": "EIT",
+    "logo": "/images/destinations/new-zealand/nz-eit.png",
+    "city": "Napier, Hawkes Bay & Auckland",
+    "ranking": "NZ Institute of Technology / Polytechnic",
+    "description": "A vocational and degree-granting institution offering practical courses in computing, business, nursing, viticulture, trades and applied management."
+  },
+  {
+    "id": 11,
+    "name": "Unitec Institute of Technology",
+    "short_name": "Unitec",
+    "logo": "/images/destinations/new-zealand/nz-unitec.png",
+    "city": "Auckland, New Zealand",
+    "ranking": "NZ Institute of Technology / Polytechnic",
+    "description": "An applied institute of technology in Auckland offering hands-on programs in computing, IT, engineering, business, construction, nursing, architecture and trades."
+  },
+  {
+    "id": 12,
+    "name": "Yoobee College of Creative Innovation",
+    "short_name": "Yoobee",
+    "logo": "/images/destinations/new-zealand/nz-yoobee.png",
+    "city": "Auckland, Wellington & Christchurch",
+    "ranking": "NZQA Private Training Establishment (PTE)",
+    "description": "A specialist creative and digital college in New Zealand offering certificates, diplomas and degrees in animation, design, film, software engineering and tech."
+  }
   ],
   "requirements": [
     {
@@ -2799,77 +2853,59 @@
   ],
   "universities": [
     {
-      "id": 1,
-      "name": "Universiti Malaya (UM)",
-      "short_name": "UM",
-      "logo": "/images/destinations/malaysia/um.png",
-      "city": "Kuala Lumpur",
-      "ranking": "QS 2027: #56",
-      "description": "Malaysia's leading research university, recognised for medicine, engineering, business, computer science, science and social sciences."
-    },
-    {
-      "id": 2,
-      "name": "Universiti Sains Malaysia (USM)",
-      "short_name": "USM",
-      "logo": "/images/destinations/malaysia/usm.png",
-      "city": "Gelugor, Penang",
-      "ranking": "QS 2027: #128",
-      "description": "A research-focused university offering programmes across science, engineering, healthcare, technology, management and the humanities."
-    },
-    {
-      "id": 3,
-      "name": "Universiti Kebangsaan Malaysia (UKM)",
-      "short_name": "UKM",
-      "logo": "/images/destinations/malaysia/ukm.png",
-      "city": "Bangi, Selangor",
-      "ranking": "QS 2027: #130",
-      "description": "A national research university with programmes in medicine, engineering, business, education, science and social sciences."
-    },
-    {
-      "id": 4,
-      "name": "Universiti Putra Malaysia (UPM)",
-      "short_name": "UPM",
-      "logo": "/images/destinations/malaysia/upm.png",
-      "city": "Serdang, Selangor",
-      "ranking": "QS 2027: #138",
-      "description": "Known for agriculture, veterinary science, biotechnology, engineering, business, food science and related research fields."
-    },
-    {
-      "id": 5,
-      "name": "Universiti Teknologi Malaysia (UTM)",
-      "short_name": "UTM",
-      "logo": "/images/destinations/malaysia/utm.png",
-      "city": "Johor Bahru, Johor",
-      "ranking": "QS 2027: #158",
-      "description": "A technology-focused university offering programmes in engineering, computing, architecture, built environment and applied sciences."
-    },
-    {
-      "id": 6,
-      "name": "Universiti Teknologi PETRONAS (UTP)",
-      "short_name": "UTP",
-      "logo": "/images/destinations/malaysia/utp.png",
-      "city": "Seri Iskandar, Perak",
-      "ranking": "QS 2027: #261",
-      "description": "Offers programmes in engineering, energy, petroleum, computing, business and technology, with a strong focus on industry and research."
-    },
-    {
-      "id": 7,
-      "name": "Taylor's University",
-      "short_name": "TAYLOR'S",
-      "logo": "/images/destinations/malaysia/tu.png",
-      "city": "Subang Jaya, Selangor",
-      "ranking": "QS 2027: #272",
-      "description": "Known for hospitality and tourism, business, design, engineering, computing and programmes with international academic links."
-    },
-    {
-      "id": 8,
-      "name": "UCSI University",
-      "short_name": "UCSI",
-      "logo": "/images/destinations/malaysia/uu.png",
-      "city": "Kuala Lumpur",
-      "ranking": "QS 2027: #282",
-      "description": "Offers programmes in business, engineering, medicine, pharmacy, music, hospitality, applied sciences and technology."
-    }
+    "id": 1,
+    "name": "UOW Malaysia",
+    "short_name": "UOW Malaysia",
+    "logo": "/images/destinations/malaysia/mal-1.png",
+    "city": "Shah Alam & Penang, Malaysia",
+    "ranking": "Part of UOW Global Network",
+    "description": "Part of the University of Wollongong Australia global network in Malaysia, offering degrees in computing, business, engineering, communication and hospitality."
+  },
+  {
+    "id": 2,
+    "name": "Universiti Tun Abdul Razak",
+    "short_name": "UNIRAZAK",
+    "logo": "/images/destinations/malaysia/mal-2.png",
+    "city": "Kuala Lumpur, Malaysia",
+    "ranking": "Private University in Malaysia",
+    "description": "A private university in Kuala Lumpur focused on business, finance, accounting, economics, leadership, public policy and information technology."
+  },
+  {
+    "id": 3,
+    "name": "University of Cyberjaya",
+    "short_name": "UoC",
+    "logo": "/images/destinations/malaysia/mal-3.png",
+    "city": "Cyberjaya, Selangor",
+    "ranking": "Private University in Malaysia",
+    "description": "A private university in Cyberjaya known for health sciences, medicine, pharmacy, biomedical science, business and information technology programs."
+  },
+  {
+    "id": 4,
+    "name": "MAHSA University",
+    "short_name": "MAHSA",
+    "logo": "/images/destinations/malaysia/mal-4.png",
+    "city": "Bandar Saujana Putra, Selangor",
+    "ranking": "Private University in Malaysia",
+    "description": "A private university in Malaysia specializing in medicine, dentistry, pharmacy, nursing, allied health, business, engineering and computing."
+  },
+  {
+    "id": 5,
+    "name": "INTI International University & Colleges",
+    "short_name": "INTI",
+    "logo": "/images/destinations/malaysia/mal-5.png",
+    "city": "Nilai, Subang & Penang, Malaysia",
+    "ranking": "Private University & College Network",
+    "description": "A multi-campus Malaysian higher education provider offering foundation, diploma and degree programs in business, computing, engineering, mass comm and health."
+  },
+  {
+    "id": 6,
+    "name": "LSBF Malaysia",
+    "short_name": "LSBF",
+    "logo": "/images/destinations/malaysia/mal-6.webp",
+    "city": "Kuala Lumpur, Malaysia",
+    "ranking": "Higher Education College in Malaysia",
+    "description": "A business and finance-focused college in Kuala Lumpur offering career-oriented programs in business management, accounting, finance and hospitality."
+  }
     
   ],
   "requirements": [
@@ -4753,113 +4789,113 @@
   ],
   "universities": [
     {
-      "id": 1,
-      "name": "University of Toronto",
-      "short_name": "U of T",
-      "logo": "/images/destinations/canada/icon-1.png",
-      "city": "Toronto, Ontario",
-      "ranking": "Top Canadian research university",
-      "description": "A major research-intensive university with a broad range of programmes across arts, sciences, engineering, business and health."
-    },
-    {
-      "id": 2,
-      "name": "University of British Columbia",
-      "short_name": "UBC",
-      "logo": "/images/destinations/canada/icon-2.png",
-      "city": "Vancouver and Kelowna, British Columbia",
-      "ranking": "Leading Canadian research university",
-      "description": "Known for research, sustainability, global engagement and programmes across science, engineering, business and the humanities."
-    },
-    {
-      "id": 3,
-      "name": "McGill University",
-      "short_name": "McGill",
-      "logo": "/images/destinations/canada/icon-3.png",
-      "city": "Montreal, Quebec",
-      "ranking": "Leading Canadian research university",
-      "description": "An internationally recognised university offering a wide range of undergraduate, graduate and professional programmes."
-    },
-    {
-      "id": 4,
-      "name": "University of Alberta",
-      "short_name": "UAlberta",
-      "logo": "/images/destinations/canada/icon-4.png",
-      "city": "Edmonton, Alberta",
-      "ranking": "Research-intensive public university",
-      "description": "Offers established programmes in engineering, energy, health sciences, business, agriculture and research."
-    },
-    {
-      "id": 5,
-      "name": "University of Waterloo",
-      "short_name": "Waterloo",
-      "logo": "/images/destinations/canada/icon-5.png",
-      "city": "Waterloo, Ontario",
-      "ranking": "Known for co-op and innovation",
-      "description": "Recognised for co-operative education, technology, engineering, mathematics, entrepreneurship and research."
-    },
-    {
-      "id": 6,
-      "name": "McMaster University",
-      "short_name": "McMaster",
-      "logo": "/images/destinations/canada/icon-6.png",
-      "city": "Hamilton, Ontario",
-      "ranking": "Research-intensive public university",
-      "description": "Offers research-led education in health sciences, engineering, business, science and social sciences."
-    },
-    {
-      "id": 7,
-      "name": "University of Ottawa",
-      "short_name": "uOttawa",
-      "logo": "/images/destinations/canada/icon-7.png",
-      "city": "Ottawa, Ontario",
-      "ranking": "Bilingual research university",
-      "description": "A bilingual university with strengths in public affairs, law, health, engineering, social sciences and research."
-    },
-    {
-      "id": 8,
-      "name": "University of Calgary",
-      "short_name": "UCalgary",
-      "logo": "/images/destinations/canada/icon-8.png",
-      "city": "Calgary, Alberta",
-      "ranking": "Research-intensive public university",
-      "description": "Offers programmes and research in engineering, energy, business, health, science and environmental studies."
-    },
-    {
-      "id": 9,
-      "name": "Western University",
-      "short_name": "Western",
-      "logo": "/images/destinations/canada/icon-9.png",
-      "city": "London, Ontario",
-      "ranking": "Established public research university",
-      "description": "Provides a broad academic portfolio, including business, health sciences, engineering, science and social sciences."
-    },
-    {
-      "id": 10,
-      "name": "Simon Fraser University",
-      "short_name": "SFU",
-      "logo": "/images/destinations/canada/icon-10.png",
-      "city": "Burnaby, British Columbia",
-      "ranking": "Research university with industry links",
-      "description": "Known for interdisciplinary study, computing, business, communication, environmental research and community engagement."
-    },
-    {
-      "id": 11,
-      "name": "York University",
-      "short_name": "York",
-      "logo": "/images/destinations/canada/icon-11.png",
-      "city": "Toronto, Ontario",
-      "ranking": "Large public research university",
-      "description": "Offers programmes across business, law, arts, science, engineering, education and other professional fields."
-    },
-    {
-      "id": 12,
-      "name": "Concordia University",
-      "short_name": "Concordia",
-      "logo": "/images/destinations/canada/icon-12.png",
-      "city": "Montreal, Quebec",
-      "ranking": "Comprehensive public university",
-      "description": "Offers a wide range of programmes, with strengths in business, engineering, fine arts, computer science and research."
-    }
+    "id": 1,
+    "name": "University of Saskatchewan",
+    "short_name": "USask",
+    "logo": "/images/destinations/canada/ca-1.png",
+    "city": "Saskatoon, Saskatchewan",
+    "ranking": "QS 2027: #411",
+    "description": "A public research university in Saskatoon known for agriculture, food security, veterinary medicine, engineering, computer science, business and health sciences."
+  },
+  {
+    "id": 2,
+    "name": "Lakehead University",
+    "short_name": "Lakehead",
+    "logo": "/images/destinations/canada/ca-2.png",
+    "city": "Thunder Bay & Orillia, Ontario",
+    "ranking": "Public University in Ontario",
+    "description": "A teaching- and research-focused public university in Ontario offering programs in engineering, computer science, business, nursing, forestry and education."
+  },
+  {
+    "id": 3,
+    "name": "Algoma University",
+    "short_name": "AlgomaU",
+    "logo": "/images/destinations/canada/ca-3.png",
+    "city": "Sault Ste. Marie & Brampton, Ontario",
+    "ranking": "Public University in Ontario",
+    "description": "A public undergraduate-focused university in Ontario offering programs in computer science, business administration, accounting, finance, psychology and biology."
+  },
+  {
+    "id": 4,
+    "name": "University of Windsor",
+    "short_name": "UWindsor",
+    "logo": "/images/destinations/canada/ca-4.png",
+    "city": "Windsor, Ontario",
+    "ranking": "QS 2027: #537",
+    "description": "A public university in Windsor, Ontario, known for automotive and mechanical engineering, computer science, business, law, nursing and environmental studies."
+  },
+  {
+    "id": 5,
+    "name": "Trent University",
+    "short_name": "Trent",
+    "logo": "/images/destinations/canada/ca-5.png",
+    "city": "Peterborough & Durham, Ontario",
+    "ranking": "Public University in Ontario",
+    "description": "A public university in Ontario recognized for small class sizes and strengths in environmental science, computing, business, nursing, forensic science and humanities."
+  },
+  {
+    "id": 6,
+    "name": "Toronto Metropolitan University",
+    "short_name": "TMU",
+    "logo": "/images/destinations/canada/ca-6.png",
+    "city": "Toronto, Ontario",
+    "ranking": "QS 2027: #669",
+    "description": "A career-focused public university in downtown Toronto offering programs in business, engineering, computer science, media, architecture, design and health."
+  },
+  {
+    "id": 7,
+    "name": "Laurentian University",
+    "short_name": "Laurentian",
+    "logo": "/images/destinations/canada/ca-7.png",
+    "city": "Sudbury, Ontario",
+    "ranking": "Public University in Ontario",
+    "description": "A bilingual public university in Sudbury, Ontario, offering degrees in mining and engineering, computer science, business, health sciences, science and arts."
+  },
+  {
+    "id": 8,
+    "name": "University of Regina",
+    "short_name": "URegina",
+    "logo": "/images/destinations/canada/ca-8.png",
+    "city": "Regina, Saskatchewan",
+    "ranking": "QS 2027: #1001-1200",
+    "description": "A public research university in Regina known for co-operative education and programs in engineering, computer science, business, data science, arts and education."
+  },
+  {
+    "id": 9,
+    "name": "Capilano University",
+    "short_name": "CapU",
+    "logo": "/images/destinations/canada/ca-9.png",
+    "city": "North Vancouver, British Columbia",
+    "ranking": "Public University in British Columbia",
+    "description": "A public teaching-focused university near Vancouver offering degrees and diplomas in business, tourism, film, animation, design, music and communication."
+  },
+  {
+    "id": 10,
+    "name": "University of Manitoba",
+    "short_name": "UM",
+    "logo": "/images/destinations/canada/ca-10.png",
+    "city": "Winnipeg, Manitoba",
+    "ranking": "QS 2027: #601-650",
+    "description": "A public research university in Winnipeg known for engineering, business, computer science, agriculture, health sciences, medicine and fine arts."
+  },
+  {
+    "id": 11,
+    "name": "Bishop's University",
+    "short_name": "Bishop's",
+    "logo": "/images/destinations/canada/ca-11.png",
+    "city": "Sherbrooke, Quebec",
+    "ranking": "Public Undergraduate University in Quebec",
+    "description": "A small, residential public university in Quebec offering liberal arts, business, natural sciences, computer science and education with close faculty mentorship."
+  },
+  {
+    "id": 12,
+    "name": "University of Waterloo",
+    "short_name": "Waterloo",
+    "logo": "/images/destinations/canada/ca-12.png",
+    "city": "Waterloo, Ontario",
+    "ranking": "QS 2027: #113",
+    "description": "A public research university in Ontario renowned for co-op education and strengths in computer science, engineering, mathematics, data science and business."
+  }
   ],
   "requirements": [
     {
