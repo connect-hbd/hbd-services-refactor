@@ -1638,7 +1638,7 @@
               "id": 1,
               "category": "Primary Applicant",
               "name": "Primary Student",
-              "amount": 29710,
+              "amount": "29710",
               "currency": "AUD",
               "description": "Annual living cost requirement for the primary student."
             },
@@ -1646,7 +1646,7 @@
               "id": 2,
               "category": "Family Member",
               "name": "Spouse / Partner",
-              "amount": 10394,
+              "amount": "10394",
               "currency": "AUD",
               "description": "Additional annual living cost requirement for a spouse or partner."
             }
@@ -2833,6 +2833,963 @@
           }
         ]
       }
+    },
+    {
+  "id": 4,
+  "name": "Malaysia",
+  "slug": "malaysia",
+  "code": "MY",
+  "hero": {
+    "id": 1,
+    "title": "Quality Education at an Affordable Cost",
+    "description": "Discover internationally recognised qualifications, affordable tuition fees, modern university campuses and a multicultural student experience in one of Southeast Asia's leading education destinations.",
+    "features": [
+      {
+        "id": 1,
+        "value": "Internationally recognised qualifications"
+      },
+      {
+        "id": 2,
+        "value": "Affordable tuition and living costs"
+      },
+      {
+        "id": 3,
+        "value": "International university branch campuses"
+      },
+      {
+        "id": 4,
+        "value": "Multicultural student experience"
+      }
+    ]
+  },
+  "overview": {
+    "id": 1,
+    "title": "Quality Higher Education in Malaysia",
+    "description_1": "has developed into an important international education destination, offering public universities, private institutions and international branch campuses. Many programmes are delivered in English and combine academic learning with practical and industry-focused study in a multicultural environment.",
+    "description_2": "For students from Bangladesh, Malaysia offers study pathways after SSC and HSC, a range of university intakes, institutional scholarship opportunities and comparatively affordable education costs. Admission, English-language and visa requirements depend on the selected institution and programme."
+   
+  },
+  "cities": [
+    {
+      "id": 1,
+      "name": "Kuala Lumpur",
+      "image": "/images/destinations/malaysia/city-1.jfif",
+      "location": "Federal Territory of Kuala Lumpur",
+      "description": "Malaysia's capital and a major education hub, with public and private universities, international campuses, business districts and extensive transport connections."
+    },
+    {
+      "id": 2,
+      "name": "Subang Jaya",
+      "image": "/images/destinations/malaysia/city-2.jfif",
+      "location": "Selangor",
+      "description": "A popular student destination featuring Taylor's University, Sunway University and a well-developed student accommodation and lifestyle environment."
+    },
+    {
+      "id": 3,
+      "name": "Penang",
+      "image": "/images/destinations/malaysia/city-3.jfif",
+      "location": "Penang",
+      "description": "Known for technology, manufacturing, engineering, healthcare and higher education, alongside a diverse cultural environment."
+    },
+    {
+      "id": 4,
+      "name": "Johor Bahru",
+      "image": "/images/destinations/malaysia/city-4.jfif",
+      "location": "Johor",
+      "description": "A growing education and business region with access to international campuses, technology industries and EduCity in nearby Iskandar Puteri."
     }
+
+  ],
+  "whyChoose": {
+    "id": 1,
+    "description": "Malaysia combines established higher education institutions, international branch campuses and comparatively affordable study options. Students can choose from programmes in technology, engineering, business, healthcare, hospitality and other professional fields.",
+     "image": "/images/destinations/malaysia/why-choose.jfif",
+    "highlights": [
+      {
+        "id": 1,
+        "value": "World-Class Ranking"
+      },
+      {
+        "id": 2,
+        "value": "High Visa Success"
+      },
+      {
+        "id": 3,
+        "value": "Post-Study Work Permit"
+      }
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "number": "01",
+        "icon": "lucide:graduation-cap",
+        "title": "Recognised Universities",
+        "description": "Choose from Malaysian public and private universities and international branch campuses offering qualifications subject to programme accreditation and recognition."
+     
+      },
+      {
+        "id": 2,
+        "number": "02",
+        "icon": "lucide:wallet",
+        "title": "Affordable Study Options",
+        "description": "Explore comparatively affordable tuition and living costs, with budgets varying by institution, course, city and lifestyle."
+     
+      },
+      {
+        "id": 3,
+        "number": "03",
+        "icon": "lucide:globe",
+        "title": "International Degree Opportunities",
+        "description": "Study at international branch campuses and explore programmes delivered through overseas university partnerships."
+       
+      },
+      {
+        "id": 4,
+        "number": "04",
+        "icon": "lucide:languages",
+        "title": "English-Medium Programmes",
+        "description": "Many programmes for international students are taught in English, although language requirements differ by institution and course."
+   
+      },
+      {
+        "id": 5,
+        "number": "05",
+        "icon": "lucide:briefcase-business",
+        "title": "Industry-Focused Education",
+        "description": "Explore programmes in computing, engineering, business, hospitality, healthcare and other professional fields."
+      
+      },
+      {
+        "id": 6,
+        "number": "06",
+        "icon": "lucide:users",
+        "title": "Multicultural Student Life",
+        "description": "Experience a diverse society with international student communities, cultural events and a range of food and lifestyle options."
+       
+      }
+    ],
+    "careerPoints": [
+      {
+        "id": 1,
+        "icon": "lucide:briefcase-business",
+        "title": "Global Employability"
+      },
+      {
+        "id": 2,
+        "icon": "lucide:network",
+        "title": "Industry Networking"
+      },
+      {
+        "id": 3,
+        "icon": "lucide:lightbulb",
+        "title": "International Academic Exposure"
+      },
+      {
+        "id": 4,
+        "icon": "lucide:trending-up",
+        "title": "Professional Development"
+      }
+    ]
+   
+  },
+  "courses": [
+    {
+      "id": 1,
+      "number": "01",
+      "icon": "lucide:code-2",
+      "title": "Computer Science & Information Technology",
+      "description": "Build knowledge in computing, software development, information systems and emerging digital technologies.",
+      "subjects": [
+        "Computer Science",
+        "Software Engineering",
+        "Cyber Security",
+        "Data Science",
+        "Artificial Intelligence",
+        "Information Technology"
+      ]
+    },
+    {
+      "id": 2,
+      "number": "02",
+      "icon": "lucide:cog",
+      "title": "Engineering & Technology",
+      "description": "Explore engineering principles and technology applications across infrastructure, manufacturing and industrial sectors.",
+      "subjects": [
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Mechatronics",
+        "Chemical Engineering",
+        "Telecommunications"
+      ]
+    },
+    {
+      "id": 3,
+      "number": "03",
+      "icon": "lucide:briefcase-business",
+      "title": "Business & Management",
+      "description": "Develop management, leadership, entrepreneurship and international business knowledge for a range of organisations.",
+      "subjects": [
+        "Business Administration",
+        "MBA",
+        "International Business",
+        "Marketing",
+        "Human Resource Management",
+        "Supply Chain Management"
+      ]
+    },
+    {
+      "id": 4,
+      "number": "04",
+      "icon": "lucide:chart-no-axes-combined",
+      "title": "Accounting & Finance",
+      "description": "Develop financial, analytical and accounting skills relevant to commercial organisations and financial services.",
+      "subjects": [
+        "Accounting",
+        "Finance",
+        "Banking",
+        "Financial Technology",
+        "Economics",
+        "Professional Accounting"
+      ]
+    },
+    {
+      "id": 5,
+      "number": "05",
+      "icon": "lucide:hotel",
+      "title": "Hospitality & Tourism",
+      "description": "Prepare for careers in hospitality, tourism, hotel operations, culinary services and event management.",
+      "subjects": [
+        "Hotel Management",
+        "Tourism Management",
+        "Culinary Arts",
+        "Event Management",
+        "Food Service Management"
+      ]
+    },
+    {
+      "id": 6,
+      "number": "06",
+      "icon": "lucide:heart-pulse",
+      "title": "Health & Life Sciences",
+      "description": "Study scientific and healthcare disciplines, subject to professional accreditation and relevant entry requirements.",
+      "subjects": [
+        "Biomedical Science",
+        "Biotechnology",
+        "Pharmacy",
+        "Nursing",
+        "Public Health",
+        "Nutrition"
+      ]
+    }
+  ],
+  "studyLevels": [
+    {
+      "id": 1,
+      "number": "01",
+      "title": "Foundation Programmes",
+      "subtitle": "Prepare for Undergraduate Study",
+      "duration": "Typically 1 year",
+      "description": "Foundation programmes provide an academic pathway to selected diploma or bachelor's programmes. Entry requirements and progression arrangements depend on the institution and intended degree.",
+      "qualifications": [
+        "Foundation in Arts",
+        "Foundation in Science",
+        "Foundation in Business",
+        "Foundation in Information Technology"
+      ],
+      "icon": "lucide:book-open"
+    },
+    {
+      "id": 2,
+      "number": "02",
+      "title": "Diploma Programmes",
+      "subtitle": "Develop Practical and Academic Skills",
+      "duration": "Typically 2–3 years",
+      "description": "Diploma programmes provide focused education in a subject area and may offer progression or credit-transfer opportunities to selected bachelor's degrees.",
+      "qualifications": [
+        "Diploma in Business",
+        "Diploma in Information Technology",
+        "Diploma in Engineering",
+        "Diploma in Hospitality Management"
+      ],
+      "icon": "lucide:book"
+    },
+    {
+      "id": 3,
+      "number": "03",
+      "title": "Undergraduate Bachelor's Degrees",
+      "subtitle": "Comprehensive Higher Education",
+      "duration": "Typically 3–4 years",
+      "description": "Bachelor's programmes provide undergraduate academic and professional education. Programme length varies by subject, institution and any approved credit transfer.",
+      "qualifications": [
+        "Bachelor of Business Administration",
+        "Bachelor of Computer Science",
+        "Bachelor of Engineering",
+        "Bachelor of Accounting",
+        "Bachelor of Hospitality Management"
+      ],
+      "icon": "lucide:graduation-cap"
+    },
+    {
+      "id": 4,
+      "number": "04",
+      "title": "Postgraduate Master's Degrees",
+      "subtitle": "Advanced Professional and Academic Study",
+      "duration": "Typically 1–2 years",
+      "description": "Master's programmes support advanced professional knowledge, specialist study or research. Entry requirements depend on the applicant's previous qualification and selected programme.",
+      "qualifications": [
+        "Master of Business Administration (MBA)",
+        "Master of Science (MSc)",
+        "Master of Information Technology",
+        "Master of Engineering",
+        "Master of Finance"
+      ],
+      "icon": "lucide:award"
+    },
+    {
+      "id": 5,
+      "number": "05",
+      "title": "Doctoral Degrees (PhD / Research)",
+      "subtitle": "Advanced Independent Research",
+      "duration": "Typically 3–5 years",
+      "description": "Doctoral study involves independent research under academic supervision, subject to research proposal, supervisor availability and university admission requirements.",
+      "qualifications": [
+        "Doctor of Philosophy (PhD)",
+        "Doctoral Research Programmes"
+      ],
+      "icon": "lucide:microscope"
+    }
+  ],
+  "universities": [
+    {
+      "id": 1,
+      "name": "Universiti Malaya (UM)",
+      "short_name": "UM",
+      "logo": "/images/destinations/malaysia/um.png",
+      "city": "Kuala Lumpur",
+      "ranking": "QS 2027: #56",
+      "description": "Malaysia's leading research university, recognised for medicine, engineering, business, computer science, science and social sciences."
+    },
+    {
+      "id": 2,
+      "name": "Universiti Sains Malaysia (USM)",
+      "short_name": "USM",
+      "logo": "/images/destinations/malaysia/usm.png",
+      "city": "Gelugor, Penang",
+      "ranking": "QS 2027: #128",
+      "description": "A research-focused university offering programmes across science, engineering, healthcare, technology, management and the humanities."
+    },
+    {
+      "id": 3,
+      "name": "Universiti Kebangsaan Malaysia (UKM)",
+      "short_name": "UKM",
+      "logo": "/images/destinations/malaysia/ukm.png",
+      "city": "Bangi, Selangor",
+      "ranking": "QS 2027: #130",
+      "description": "A national research university with programmes in medicine, engineering, business, education, science and social sciences."
+    },
+    {
+      "id": 4,
+      "name": "Universiti Putra Malaysia (UPM)",
+      "short_name": "UPM",
+      "logo": "/images/destinations/malaysia/upm.png",
+      "city": "Serdang, Selangor",
+      "ranking": "QS 2027: #138",
+      "description": "Known for agriculture, veterinary science, biotechnology, engineering, business, food science and related research fields."
+    },
+    {
+      "id": 5,
+      "name": "Universiti Teknologi Malaysia (UTM)",
+      "short_name": "UTM",
+      "logo": "/images/destinations/malaysia/utm.png",
+      "city": "Johor Bahru, Johor",
+      "ranking": "QS 2027: #158",
+      "description": "A technology-focused university offering programmes in engineering, computing, architecture, built environment and applied sciences."
+    },
+    {
+      "id": 6,
+      "name": "Universiti Teknologi PETRONAS (UTP)",
+      "short_name": "UTP",
+      "logo": "/images/destinations/malaysia/utp.png",
+      "city": "Seri Iskandar, Perak",
+      "ranking": "QS 2027: #261",
+      "description": "Offers programmes in engineering, energy, petroleum, computing, business and technology, with a strong focus on industry and research."
+    },
+    {
+      "id": 7,
+      "name": "Taylor's University",
+      "short_name": "TAYLOR'S",
+      "logo": "/images/destinations/malaysia/tu.png",
+      "city": "Subang Jaya, Selangor",
+      "ranking": "QS 2027: #272",
+      "description": "Known for hospitality and tourism, business, design, engineering, computing and programmes with international academic links."
+    },
+    {
+      "id": 8,
+      "name": "UCSI University",
+      "short_name": "UCSI",
+      "logo": "/images/destinations/malaysia/uu.png",
+      "city": "Kuala Lumpur",
+      "ranking": "QS 2027: #282",
+      "description": "Offers programmes in business, engineering, medicine, pharmacy, music, hospitality, applied sciences and technology."
+    }
+    
+  ],
+  "requirements": [
+    {
+      "id": 1,
+      "icon": "lucide:graduation-cap",
+      "number": "01",
+      "title": "Academic Qualifications",
+      "description": "Applicants must hold academic qualifications recognised by the selected Malaysian institution and meet the entry criteria for their chosen programme.",
+      "items": [
+        "SSC / O-Level or equivalent for selected Foundation programmes",
+        "HSC / A-Level or equivalent for Diploma and Bachelor's pathways, depending on the programme",
+        "Recognised Bachelor's degree for Master's admission",
+        "Relevant Master's degree or equivalent for PhD admission"
+      ]
+    },
+    {
+      "id": 2,
+      "icon": "lucide:languages",
+      "number": "02",
+      "title": "English Proficiency",
+      "description": "Applicants must meet the English-language requirements of the institution and programme. Accepted tests and minimum scores vary.",
+      "items": [
+        "IELTS Academic, where accepted",
+        "TOEFL iBT, where accepted",
+        "PTE Academic, where accepted",
+        "Institution-approved English preparation or alternative evidence, where available"
+      ]
+    },
+    {
+      "id": 3,
+      "icon": "lucide:files",
+      "number": "03",
+      "title": "Essential Documentation",
+      "description": "Prepare personal, academic and supporting documents for university admission and the Student Pass process.",
+      "items": [
+        "Valid passport information page",
+        "Academic certificates and transcripts",
+        "English test result, if required",
+        "Passport-sized photographs and application forms",
+        "CV, research proposal or other documents where required"
+      ]
+    },
+    {
+      "id": 4,
+      "icon": "lucide:wallet",
+      "number": "04",
+      "title": "Financial Preparation",
+      "description": "Plan for tuition, accommodation, living expenses, insurance, visa-related charges and travel costs. Evidence may be requested by the institution or relevant authorities.",
+      "items": [
+        "Tuition fees and required deposit",
+        "Accommodation and living expenses",
+        "EMGS and immigration-related charges",
+        "Medical screening and insurance costs",
+        "Travel and initial settlement expenses"
+      ]
+    }
+  ],
+  "educationLevelRequirements": {
+    "id": 1,
+   "levels": [
+      {
+        "id": 1,
+        "key": "foundation",
+        "label": "Foundation",
+        "heading": "Foundation Entry Requirements",
+        "requirements": [
+          {
+            "id": 1,
+            "description": "SSC / O-Level or an equivalent recognised qualification may be considered, subject to the institution's subject and grade requirements."
+          },
+          {
+            "id": 2,
+            "description": "Some science or technology pathways require specified mathematics or science subjects."
+          },
+          {
+            "id": 3,
+            "description": "Indicative IELTS Academic range: 4.5–5.0, depending on the institution and programme."
+          },
+          {
+            "id": 4,
+            "description": "Alternative English tests or an institutional English pathway may be accepted."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "key": "diploma",
+        "label": "Diploma",
+        "heading": "Diploma Entry Requirements",
+        "requirements": [
+          {
+            "id": 1,
+            "description": "SSC / O-Level or HSC may be accepted depending on the diploma, institution and subject prerequisites."
+          },
+          {
+            "id": 2,
+            "description": "Applicants must meet the programme's minimum grades and subject requirements."
+          },
+          {
+            "id": 3,
+            "description": "Indicative IELTS Academic range: 5.0–5.5, depending on the institution and programme."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "key": "undergraduate",
+        "label": "Bachelor's",
+        "heading": "Bachelor's Entry Requirements",
+        "requirements": [
+          {
+            "id": 1,
+            "description": "HSC / A-Level or another recognised qualification equivalent to the required pre-university level."
+          },
+          {
+            "id": 2,
+            "description": "Some programmes require specific subjects, grades, portfolios, interviews or aptitude assessments."
+          },
+          {
+            "id": 3,
+            "description": "Indicative IELTS Academic range: 5.5–6.0, depending on the institution and programme."
+          },
+          {
+            "id": 4,
+            "description": "Diploma holders may be considered for credit transfer or advanced entry after institutional assessment."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "key": "postgraduate",
+        "label": "Master's",
+        "heading": "Master's Entry Requirements",
+        "requirements": [
+          {
+            "id": 1,
+            "description": "A recognised Bachelor's degree in a relevant or accepted discipline."
+          },
+          {
+            "id": 2,
+            "description": "Minimum CGPA, work experience or prerequisite subjects depend on the programme and university."
+          },
+          {
+            "id": 3,
+            "description": "Some MBA programmes require relevant professional experience."
+          },
+          {
+            "id": 4,
+            "description": "Indicative IELTS Academic range: 6.0–6.5, depending on the institution and programme."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "key": "doctoral",
+        "label": "PhD",
+        "heading": "PhD Entry Requirements",
+        "requirements": [
+          {
+            "id": 1,
+            "description": "A relevant recognised Master's degree or an approved equivalent qualification."
+          },
+          {
+            "id": 2,
+            "description": "A research proposal and supervisor availability may be required."
+          },
+          {
+            "id": 3,
+            "description": "Academic references, research experience or an interview may be requested."
+          },
+          {
+            "id": 4,
+            "description": "Indicative IELTS Academic range: 6.0–6.5, depending on the institution and research programme."
+          }
+        ]
+      }
+    ]
+  },
+  "financialPlanning": {
+    "id": 1,
+    "tuitionFees": [
+      {
+        "id": 1,
+        "level": "Foundation",
+        "title": "Foundation Tuition Fees",
+        "studentCategory": "International Students",
+        "minimum": 10000,
+        "maximum": 25000,
+        "currency": "MYR",
+        "period": "Per academic year",
+        "description": "Indicative tuition range for Foundation programmes. Actual fees vary by institution and subject.",
+        "icon": "lucide:book-open"
+      },
+      {
+        "id": 2,
+        "level": "Diploma",
+        "title": "Diploma Tuition Fees",
+        "studentCategory": "International Students",
+        "minimum": 10000,
+        "maximum": 30000,
+        "currency": "MYR",
+        "period": "Per academic year",
+        "description": "Indicative tuition range for Diploma programmes at Malaysian institutions.",
+        "icon": "lucide:book"
+      },
+      {
+        "id": 3,
+        "level": "Undergraduate",
+        "title": "Undergraduate Tuition Fees",
+        "studentCategory": "International Students",
+        "minimum": 15000,
+        "maximum": 45000,
+        "currency": "MYR",
+        "period": "Per academic year",
+        "description": "Indicative tuition range for many Bachelor's programmes. Medicine and some specialised programmes may cost substantially more.",
+        "icon": "lucide:graduation-cap"
+      },
+      {
+        "id": 4,
+        "level": "Postgraduate",
+        "title": "Postgraduate Tuition Fees",
+        "studentCategory": "International Students",
+        "minimum": 18000,
+        "maximum": 50000,
+        "currency": "MYR",
+        "period": "Per academic year",
+        "description": "Indicative tuition range for selected Master's programmes; research and professional programmes may have different fee structures.",
+        "icon": "lucide:award"
+      },
+      {
+        "id": 5,
+        "level": "MBA",
+        "title": "MBA Tuition Fees",
+        "studentCategory": "International Students",
+        "minimum": 25000,
+        "maximum": 70000,
+        "currency": "MYR",
+        "period": "Per academic year",
+        "description": "Indicative planning range only. MBA fees vary substantially by university, programme format and duration.",
+        "icon": "lucide:briefcase-business"
+      }
+    ],
+    "livingCosts": {
+      "title": "Estimated Living Costs",
+      "description": "Indicative monthly student budget. Costs depend on city, accommodation type and personal lifestyle; these figures are not immigration financial thresholds.",
+      "period": "Per month",
+      "areas": [
+            {
+              "id": 1,
+              "category": "Major City",
+              "name": "Inside Malaysia",
+              "amount": "1800–2500",
+              "currency": "MYR",
+              "description": "Estimated monthly living expenses in malaysia."
+            },
+            {
+              "id": 2,
+              "category": "Affordable Region",
+              "name": "Outside Malaysia",
+              "amount": "1400–1900",
+              "currency": "MYR",
+              "description": "Estimated monthly living expenses outside malaysia."
+            }
+          ]
+    },
+    "scholarships": {
+      
+      "items": [
+        {
+          "id": 1,
+          "icon": "lucide:award",
+          "category": "Government",
+          "name": "Malaysia International Scholarship (MIS)",
+          "description": "Competitive Malaysian Government scholarship for eligible international applicants pursuing full-time Master's or PhD studies at participating institutions."        
+        },
+        {
+          "id": 2,
+          "icon": "lucide:graduation-cap",
+          "category": "University Merit",
+          "name": "University Merit Scholarships",
+          "description": "Academic-performance-based scholarships or tuition reductions offered by participating Malaysian universities."
+        },
+        {
+          "id": 3,
+          "icon": "lucide:award",
+          "category": "Institutional",
+          "name": "Vice-Chancellor and Excellence Awards",
+          "description": "Institution-specific awards for applicants with strong academic or other qualifying achievements."
+        },
+        {
+          "id": 4,
+          "icon": "lucide:microscope",
+          "category": "Research",
+          "name": "Postgraduate Research Funding",
+          "description": "Selected universities and research groups may offer research scholarships, fee support or assistantship opportunities."
+        }
+      ]
+    }
+  },
+  "admissionProcess": {
+    "id": 1,
+    "eyebrow": "STEP-BY-STEP ADMISSION PROCESS",
+    "title": "Your Journey to Studying in Malaysia",
+    "description": "Our structured 8-step approach helps students navigate university admission, documentation, Student Pass applications and pre-departure preparation.",
+    "steps": [
+      {
+        "id": 1,
+        "step": "01",
+        "icon": "lucide:user-check",
+        "title": "Profile Assessment & Course Selection",
+        "description": "Assess academic qualifications, career goals, English proficiency and financial capacity to identify suitable Malaysian institutions and programmes.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Academic qualification and transcript assessment"
+          },
+          {
+            "id": 2,
+            "value": "English language proficiency evaluation"
+          },
+          {
+            "id": 3,
+            "value": "Course, institution, budget and location selection"
+          },
+          {
+            "id": 4,
+            "value": "Scholarship eligibility review"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "step": "02",
+        "icon": "lucide:languages",
+        "title": "English Language Preparation & Testing",
+        "description": "Prepare for the English-language requirements of the selected institution and programme.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "English proficiency assessment"
+          },
+          {
+            "id": 2,
+            "value": "IELTS and PTE preparation guidance"
+          },
+          {
+            "id": 3,
+            "value": "Mock tests and performance feedback"
+          },
+          {
+            "id": 4,
+            "value": "Test registration assistance"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "step": "03",
+        "icon": "lucide:file-text",
+        "title": "University Application",
+        "description": "Prepare and submit applications to selected Malaysian universities and follow up on admission decisions.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Document collection and verification"
+          },
+          {
+            "id": 2,
+            "value": "Application preparation and submission"
+          },
+          {
+            "id": 3,
+            "value": "Application tracking"
+          },
+          {
+            "id": 4,
+            "value": "University communication and follow-up"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "step": "04",
+        "icon": "lucide:mail-check",
+        "title": "Offer Letter Assessment & Acceptance",
+        "description": "Review admission offers, programme details, conditions, tuition fees and payment requirements before accepting an offer.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Offer letter and admission condition review"
+          },
+          {
+            "id": 2,
+            "value": "Scholarship assessment"
+          },
+          {
+            "id": 3,
+            "value": "Tuition fee and payment guidance"
+          },
+          {
+            "id": 4,
+            "value": "Offer acceptance assistance"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "step": "05",
+        "icon": "lucide:files",
+        "title": "Student Pass Documentation & EMGS Application",
+        "description": "Coordinate the initial Student Pass application through the institution and the Education Malaysia Global Services (EMGS) process.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Passport and academic document preparation"
+          },
+          {
+            "id": 2,
+            "value": "Student Pass application coordination"
+          },
+          {
+            "id": 3,
+            "value": "EMGS documentation and application tracking"
+          },
+          {
+            "id": 4,
+            "value": "Supporting and financial document review where required"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "step": "06",
+        "icon": "lucide:shield-check",
+        "title": "eVAL Approval & Visa Preparation",
+        "description": "Follow the Visa Approval Letter process and identify whether a Single Entry Visa is required for the student's nationality.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "eVAL application status monitoring"
+          },
+          {
+            "id": 2,
+            "value": "Visa requirement assessment"
+          },
+          {
+            "id": 3,
+            "value": "Single Entry Visa guidance where applicable"
+          },
+          {
+            "id": 4,
+            "value": "Travel document preparation"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "step": "07",
+        "icon": "lucide:plane-takeoff",
+        "title": "Travel Preparation & Arrival",
+        "description": "Prepare for travel to Malaysia and understand the post-arrival medical screening and university registration requirements.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Flight booking assistance"
+          },
+          {
+            "id": 2,
+            "value": "Accommodation guidance"
+          },
+          {
+            "id": 3,
+            "value": "Post-arrival medical screening information"
+          },
+          {
+            "id": 4,
+            "value": "Pre-departure briefing"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "step": "08",
+        "icon": "lucide:badge-check",
+        "title": "Student Pass Endorsement & Settling In",
+        "description": "Coordinate with the education provider on the post-arrival process, Student Pass endorsement and practical settling-in guidance.",
+        "checklist": [
+          {
+            "id": 1,
+            "value": "Medical screening within the required period"
+          },
+          {
+            "id": 2,
+            "value": "Student Pass endorsement coordination"
+          },
+          {
+            "id": 3,
+            "value": "University registration guidance"
+          },
+          {
+            "id": 4,
+            "value": "Practical settling-in information"
+          }
+        ]
+      }
+    ]
+  },
+  "faqSection": {
+    "id": 1,
+    "eyebrow": "FREQUENTLY ASKED QUESTIONS",
+    "title": "Questions About Studying in Malaysia",
+    "description": "Find answers to common questions about Malaysian university admissions, English tests, Student Pass applications, part-time work and living costs.",
+    "faqs": [
+      {
+        "id": 1,
+        "question": "Can I study in Malaysia without IELTS?",
+        "answer": "IELTS is not the only English-language qualification accepted by Malaysian universities. Some institutions accept alternatives such as TOEFL iBT, PTE Academic or other recognised evidence. Certain universities may offer English preparatory programmes. Requirements depend on the institution and selected course."
+      },
+      {
+        "id": 2,
+        "question": "Can international students work part-time while studying in Malaysia?",
+        "answer": "Eligible international students at public universities and private higher education institutions may apply for permission to work part-time for up to 20 hours per week during semester breaks or holidays exceeding seven days. Prior approval from the Immigration Department is required, and work is restricted to permitted locations and sectors. Students should confirm the current rules with their institution and Immigration before accepting work."
+      },
+      {
+        "id": 3,
+        "question": "Can Bangladeshi students stay and work in Malaysia after graduation?",
+        "answer": "Malaysia's Graduate Pass is available only to nationals of specified eligible countries. Bangladesh is not included in the currently published eligible-country list. Bangladeshi graduates should not assume they qualify for this pass and should check the latest Immigration and Education Malaysia guidance for any alternative employment or residence route."
+      },
+      {
+        "id": 4,
+        "question": "What are the main university intakes in Malaysia?",
+        "answer": "Many Malaysian universities offer intakes around February or March and September or October. Some institutions and programmes have additional intakes during the year. Availability depends on the university, course and study level."
+      },
+      {
+        "id": 5,
+        "question": "How does the Malaysia Student Pass process work?",
+        "answer": "After receiving an offer from an authorised institution, the Student Pass application is coordinated through the institution and EMGS. Eligible applications proceed to eVAL approval. Applicants from countries requiring an entry visa must follow the applicable Single Entry Visa process. After arrival, new students must complete the required medical screening within seven working days and proceed with Student Pass endorsement through their institution."
+      },
+      {
+        "id": 6,
+        "question": "How much does it cost to study in Malaysia?",
+        "answer": "Tuition fees vary by institution and programme. As an indicative planning range, many Bachelor's programmes may cost around MYR 15,000–45,000 per academic year, while monthly living expenses may be around MYR 1,100–2,850. Medicine and other specialised programmes may cost considerably more. Students should obtain an official fee quotation and budget separately for insurance, visa-related charges and travel."
+      },
+      {
+        "id": 7,
+        "question": "Can I bring my spouse or family members to Malaysia?",
+        "answer": "Dependant eligibility depends on the student's level of study, institution and Student Pass category. Certain higher education Student Pass holders may be eligible to apply for dependant passes under Immigration rules. Approval is not automatic, and dependants are not permitted to work under dependant pass conditions. Confirm eligibility with the institution and Immigration before making plans."
+      },
+      {
+        "id": 8,
+        "question": "Are Malaysian university degrees internationally recognised?",
+        "answer": "Many Malaysian universities and international branch campuses offer qualifications recognised in other countries. Recognition depends on the institution, programme accreditation and the requirements of the country or professional body where the qualification will be used. Students should verify the programme's accreditation before applying."
+      }
+    ]
+  }
+}
+
   ]
 }

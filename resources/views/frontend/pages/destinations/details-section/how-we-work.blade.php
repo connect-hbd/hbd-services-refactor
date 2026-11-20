@@ -15,11 +15,7 @@
 
 @if (!empty($process) && !empty($steps))
 
-<section
-    id="process"
-    data-section
-    class="relative overflow-hidden bg-brand-25 py-16 sm:py-20 lg:py-24"
->
+<section id="process"  data-section class="relative overflow-hidden bg-brand-25 py-16 sm:py-20 lg:py-24">
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {{-- Section Header --}}
@@ -34,11 +30,10 @@
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
             @foreach ($steps as $step)
+            <div data-reveal style="--reveal-delay: {{ ($loop->index % 3) * 80 }}ms">
 
-                <article
-                    class="group relative flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md sm:p-7"
-                    data-reveal
-                    style="--reveal-delay: {{ ($loop->index % 3) * 80 }}ms"
+                <article class="group relative flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md sm:p-7"
+                    
                 >
 
                     {{-- Icon & Step Number --}}
@@ -99,59 +94,11 @@
                     @endif
 
                 </article>
+                </div>
 
             @endforeach
 
-        </div>
-
-
-      {{-- Consultation CTA --}}
-<div
-    class="mt-14 rounded-2xl border border-brand-100 bg-white p-8 text-center shadow-sm"
-    data-reveal
->
-    <div class="mx-auto max-w-2xl">
-
-        <h4 class="text-xl font-bold text-black sm:text-2xl">
-            Ready to Begin Your Admission Application?
-        </h4>
-
-        <p class="mt-2 text-sm leading-6 text-black/60">
-            Schedule a free, confidential one-on-one consultation with our senior counsellors today.
-        </p>
-
-        <div class="mt-6 flex flex-col justify-center gap-4 sm:flex-row">
-
-            {{-- Primary Button --}}
-            <a
-                href="#contact"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 sm:w-fit"
-            >
-                <span>Book Free Consultation</span>
-
-                <iconify-icon
-                    icon="lucide:arrow-right"
-                    class="text-base"
-                ></iconify-icon>
-            </a>
-
-            {{-- Secondary Button --}}
-            <a
-                href="tel:09617-990099"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-6 py-3.5 text-sm font-semibold text-brand-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-100 sm:w-fit"
-            >
-                <iconify-icon
-                    icon="lucide:phone"
-                    class="text-base"
-                ></iconify-icon>
-
-                <span>Call 09617-990099</span>
-            </a>
-
-        </div>
-
-    </div>
-</div>
+        </div>   
 
     </div>
 </section>

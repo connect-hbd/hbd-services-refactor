@@ -8,7 +8,7 @@
     $courses = $destination['courses'] ?? [];
 @endphp
 
-<section id="courses" data-section class="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+<section  class="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {{-- Section Header --}}
         <div class="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -39,7 +39,7 @@
                         </span>
                     </div>
 
-                    <h3 class="mt-6 text-lg font-bold text-black transition-colors group-hover:text-brand-600">
+                    <h3 class="mt-2 text-lg font-bold text-black transition-colors group-hover:text-brand-600">
                         {{ $course['title'] }}
                     </h3>
 
@@ -48,7 +48,7 @@
                     </p>
 
                     {{-- Popular Subjects Tags --}}
-                    <div class="mt-6 border-t border-brand-100 pt-5">
+                    <div class="mt-3 border-t border-brand-100 pt-3">
                         <p class="mb-3 text-[11px] font-semibold uppercase tracking-wider text-black/50">
                             Popular Subjects
                         </p>

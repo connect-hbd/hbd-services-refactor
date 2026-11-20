@@ -21,7 +21,7 @@
 
                 <h2
                     class="text-[28px] font-semibold leading-[1.2] tracking-[-0.02em] text-black sm:text-[30px] lg:text-[32px]">
-                    {{ $destination['overview']['title'] }} <span class="text-red-500">{{ $destination['code'] }}</span>
+                    {{ $destination['overview']['title'] }} <span class="text-red-500">{{ $destination['name'] }}</span>
                 </h2>
 
                 <p class="mt-5 text-sm leading-7 text-black/70 sm:text-base sm:leading-8">

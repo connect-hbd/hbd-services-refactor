@@ -25,9 +25,10 @@
         {{-- Universities Grid --}}
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($universities as $university)
+            <div data-reveal style="--reveal-delay: {{ ($loop->index % 3) * 80 }}ms">
                 <article
                     class="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md"
-                    data-reveal style="--reveal-delay: {{ ($loop->index % 3) * 80 }}ms">
+                    >
                     {{-- Card Top Area --}}
                     <div class="relative flex items-center justify-between border-b border-brand-100 bg-brand-25 p-6">
                         <div class="flex items-center gap-3">
@@ -38,24 +39,14 @@
                                     class="h-full w-full rounded-2xl object-contain transition-transform duration-300 group-hover:scale-105"
                                     loading="lazy">
                             </div>
-                            <div class="flex flex-wrap gap-2">
+                            {{-- <div class="flex flex-wrap gap-2">
                                  @if (!empty($university['ranking']))
-                                     <div>
-                                    <span
+                                  <span
                                         class="rounded-lg border border-brand-100 bg-white px-2.5 py-1 text-[11px] font-semibold text-brand-700">
-                                        {{ $university['ranking'] }}
-                                    </span>
-                                </div>
-                                @endif
-
-                               
-                                @if (!empty($university['badge']))
-                                    <span
-                                        class="rounded-full bg-success-50 px-2.5 py-1 text-[10px] font-bold tracking-wider text-success-500">
-                                        {{ $university['badge'] }}
+                                       World Ranking : {{ $university['ranking'] }}
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -73,16 +64,12 @@
                             {{ $university['name'] }}
                         </h3>
 
-                        <p class="mt-1 text-xs font-medium text-brand-600">
-                            {{ $university['type'] }}
-                        </p>
-
-                        <p class="mt-3 flex-1 text-sm leading-6 text-black/60">
+                        <p class="mt-3 flex-1 text-sm leading-6 text-black/60 line-clamp-3">
                             {{ $university['description'] }}
                         </p>
 
                         {{-- Footer link --}}
-                        <div class="mt-6 border-t border-brand-100 pt-4">
+                        {{-- <div class="mt-6 border-t border-brand-100 pt-4">
                             <a href="#"
                                 class="inline-flex w-full items-center justify-between text-xs font-semibold text-brand-600 transition group-hover:text-brand-700">
                                 <span>Get Free Consultation</span>
@@ -91,9 +78,10 @@
                                     <iconify-icon icon="lucide:arrow-right" class="text-sm"></iconify-icon>
                                 </span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </article>
+            </div>
             @endforeach
         </div>
     </div>

@@ -8,7 +8,8 @@
     $levels = $destination['studyLevels'] ?? [];
 @endphp
 
-<section id="study-levels" data-section class="relative overflow-hidden bg-brand-25 py-16 sm:py-20 lg:py-24">
+
+<section id="courses_levels" data-section class="relative overflow-hidden bg-brand-25 py-16 sm:py-20 lg:py-24">
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {{-- Section Header --}}
         <x-destination-section-heading

@@ -64,6 +64,22 @@
       "location": "Oceania",
       "avgCost": "NZD $20,000 – $40,000/year",
       "visaProcessing": "3 weeks (usually)"
-    }
+    },
+    {
+  "id": 5,
+  "name": "Malaysia",
+  "slug": "malaysia",
+  "image": "frontend-img/destinations/malaysia.webp",
+  "flag": "https://flagcdn.com/w40/my.png",
+  "flagCode": "my",
+  "is_featured": false,
+  "popular": true,
+  "rating": 4.8,
+  "review_count": 1100,
+  "description": "Study in a diverse, multicultural destination offering internationally recognised qualifications, affordable tuition and living costs, modern campuses, English-taught programmes, and opportunities to gain valuable international experience.",
+  "location": "Asia",
+  "avgCost": "MYR RM20,000 – RM50,000/year",
+  "visaProcessing": "14 working days (EMGS client charter; complete applications only)"
+}
   ]
 }

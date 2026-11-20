@@ -7,11 +7,11 @@
         $sections = [
             ['id' => 'overview', 'label' => 'Overview'],
             ['id' => 'why-choose', 'label' => 'Why Choose'],
-            ['id' => 'courses', 'label' => 'Popular Courses'],
-            ['id' => 'study-levels', 'label' => 'Study Levels'],
-            ['id' => 'universities', 'label' => 'Universities'],
-            ['id' => 'requirements', 'label' => 'Entry Requirements'],
-            ['id' => 'costs', 'label' => 'Living Costs & Aid'],
+            ['id' => 'courses_levels', 'label' => 'Study Levels & Courses'],
+             ['id' => 'requirements', 'label' => 'Entry Requirements'],
+            ['id' => 'universities', 'label' => 'Universities'],           
+            ['id' => 'costs', 'label' => ' Financial Aid'],
+            ['id' => 'scholarships', 'label' => 'Scholarships'],
             ['id' => 'process', 'label' => 'How We Work'],
             ['id' => 'faq', 'label' => 'FAQs'],
         ];
@@ -114,22 +114,26 @@
             
 
              {{-- Section 2: Why Choose us --}}
-            @include('frontend.pages.destinations.details-section.why-uk', ['destination' => $destination])
-
-              {{-- Section 3: Popular Courses (bg-white) --}}
-            @include('frontend.pages.destinations.details-section.course-section', ['destination' => $destination])
-
-             {{-- Section 4: Academic Study Levels (bg-brand-25) --}}
+            @include('frontend.pages.destinations.details-section.why-this-destination', ['destination' => $destination])
+            {{-- Section 3: Academic Study Levels (bg-brand-25) --}}
             @include('frontend.pages.destinations.details-section.study-label', ['destination' => $destination])
 
-              {{-- Section 5: Universities (bg-white) --}}
-            @include('frontend.pages.destinations.details-section.universities', ['destination' => $destination])
+              {{-- Section 4: Popular Courses (bg-white) --}}
+            @include('frontend.pages.destinations.details-section.course-section', ['destination' => $destination])
 
               {{-- Section 6: Entry Requirements & Roadmap (bg-brand-25) --}}
             @include('frontend.pages.destinations.details-section.requirements', ['destination' => $destination])
 
+              {{-- Section 5: Universities (bg-white) --}}
+            @include('frontend.pages.destinations.details-section.universities', ['destination' => $destination])           
+
              {{-- Section 7: Living Costs & Scholarships (bg-white) --}}
-            @include('frontend.pages.destinations.details-section.cost-schollership', [
+
+            @include('frontend.pages.destinations.details-section.financial-aid', [
+                'destination' => $destination,
+            ])
+
+             @include('frontend.pages.destinations.details-section.schollership', [
                 'destination' => $destination,
             ])
 
