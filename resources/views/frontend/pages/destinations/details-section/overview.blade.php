@@ -151,9 +151,10 @@
 
             <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ($destination['cities'] ?? [] as $city)
+                <div  data-reveal style="--reveal-delay: {{ $loop->index * 80 }}ms">
                     <article
                         class="group overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md"
-                        data-reveal style="--reveal-delay: {{ $loop->index * 80 }}ms">
+                       >
                         <div class="relative h-52 overflow-hidden bg-brand-100">
                             <img src="{{ $city['image'] }}" alt="{{ $city['name'] }}, {{ $destName }}"
                                 loading="lazy"
@@ -186,6 +187,7 @@
                             </a> --}}
                         </div>
                     </article>
+                    </div>
                 @endforeach
             </div>
         </div>

@@ -17,9 +17,10 @@
         {{-- 4 Pillars Grid --}}
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($requirements as $requirement)
+            <div data-reveal style="--reveal-delay: {{ $loop->index * 80 }}ms">
                 <article
                     class="group relative flex h-full flex-col rounded-2xl border border-brand-100 bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md sm:p-7"
-                    data-reveal style="--reveal-delay: {{ $loop->index * 80 }}ms">
+                    >
                     <div class="flex items-center justify-between">
                         <div
                             class="flex h-12 w-12 items-center justify-center rounded-xl border border-brand-100 bg-brand-50 text-brand-600 transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white">
@@ -51,6 +52,7 @@
                         @endforeach
                     </ul>
                 </article>
+                </div>
             @endforeach
         </div>
 

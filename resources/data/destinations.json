@@ -78,8 +78,24 @@
   "review_count": 1100,
   "description": "Study in a diverse, multicultural destination offering internationally recognised qualifications, affordable tuition and living costs, modern campuses, English-taught programmes, and opportunities to gain valuable international experience.",
   "location": "Asia",
-  "avgCost": "MYR RM20,000 – RM50,000/year",
-  "visaProcessing": "14 working days (EMGS client charter; complete applications only)"
+  "avgCost": "MYR 20,000–50,000/year",
+  "visaProcessing": "14 working days"
+},
+{
+  "id": 6,
+  "name": "Canada",
+  "slug": "canada",
+  "image": "frontend-img/destinations/canada.webp",
+  "flag": "https://flagcdn.com/w40/ca.png",
+  "flagCode": "ca",
+  "is_featured": true,
+  "popular": true,
+  "rating": 4.9,
+  "review_count": 1250,
+  "description": "Study at respected Canadian universities and colleges, explore research and co-op opportunities, experience a multicultural society, and build skills for an internationally connected career.",
+  "location": "North America",
+  "avgCost": "CAD 25,000–45,000/year",
+  "visaProcessing": "IRCC processing times"
 }
   ]
 }
