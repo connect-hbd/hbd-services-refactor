@@ -99,14 +99,14 @@
         </div>
 
         {{-- Footer --}}
-        <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-100">
-            <span class="text-xs text-neutral-400">
+        <div class="mt-auto pt-4 flex items-center justify-end border-t border-neutral-100">
+            {{-- <span class="text-xs text-neutral-400">
                 @if (($destination['rating'] ?? 0) > 0)
                     {{ number_format($destination['rating']) }} reviews
                 @else
                     Reviews coming soon
                 @endif
-            </span>
+            </span> --}}
 
             <span class="inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
                 Learn more

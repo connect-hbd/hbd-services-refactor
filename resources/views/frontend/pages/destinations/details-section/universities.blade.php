@@ -29,8 +29,8 @@
                     <article
                         class="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-theme-md">
                         {{-- Card Top Area --}}
-                        <div class="relative border-b border-brand-100 bg-brand-25 p-6">
-                            <div class="grouptransition-all duration-300 hover:-translate-y-1 h-20">
+                        <div class="relative border-b border-brand-100 bg-brand-25 p-4">
+                            <div class="grouptransition-all duration-300 hover:-translate-y-1 h-12">
                                 <img src="{{ $university['logo'] }}" alt="{{ $university['name'] }} logo"
                                     class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
                                     loading="lazy">

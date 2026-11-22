@@ -1,22 +1,7 @@
 
 {
   "destinations": [
-    {
-      "id": 1,
-      "name": "United States",
-      "slug": "united-states",
-      "image": "frontend-img/destinations/united-states.webp",
-      "flag": "https://flagcdn.com/w40/us.png",
-      "flagCode": "us",
-      "is_featured": true,
-      "popular": true,
-      "rating": 4.9,
-      "review_count": 1250,
-      "description": "Study at globally recognised universities, access cutting-edge research facilities, explore flexible academic programs, and benefit from diverse career opportunities in one of the world's leading education destinations.",
-      "location": "North America",
-      "avgCost": "$20,000 – $45,000/year",
-      "visaProcessing": "3–8 weeks (estimated)"
-    },
+
     {
       "id": 2,
       "name": "United Kingdom",
@@ -99,3 +84,4 @@
 }
   ]
 }
+

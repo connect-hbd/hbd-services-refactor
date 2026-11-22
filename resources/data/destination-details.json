@@ -513,6 +513,7 @@
         "minimum": 17500,
         "maximum": 25000,
         "currency": "GBP",
+        "currencySymbol": "£",
         "period": "Per academic year",
         "description": "International undergraduate tuition fees vary depending on university, subject and programme.",
         "icon": "lucide:graduation-cap"
@@ -525,6 +526,7 @@
         "minimum": 16000,
         "maximum": 28000,
         "currency": "GBP",
+        "currencySymbol": "£",
         "period": "Usually a 1-year full-time programme",
         "description": "Most taught Master's degrees can be completed in one year. Fees vary by university and subject.",
         "icon": "lucide:book-open"
@@ -541,6 +543,7 @@
           "name": "Inside London",
           "amount": 1529,
           "currency": "GBP",
+        "currencySymbol": "£",
           "description": "Estimated monthly living expenses in London."
         },
         {
@@ -549,6 +552,7 @@
           "name": "Outside London",
           "amount": 1171,
           "currency": "GBP",
+        "currencySymbol": "£",
           "description": "Estimated monthly living expenses outside London."
         }
       ]
@@ -1388,6 +1392,7 @@
         "minimum": 15000,
         "maximum": 25000,
         "currency": "AUD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Estimated annual tuition fees for Foundation and Diploma study.",
         "icon": "lucide:book-open"
@@ -1400,6 +1405,7 @@
         "minimum": 20000,
         "maximum": 45000,
         "currency": "AUD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Estimated annual tuition fees for undergraduate study.",
         "icon": "lucide:graduation-cap"
@@ -1412,6 +1418,7 @@
         "minimum": 22000,
         "maximum": 50000,
         "currency": "AUD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Estimated annual tuition fees for postgraduate study.",
         "icon": "lucide:award"
@@ -1424,6 +1431,7 @@
         "minimum": 30000,
         "maximum": 95000,
         "currency": "AUD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Estimated annual MBA tuition fees.",
         "icon": "lucide:briefcase-business"
@@ -2329,6 +2337,7 @@
         "minimum": 22000,
         "maximum": 35000,
         "currency": "NZD",
+        "currencySymbol": "$",
         "period": "Per year",
         "description": "Typical annual tuition fee range for international undergraduate students.",
         "icon": "lucide:graduation-cap"
@@ -2341,6 +2350,7 @@
         "minimum": 26000,
         "maximum": 42000,
         "currency": "NZD",
+        "currencySymbol": "$",
         "period": "Per year",
         "description": "Typical tuition fee range stated for Master's programmes, usually 1–1.5 years.",
         "icon": "lucide:award"
@@ -2355,16 +2365,18 @@
           "id": 1,
           "category": "Major City",
           "name": "Auckland / Wellington",
-          "amount": "1800–2500",
+          "amount": "1800–$2500",
           "currency": "NZD",
+          "currencySymbol": "$",
           "description": "Estimated monthly living costs in major cities."
         },
         {
           "id": 2,
           "category": "Affordable Region",
           "name": "Christchurch / Dunedin",
-          "amount": "1400–1900",
+          "amount": "1400–$1900",
           "currency": "NZD",
+          "currencySymbol": "$",
           "description": "Estimated monthly living costs in more affordable regions."
         }
       ]
@@ -4509,50 +4521,36 @@
     {
       "id": 1,
       "name": "Toronto",
-      "image": "/images/destinations/canada/city-1.jfif",
+      "image": "/images/destinations/canada/city-1.avif",
       "location": "Ontario",
       "description": "Canada's largest metropolitan area and a major centre for business, finance, technology, healthcare and higher education, with a wide choice of universities and colleges."
     },
     {
       "id": 2,
       "name": "Vancouver",
-      "image": "/images/destinations/canada/city-2.jfif",
+      "image": "/images/destinations/canada/city-2.avif",
       "location": "British Columbia",
       "description": "A Pacific-coast city known for technology, sustainability, film, business and access to universities, colleges and outdoor recreation."
     },
     {
       "id": 3,
       "name": "Montreal",
-      "image": "/images/destinations/canada/city-3.jfif",
+      "image": "/images/destinations/canada/city-3.avif",
       "location": "Quebec",
       "description": "A major bilingual and international student city with strong universities, research, arts, aerospace, gaming and technology sectors."
     },
     {
       "id": 4,
       "name": "Ottawa",
-      "image": "/images/destinations/canada/city-4.jfif",
+      "image": "/images/destinations/canada/city-4.avif",
       "location": "Ontario",
       "description": "Canada's capital, offering opportunities in public policy, international affairs, engineering, technology and research."
-    },
-    {
-      "id": 5,
-      "name": "Calgary",
-      "image": "/images/destinations/canada/city-5.jfif",
-      "location": "Alberta",
-      "description": "A growing education and employment hub with strengths in energy, engineering, business, environmental studies and technology."
-    },
-    {
-      "id": 6,
-      "name": "Waterloo",
-      "image": "/images/destinations/canada/city-6.jfif",
-      "location": "Ontario",
-      "description": "A recognised technology and innovation region with universities, research institutes, start-ups and co-operative education opportunities."
     }
   ],
   "whyChoose": {
     "id": 1,
     "description": "Canada offers diverse public universities and colleges, research opportunities and programmes connected with industry. Students should compare programme quality, designated learning institution status, tuition, location and current immigration rules before accepting an offer.",
-    "image": "/images/destinations/canada/why-choose.jfif",
+    "image": "/images/destinations/canada/why-choose.webp",
     "highlights": [
       {
         "id": 1,
@@ -5059,6 +5057,7 @@
         "minimum": 15000,
         "maximum": 25000,
         "currency": "CAD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Indicative planning range only. College tuition varies by province, institution, programme and study load.",
         "icon": "lucide:book-open"
@@ -5071,6 +5070,7 @@
         "minimum": 25000,
         "maximum": 45000,
         "currency": "CAD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Indicative annual range for many undergraduate programmes. Professional programmes and some institutions may charge substantially more.",
         "icon": "lucide:graduation-cap"
@@ -5083,6 +5083,7 @@
         "minimum": 18000,
         "maximum": 40000,
         "currency": "CAD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Indicative planning range for selected master's programmes. Fees depend on programme type, university and duration.",
         "icon": "lucide:award"
@@ -5095,6 +5096,7 @@
         "minimum": 30000,
         "maximum": 65000,
         "currency": "CAD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Indicative range only. MBA fees vary widely by business school, programme format and length.",
         "icon": "lucide:briefcase-business"
@@ -5107,6 +5109,7 @@
         "minimum": 7000,
         "maximum": 25000,
         "currency": "CAD",
+        "currencySymbol": "$",
         "period": "Per academic year",
         "description": "Indicative range only. Research funding, assistantships and fee arrangements differ by institution and supervisor.",
         "icon": "lucide:microscope"
@@ -5123,6 +5126,7 @@
           "name": "Toronto / Vancouver",
           "amount": "2000–3000",
           "currency": "CAD",
+          "currencySymbol": "$",
           "description": "Indicative monthly living budget for major metropolitan areas, excluding tuition and subject to housing choice."
         },
         {
@@ -5131,6 +5135,7 @@
           "name": "Other Canadian Cities",
           "amount": "1500–2400",
           "currency": "CAD",
+          "currencySymbol": "$",
           "description": "Indicative monthly budget for cities where accommodation and everyday costs may be lower; actual costs vary."
         }
       ]

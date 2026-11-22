@@ -58,11 +58,11 @@
 
                                 <div class="mt-1 text-3xl font-extrabold tracking-tight text-brand-600 sm:text-4xl">
 
-                                    {{ $fee['currency'] ?? '' }} {{ number_format($fee['minimum'] ?? 0) }}
+                                    {{ $fee['currency'] ?? '' }} {{$fee['currencySymbol'] ?? ''}}{{ number_format($fee['minimum'] ?? 0) }}
 
                                     –
 
-                                    {{ $fee['currency'] ?? '' }} {{ number_format($fee['maximum'] ?? 0) }} +
+                                    {{$fee['currencySymbol'] ?? ''}}{{ number_format($fee['maximum'] ?? 0) }} +
 
                                 </div>
 
@@ -134,7 +134,7 @@
                                     <div class="shrink-0 text-right">
 
                                         <span class="text-lg font-extrabold text-black sm:text-xl">
-                                            {{ $area['currency'] ?? '' }} {{ $area['amount'] ?? '0' }}
+                                            {{ $area['currency'] ?? '' }} {{$fee['currencySymbol'] ?? ''}}{{ $area['amount'] ?? '0' }}
                                         </span>
 
                                         <span class="block text-xs text-black/50">
