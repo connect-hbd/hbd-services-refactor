@@ -18,6 +18,7 @@ class RolePermissionSeeder extends Seeder
 
         $permissions = [
             'dashboard.view',
+            'setting.view',
 
             // User permissions
             'user.list',

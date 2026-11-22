@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\CounsellorController;
 use App\Http\Controllers\Admin\LeadsController;
 use App\Http\Controllers\Admin\CounsellorBookingController;
 use App\Http\Controllers\Admin\DestinationController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Employee\EmployeeProfileController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -156,4 +157,5 @@ Route::prefix('{role}')
         Route::resource('leave-types', LeaveTypeController::class);
 
         // Route::get('employees/{employee}', [EmployeeProfileController::class, 'index'])->name('employee.show');
+        Route::get('setting', [SettingController::class, 'index'])->name('comany-setting');
     });

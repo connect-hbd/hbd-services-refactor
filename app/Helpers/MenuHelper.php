@@ -19,6 +19,17 @@ public static function getMainItems()
             ]
             ];
 }
+public static function getSettingItems()
+{
+     return [
+        [
+                'icon' => 'setting',
+                'name' => 'Company Settings',
+                'route' => 'role.setting',
+                'permission' => 'setting.view',
+            ]
+            ];
+}
     public static function getCRMItems()
     {
         return [
@@ -295,6 +306,10 @@ public static function getMenuGroups()
         [
             'title' => 'CRM Menu',
             'items' => self::visibleItems(self::getCRMItems()),
+        ],
+         [
+            'title' => 'Company Settings',
+            'items' => self::visibleItems(self::getSettingItems()),
         ],
     ];
 

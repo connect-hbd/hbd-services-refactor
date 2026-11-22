@@ -10,7 +10,7 @@
            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Counsellor Profile Details (4 Cols) -->
-            <div class="lg:col-span-4 bg-white rounded-3xl p-6 sm:p-8 border border-neutral-100 shadow-sm space-y-6">
+            <div class="lg:col-span-4 bg-white rounded-3xl p-4 sm:p-5 border border-neutral-100 shadow-sm space-y-6">
                 @include('frontend.pages.counsellors.profile', ['counsellor' => $counsellor])
             </div>
 

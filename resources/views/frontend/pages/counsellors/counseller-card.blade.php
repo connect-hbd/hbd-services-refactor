@@ -184,16 +184,13 @@
         <div class="mt-6 grid grid-cols-2 items-center gap-3 pt-1">
             <a href="{{ $profileUrl }}"
                class="inline-flex items-center justify-center gap-1.5 rounded-xl border border-brand-200 bg-white px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-secondary-500 transition-all duration-150 hover:border-brand-300 hover:bg-brand-25 hover:text-brand-700 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-                <span>View Profile</span>
+               <iconify-icon icon="lucide:user" class="text-base"></iconify-icon> 
+               <span>View Profile</span>
             </a>
 
             <a href="{{ $bookingUrl }}"
                class="inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand-500 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-xs shadow-brand-500/20 transition-all duration-150 hover:bg-secondary-500 hover:shadow-md hover:shadow-secondary-500/20 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1">
-                <svg class="h-4 w-4 shrink-0 text-brand-100" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                </svg>
+                <iconify-icon icon="lucide:calendar" class="text-base"></iconify-icon>
                 <span>Book Now</span>
             </a>
         </div>
