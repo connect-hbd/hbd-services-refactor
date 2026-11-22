@@ -3,41 +3,22 @@
 @section('title', 'System Settings')
 
 @section('content')
-    @php
-        // Static sample data for standalone UI preview & testing
-        $companySettings = (object) [
-            'company_name' => 'Apex Global Consultancy',
-            'logo' => null,
-            'favicon' => null,
-            'address' => "House 42, Road 11, Banani\nDhaka 1213, Bangladesh",
-            'phone' => '+880 1711-000000',
-            'email' => 'hello@apexconsultancy.example',
-            'website' => 'https://apexconsultancy.example',
-        ];
+   @php
+    $logoPath = $companySettings->get('logo');
+    $faviconPath = $companySettings->get('favicon');
 
-        $settings = collect([
-            'max_consecutive_days' => (object) ['value' => 14],
-            'working_hours_start' => (object) ['value' => '09:30'],
-            'working_hours_end' => (object) ['value' => '18:00'],
-            'late_threshold_minutes' => (object) ['value' => 15],
-            'early_departure_threshold_minutes' => (object) ['value' => 15],
-            'weekend_days' => (object) ['value' => ['5', '6']], // Friday & Saturday
-            'storage_driver' => (object) ['value' => 'local'],
-            'ip_whitelist_enabled' => (object) ['value' => 1],
-            'whitelist_ips' => (object) ['value' => ['103.48.16.24', '192.168.1.10']],
-        ]);
+    $logoUrl = $logoPath
+        ? Storage::disk('public')->url($logoPath)
+        : null;
 
-        $currentDriver = optional($settings->get('storage_driver'))->value ?? 'local';
-        $ipWhitelistEnabled = (bool) (optional($settings->get('ip_whitelist_enabled'))->value ?? 0);
+    $faviconUrl = $faviconPath
+        ? Storage::disk('public')->url($faviconPath)
+        : null;
 
-        $ipSetting = $settings->get('whitelist_ips');
-        $ipValue = $ipSetting ? $ipSetting->value : [];
-        $ips = is_string($ipValue) ? json_decode($ipValue, true) ?? [] : (array) $ipValue;
+    $weekendDays = $attendanceSettings->get('weekend_days', []);
 
-        $weekendValue = $settings['weekend_days']->value ?? [];
-        $savedWeekendDays = is_string($weekendValue) ? json_decode($weekendValue, true) ?? [] : (array) $weekendValue;
-        $savedWeekendDaysStr = array_map('strval', $savedWeekendDays);
-    @endphp
+    $whitelistIps = $securitySettings->get('whitelist_ips', []);
+@endphp
 
     <div x-data="settingsPage({
         initialTab: new URLSearchParams(window.location.search).get('tab') || 'company',

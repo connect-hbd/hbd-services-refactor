@@ -160,5 +160,7 @@ Route::prefix('{role}')
         // Route::get('setting', [SettingController::class, 'index'])
         //     ->middleware('permission:setting.view')
         //     ->name('setting');
+
          Route::get('setting', [SettingController::class, 'index'])->name('setting');
+         Route::get('setting/update', [SettingController::class, 'update'])->name('setting-update');
     });
