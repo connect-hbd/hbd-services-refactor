@@ -32,10 +32,10 @@
 
         $ipSetting = $settings->get('whitelist_ips');
         $ipValue = $ipSetting ? $ipSetting->value : [];
-        $ips = is_string($ipValue) ? (json_decode($ipValue, true) ?? []) : (array) $ipValue;
+        $ips = is_string($ipValue) ? json_decode($ipValue, true) ?? [] : (array) $ipValue;
 
         $weekendValue = $settings['weekend_days']->value ?? [];
-        $savedWeekendDays = is_string($weekendValue) ? (json_decode($weekendValue, true) ?? []) : (array) $weekendValue;
+        $savedWeekendDays = is_string($weekendValue) ? json_decode($weekendValue, true) ?? [] : (array) $weekendValue;
         $savedWeekendDaysStr = array_map('strval', $savedWeekendDays);
     @endphp
 
@@ -49,48 +49,92 @@
         ipWhitelistEnabled: @js($ipWhitelistEnabled),
         ips: @js(array_values($ips)),
         savedWeekendDays: @js($savedWeekendDaysStr),
-    })" x-init="init()"
-        class="min-h-screen bg-slate-50/80 dark:bg-slate-950 py-8 sm:py-10">
+    })" x-init="init()" class="bg-neutral-50 dark:bg-neutral-950">
 
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Page Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        {{-- ── Scoped styling for upgraded controls ─────────────────────────── --}}
+        <style>
+            [x-data^="settingsPage"] .seg-tab {
+                position: relative;
+            }
+
+            [x-data^="settingsPage"] .switch {
+                transition: background-color .2s ease;
+            }
+
+            [x-data^="settingsPage"] .switch .knob {
+                transition: transform .2s cubic-bezier(.4, 0, .2, 1);
+            }
+
+            [x-data^="settingsPage"] .dz {
+                transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+            }
+
+            [x-data^="settingsPage"] .dz:hover {
+                border-color: rgb(var(--color-brand-400, 99 102 241) / .6);
+            }
+
+            [x-data^="settingsPage"] .section-card {
+                transition: box-shadow .2s ease, border-color .2s ease;
+            }
+
+            [x-data^="settingsPage"] .section-card:hover {
+                box-shadow: 0 4px 24px -8px rgb(0 0 0 / .08);
+            }
+
+            .dark [x-data^="settingsPage"] .section-card:hover {
+                box-shadow: 0 4px 24px -8px rgb(0 0 0 / .45);
+            }
+        </style>
+
+        {{-- Decorative page backdrop --}}
+        <div
+            class="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-brand-500/[0.07] dark:from-brand-500/[0.10] to-transparent">
+        </div>
+
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+            {{-- ══════════════ Page Header ══════════════ --}}
+            <div class="flex flex-col gap-4 mb-8">
                 <div>
-                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-                        Settings &amp; Configuration
+                    
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                        Settings
                     </h1>
-                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1.5 ">
                         Manage organization branding, leave &amp; attendance rules, storage, and security policies.
                     </p>
                 </div>
+                <div class="hidden sm:flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500">
+                    <iconify-icon icon="lucide:shield-check" class="w-4 h-4"></iconify-icon>
+                    Changes apply workspace-wide
+                </div>
             </div>
 
-            <!-- Feedback Banner (Success / Error) -->
+            {{-- ══════════════ Feedback Banner ══════════════ --}}
             <div x-show="alert.message" x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
-                x-transition:leave="transition ease-in duration-150"
-                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
-                :class="alert.type === 'success'
-                    ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200'
-                    : 'bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200'"
-                class="mb-6 p-4 rounded-xl border shadow-sm flex items-start justify-between gap-4"
-                style="display: none;" role="alert">
+                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                :class="alert.type === 'success' ?
+                    'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200' :
+                    'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'"
+                class="mb-6 p-4 rounded-2xl border shadow-sm flex items-start justify-between gap-4" style="display: none;"
+                role="alert">
                 <div class="flex items-start gap-3">
                     <template x-if="alert.type === 'success'">
-                        <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <span
+                            class="grid place-items-center w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 shrink-0">
+                            <iconify-icon icon="lucide:circle-check"
+                                class="w-4.5 h-4.5 text-emerald-600 dark:text-emerald-400"></iconify-icon>
+                        </span>
                     </template>
                     <template x-if="alert.type === 'error'">
-                        <svg class="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <span class="grid place-items-center w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 shrink-0">
+                            <iconify-icon icon="lucide:circle-alert"
+                                class="w-4.5 h-4.5 text-red-600 dark:text-red-400"></iconify-icon>
+                        </span>
                     </template>
-                    <div class="text-sm">
+                    <div class="text-sm pt-1">
                         <p class="font-semibold" x-text="alert.message"></p>
                         <template x-if="alert.errors.length > 0">
                             <ul class="list-disc list-inside mt-1.5 space-y-0.5 text-xs opacity-90">
@@ -102,387 +146,478 @@
                     </div>
                 </div>
                 <button type="button" @click="alert.message = ''"
-                    class="text-current opacity-60 hover:opacity-100 transition p-1 rounded-lg" aria-label="Dismiss">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    class="text-current opacity-60 hover:opacity-100 transition p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
+                    aria-label="Dismiss">
+                    <iconify-icon icon="lucide:x" class="w-4 h-4"></iconify-icon>
                 </button>
             </div>
 
-            <!-- Navigation Tabs -->
-            <div
-                class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 p-1.5 mb-6">
-                <nav class="flex flex-wrap gap-1" role="tablist" aria-label="Settings sections">
-                    <template x-for="tab in tabs" :key="tab.id">
-                        <button type="button" role="tab" :aria-selected="activeTab === tab.id"
-                            @click="selectTab(tab.id)"
-                            :class="activeTab === tab.id
-                                ? 'bg-[#1968b2] text-white shadow-sm'
-                                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'"
-                            class="px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 flex items-center gap-2 cursor-pointer">
-                            <span x-text="tab.label"></span>
-                        </button>
-                    </template>
-                </nav>
+            {{-- ══════════════ Navigation Tabs (segmented control) ══════════════ --}}
+            <div class="sticky top-4 z-20 mb-6">
+                <div
+                    class="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-lg rounded-2xl shadow-sm border border-neutral-200/80 dark:border-neutral-800 p-1.5">
+                    <nav class="flex gap-1 overflow-x-auto no-scrollbar" role="tablist" aria-label="Settings sections">
+                        <template x-for="tab in tabs" :key="tab.id">
+                            <button type="button" role="tab" :aria-selected="activeTab === tab.id"
+                                @click="selectTab(tab.id)"
+                                :class="activeTab === tab.id ?
+                                    'bg-brand-600 text-white shadow-md shadow-brand-600/25' :
+                                    'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white'"
+                                class="seg-tab px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                                <iconify-icon :icon="tab.icon" class="text-base"></iconify-icon>
+                                <span x-text="tab.label"></span>
+                            </button>
+                        </template>
+                    </nav>
+                </div>
             </div>
 
-            <!-- Settings Form -->
+            {{-- ══════════════ Settings Form ══════════════ --}}
             <form x-ref="form" @submit.prevent="submitForm" enctype="multipart/form-data"
-                class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-800 overflow-hidden">
+                class="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-800">
+
                 @csrf
 
-                <div class="p-6 sm:p-8 space-y-8">
-                    <!-- ================= COMPANY TAB ================= -->
+                <div class="p-6 sm:p-8 space-y-10">
+
+                    {{-- ══════════ COMPANY TAB ══════════ --}}
                     <div x-show="activeTab === 'company'" x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="space-y-8">
+                        x-transition:enter-start="opacity-0 translate-y-1"
+                        x-transition:enter-end="opacity-100 translate-y-0" class="space-y-10">
 
-                        <!-- Branding Section -->
-                        <section class="rounded-xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-700/70 p-6">
-                            <div class="mb-6">
-                                <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Brand Identity</h2>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Your company name, logo, and browser favicon.</p>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        {{-- Brand Identity --}}
+                        <section
+                            class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                            <header
+                                class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                <span
+                                    class="grid place-items-center w-9 h-9 rounded-xl bg-brand-500/10 text-brand-500 dark:bg-brand-500/20 dark:text-brand-300">
+                                    <iconify-icon icon="lucide:palette" class="w-4.5 h-4.5"></iconify-icon>
+                                </span>
                                 <div>
-                                    <label for="company_name"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Company Name <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="company_name" type="text" name="company_name"
-                                        value="{{ $companySettings->company_name }}" required
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
+                                    <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Brand Identity</h2>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Your company name, logo, and
+                                        browser favicon.</p>
                                 </div>
-                            </div>
+                            </header>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <!-- Logo Upload -->
-                                <div>
-                                    <label for="logoInput"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Company Logo
-                                    </label>
-                                    <div x-show="logoPreview"
-                                        class="mb-4 p-4 bg-white dark:bg-slate-800/90 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-4">
-                                        <div>
-                                            <span class="block text-xs font-medium uppercase tracking-wider text-slate-400 mb-2">
-                                                Logo Preview
-                                            </span>
+                            <div class="p-6 space-y-8">
+                                <div class="max-w-md">
+                                    <x-form.input-text id="company_name" name="company_name" label="Company Name"
+                                        :value="$companySettings->company_name" required />
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {{-- Logo upload: dropzone style --}}
+                                    <div>
+                                        <span
+                                            class="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-2">Company
+                                            Logo</span>
+                                        <div x-show="logoPreview" x-transition
+                                            class="mb-3 p-4 bg-white dark:bg-neutral-800/90 rounded-2xl border border-neutral-200 dark:border-neutral-700 flex items-center gap-4">
                                             <img :src="logoPreview" alt="Company Logo"
-                                                class="h-16 max-w-[200px] object-contain rounded-lg">
+                                                class="h-14 max-w-[180px] object-contain rounded-lg bg-neutral-50 dark:bg-neutral-900 p-2">
+                                            <div class="min-w-0">
+                                                <span
+                                                    class="block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Preview</span>
+                                                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">This is how
+                                                    your logo appears in the app header and emails.</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input id="logoInput" type="file" name="logo" accept="image/*"
-                                        @change="handleFilePreview($event, 'logo')"
-                                        class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-[#1968b2]/10 file:text-[#1968b2] hover:file:bg-[#1968b2]/20 dark:file:bg-[#1968b2]/20 dark:file:text-sky-300 cursor-pointer transition">
-                                </div>
-
-                                <!-- Favicon Upload -->
-                                <div>
-                                    <label for="faviconInput"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Favicon
-                                    </label>
-                                    <div x-show="faviconPreview"
-                                        class="mb-4 p-4 bg-white dark:bg-slate-800/90 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-4">
-                                        <div>
-                                            <span class="block text-xs font-medium uppercase tracking-wider text-slate-400 mb-2">
-                                                Favicon Preview
+                                        <label for="logoInput"
+                                            class="dz flex flex-col items-center justify-center gap-2 px-4 py-8 rounded-2xl border-2 border-dashed border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800/60 cursor-pointer text-center">
+                                            <span
+                                                class="grid place-items-center w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 dark:bg-brand-500/20 dark:text-brand-300">
+                                                <iconify-icon icon="lucide:image-plus" class="w-5 h-5"></iconify-icon>
                                             </span>
+                                            <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                                                <span class="text-brand-500 font-semibold">Click to upload</span> a logo
+                                            </span>
+                                            <span class="text-xs text-neutral-400">PNG, JPG or SVG &middot; recommended
+                                                height 64px</span>
+                                        </label>
+                                        <input id="logoInput" type="file" name="logo" accept="image/*"
+                                            @change="handleFilePreview($event, 'logo')" class="sr-only">
+                                    </div>
+
+                                    {{-- Favicon upload: dropzone style --}}
+                                    <div>
+                                        <span
+                                            class="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-2">Favicon</span>
+                                        <div x-show="faviconPreview" x-transition
+                                            class="mb-3 p-4 bg-white dark:bg-neutral-800/90 rounded-2xl border border-neutral-200 dark:border-neutral-700 flex items-center gap-4">
                                             <img :src="faviconPreview" alt="Favicon"
-                                                class="h-12 w-12 object-contain rounded-lg border border-slate-200 dark:border-slate-700 p-1">
+                                                class="h-12 w-12 object-contain rounded-xl border border-neutral-200 dark:border-neutral-700 p-1.5 bg-neutral-50 dark:bg-neutral-900">
+                                            <div class="min-w-0">
+                                                <span
+                                                    class="block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Preview</span>
+                                                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Shown in
+                                                    browser tabs and bookmarks.</p>
+                                            </div>
+                                        </div>
+                                        <label for="faviconInput"
+                                            class="dz flex flex-col items-center justify-center gap-2 px-4 py-8 rounded-2xl border-2 border-dashed border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800/60 cursor-pointer text-center">
+                                            <span
+                                                class="grid place-items-center w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 dark:bg-brand-500/20 dark:text-brand-300">
+                                                <iconify-icon icon="lucide:globe" class="w-5 h-5"></iconify-icon>
+                                            </span>
+                                            <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                                                <span class="text-brand-500 font-semibold">Click to upload</span> a favicon
+                                            </span>
+                                            <span class="text-xs text-neutral-400">ICO or PNG &middot; 32&times;32 or
+                                                larger, square</span>
+                                        </label>
+                                        <input id="faviconInput" type="file" name="favicon"
+                                            accept=".ico,.png,.jpg,.jpeg,.svg"
+                                            @change="handleFilePreview($event, 'favicon')" class="sr-only">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {{-- Contact Information --}}
+                        <section
+                            class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                            <header
+                                class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                <span
+                                    class="grid place-items-center w-9 h-9 rounded-xl bg-sky-500/10 text-sky-500 dark:bg-sky-500/20 dark:text-sky-300">
+                                    <iconify-icon icon="lucide:mail" class="w-4.5 h-4.5"></iconify-icon>
+                                </span>
+                                <div>
+                                    <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Contact Information
+                                    </h2>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Public contact details
+                                        displayed across correspondence and portals.</p>
+                                </div>
+                            </header>
+
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="md:col-span-2">
+                                        <x-form.textarea-input id="address" name="address" label="Address"
+                                            rows="3" :value="$companySettings->address" />
+                                    </div>
+                                    <div>
+                                        <x-form.input-text id="phone" name="phone" label="Phone"
+                                            :value="$companySettings->phone" />
+                                    </div>
+                                    <div>
+                                        <x-form.input-text id="email" type="email" name="email" label="Email"
+                                            :value="$companySettings->email" />
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <x-form.input-text id="website" type="url" name="website" label="Website"
+                                            :value="$companySettings->website" placeholder="https://example.com" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    {{-- ══════════ LEAVE & ATTENDANCE TAB ══════════ --}}
+                    <div x-show="activeTab === 'leave'" x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 translate-y-1"
+                        x-transition:enter-end="opacity-100 translate-y-0" class="space-y-10" style="display: none;">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {{-- Weekend --}}
+                            <section
+                                class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 ">
+                                <header
+                                    class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                    <span
+                                        class="grid place-items-center w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-300">
+                                        <iconify-icon icon="lucide:calendar-days" class="w-4.5 h-4.5"></iconify-icon>
+                                    </span>
+                                    <div>
+                                        <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Weekend Schedule
+                                        </h2>
+                                        <p class="text-xs text-neutral-500 dark:text-neutral-400">Select weekly off-days
+                                            used for attendance and leave calculations.</p>
+                                    </div>
+                                </header>
+
+                                <div class="p-6">
+                                    <x-form.multi-select name="weekend_days" label="Weekend Days" :options="[
+                                        'monday' => 'Monday',
+                                        'tuesday' => 'Tuesday',
+                                        'wednesday' => 'Wednesday',
+                                        'thursday' => 'Thursday',
+                                        'friday' => 'Friday',
+                                        'saturday' => 'Saturday',
+                                        'sunday' => 'Sunday',
+                                    ]" />
+                                </div>
+                            </section>
+
+                            {{-- Leave Rules --}}
+                            <section
+                                class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                                <header
+                                    class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                    <span
+                                        class="grid place-items-center w-9 h-9 rounded-xl bg-violet-500/10 text-violet-500 dark:bg-violet-500/20 dark:text-violet-300">
+                                        <iconify-icon icon="lucide:calendar-off" class="w-4.5 h-4.5"></iconify-icon>
+                                    </span>
+                                    <div>
+                                        <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Leave Rules</h2>
+                                        <p class="text-xs text-neutral-500 dark:text-neutral-400">Configure baseline leave
+                                            limits for employees.</p>
+                                    </div>
+                                </header>
+
+                                <div class="p-6">
+                                    <div class="">
+                                        <x-form.input-text id="max_consecutive_days" type="number"
+                                            name="max_consecutive_days" label="Max Consecutive Leave Days"
+                                            :value="$settings['max_consecutive_days']->value ?? ''" required min="1" />
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        {{-- Working Hours --}}
+                        <section
+                            class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                            <header
+                                class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                <span
+                                    class="grid place-items-center w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 dark:bg-amber-500/20 dark:text-amber-300">
+                                    <iconify-icon icon="lucide:clock-3" class="w-4.5 h-4.5"></iconify-icon>
+                                </span>
+                                <div>
+                                    <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Working Hours</h2>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Define shift timings and
+                                        grace thresholds for late check-ins and early departures.</p>
+                                </div>
+                            </header>
+
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <x-form.input-text id="working_hours_start" type="time"
+                                            name="working_hours_start" label="Office Start Time" :value="$settings['working_hours_start']->value ?? ''"
+                                            required />
+                                    </div>
+                                    <div>
+                                        <x-form.input-text id="working_hours_end" type="time" name="working_hours_end"
+                                            label="Office End Time" :value="$settings['working_hours_end']->value ?? ''" required />
+                                    </div>
+                                    <div>
+                                        <x-form.input-text id="late_threshold_minutes" type="number"
+                                            name="late_threshold_minutes" label="Late Threshold (minutes)"
+                                            :value="$settings['late_threshold_minutes']->value ?? ''" required min="0" />
+                                    </div>
+                                    <div>
+                                        <x-form.input-text id="early_departure_threshold_minutes" type="number"
+                                            name="early_departure_threshold_minutes"
+                                            label="Early Departure Threshold (minutes)" :value="$settings['early_departure_threshold_minutes']->value ?? ''" required
+                                            min="0" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+                    </div>
+
+                    {{-- ══════════ FILE STORAGE TAB ══════════ --}}
+                    <div x-show="activeTab === 'storage'" x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 translate-y-1"
+                        x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6" style="display: none;">
+
+                        <section
+                            class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                            <header
+                                class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                <span
+                                    class="grid place-items-center w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-500 dark:bg-cyan-500/20 dark:text-cyan-300">
+                                    <iconify-icon icon="lucide:hard-drive" class="w-4.5 h-4.5"></iconify-icon>
+                                </span>
+                                <div>
+                                    <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">File Storage Driver
+                                    </h2>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Choose where newly uploaded
+                                        files are stored. Existing local files remain accessible regardless of this setting.
+                                    </p>
+                                </div>
+                            </header>
+
+                            <div class="p-6 space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                                    <label @click="storageDriver = 'local'"
+                                        :class="storageDriver === 'local'
+                                            ?
+                                            'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10 ring-2 ring-brand-500/20 shadow-sm shadow-brand-500/10' :
+                                            'border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'"
+                                        class="flex items-start gap-3.5 p-4 rounded-2xl border cursor-pointer transition">
+                                        <input type="radio" name="storage_driver" value="local"
+                                            x-model="storageDriver" id="storageDriverLocal"
+                                            class="mt-0.5 w-4 h-4 text-brand-500 border-neutral-300 focus:ring-brand-500">
+                                        <span
+                                            class="grid place-items-center w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 shrink-0">
+                                            <iconify-icon icon="lucide:server" class="w-4.5 h-4.5"></iconify-icon>
+                                        </span>
+                                        <span>
+                                            <span
+                                                class="block text-sm font-semibold text-neutral-900 dark:text-white">Local
+                                                Storage</span>
+                                            <span class="block text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Store
+                                                files directly on the application server disk.</span>
+                                        </span>
+                                    </label>
+
+                                    <label @click="storageDriver = 's3'"
+                                        :class="storageDriver === 's3'
+                                            ?
+                                            'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10 ring-2 ring-brand-500/20 shadow-sm shadow-brand-500/10' :
+                                            'border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'"
+                                        class="flex items-start gap-3.5 p-4 rounded-2xl border cursor-pointer transition">
+                                        <input type="radio" name="storage_driver" value="s3"
+                                            x-model="storageDriver" id="storageDriverS3"
+                                            class="mt-0.5 w-4 h-4 text-brand-500 border-neutral-300 focus:ring-brand-500">
+                                        <span
+                                            class="grid place-items-center w-9 h-9 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 shrink-0">
+                                            <iconify-icon icon="lucide:cloud-upload" class="w-4.5 h-4.5"></iconify-icon>
+                                        </span>
+                                        <span>
+                                            <span
+                                                class="block text-sm font-semibold text-neutral-900 dark:text-white">Amazon
+                                                S3</span>
+                                            <span class="block text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Store
+                                                uploads in a configured S3 object bucket.</span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div x-show="storageDriver === 's3'" x-transition
+                                    class="max-w-2xl flex items-start gap-2.5 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200">
+                                    <iconify-icon icon="lucide:triangle-alert"
+                                        class="w-4 h-4 shrink-0 mt-0.5"></iconify-icon>
+                                    <p>Ensure your <code class="font-mono font-semibold">AWS_*</code> bucket credentials
+                                        are configured in your environment before saving.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    {{-- ══════════ SECURITY TAB ══════════ --}}
+                    <div x-show="activeTab === 'security'" x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 translate-y-1"
+                        x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6" style="display: none;">
+
+                        <section
+                            class="section-card rounded-2xl bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden">
+                            <header
+                                class="flex items-center gap-3 px-6 pt-5 pb-4 border-b border-neutral-200/60 dark:border-neutral-700/60">
+                                <span
+                                    class="grid place-items-center w-9 h-9 rounded-xl bg-rose-500/10 text-rose-500 dark:bg-rose-500/20 dark:text-rose-300">
+                                    <iconify-icon icon="lucide:shield-check" class="w-4.5 h-4.5"></iconify-icon>
+                                </span>
+                                <div>
+                                    <h2 class="text-sm font-semibold text-neutral-900 dark:text-white">Security &amp; Fraud
+                                        Prevention</h2>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400">Restrict attendance actions
+                                        to approved office or network IP addresses.</p>
+                                </div>
+                            </header>
+
+                            <div class="p-6 space-y-6">
+
+                                {{-- Enable IP Whitelist: modern switch --}}
+                                <div
+                                    class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-neutral-900/70 border border-neutral-200/80 dark:border-neutral-700/80 flex items-center justify-between gap-4">
+                                    <div class="flex items-start gap-3">
+                                        <span
+                                            class="grid place-items-center w-9 h-9 rounded-xl bg-brand-500/10 text-brand-500 dark:bg-brand-500/20 dark:text-brand-300 shrink-0"
+                                            :class="ipWhitelistEnabled ? '' : 'opacity-50'">
+                                            <iconify-icon icon="lucide:network" class="w-4.5 h-4.5"></iconify-icon>
+                                        </span>
+                                        <div>
+                                            <label for="ip_whitelist_enabled"
+                                                class="text-sm font-semibold text-neutral-900 dark:text-white cursor-pointer block">
+                                                Enable IP Whitelist for Attendance
+                                            </label>
+                                            <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                                Block check-ins from IP addresses outside the list below when enabled.
+                                            </p>
                                         </div>
                                     </div>
-                                    <input id="faviconInput" type="file" name="favicon"
-                                        accept=".ico,.png,.jpg,.jpeg,.svg"
-                                        @change="handleFilePreview($event, 'favicon')"
-                                        class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-[#1968b2]/10 file:text-[#1968b2] hover:file:bg-[#1968b2]/20 dark:file:bg-[#1968b2]/20 dark:file:text-sky-300 cursor-pointer transition">
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Contact Information Section -->
-                        <section class="pt-2">
-                            <div class="mb-6">
-                                <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Contact Information</h2>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Public contact details displayed across correspondence and portals.</p>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="md:col-span-2">
-                                    <label for="address"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Address
+                                    <input type="hidden" name="ip_whitelist_enabled" value="0">
+                                    <label for="ip_whitelist_enabled"
+                                        class="relative inline-flex cursor-pointer select-none"
+                                        title="Toggle IP whitelist">
+                                        <input id="ip_whitelist_enabled" type="checkbox" name="ip_whitelist_enabled"
+                                            value="1" x-model="ipWhitelistEnabled" class="peer sr-only">
+                                        <span
+                                            class="switch block w-11 h-6 rounded-full bg-neutral-300 dark:bg-neutral-600 peer-checked:bg-brand-500 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500/40 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-white dark:peer-focus-visible:ring-offset-neutral-900"
+                                            aria-hidden="true"></span>
+                                        <span
+                                            class="switch knob absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md peer-checked:translate-x-5"
+                                            aria-hidden="true"></span>
                                     </label>
-                                    <textarea id="address" name="address" rows="3"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none resize-none transition">{{ $companySettings->address }}</textarea>
                                 </div>
 
-                                <div>
-                                    <label for="phone"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Phone
+                                {{-- Whitelisted IPs --}}
+                                <div class="max-w-2xl">
+                                    <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-1">
+                                        Whitelisted IP Addresses
                                     </label>
-                                    <input id="phone" type="text" name="phone" value="{{ $companySettings->phone }}"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
+                                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mb-4">
+                                        Only allow access from these IPs. Leave empty to allow all addresses.
+                                    </p>
 
-                                <div>
-                                    <label for="email"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Email
-                                    </label>
-                                    <input id="email" type="email" name="email" value="{{ $companySettings->email }}"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
+                                    <template x-if="ips.length === 0">
+                                        <div
+                                            class="mb-4 px-4 py-6 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-700 text-center">
+                                            <iconify-icon icon="lucide:list-x"
+                                                class="w-5 h-5 mx-auto text-neutral-300 dark:text-neutral-600 mb-1.5"></iconify-icon>
+                                            <p class="text-xs text-neutral-400 dark:text-neutral-500 italic">No IP
+                                                addresses added yet.</p>
+                                        </div>
+                                    </template>
 
-                                <div class="md:col-span-2">
-                                    <label for="website"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Website
-                                    </label>
-                                    <input id="website" type="url" name="website" value="{{ $companySettings->website }}"
-                                        placeholder="https://example.com"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    <!-- ================= LEAVE & ATTENDANCE TAB ================= -->
-                    <div x-show="activeTab === 'leave'" x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="space-y-8"
-                        style="display: none;">
-
-                        <!-- Leave Rules -->
-                        <section>
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Leave Rules</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Configure baseline leave limits for employees.</p>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="max_consecutive_days"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Max Consecutive Leave Days <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="max_consecutive_days" type="number" name="max_consecutive_days"
-                                        value="{{ $settings['max_consecutive_days']->value ?? '' }}" required min="1"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Working Hours -->
-                        <section class="pt-6 border-t border-slate-200/80 dark:border-slate-800">
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Working Hours</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Define shift timings and grace thresholds for late check-ins and early departures.</p>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="working_hours_start"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Office Start Time <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="working_hours_start" type="time" name="working_hours_start"
-                                        value="{{ $settings['working_hours_start']->value ?? '' }}" required
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-
-                                <div>
-                                    <label for="working_hours_end"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Office End Time <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="working_hours_end" type="time" name="working_hours_end"
-                                        value="{{ $settings['working_hours_end']->value ?? '' }}" required
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-
-                                <div>
-                                    <label for="late_threshold_minutes"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Late Threshold (minutes) <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="late_threshold_minutes" type="number" name="late_threshold_minutes"
-                                        value="{{ $settings['late_threshold_minutes']->value ?? '' }}" required min="0"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-
-                                <div>
-                                    <label for="early_departure_threshold_minutes"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                        Early Departure Threshold (minutes) <span class="text-rose-500">*</span>
-                                    </label>
-                                    <input id="early_departure_threshold_minutes" type="number"
-                                        name="early_departure_threshold_minutes"
-                                        value="{{ $settings['early_departure_threshold_minutes']->value ?? '' }}" required min="0"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Weekend -->
-                        <section class="pt-6 border-t border-slate-200/80 dark:border-slate-800">
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Weekend Schedule</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Select weekly off-days used for attendance and leave calculations.</p>
-
-                            <div class="max-w-md">
-                                <label for="weekendDaysSelect"
-                                    class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                                    Company Weekend Days
-                                </label>
-                                <select id="weekendDaysSelect" name="weekend_days[]" multiple x-ref="weekendSelect"
-                                    class="w-full">
-                                    <option value="0">Sunday</option>
-                                    <option value="1">Monday</option>
-                                    <option value="2">Tuesday</option>
-                                    <option value="3">Wednesday</option>
-                                    <option value="4">Thursday</option>
-                                    <option value="5">Friday</option>
-                                    <option value="6">Saturday</option>
-                                </select>
-                                <p class="text-xs text-slate-400 mt-2">Select one or more weekend days.</p>
-                            </div>
-                        </section>
-                    </div>
-
-                    <!-- ================= FILE STORAGE TAB ================= -->
-                    <div x-show="activeTab === 'storage'" x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="space-y-6"
-                        style="display: none;">
-
-                        <div>
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white">File Storage Driver</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                                Choose where newly uploaded files are stored. Existing local files remain accessible regardless of this setting.
-                            </p>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
-                            <label @click="storageDriver = 'local'"
-                                :class="storageDriver === 'local'
-                                    ? 'border-[#1968b2] bg-[#1968b2]/5 dark:bg-[#1968b2]/10 ring-2 ring-[#1968b2]/20'
-                                    : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'"
-                                class="flex items-start gap-3.5 p-4 rounded-xl border cursor-pointer transition">
-                                <input type="radio" name="storage_driver" value="local" x-model="storageDriver"
-                                    id="storageDriverLocal"
-                                    class="mt-0.5 w-4 h-4 text-[#1968b2] border-slate-300 focus:ring-[#1968b2]">
-                                <div>
-                                    <span class="block text-sm font-semibold text-slate-900 dark:text-white">Local Storage</span>
-                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Store files directly on the application server disk.</span>
-                                </div>
-                            </label>
-
-                            <label @click="storageDriver = 's3'"
-                                :class="storageDriver === 's3'
-                                    ? 'border-[#1968b2] bg-[#1968b2]/5 dark:bg-[#1968b2]/10 ring-2 ring-[#1968b2]/20'
-                                    : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'"
-                                class="flex items-start gap-3.5 p-4 rounded-xl border cursor-pointer transition">
-                                <input type="radio" name="storage_driver" value="s3" x-model="storageDriver"
-                                    id="storageDriverS3"
-                                    class="mt-0.5 w-4 h-4 text-[#1968b2] border-slate-300 focus:ring-[#1968b2]">
-                                <div>
-                                    <span class="block text-sm font-semibold text-slate-900 dark:text-white">Amazon S3</span>
-                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Store uploads in a configured S3 object bucket.</span>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div x-show="storageDriver === 's3'" x-transition style="display: none;"
-                            class="max-w-2xl p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 text-xs text-amber-800 dark:text-amber-200">
-                            Ensure your <code class="font-mono font-semibold">AWS_*</code> bucket credentials are configured in your environment before saving.
-                        </div>
-                    </div>
-
-                    <!-- ================= SECURITY TAB ================= -->
-                    <div x-show="activeTab === 'security'" x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="space-y-6"
-                        style="display: none;">
-
-                        <div>
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Security &amp; Fraud Prevention</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                                Restrict attendance actions to approved office or network IP addresses.
-                            </p>
-                        </div>
-
-                        <!-- Enable IP Whitelist Toggle -->
-                        <div class="p-4 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-between gap-4">
-                            <div>
-                                <label for="ip_whitelist_enabled"
-                                    class="text-sm font-semibold text-slate-900 dark:text-white cursor-pointer">
-                                    Enable IP Whitelist for Attendance
-                                </label>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                    Block check-ins from IP addresses outside the list below when enabled.
-                                </p>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="hidden" name="ip_whitelist_enabled" value="0">
-                                <input id="ip_whitelist_enabled" type="checkbox" name="ip_whitelist_enabled" value="1"
-                                    x-model="ipWhitelistEnabled"
-                                    class="w-5 h-5 rounded border-slate-300 text-[#1968b2] focus:ring-[#1968b2] cursor-pointer">
-                            </div>
-                        </div>
-
-                        <!-- Whitelist IPs List -->
-                        <div class="max-w-2xl">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-                                Whitelisted IP Addresses
-                            </label>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                                Only allow access from these IPs. Leave empty to allow all addresses.
-                            </p>
-
-                            <template x-if="ips.length === 0">
-                                <div
-                                    class="mb-4 px-4 py-3 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-xs text-slate-400 dark:text-slate-500 italic">
-                                    No IP addresses added yet.
-                                </div>
-                            </template>
-
-                            <div class="space-y-2.5 mb-4">
-                                <template x-for="(ip, index) in ips" :key="index">
-                                    <div class="flex items-center gap-2.5">
-                                        <input type="text" x-model="ips[index]" name="whitelist_ips[]"
-                                            placeholder="e.g. 192.168.1.1"
-                                            class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-[#1968b2]/30 focus:border-[#1968b2] outline-none transition">
-                                        <button type="button" @click="removeIp(index)"
-                                            class="p-2.5 rounded-xl text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-950/70 transition cursor-pointer"
-                                            title="Remove IP">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
+                                    <div class="space-y-2.5 mb-4">
+                                        <template x-for="(ip, index) in ips" :key="index">
+                                            <div class="flex items-center gap-2.5 group">
+                                                <span
+                                                    class="grid place-items-center w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 shrink-0 border border-neutral-200/60 dark:border-neutral-700/60">
+                                                    <iconify-icon icon="lucide:wifi" class="w-4 h-4"></iconify-icon>
+                                                </span>
+                                                <x-form.input-text type="text" name="whitelist_ips[]"
+                                                    placeholder="e.g. 192.168.1.1" x-model="ips[index]" class="flex-1" />
+                                                <button type="button" @click="removeIp(index)"
+                                                    class="p-2.5 rounded-xl text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-950/70 hover:text-red-600 transition cursor-pointer opacity-60 group-hover:opacity-100"
+                                                    title="Remove IP">
+                                                    <iconify-icon icon="lucide:trash-2" class="w-4 h-4"></iconify-icon>
+                                                </button>
+                                            </div>
+                                        </template>
                                     </div>
-                                </template>
-                            </div>
 
-                            <button type="button" @click="addIp()"
-                                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-[#1968b2]/10 text-[#1968b2] dark:bg-[#1968b2]/20 dark:text-sky-300 hover:bg-[#1968b2]/20 transition cursor-pointer">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4" />
-                                </svg>
-                                Add New IP
-                            </button>
-                        </div>
+                                    <button type="button" @click="addIp()"
+                                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-brand-500/10 text-brand-500 dark:bg-brand-500/20 dark:text-brand-300 hover:bg-brand-500/20 transition cursor-pointer">
+                                        <iconify-icon icon="lucide:plus" class="w-4 h-4"></iconify-icon>
+                                        Add New IP
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
 
-                <!-- Sticky / Bottom Action Bar -->
+                {{-- ══════════════ Sticky Action Bar ══════════════ --}}
                 <div
-                    class="px-6 sm:px-8 py-4 bg-slate-50/90 dark:bg-slate-800/60 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-end">
+                    class="sticky bottom-0 z-10 px-6 sm:px-8 py-4 bg-white/85 dark:bg-neutral-900/85 backdrop-blur-lg border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-end gap-4">
+
                     <button type="submit" :disabled="saving"
-                        :class="saving ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#155b9d] active:scale-[0.99]'"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#1968b2] shadow-sm transition cursor-pointer">
-                        <svg x-show="saving" class="animate-spin h-4 w-4 text-white" style="display: none;"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
+                        :class="saving ? 'opacity-70 cursor-not-allowed' :
+                            'hover:bg-brand-600 active:scale-[0.98] shadow-lg shadow-brand-500/25'"
+                        class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-500 shadow-md transition cursor-pointer">
+                        <iconify-icon x-show="saving" icon="lucide:loader-circle" class="animate-spin h-4 w-4"
+                            style="display: none;"></iconify-icon>
+                        <iconify-icon x-show="!saving" icon="lucide:save" class="h-4 w-4"></iconify-icon>
                         <span x-text="saving ? 'Saving Changes...' : 'Save Changes'"></span>
                     </button>
                 </div>
@@ -495,11 +630,26 @@
     <script>
         function settingsPage(config) {
             return {
-                tabs: [
-                    { id: 'company', label: 'Company Settings' },
-                    { id: 'leave', label: 'Leave & Attendance' },
-                    { id: 'storage', label: 'File Storage' },
-                    { id: 'security', label: 'Security & Fraud Prevention' },
+                tabs: [{
+                        id: 'company',
+                        label: 'Company Settings',
+                        icon: 'lucide:building-2'
+                    },
+                    {
+                        id: 'leave',
+                        label: 'Leave & Attendance',
+                        icon: 'lucide:clock-3'
+                    },
+                    {
+                        id: 'storage',
+                        label: 'File Storage',
+                        icon: 'lucide:hard-drive'
+                    },
+                    {
+                        id: 'security',
+                        label: 'Security & Fraud Prevention',
+                        icon: 'lucide:shield-check'
+                    },
                 ],
                 activeTab: config.initialTab || 'company',
                 saving: false,
@@ -582,7 +732,11 @@
 
                 async submitForm() {
                     this.saving = true;
-                    this.alert = { type: 'success', message: '', errors: [] };
+                    this.alert = {
+                        type: 'success',
+                        message: '',
+                        errors: []
+                    };
 
                     // Simulate save when no backend endpoint is configured yet
                     if (!config.submitUrl) {
@@ -593,7 +747,10 @@
                             message: 'Preview mode: settings state updated locally.',
                             errors: [],
                         };
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                         return;
                     }
 
@@ -625,7 +782,10 @@
                                 this.faviconPreview = data.new_favicon_url;
                             }
 
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
                         } else {
                             const flattenedErrors = [];
                             if (data.errors && typeof data.errors === 'object') {
@@ -642,7 +802,10 @@
                                 errors: flattenedErrors,
                             };
 
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
                         }
                     } catch (error) {
                         console.error('Settings update error:', error);
@@ -651,7 +814,10 @@
                             message: 'An unexpected error occurred while saving settings.',
                             errors: [],
                         };
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     } finally {
                         this.saving = false;
                     }

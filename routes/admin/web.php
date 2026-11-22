@@ -157,5 +157,8 @@ Route::prefix('{role}')
         Route::resource('leave-types', LeaveTypeController::class);
 
         // Route::get('employees/{employee}', [EmployeeProfileController::class, 'index'])->name('employee.show');
-        Route::get('setting', [SettingController::class, 'index'])->name('comany-setting');
+        // Route::get('setting', [SettingController::class, 'index'])
+        //     ->middleware('permission:setting.view')
+        //     ->name('setting');
+         Route::get('setting', [SettingController::class, 'index'])->name('setting');
     });
