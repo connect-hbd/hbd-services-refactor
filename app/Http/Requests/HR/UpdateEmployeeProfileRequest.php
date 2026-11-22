@@ -17,6 +17,9 @@ class UpdateEmployeeProfileRequest extends EmployeeRequest
             'experience_years' => ['nullable', 'integer', 'min:0', 'max:80'],
             'bio' => ['nullable', 'string', 'max:2000'],
 
+            'education' => ['nullable', 'string', 'max:250'],
+            'institution' => ['nullable', 'string', 'max:100'],
+
             'work_destinations' => ['nullable', 'array'],
             'work_destinations.*' => ['nullable', 'string', 'max:100'],
 

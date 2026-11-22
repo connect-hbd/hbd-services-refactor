@@ -457,6 +457,8 @@ class EmployeeController extends Controller
         $employee->update([
             'experience_years' => $validated['experience_years'] ?? 0,
             'bio' => $validated['bio'] ?? null,
+            'education'=> $validated['education'] ?? null,
+            'institution'=> $validated['institution'] ?? null,
             'languages' => $this->cleanArray($validated['languages'] ?? []),
             'expertise' => $this->cleanArray($validated['expertise'] ?? []),
             'work_destinations' => $this->cleanArray($validated['work_destinations'] ?? []),

@@ -218,7 +218,7 @@
                                 <select
                                     id="expertiseFilter"
                                     x-model="selectedExpertise"
-                                    class="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-2 text-sm font-medium text-slate-800 transition focus:border-slate-400 focus:bg-white focus:outline-none focus:ring-0 cursor-pointer"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-2 text-xs font-medium text-slate-800 transition focus:border-slate-400 focus:bg-white focus:outline-none focus:ring-0 cursor-pointer"
                                 >
                                     <option value="">All Expertise</option>
 

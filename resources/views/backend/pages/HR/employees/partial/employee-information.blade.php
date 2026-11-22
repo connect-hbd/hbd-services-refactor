@@ -41,9 +41,21 @@
     </div>
 
     <form action="{{ role_route('role.update.employee-profile', ['employee' => $employee->id]) }}" method="POST"
-        class="space-y-6 p-6">
+        class="space-y-4 p-6">
         @csrf
         @method('PUT')
+            {{-- Education and Instutions --}}
+         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <x-form.input-text name="education" label="Last Education" type="text"
+                value="{{ old('education', $employee?->education) }}"
+                placeholder="e.g. BSc in Computer Science"
+                x-bind:disabled="!isEditing" />
+
+             <x-form.input-text name="institution" label="Institution" type="text"
+                value="{{ old('institution', $employee?->institution) }}"
+                placeholder="e.g. Dhaka University"
+                x-bind:disabled="!isEditing" />
+        </div>
 
         {{-- Experience & Destinations --}}
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -97,9 +109,9 @@
                         </button>
                     </div>
 
-                    <div class="space-y-2.5">
+                    <div class="space-y-4">
                         <template x-for="(item, index) in items" :key="index">
-                            <div class="group flex items-center gap-2">
+                            <div class="group flex items-center gap-3">
                                 <input type="text" name="{{ $field }}[]" x-model="items[index]"
                                     placeholder="{{ $placeholder }}"
                                     x-bind:disabled="!isEditing"
