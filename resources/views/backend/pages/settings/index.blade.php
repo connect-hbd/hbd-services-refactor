@@ -21,16 +21,24 @@
 @endphp
 
     <div x-data="settingsPage({
-        initialTab: new URLSearchParams(window.location.search).get('tab') || 'company',
-        submitUrl: '',
-        csrfToken: '{{ csrf_token() }}',
-        initialLogo: null,
-        initialFavicon: null,
-        storageDriver: @js($currentDriver),
-        ipWhitelistEnabled: @js($ipWhitelistEnabled),
-        ips: @js(array_values($ips)),
-        savedWeekendDays: @js($savedWeekendDaysStr),
-    })" x-init="init()" class="bg-neutral-50 dark:bg-neutral-950">
+    initialTab: new URLSearchParams(window.location.search).get('tab') || 'company',
+
+    submitUrl: @js(role_route('role.setting-update')),
+
+    csrfToken: @js(csrf_token()),
+
+    initialLogo: @js($logoUrl),
+
+    initialFavicon: @js($faviconUrl),
+
+    ipWhitelistEnabled: @js(
+        (bool) $securitySettings->get('ip_whitelist_enabled', false)
+    ),
+
+    ips: @js(array_values($whitelistIps)),
+
+    savedWeekendDays: @js(array_values($weekendDays)),
+})" x-init="init()" class="bg-neutral-50 dark:bg-neutral-950">
 
         {{-- ── Scoped styling for upgraded controls ─────────────────────────── --}}
         <style>
@@ -185,7 +193,7 @@
                             <div class="p-6 space-y-8">
                                 <div class="max-w-md">
                                     <x-form.input-text id="company_name" name="company_name" label="Company Name"
-                                        :value="$companySettings->company_name" required />
+                                        :value="$companySettings->get('company_name', '')" required placeholder="My Company" />
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -277,19 +285,19 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="md:col-span-2">
                                         <x-form.textarea-input id="address" name="address" label="Address"
-                                            rows="3" :value="$companySettings->address" />
+                                            rows="3" :value="$companySettings->get('address', '')" placeholder="Enter complete building or street address..." />
                                     </div>
                                     <div>
                                         <x-form.input-text id="phone" name="phone" label="Phone"
-                                            :value="$companySettings->phone" />
+                                            :value="$companySettings->get('phone', '')" placeholder="+1 (555) 000-0000" />
                                     </div>
                                     <div>
                                         <x-form.input-text id="email" type="email" name="email" label="Email"
-                                            :value="$companySettings->email" />
+                                            :value="$companySettings->get('email', '')" placeholder="john@example.com" />
                                     </div>
                                     <div class="md:col-span-2">
                                         <x-form.input-text id="website" type="url" name="website" label="Website"
-                                            :value="$companySettings->website" placeholder="https://example.com" />
+                                            :value="$companySettings->get('website', '')" placeholder="https://example.com" />
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +359,7 @@
                                     <div class="">
                                         <x-form.input-text id="max_consecutive_days" type="number"
                                             name="max_consecutive_days" label="Max Consecutive Leave Days"
-                                            :value="$settings['max_consecutive_days']->value ?? ''" required min="1" />
+                                            :value="$settings['max_consecutive_days']->value ?? ''" required min="1" placeholder="14/15" />
                                     </div>
                                 </div>
                             </section>
@@ -379,22 +387,22 @@
                                     <div>
                                         <x-form.input-text id="working_hours_start" type="time"
                                             name="working_hours_start" label="Office Start Time" :value="$settings['working_hours_start']->value ?? ''"
-                                            required />
+                                            required placeholder="09:00" />
                                     </div>
                                     <div>
                                         <x-form.input-text id="working_hours_end" type="time" name="working_hours_end"
-                                            label="Office End Time" :value="$settings['working_hours_end']->value ?? ''" required />
+                                            label="Office End Time" :value="$settings['working_hours_end']->value ?? ''" required placeholder="18:00" />
                                     </div>
                                     <div>
                                         <x-form.input-text id="late_threshold_minutes" type="number"
                                             name="late_threshold_minutes" label="Late Threshold (minutes)"
-                                            :value="$settings['late_threshold_minutes']->value ?? ''" required min="0" />
+                                            :value="$settings['late_threshold_minutes']->value ?? ''" required min="0" placeholder="15" />
                                     </div>
                                     <div>
                                         <x-form.input-text id="early_departure_threshold_minutes" type="number"
                                             name="early_departure_threshold_minutes"
                                             label="Early Departure Threshold (minutes)" :value="$settings['early_departure_threshold_minutes']->value ?? ''" required
-                                            min="0" />
+                                            min="0" placeholder="15" />
                                     </div>
                                 </div>
                             </div>
@@ -569,9 +577,9 @@
                                                 <x-form.input-text type="text" name="whitelist_ips[]"
                                                     placeholder="e.g. 192.168.1.1" x-model="ips[index]" class="flex-1" />
                                                 <button type="button" @click="removeIp(index)"
-                                                    class="p-2.5 rounded-xl text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-950/70 hover:text-red-600 transition cursor-pointer opacity-60 group-hover:opacity-100"
+                                                    class="flex items-center justify-center p-2.5 w-10 h-10 rounded-lg text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-950/70 hover:text-red-600 transition cursor-pointer opacity-60 group-hover:opacity-100"
                                                     title="Remove IP">
-                                                    <iconify-icon icon="lucide:trash-2" class="w-4 h-4"></iconify-icon>
+                                                    <iconify-icon icon="lucide:trash-2" class="text-lg"></iconify-icon>
                                                 </button>
                                             </div>
                                         </template>
