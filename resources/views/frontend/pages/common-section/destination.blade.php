@@ -12,7 +12,7 @@
                     <path
                         d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
                 </svg>
-                Global Education mannan
+                Global Education
             </span>
             <h2
                 class="mt-5 text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-black sm:text-4xl md:text-5xl lg:text-6xl">
