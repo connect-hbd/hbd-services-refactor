@@ -192,11 +192,7 @@
                 <template x-for="(destination, index) in filteredDestinations" :key="destination.slug || destination.name">
                     <a :href="`/destinations/${encodeURIComponent(destination.slug || '')}`" class="group block h-full"
                         :style="`--reveal-delay: ${(index % 3) * 90}ms`">
-                        <div x-data="{ destination: destination }" data-reveal class="h-full">
-
-                            @include('frontend.pages.destinations.card')
-
-                        </div>
+                        @include('frontend.pages.destinations.card', ['destination' => [], 'alpine' => true])
                     </a>
                 </template>
                 <div x-show="count === 0" x-cloak
