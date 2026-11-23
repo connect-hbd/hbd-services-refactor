@@ -145,6 +145,14 @@
             @include('frontend.pages.destinations.details-section.faq', ['destination' => $destination])
 
          </div>
+
+         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-16" id="free-consultation" >
+           <div class="border border-neutral-300 p-4 md:p-6 lg:p-8 rounded-2xl">
+         
+            <h3 class="text-xl font-bold text-slate-800 mb-1">Get Free Consultation</h3>
+             @include('frontend.pages.api-forms._form')
+           </div>
+         </div>
       
     </main>
 

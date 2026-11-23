@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
@@ -65,6 +66,8 @@ class DestinationController extends Controller
             'regions' => $regions,
         ];
 
+        
+
         return view('frontend.pages.destinations.index', $data);
     }
 
@@ -89,9 +92,12 @@ public function show($slug)
         abort(404);
     }
 
+     $countries = Country::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get([ 'id','name']);
     // return $destination;
 
-    return view('frontend.pages.destinations.details', compact('destination')
-    );
+    return view('frontend.pages.destinations.details', compact('destination',"countries"));
 }
 }

@@ -79,6 +79,9 @@ Route::post('/inquiry-us', [ContactController::class, 'store'])->name('contact.s
 Route::get('/book-appointment', [FrontendController::class, 'bookAppointment'])->name('book-appointment');
 Route::post('/book-appointment', [FrontendController::class, 'appointmentStore'])->name('appointment-store');
 
+// Counsellor meeting book
+// Route::post('/book-meeting', [FrontendController::class, 'appointmentStore'])->name('appointment-store');
+
 //student routes
 Route::prefix('student')
     ->name('student.')
