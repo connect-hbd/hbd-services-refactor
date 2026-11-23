@@ -43,4 +43,11 @@ return [
         'key' => env('GOOGLE_MAPS_API_KEY'),
     ],
 
+    'lead_api' => [
+        'url' => env('LEAD_API_URL', 'https://portal.hbdservices.com/api/leads'),
+        // Keep TLS verification enabled. Set this to a CA bundle path when PHP
+        // does not have a CA bundle configured in php.ini (common on Windows).
+        'ca_bundle' => env('LEAD_API_CA_BUNDLE'),
+    ],
+
 ];

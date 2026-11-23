@@ -35,9 +35,9 @@
         <div>
           <h4 class="text-white text-base font-bold uppercase tracking-wider mb-4">Quick Links</h4>
           <ul class="space-y-2 text-[15px]">
-            <li><a href="{{ route('courses') }}" class="hover:text-brand-400 transition">Courses</a></li>
+            <li><a href="" class="hover:text-brand-400 transition">Courses</a></li>
             <li><a href="#" class="hover:text-brand-400 transition">Scholarships</a></li>
-            <li><a href="{{ route('providers') }}" class="hover:text-brand-400 transition">Universities</a></li>
+            <li><a href="" class="hover:text-brand-400 transition">Universities</a></li>
             <li><a href="#" class="hover:text-brand-400 transition">Counsellors</a></li>
             <li><a href="{{ route('events')}}" class="hover:text-brand-400 transition">Events</a></li>
           </ul>

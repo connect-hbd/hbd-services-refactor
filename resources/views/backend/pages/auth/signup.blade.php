@@ -27,9 +27,8 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {{-- <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 
-                    <!-- Google -->
                     <a href="#"
                         class="flex h-11 items-center justify-center gap-2.5 rounded-lg border border-neutral-300 bg-white px-4 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
@@ -49,7 +48,6 @@
                         Continue with Google
                     </a>
 
-                    <!-- Facebook -->
                     <a href="#"
                         class="flex h-11 items-center justify-center gap-2.5 rounded-lg border border-neutral-300 bg-white px-4 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -60,10 +58,10 @@
                         Continue with Facebook
                     </a>
 
-                </div>
+                </div> --}}
 
                 <!-- Divider -->
-                <div class="mt-8 md:mt-10 mb-6 flex items-center gap-3">
+                {{-- <div class="mt-8 md:mt-10 mb-6 flex items-center gap-3">
                     <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
 
                     <span class="text-xs text-neutral-400">
@@ -71,7 +69,7 @@
                     </span>
 
                     <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
-                </div>
+                </div> --}}
 
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
@@ -147,7 +145,7 @@
                                     </div>
 
                                     <p class="leading-5">
-                                        By creating an account means you agree to the
+                                        Agree to the
                                         <span class="text-neutral-800 dark:text-white/90">
                                             Terms and Conditions,
                                         </span>
@@ -162,7 +160,7 @@
 
                         <!-- Submit -->
                         <button type="submit"
-                            class="flex h-11 w-full items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-medium text-white shadow-sm transition hover:bg-brand-600 sm:h-12">
+                            class="flex mt-8 h-11 w-full items-center justify-center rounded-lg bg-brand-500 px-4 text-sm font-medium text-white shadow-sm transition hover:bg-brand-600 sm:h-12">
                             Sign Up
                         </button>
 

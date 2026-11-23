@@ -92,6 +92,7 @@ class FrontendController extends Controller
             ->where('is_active', true)
             ->orderBy('name')
             ->get([ 'id','name']);
+        // return $countries;
         return view('frontend.pages.api-forms.home-hero', compact('countries'));
     }
 
@@ -121,7 +122,6 @@ public function appointmentStore(Request $request)
             'required_if:is_attend_english_proficiency_test,will_sit|nullable|date|after_or_equal:today',
 
         'study_destinations' => 'nullable|array',
-        'study_destinations.*' => 'integer|exists:countries,id',
 
         'consent' => 'accepted',
     ]);
@@ -193,13 +193,16 @@ public function appointmentStore(Request $request)
     // Call external API
     try {
 
-        $response = Http::acceptJson()
+        $apiRequest = Http::acceptJson()
             ->asJson()
-            ->timeout(30)
-            ->post(
-                'https://portal.hbdservices.com/api/leads',
-                $payload
-            );
+            ->timeout(30);
+
+        $caBundle = config('services.lead_api.ca_bundle');
+        if ($caBundle) {
+            $apiRequest = $apiRequest->withOptions(['verify' => $caBundle]);
+        }
+
+        $response = $apiRequest->post(config('services.lead_api.url'), $payload);
 
         if (!$response->successful()) {
 

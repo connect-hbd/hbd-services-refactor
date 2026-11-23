@@ -8,8 +8,8 @@
             ['id' => 'overview', 'label' => 'Overview'],
             ['id' => 'why-choose', 'label' => 'Why Choose'],
             ['id' => 'courses_levels', 'label' => 'Study Levels & Courses'],
-             ['id' => 'requirements', 'label' => 'Entry Requirements'],
-            ['id' => 'universities', 'label' => 'Universities'],           
+            ['id' => 'requirements', 'label' => 'Entry Requirements'],
+            ['id' => 'universities', 'label' => 'Universities'],
             ['id' => 'costs', 'label' => ' Financial Aid'],
             ['id' => 'scholarships', 'label' => 'Scholarships'],
             ['id' => 'process', 'label' => 'How We Work'],
@@ -89,8 +89,7 @@
         <nav class="sticky top-26 sm:top-30 z-40 border-b border-brand-100 bg-white/95 shadow-sm backdrop-blur-md"
             aria-label="Destination sections">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div
-                    class="-mb-px flex gap-1.5 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div class="-mb-px flex gap-1.5 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     @foreach ($sections as $section)
                         <a href="#{{ $section['id'] }}" @click="activeSection = '{{ $section['id'] }}'"
                             :class="activeSection === '{{ $section['id'] }}'
@@ -107,56 +106,70 @@
 
         {{-- STICKY SECTION NAVIGATION --}}
 
-         <div class="relative">
-            
+        <div class="relative">
+
             {{-- Section 1: Overview & Cities --}}
-            @include('frontend.pages.destinations.details-section.overview', ['destination' => $destination])
-            
+            @include('frontend.pages.destinations.details-section.overview', [
+                'destination' => $destination,
+            ])
 
-             {{-- Section 2: Why Choose us --}}
-            @include('frontend.pages.destinations.details-section.why-this-destination', ['destination' => $destination])
+
+            {{-- Section 2: Why Choose us --}}
+            @include('frontend.pages.destinations.details-section.why-this-destination', [
+                'destination' => $destination,
+            ])
             {{-- Section 3: Academic Study Levels (bg-brand-25) --}}
-            @include('frontend.pages.destinations.details-section.study-label', ['destination' => $destination])
+            @include('frontend.pages.destinations.details-section.study-label', [
+                'destination' => $destination,
+            ])
 
-              {{-- Section 4: Popular Courses (bg-white) --}}
-            @include('frontend.pages.destinations.details-section.course-section', ['destination' => $destination])
+            {{-- Section 4: Popular Courses (bg-white) --}}
+            @include('frontend.pages.destinations.details-section.course-section', [
+                'destination' => $destination,
+            ])
 
-              {{-- Section 6: Entry Requirements & Roadmap (bg-brand-25) --}}
-            @include('frontend.pages.destinations.details-section.requirements', ['destination' => $destination])
+            {{-- Section 6: Entry Requirements & Roadmap (bg-brand-25) --}}
+            @include('frontend.pages.destinations.details-section.requirements', [
+                'destination' => $destination,
+            ])
 
-              {{-- Section 5: Universities (bg-white) --}}
-            @include('frontend.pages.destinations.details-section.universities', ['destination' => $destination])           
+            {{-- Section 5: Universities (bg-white) --}}
+            @include('frontend.pages.destinations.details-section.universities', [
+                'destination' => $destination,
+            ])
 
-             {{-- Section 7: Living Costs & Scholarships (bg-white) --}}
+            {{-- Section 7: Living Costs & Scholarships (bg-white) --}}
 
             @include('frontend.pages.destinations.details-section.financial-aid', [
                 'destination' => $destination,
             ])
 
-             @include('frontend.pages.destinations.details-section.schollership', [
+            @include('frontend.pages.destinations.details-section.schollership', [
                 'destination' => $destination,
             ])
 
-              {{-- Section 8: How We Work / Process (bg-brand-25) --}}
+            {{-- Section 8: How We Work / Process (bg-brand-25) --}}
             @include('frontend.pages.destinations.details-section.how-we-work', [
                 'destination' => $destination,
             ])
-             {{-- Section 9: FAQ & Help Desk (bg-white) --}}
+            {{-- Section 9: FAQ & Help Desk (bg-white) --}}
             @include('frontend.pages.destinations.details-section.faq', ['destination' => $destination])
 
-         </div>
+        </div>
 
-         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-16" id="free-consultation" >
-           <div class="border border-neutral-300 p-4 md:p-6 lg:p-8 rounded-2xl">
-         
-            <h3 class="text-xl font-bold text-slate-800 mb-1">Get Free Consultation</h3>
-             @include('frontend.pages.api-forms._form')
-           </div>
-         </div>
-      
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-16" id="free-consultation">
+            <div class="border border-neutral-300 p-4 md:p-6 lg:p-8 rounded-2xl">
+
+                <h3 class="text-xl font-bold text-slate-800 mb-1">Get Free Consultation</h3>
+                @include('frontend.pages.api-forms._form')
+            </div>
+        </div>
+
     </main>
 
-    @push('scripts')
+   
+
+    {{-- @push('scripts')
         <noscript>
             <style>
                 [data-reveal] {
@@ -241,5 +254,5 @@
                 }
             })();
         </script>
-    @endpush
+    @endpush --}}
 @endsection
