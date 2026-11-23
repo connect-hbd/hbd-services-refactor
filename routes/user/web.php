@@ -75,7 +75,9 @@ Route::post('/inquiry-us', [ContactController::class, 'store'])->name('contact.s
 // Route::post('/subscribe', [SubscriberController::class, 'store'])
 //     ->name('subscribe.store');
 
+// api form home hero page
 Route::get('/book-appointment', [FrontendController::class, 'bookAppointment'])->name('book-appointment');
+Route::post('/book-appointment', [FrontendController::class, 'appointmentStore'])->name('appointment-store');
 
 //student routes
 Route::prefix('student')

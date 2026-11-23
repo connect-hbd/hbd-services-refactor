@@ -19,7 +19,8 @@
                             Ready to Make Your Study Abroad Dreams a Reality?
                         </h2>
                         <p class="text-blue-100 text-sm sm:text-base leading-relaxed">
-                           Share your details and let our expert counsellors guide you through your study options, admissions, and next steps towards your future.
+                            Share your details and let our expert counsellors guide you through your study options,
+                            admissions, and next steps towards your future.
                         </p>
                     </div>
 
@@ -163,8 +164,9 @@
                     </div>
 
                     <!-- Main Form (No Reload) -->
-                    <form id="event-form" x-ref="form" @submit.prevent="submitForm()" x-show="!isSubmitted" novalidate>
-                        <div class="grid grid-cols-1 grid-rows-1 min-h-[410px]">
+                    <form id="event-form" action="{{ route('appointment-store') }}" method="POST" x-ref="form"
+                        @submit.prevent="submitForm()" x-show="!isSubmitted" novalidate>
+                        <div class="grid grid-cols-1 grid-rows-1 min-h-102.5">
 
                             <!-- ==================== STEP 1 ==================== -->
                             <div x-ref="step1"
@@ -299,11 +301,7 @@
                                         </select>
                                     </div>
 
-                                    <!--
-                            LOCKED OVERLAY BOX FOR ENGLISH TEST BRANCHES:
-                            All three branches share col-start-1 row-start-1 so switching options
-                            never changes the container height.
-                        -->
+                                    <!-- English Test Name & Overall Score -->
                                     <div
                                         class="grid grid-cols-1 grid-rows-1 rounded-xl bg-slate-50 border border-slate-200/80 overflow-hidden">
 
