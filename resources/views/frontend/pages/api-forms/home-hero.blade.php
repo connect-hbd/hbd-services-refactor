@@ -96,7 +96,7 @@
                                 headers: {
                                     'X-Requested-With': 'XMLHttpRequest',
                                     'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]')?.content || ''
+                                    'X-CSRF-TOKEN': formData.get('_token')
                                 },
                                 body: formData
                             });
@@ -166,6 +166,7 @@
                     <!-- Main Form (No Reload) -->
                     <form id="event-form" action="{{ route('appointment-store') }}" method="POST" x-ref="form"
                         @submit.prevent="submitForm()" x-show="!isSubmitted" novalidate>
+                        @csrf
                         <div class="grid grid-cols-1 grid-rows-1 min-h-102.5">
 
                             <!-- ==================== STEP 1 ==================== -->
@@ -380,7 +381,7 @@
                                             :options="$countries
                                                 ->map(
                                                     fn($country) => [
-                                                        'id' => (string) $country->id,
+                                                        'id' => (int) $country->id,
                                                         'name' => $country->name,
                                                     ],
                                                 )
