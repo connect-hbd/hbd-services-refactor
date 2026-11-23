@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Counsellor;
+use App\Models\Country;
 use App\Models\Course;
 use App\Models\Event;
 use Illuminate\Support\Facades\File;
@@ -80,5 +81,14 @@ class FrontendController extends Controller
 
      public function digitalSolution(){
         return view('frontend.pages.digital-solutions.index');
+    }
+
+    //api form home hero page
+     public function bookAppointment(){
+         $countries = Country::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get([ 'id','name']);
+        return view('frontend.pages.api-forms.home-hero', compact('countries'));
     }
 }

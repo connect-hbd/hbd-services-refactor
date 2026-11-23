@@ -31,7 +31,7 @@
     <div class="mx-auto w-full max-w-7xl px-6 lg:px-8">
 
         {{-- Section header --}}
-        <div class="mx-auto max-w-2xl text-center" data-reveal>
+        <div class="mx-auto max-w-2xl text-center">
             <span
                 class="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-4 py-1.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-brand-600">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>

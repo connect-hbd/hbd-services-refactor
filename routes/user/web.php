@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\Calculator;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CounsellorController;
 use App\Http\Controllers\Frontend\DestinationController;
 use App\Http\Controllers\Frontend\EventController;
@@ -70,9 +71,11 @@ Route::post('/counsellors/{counsellor}/booking', [CounsellorController::class, '
 
 // Route::get('/counselling', [CounsellorController::class, 'bookingAppointment'])->name('counselling');
 
-// Route::post('/inquiry-us', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/inquiry-us', [ContactController::class, 'store'])->name('contact.store');
 // Route::post('/subscribe', [SubscriberController::class, 'store'])
 //     ->name('subscribe.store');
+
+Route::get('/book-appointment', [FrontendController::class, 'bookAppointment'])->name('book-appointment');
 
 //student routes
 Route::prefix('student')

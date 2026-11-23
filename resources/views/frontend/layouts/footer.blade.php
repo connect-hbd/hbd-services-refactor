@@ -73,12 +73,12 @@
                             <iconify-icon icon="lucide:arrow-up-right" class="text-sm text-neutral-500"></iconify-icon>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="#" class="inline-flex items-center gap-1 hover:text-brand-400 transition">
                             Our Expo
                             <iconify-icon icon="lucide:arrow-up-right" class="text-sm text-neutral-500"></iconify-icon>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
 

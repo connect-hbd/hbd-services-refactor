@@ -52,20 +52,20 @@
         ],
 
         [
-            'name' => 'United States',
+            'name' => 'New Zealand',
 
-            'badge' => 'Study in the USA',
+            'badge' => 'Study in the NZ',
 
-            'title' => 'Your USA Dream Starts Here.',
+            'title' => 'Your NZ Dream Starts Here.',
 
             'description' =>
                 'Find the right US university and course while comparing tuition fees, admission requirements and scholarship opportunities.',
 
             'image' => 'frontend-img/hero/hero-3.jpeg',
 
-            'alt' => 'University campus in the United States',
+            'alt' => 'University campus in the New Zealand',
 
-            'search_placeholder' => 'Search courses, e.g. MS in Computer Science in California',
+            'search_placeholder' => 'Search courses, e.g. Bachelor of Business in New Zealand',
         ],
 
         [
@@ -89,11 +89,10 @@
     $suggestions = [
         ['name' => 'Australia', 'code' => 'AU'],
         ['name' => 'UK', 'code' => 'GB'],
-        ['name' => 'USA', 'code' => 'US'],
+        // ['name' => 'USA', 'code' => 'US'],
         ['name' => 'Canada', 'code' => 'CA'],
         ['name' => 'New Zealand', 'code' => 'NZ'],
         ['name' => 'Malaysia', 'code' => 'MY'],
-        ['name' => 'Germany', 'code' => 'DE'],
     ];
 @endphp
 
@@ -213,7 +212,7 @@
     }
 }" x-init="init()" @mouseenter="pause()" @mouseleave="resume()"
     @keydown.right.prevent="showSlide(current + 1)" @keydown.left.prevent="showSlide(current - 1)" tabindex="0"
-    class="relative isolate flex h-[80vh] w-full items-center justify-center overflow-hidden sm:h-[78vh] md:h-[74vh]">
+    class="relative isolate flex h-[74vh] w-full items-center justify-center overflow-hidden sm:h-[70vh] md:h-[68vh]">
 
     {{-- =========================================================
         BACKGROUND SLIDES
@@ -397,16 +396,21 @@
             </a>
         </div> --}}
         <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="#courses"
+                    <a href="{{route('book-appointment')}}"
                        class="inline-flex w-full sm:w-fit justify-center py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base items-center gap-2 rounded-xl bg-red-500 px-6 font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-600">
                         <span>Book an Appointment</span>
                         <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon>
                     </a>
-                    <a href="#contact"
+                    {{-- <a href="{{route('services')}}"
+                       class="inline-flex w-full sm:w-fit justify-center py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-6 font-semibold text-brand-700 transition-all duration-300 hover:bg-brand-100 hover:border-brand-300">
+                        <span>View Our Services</span>
+                        
+                    </a> --}}
+                    {{-- <a href="#contact"
                        class="inline-flex w-full sm:w-fit justify-center py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-6 font-semibold text-brand-700 transition-all duration-300 hover:bg-brand-100 hover:border-brand-300">
                         <span>Talk to a Counsellor</span>
                         <iconify-icon icon="lucide:headset" class="text-base"></iconify-icon>
-                    </a>
+                    </a> --}}
                 </div>
 
     </div>
