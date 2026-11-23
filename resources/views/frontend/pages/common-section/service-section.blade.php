@@ -82,10 +82,10 @@
                         {{ $service['description'] }}
                     </p>
 
-                    <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600  transition-all duration-300 ">
+                    {{-- <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600  transition-all duration-300 ">
                         Learn more
                         <iconify-icon icon="lucide:arrow-right" class="text-[16px] transition-transform duration-300 group-hover:translate-x-1"></iconify-icon>
-                    </span>
+                    </span> --}}
                 </article>
             </div>
             @endforeach

@@ -102,13 +102,13 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <p class="mt-2 px-3 text-xs text-neutral-400">Results update automatically as you type.</p>
                 </div>
 
                 <div x-show="showFilters" x-cloak x-transition class="border-t border-neutral-100 pt-5">
                     <div class="grid gap-5 grid-cols-1">
-                        
+
                         <div>
                             <div class="mb-3 flex items-center justify-between">
                                 <span class="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">Filter by
@@ -152,7 +152,7 @@
 
         <div id="destination-results" x-ref="results" class="relative min-h-[200px]">
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <template x-for="(destination, index) in filteredDestinations"
+                {{-- <template x-for="(destination, index) in filteredDestinations"
                     :key="destination.slug || destination.name">
                     <a :href="`/destinations/${encodeURIComponent(destination.slug || '')}`" class="group block h-full"
                         data-reveal :style="`--reveal-delay: ${(index % 3) * 90}ms`">
@@ -187,6 +187,16 @@
                                         class="text-brand-600">Learn more →</strong></div>
                             </div>
                         </article>
+                    </a>
+                </template> --}}
+                <template x-for="(destination, index) in filteredDestinations" :key="destination.slug || destination.name">
+                    <a :href="`/destinations/${encodeURIComponent(destination.slug || '')}`" class="group block h-full"
+                        :style="`--reveal-delay: ${(index % 3) * 90}ms`">
+                        <div x-data="{ destination: destination }" data-reveal class="h-full">
+
+                            @include('frontend.pages.destinations.card')
+
+                        </div>
                     </a>
                 </template>
                 <div x-show="count === 0" x-cloak

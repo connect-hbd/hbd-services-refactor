@@ -140,10 +140,10 @@
                                 <span>{{ $primaryCta['label'] }}</span>
                                 <iconify-icon icon="lucide:arrow-right" class="text-[16px] transition-transform duration-300 group-hover:translate-x-1"></iconify-icon>
                             </a>
-                            <a href="#{{ $secondaryCta['targetId'] }}"
+                            {{-- <a href="#{{ $secondaryCta['targetId'] }}"
                                 class="inline-flex items-center w-full sm:w-fit justify-center py-2.5 sm:py-3.5 text-[13px] sm:text-sm rounded-xl border border-white/10 bg-white/5 px-6  font-semibold text-white transition-all duration-300 hover:bg-white/10">
                                 {{ $secondaryCta['label'] }}
-                            </a>
+                            </a> --}}
                         </div>
 
 

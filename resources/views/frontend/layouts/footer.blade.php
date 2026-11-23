@@ -106,7 +106,7 @@
                                 </div>
                             </div>
 
-                            <a href="#" target="_blank"
+                            <a href="{{ route('book-appointment') }}" target="_blank"
                                 rel="noopener noreferrer"
                                 class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-brand-500">
                                 <iconify-icon icon="lucide:calendar" class="text-sm shrink-0"></iconify-icon>
@@ -171,7 +171,7 @@
                             </a>
 
                             {{-- WhatsApp --}}
-                            <a href="https://wa.me/61485055895" target="_blank" rel="noopener noreferrer"
+                            <a href="https://wa.me/01978-855506" target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center justify-center gap-2 rounded-xl border border-[#25D366]/30 bg-[#25D366]/10 px-3.5 py-2.5 text-xs font-semibold text-[#25D366] transition-all hover:bg-[#25D366] hover:text-white">
                                 <svg class="h-4 w-4 shrink-0 fill-current" viewBox="0 0 24 24">
                                     <path
