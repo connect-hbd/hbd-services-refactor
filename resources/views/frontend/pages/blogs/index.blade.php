@@ -42,8 +42,22 @@
                     </a>
 
                 @empty
-                    <div class="col-span-full text-center py-10">
-                        <p class="text-neutral-500">No blogs found.</p>
+                    <div
+                        class="col-span-full flex flex-col items-center justify-center rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 px-6 py-16 text-center">
+                        <div
+                            class="flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 mb-4">
+                            <iconify-icon icon="lucide:file-text" class="text-2xl"></iconify-icon>
+                        </div>
+
+                        <h3 class="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                            No blog posts found
+                        </h3>
+
+                        <p class="mt-1.5 max-w-sm text-sm text-neutral-500 dark:text-neutral-400">
+                            We couldn’t find any articles matching your criteria. Check back soon for new updates or try
+                            clearing your filters.
+                        </p>
+                       
                     </div>
                 @endforelse
 

@@ -34,9 +34,7 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-
-                    <!-- Google -->
+                {{-- <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <a href="#"
                         class="flex h-11 items-center justify-center gap-2.5 rounded-lg border border-neutral-300 bg-white px-4 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
@@ -55,8 +53,6 @@
 
                         Google
                     </a>
-
-                    <!-- Facebook -->
                     <a href="#"
                         class="flex h-11 items-center justify-center gap-2.5 rounded-lg border border-neutral-300 bg-white px-4 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -68,8 +64,6 @@
                     </a>
 
                 </div>
-
-                <!-- Divider -->
                 <div class="mt-8 md:mt-10 mb-6 flex items-center gap-3">
                     <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
 
@@ -78,7 +72,7 @@
                     </span>
 
                     <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
-                </div>
+                </div> --}}
 
                 <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
