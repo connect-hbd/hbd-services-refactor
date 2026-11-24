@@ -16,18 +16,18 @@ return new class extends Migration
 
             // Student Account
             $table->foreignId('user_id')
+                ->unique()
                 ->constrained('users')
                 ->cascadeOnDelete();
 
-            // Student Information
+            // Personal Information
             $table->string('student_number')->unique();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
 
             $table->date('date_of_birth')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('destination')->nullable();
-            $table->string('marital_status')->nullable();
+            $table->string('gender', 20)->nullable();
+            $table->string('marital_status', 30)->nullable();
 
             // Passport Information
             $table->string('passport_number')->nullable()->unique();
@@ -37,7 +37,7 @@ return new class extends Migration
             // Service Information
             $table->string('service_type')->nullable();
 
-            // Record Ownership & Accountability
+            // Ownership
             $table->foreignId('created_by')
                 ->nullable()
                 ->constrained('users')
@@ -53,7 +53,6 @@ return new class extends Migration
                 ->constrained('teams')
                 ->nullOnDelete();
 
-            // Audit Timestamps
             $table->timestamps();
             $table->softDeletes();
         });

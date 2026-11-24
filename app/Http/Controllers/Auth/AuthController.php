@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -114,262 +115,292 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-      public function showRegister()
+    public function showRegister()
     {
         return view('backend.pages.auth.signup');
     }
-//    public function register(Request $request)
-// {
-//     $validatedData = $request->validate([
-//          'first_name' => 'required|string|max:100',
-//         'last_name'  => 'required|string|max:100',
-//         'email' => 'required|email|unique:users,email',
-//         'phone' => 'required|string|max:255',
-//         'password' => 'required|string|min:8|confirmed',
-//     ]);
-//     $fullName = trim(
-//         $validatedData['first_name'] . ' ' . $validatedData['last_name']
-//     );
+    //    public function register(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //          'first_name' => 'required|string|max:100',
+    //         'last_name'  => 'required|string|max:100',
+    //         'email' => 'required|email|unique:users,email',
+    //         'phone' => 'required|string|max:255',
+    //         'password' => 'required|string|min:8|confirmed',
+    //     ]);
+    //     $fullName = trim(
+    //         $validatedData['first_name'] . ' ' . $validatedData['last_name']
+    //     );
 
-//     $user = User::create([
-//         'name' => $fullName,
-//         'email' => $validatedData['email'],
-//         'phone' => $validatedData['phone'],
-//         'password' => Hash::make($validatedData['password']),
-//         'status' => 'active',
-//         'primary_role_id' => 4, 
-//     ]);
+    //     $user = User::create([
+    //         'name' => $fullName,
+    //         'email' => $validatedData['email'],
+    //         'phone' => $validatedData['phone'],
+    //         'password' => Hash::make($validatedData['password']),
+    //         'status' => 'active',
+    //         'primary_role_id' => 4, 
+    //     ]);
 
-//     Student::create([
-//         'user_id' => $user->id,
-//         'student_number' => 'STU-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
-//          'first_name' => $validatedData['first_name'],
-//         'last_name' => $validatedData['last_name'],
-//     ]);
+    //     Student::create([
+    //         'user_id' => $user->id,
+    //         'student_number' => 'STU-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
+    //          'first_name' => $validatedData['first_name'],
+    //         'last_name' => $validatedData['last_name'],
+    //     ]);
 
-//     return redirect()
-//         ->route('login')
-//         ->with('message', 'Registration successful.');
-// }
-public function register(
-    Request $request,
-    ContactService $contactService
-) {
-    $validatedData = $request->validate([
-        'first_name' => [
-            'required',
-            'string',
-            'max:100',
-        ],
-
-        'last_name' => [
-            'required',
-            'string',
-            'max:100',
-        ],
-
-        'email' => [
-            'required',
-            'email',
-            'max:255',
-        ],
-
-        'phone' => [
-            'required',
-            'string',
-            'max:50',
-        ],
-
-        'password' => [
-            'required',
-            'string',
-            'min:8',
-            'confirmed',
-        ],
-    ]);
-
-    /*Normalize primary contacts */
-
-    $phone = $contactService->normalizePhone(
-        $validatedData['phone']
-    );
-
-    $email = $contactService->normalizeEmail(
-        $validatedData['email']
-    );
-
-    /*Check phone/email uniqueness everywhere */
-
-    $contactService->validatePrimaryContacts(
-        phone: $phone,
-        email: $email,
-    );
-
-    /*Create user + student */
-
-    DB::transaction(function () use (
-        $validatedData,
-        $phone,
-        $email,
+    //     return redirect()
+    //         ->route('login')
+    //         ->with('message', 'Registration successful.');
+    // }
+    public function register(
+        Request $request,
+        ContactService $contactService
     ) {
-        $fullName = trim(
-            $validatedData['first_name'] . ' ' .
-            $validatedData['last_name']
-        );
+        $validatedData = $request->validate([
+            'first_name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
 
-        /*User */
+            'last_name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
 
-        $user = User::create([
-            'name' => $fullName,
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+            ],
 
-            // Primary contacts
-            'email' => $email,
-            'phone' => $phone,
+            'phone' => [
+                'required',
+                'string',
+                'max:50',
+            ],
 
-            'password' => Hash::make(
-                $validatedData['password']
-            ),
-
-            'status' => 'active',
-
-            'primary_role_id' => 4,
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+            ],
         ]);
 
-        /*Student */
+        /*Normalize primary contacts */
 
-        Student::create([
-            'user_id' => $user->id,
-
-            'student_number' =>
-                'STU-' .
-                str_pad(
-                    $user->id,
-                    6,
-                    '0',
-                    STR_PAD_LEFT
-                ),
-
-            'first_name' =>
-                $validatedData['first_name'],
-
-            'last_name' =>
-                $validatedData['last_name'],
-        ]);
-    });
-
-    return redirect()
-        ->route('login')
-        ->with(
-            'message',
-            'Registration successful.'
+        $phone = $contactService->normalizePhone(
+            $validatedData['phone']
         );
-}
 
- public function checkInRegister(Request $request,ContactService $contactService) {
-    $validated = $request->validate([
-        'phone' => [
-            'nullable',
-            'required_without:email',
-            'prohibited_with:email',
-            'string',
-            'max:50',
-        ],
-        'email' => [
-            'nullable',
-            'required_without:phone',
-            'prohibited_with:phone',
-            'email',
-            'max:255',
-        ],
-    ], [
-        'phone.required_without' => 'Please enter your phone number or email.',
-        'email.required_without' => 'Please enter your phone number or email.',
-    ]);
+        $email = $contactService->normalizeEmail(
+            $validatedData['email']
+        );
 
-    // Normalize contact
-    $phone = !empty($validated['phone'])
-        ? $contactService->normalizePhone($validated['phone'])
-        : null;
+        /*Check phone/email uniqueness everywhere */
 
-    $email = !empty($validated['email'])
-        ? $contactService->normalizeEmail($validated['email'])
-        : null;
+        $contactService->validatePrimaryContacts(
+            phone: $phone,
+            email: $email,
+        );
 
-    // Find existing user
-    $user = null;
+        /*Create user + student */
 
-    if ($phone) {
-        $user = User::where('phone', $phone)->first();
-    }
-
-    if (!$user && $email) {
-        $user = User::where('email', $email)->first();
-    }
-
-    // Prevent matching two different accounts
-    if ($phone && $email) {
-        // Normally unreachable because the validation
-        // allows only one contact method.
-    }
-
-    // Existing user
-    if ($user) {
-
-        if (!$user->isActive() || $user->primary_role_id != 4) {
-            throw ValidationException::withMessages([
-                'phone' => 'Your account is not available for student check-in.',
-            ]);
-        }
-
-        // Check student record
-        $student = Student::where('user_id', $user->id)->first();
-
-        if (!$student) {
-            throw ValidationException::withMessages([
-                'phone' => 'Student profile not found. Please contact support.',
-            ]);
-        }
-
-    } else {
-
-        // New user registration
-        $user = DB::transaction(function () use (
+        DB::transaction(function () use (
+            $validatedData,
             $phone,
             $email,
-            $contactService
         ) {
-
-            // Check duplicate primary contacts
-            $contactService->validatePrimaryContacts(
-                phone: $phone,
-                email: $email
+            $fullName = trim(
+                $validatedData['first_name'] . ' ' .
+                    $validatedData['last_name']
             );
 
+            /*User */
+
             $user = User::create([
-                'phone' => $phone,
+                'name' => $fullName,
+
+                // Primary contacts
                 'email' => $email,
+                'phone' => $phone,
+
+                'password' => Hash::make(
+                    $validatedData['password']
+                ),
+
                 'status' => 'active',
+
                 'primary_role_id' => 4,
             ]);
 
+            /*Student */
+
             Student::create([
                 'user_id' => $user->id,
-                'student_number' => 'STU-' .
-                    str_pad($user->id, 6, '0', STR_PAD_LEFT),
-            ]);
 
-            return $user;
+                'student_number' =>
+                'STU-' .
+                    str_pad(
+                        $user->id,
+                        6,
+                        '0',
+                        STR_PAD_LEFT
+                    ),
+
+                'first_name' =>
+                $validatedData['first_name'],
+
+                'last_name' =>
+                $validatedData['last_name'],
+            ]);
         });
+
+        return redirect()
+            ->route('login')
+            ->with(
+                'message',
+                'Registration successful.'
+            );
     }
 
-    // Login without password
-    Auth::login($user);
+    public function checkInRegister(Request $request)
+    {
+        // 1. Validate input
+        $validated = $request->validate([
+            'phone' => [
+                'nullable',
+                'required_without:email',
+                'string',
+                'max:50',
+            ],
+            'email' => [
+                'nullable',
+                'required_without:phone',
+                'email',
+                'max:255',
+            ],
+        ], [
+            'phone.required_without' => 'Please enter your phone number or email.',
+            'email.required_without' => 'Please enter your phone number or email.',
+            'email.email' => 'Please enter a valid email address.',
+        ]);
 
-    // Regenerate session
-    $request->session()->regenerate();
+        // 2. Only one contact method allowed
+        if (!empty($validated['phone']) && !empty($validated['email'])) {
+            throw ValidationException::withMessages([
+                'phone' => 'Please enter either phone number or email, not both.',
+            ]);
+        }
 
-    return redirect()
-        ->route('student.dashboard')
-        ->with('message', 'Check-in successful. Welcome!');
-}
+        // 3. Normalize phone
+        $phone = null;
+
+        if (!empty($validated['phone'])) {
+            $phone = preg_replace('/[^0-9]/', '', $validated['phone']);
+
+            if (str_starts_with($phone, '0')) {
+                $phone = '88' . $phone;
+            }
+        }
+
+        // 4. Normalize email
+        $email = !empty($validated['email'])
+            ? mb_strtolower(trim($validated['email']))
+            : null;
+
+        // 5. Find existing user
+        $user = null;
+
+        if ($phone !== null) {
+            $user = User::where('phone', $phone)->first();
+        } elseif ($email !== null) {
+            $user = User::where('email', $email)->first();
+        }
+
+        // 6. Existing user login
+        if ($user) {
+
+            // Check account status
+            if (!$user->isActive()) {
+                throw ValidationException::withMessages([
+                    $phone ? 'phone' : 'email' =>
+                    'Your account is inactive. Please contact support.',
+                ]);
+            }
+
+            // Only student role allowed
+            if ((int) $user->primary_role_id !== 4) {
+                throw ValidationException::withMessages([
+                    $phone ? 'phone' : 'email' =>
+                    'This account is not registered as a student.',
+                ]);
+            }
+
+            // Check student profile
+            $student = Student::where('user_id', $user->id)->first();
+
+            if (!$student) {
+                throw ValidationException::withMessages([
+                    $phone ? 'phone' : 'email' =>
+                    'Student profile not found. Please contact support.',
+                ]);
+            }
+        } else {
+
+            // 7. Create new user and student
+            $user = DB::transaction(function () use ($phone, $email) {
+
+                // Check duplicate phone
+                if ($phone && User::where('phone', $phone)->exists()) {
+                    throw ValidationException::withMessages([
+                        'phone' => 'This phone number is already registered.',
+                    ]);
+                }
+
+                // Check duplicate email
+                if ($email && User::where('email', $email)->exists()) {
+                    throw ValidationException::withMessages([
+                        'email' => 'This email address is already registered.',
+                    ]);
+                }
+
+                // Create user
+                $user = User::create([
+                    'name' => null,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'password' => bcrypt(Str::random(64)),
+                    'status' => 'active',
+                    'primary_role_id' => 4,
+                ]);
+
+                // Create student
+                Student::create([
+                    'user_id' => $user->id,
+
+                    'student_number' => 'STU-' .
+                        str_pad($user->id, 6, '0', STR_PAD_LEFT),
+                    'first_name' =>null,
+
+                'last_name' =>null,
+                ]);
+
+                return $user;
+            });
+        }
+
+        // 8. Login without password
+        Auth::login($user);
+
+        // 9. Regenerate session
+        $request->session()->regenerate();
+
+        // 10. Redirect dashboard
+        return redirect()
+            ->route('student.dashboard')
+            ->with('message', 'Check-in successful. Welcome!');
+    }
 }

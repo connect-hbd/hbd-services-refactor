@@ -8,6 +8,8 @@ use App\Models\Profile\ImmigrationRefusal;
 use App\Models\Profile\StudentDocument;
 use App\Models\Profile\StudyPlan;
 use App\Models\Profile\WorkExperience;
+use App\Models\student\StudentEmail;
+use App\Models\student\StudentPhone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,37 +17,31 @@ class Student extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
+   protected $fillable = [
+        'profile_step',
         'user_id',
         'student_number',
-        'profile_step',
-
-        // Student Information
         'first_name',
         'last_name',
-
         'date_of_birth',
         'gender',
-        'destination',
         'marital_status',
-
-        // Passport Information
         'passport_number',
         'passport_issue_date',
         'passport_expiry_date',
-
-        // service type
         'service_type',
-
+        'created_by',
+        'owner_id',
+        'owner_team_id',
     ];
 
     protected function casts(): array
     {
-        return [
-            'date_of_birth'        => 'date',
-            'passport_issue_date'  => 'date',
+         return [
+            'date_of_birth' => 'date',
+            'passport_issue_date' => 'date',
             'passport_expiry_date' => 'date',
-            'profile_step'         => 'integer',
+            'profile_step' => 'integer',
         ];
     }
 
@@ -64,6 +60,24 @@ class Student extends Model
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(StudentPhone::class);
+    }
+
+    public function emails()
+    {
+        return $this->hasMany(StudentEmail::class);
+    }
+
+    public function destinations()
+    {
+        return $this->belongsToMany(
+            Country::class,
+            'student_destinations'
+        )->withTimestamps();
     }
 
     public function academicInformation()
@@ -102,5 +116,13 @@ class Student extends Model
             $next = min($completedStep + 1, 6);
             $this->update(['profile_step' => $next]);
         }
+    }
+     public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->where('student_number', 'like', "%{$search}%")
+              ->orWhere('first_name', 'like', "%{$search}%")
+              ->orWhere('last_name', 'like', "%{$search}%");
+        });
     }
 }
