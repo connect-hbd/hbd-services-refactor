@@ -38,9 +38,6 @@
                     Explore leading universities around the world. Discover academic
                     opportunities and find the right institution for your ambitions.
                 </p>
-
-
-
                 <div
                     class="hidden border-t border-white/10 pt-6 mt-6 flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs font-medium text-brand-100/80 sm:flex sm:text-sm">
 
