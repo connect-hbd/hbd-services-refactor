@@ -27,7 +27,7 @@ Route::get('/signup', function () {
 Route::get('/check-in', function () {
     return view('backend.pages.auth.check-in');
 })->name('check-in');
-Route::post('/check-in', [StudentController::class, 'checkInRegister'])->name('check-in-store');
+Route::post('/check-in', [AuthController::class, 'checkInRegister'])->name('check-in-store');
 
 
 Route::get('/generate-sitemap', [SitemapController::class, 'generate']);
