@@ -276,7 +276,7 @@
             country: '',
             sort: 'rating',
             limit: 6,
-            perPage: 3,
+            perPage: 6,
             showFilters: false,
 
             init() {

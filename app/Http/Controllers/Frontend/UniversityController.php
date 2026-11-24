@@ -64,6 +64,8 @@ class UniversityController extends Controller
 
     $countries = $destinations->pluck('name')->values();
 
+    // return $universities;
+
     return view('frontend.pages.universities.index', compact(
         'universities',
         'countries'
