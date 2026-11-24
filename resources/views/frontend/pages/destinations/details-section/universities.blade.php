@@ -3,7 +3,7 @@
 ])
 
 @php
-    $destName = $destination['code'];
+    $destName = $destination['name'];
     $universities = $destination['universities'] ?? [];
 @endphp
 
@@ -12,7 +12,7 @@
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {{-- Section Header --}}
         <div class="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <x-destination-section-heading eyebrow="PARTNER INSTITUTIONS" :title="'Leading Universities in <span class=\'text-brand-500\'>' . $destName . '</span>'"
+            <x-destination-section-heading eyebrow="PARTNER INSTITUTIONS" :title="'Universities in <span class=\'text-brand-500\'>' . $destName . '</span>'"
                 description="Explore premier institutions renowned for academic standards, cutting-edge facilities, and excellent international student support." />
 
             {{-- <a href="{{ route('universities') }}"

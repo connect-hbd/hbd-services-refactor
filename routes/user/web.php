@@ -35,6 +35,8 @@ Route::get('/terms-conditions', [FrontendController::class, 'termsConditions'])-
 Route::get('/ceo', [FrontendController::class, 'owner'])->name('owner');
 Route::get('/digital-solutions', [FrontendController::class, 'digitalSolution'])->name('digital-solution');
 Route::get('/services', [ServicesController::class, 'index'])->name('services');
+Route::get('/check-in', [FrontendController::class, 'checkIn'])->name('check-in');
+Route::get('/check-in', [StudentController::class, 'checkInRegister'])->name('check-in-store');
 // Route::get('/visa-points-calculator', [Calculator::class, 'visaPoints'])->name('visa-points-calculator');
 // Route::get('/referral', [ReferralController::class, 'index'])->name('referral');
 
