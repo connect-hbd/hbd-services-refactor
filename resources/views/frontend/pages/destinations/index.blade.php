@@ -151,44 +151,7 @@
         </div>
 
         <div id="destination-results" x-ref="results" class="relative min-h-[200px]">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {{-- <template x-for="(destination, index) in filteredDestinations"
-                    :key="destination.slug || destination.name">
-                    <a :href="`/destinations/${encodeURIComponent(destination.slug || '')}`" class="group block h-full"
-                        data-reveal :style="`--reveal-delay: ${(index % 3) * 90}ms`">
-                        <article
-                            class="flex h-full flex-col overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
-                            <div class="relative aspect-[16/10] overflow-hidden">
-                                <img :src="imageUrl(destination.image)"
-                                    :alt="destination.title || destination.name || 'Destination'" loading="lazy"
-                                    class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                                <span class="absolute left-4 top-4 rounded-full bg-white px-2 py-1 text-xs"
-                                    x-text="destination.country || destination.name"></span>
-                                <span class="absolute right-4 top-4 rounded-full bg-white px-2.5 py-1 text-xs font-bold"
-                                    x-show="destination.rating" x-text="Number(destination.rating).toFixed(1)"></span>
-                                <h3 class="absolute bottom-4 left-5 text-2xl font-bold text-white">Study in <span
-                                        x-text="destination.name || destination.country"></span></h3>
-                            </div>
-                            <div class="flex flex-1 flex-col p-6">
-                                <p class="line-clamp-2 text-sm leading-6 text-black/60"
-                                    x-text="destination.description || 'Explore study opportunities in this destination.'">
-                                </p>
-                                <div class="mt-4 space-y-2 text-xs">
-                                    <div class="flex justify-between rounded-xl bg-neutral-50 px-3 py-2"><span>Avg.
-                                            Cost</span><strong
-                                            x-text="destination.avgCost || 'Contact for details'"></strong></div>
-                                    <div class="flex justify-between rounded-xl bg-neutral-50 px-3 py-2"><span>Visa
-                                            Processing</span><strong
-                                            x-text="destination.visaProcessing || 'Varies by country'"></strong></div>
-                                </div>
-                                <div class="mt-auto flex justify-between border-t border-neutral-100 pt-4 text-xs"><span
-                                        x-text="`${Number(destination.reviewsCount || 0).toLocaleString()} reviews`"></span><strong
-                                        class="text-brand-600">Learn more →</strong></div>
-                            </div>
-                        </article>
-                    </a>
-                </template> --}}
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">             
                 <template x-for="(destination, index) in filteredDestinations" :key="destination.slug || destination.name">
                     <a :href="`/destinations/${encodeURIComponent(destination.slug || '')}`" class="group block h-full"
                         :style="`--reveal-delay: ${(index % 3) * 90}ms`">

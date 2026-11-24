@@ -17,32 +17,58 @@ class UniversityController extends Controller
 {
     public function __construct(private readonly UniversityRepositoryInterface $universities) {}
 
-    public function index(Request $request): View
-    {
-       
+   public function index(Request $request)
+{
+    $jsonPath = resource_path('data/destination-details.json');
 
-        $filters = $request->only(['search','country_id','city_id','is_active','is_featured']);
-
-        $universities = $this->universities->paginate( $filters,20);
-
-        $countries = Country::query()
-            ->where('is_active', true)
-            ->orderBy('name')
-            ->get([ 'id','name']);
-
-        $cities = City::query()
-            ->where('is_active', true)
-            ->orderBy('name')
-            ->get([ 'id', 'name','country_id']);
-
-        // return $universities;
-
-        return view('frontend.pages.universities.index', [
-            'universities' => $universities,
-            'countries' => $countries,
-            'cities' => $cities,
-        ]);
+    if (!file_exists($jsonPath)) {
+        abort(404, 'Destination JSON file not found.');
     }
+
+    $jsonData = json_decode(file_get_contents($jsonPath), true);
+
+    $destinations = collect($jsonData['destinations'] ?? []);
+
+    // Get all universities with original JSON fields only
+    $universities = $destinations->flatMap(function ($destination) {
+        return $destination['universities'] ?? [];
+    })->values();
+
+    // Search
+    if ($request->filled('search')) {
+        $search = strtolower(trim($request->search));
+
+        $universities = $universities->filter(function ($university) use ($search) {
+            return str_contains(strtolower($university['name'] ?? ''), $search)
+                || str_contains(strtolower($university['short_name'] ?? ''), $search)
+                || str_contains(strtolower($university['city'] ?? ''), $search)
+                || str_contains(strtolower($university['description'] ?? ''), $search);
+        })->values();
+    }
+
+    // Country filter
+    if ($request->filled('country')) {
+        $country = $destinations->firstWhere('slug', $request->country);
+
+        $universities = $universities->filter(function ($university) use ($country, $destinations) {
+            if (!$country) {
+                return false;
+            }
+
+            return in_array(
+                $university['id'] ?? null,
+                collect($country['universities'] ?? [])->pluck('id')->all()
+            );
+        })->values();
+    }
+
+    $countries = $destinations->pluck('name')->values();
+
+    return view('frontend.pages.universities.index', compact(
+        'universities',
+        'countries'
+    ));
+}
 
 
     public function show(University $university)

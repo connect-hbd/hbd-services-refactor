@@ -169,7 +169,7 @@
 
    
 
-    {{-- @push('scripts')
+    @push('scripts')
         <noscript>
             <style>
                 [data-reveal] {
@@ -254,5 +254,5 @@
                 }
             })();
         </script>
-    @endpush --}}
+    @endpush
 @endsection
