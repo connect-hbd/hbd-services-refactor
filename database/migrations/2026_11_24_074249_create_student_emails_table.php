@@ -16,14 +16,16 @@ return new class extends Migration
                 ->constrained('students')
                 ->cascadeOnDelete();
 
-            // Globally unique email
+            // Globally unique alternative email
             $table->string('email', 191)->unique();
 
-            $table->unsignedTinyInteger('sort_order')->default(0);
+            // Maximum 2 alternative emails: 0 and 1
+            $table->unsignedTinyInteger('sort_order');
 
             $table->timestamps();
 
-            $table->index(['student_id', 'sort_order']);
+            // Prevent duplicate position for same student
+            $table->unique(['student_id', 'sort_order']);
         });
     }
 
