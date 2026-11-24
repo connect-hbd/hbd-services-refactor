@@ -299,9 +299,9 @@
                          <a href="{{ auth()->user()->rolePrefix() === 'student'
                              ? route('student.dashboard')
                              : route('role.dashboard', ['role' => auth()->user()->rolePrefix()]) }}"
-                             class="overflow-hidden rounded-full h-11 w-11 block">
+                             class="overflow-hidden rounded-full h-10 w-10 block">
 
-                             <img src="{{ asset('user.webp') }}" alt="User"
+                             <img src="{{ asset('user.png') }}" alt="User"
                                  class="w-full h-full object-cover" />
                          </a>
                      @endauth

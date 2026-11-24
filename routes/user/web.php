@@ -24,9 +24,7 @@ Route::get('/signup', function () {
     return view('backend.pages.auth.signup');
 })->name('signup');
 
-Route::get('/check-in', function () {
-    return view('backend.pages.auth.check-in');
-})->name('check-in');
+Route::get('/check-in', [AuthController::class, 'showCheckIn'])->name('check-in');
 Route::post('/check-in', [AuthController::class, 'checkInRegister'])->name('check-in-store');
 
 

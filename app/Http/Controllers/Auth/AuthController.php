@@ -19,7 +19,7 @@ class AuthController extends Controller
 {
     public function showLoginForm(): View|RedirectResponse
     {
-        if (Auth::check() && Auth::user()->isActive() && Auth::user()->rolePrefix()) {
+       if (Auth::check() && Auth::user()->isActive() && Auth::user()->rolePrefix()) {
             return redirect()->route('role.dashboard', ['role' => Auth::user()->rolePrefix()]);
         }
 
@@ -116,8 +116,18 @@ class AuthController extends Controller
     }
 
     public function showRegister()
-    {
+    {      
+
         return view('backend.pages.auth.signup');
+    }
+
+    public function showCheckIn(): View|RedirectResponse
+    {
+        if (Auth::check()) {
+            return redirect()->route('student.dashboard');
+        }
+
+        return view('backend.pages.auth.check-in');
     }
     //    public function register(Request $request)
     // {
@@ -178,7 +188,7 @@ class AuthController extends Controller
             'phone' => [
                 'required',
                 'string',
-                'max:50',
+                'regex:/^01[0-9]{9}$/',
             ],
 
             'password' => [
@@ -191,9 +201,7 @@ class AuthController extends Controller
 
         /*Normalize primary contacts */
 
-        $phone = $contactService->normalizePhone(
-            $validatedData['phone']
-        );
+        $phone = preg_replace('/\D/', '', $validatedData['phone']);
 
         $email = $contactService->normalizeEmail(
             $validatedData['email']
@@ -201,10 +209,16 @@ class AuthController extends Controller
 
         /*Check phone/email uniqueness everywhere */
 
-        $contactService->validatePrimaryContacts(
-            phone: $phone,
-            email: $email,
-        );
+        $errors = [];
+        if (User::where('phone', $phone)->exists() || \App\Models\ContactPoint::where('type', 'phone')->where('normalized_value', $phone)->exists()) {
+            $errors['phone'] = 'This phone number is already registered';
+        }
+        if (User::whereRaw('LOWER(email) = ?', [$email])->exists() || \App\Models\ContactPoint::where('type', 'email')->whereRaw('LOWER(normalized_value) = ?', [$email])->exists()) {
+            $errors['email'] = 'This email is already registered';
+        }
+        if ($errors) {
+            throw ValidationException::withMessages($errors);
+        }
 
         /*Create user + student */
 
@@ -259,7 +273,7 @@ class AuthController extends Controller
         });
 
         return redirect()
-            ->route('login')
+            ->to('/login')
             ->with(
                 'message',
                 'Registration successful.'
@@ -274,7 +288,7 @@ class AuthController extends Controller
                 'nullable',
                 'required_without:email',
                 'string',
-                'max:50',
+                'regex:/^01[0-9]{9}$/',
             ],
             'email' => [
                 'nullable',
@@ -299,11 +313,7 @@ class AuthController extends Controller
         $phone = null;
 
         if (!empty($validated['phone'])) {
-            $phone = preg_replace('/[^0-9]/', '', $validated['phone']);
-
-            if (str_starts_with($phone, '0')) {
-                $phone = '88' . $phone;
-            }
+            $phone = preg_replace('/\D/', '', $validated['phone']);
         }
 
         // 4. Normalize email
@@ -335,7 +345,7 @@ class AuthController extends Controller
             if ((int) $user->primary_role_id !== 4) {
                 throw ValidationException::withMessages([
                     $phone ? 'phone' : 'email' =>
-                    'This account is not registered as a student.',
+                    'You can not login. Please contact admin.',
                 ]);
             }
 
@@ -402,5 +412,34 @@ class AuthController extends Controller
         return redirect()
             ->route('student.dashboard')
             ->with('message', 'Check-in successful. Welcome!');
+    }
+
+    public function identifierLogin(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'identifier' => ['required', 'string', 'max:255'],
+        ]);
+        $identifier = trim($data['identifier']);
+        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            $identifier = mb_strtolower($identifier);
+            $user = User::whereRaw('LOWER(email) = ?', [$identifier])->first();
+            $field = 'identifier';
+        } else {
+            $phone = preg_replace('/\D/', '', $identifier);
+            if (!preg_match('/^01[0-9]{9}$/', $phone)) {
+                throw ValidationException::withMessages(['identifier' => 'Enter a valid email address or Bangladeshi phone number (01XXXXXXXXX).']);
+            }
+            $user = User::where('phone', $phone)->first();
+            $field = 'identifier';
+        }
+        if (!$user) {
+            throw ValidationException::withMessages([$field => 'No account was found with that phone number or email.']);
+        }
+        if (!$user->isActive()) {
+            throw ValidationException::withMessages([$field => 'Your account is inactive. Please contact support.']);
+        }
+        Auth::login($user, (bool) $request->boolean('remember'));
+        $request->session()->regenerate();
+        return redirect()->route('student.dashboard');
     }
 }

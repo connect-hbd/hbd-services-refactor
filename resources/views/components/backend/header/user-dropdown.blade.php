@@ -9,8 +9,8 @@
 }" @click.away="closeDropdown()">
     <!-- User Button -->
     <button class="flex items-center text-neutral-700 dark:text-neutral-400" @click.prevent="toggleDropdown()" type="button">
-        <span class="mr-3 overflow-hidden rounded-full h-11 w-11">
-            <img src="{{ auth()->user()?->avatar ? asset(auth()->user()->avatar) : asset('user.webp') }}"
+        <span class="mr-3 overflow-hidden rounded-full h-10 w-10">
+            <img src="{{ auth()->user()?->avatar ? asset(auth()->user()->avatar) : asset('user.png') }}"
                 alt="{{ auth()->user()?->name }}" class="w-full h-full object-cover" />
         </span>
 
