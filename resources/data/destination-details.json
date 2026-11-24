@@ -291,6 +291,7 @@
   ],
   "universities": [
    {
+      "country": "The United Kingdom",
     "id": 1,
     "name": "University of Bradford",
     "short_name": "Bradford",
@@ -300,6 +301,7 @@
     "description": "A public university in Bradford known for career-focused education and strengths in engineering, pharmacy, health sciences, computing, business and criminology."
   },
   {
+      "country": "The United Kingdom",
     "id": 2,
     "name": "Bangor University",
     "short_name": "Bangor",
@@ -309,6 +311,7 @@
     "description": "A public university in North Wales offering programs in business, banking and finance, ocean sciences, psychology, computer science, environmental science and health."
   },
   {
+      "country": "The United Kingdom",
     "id": 3,
     "name": "University of Greenwich",
     "short_name": "Greenwich",
@@ -318,6 +321,7 @@
     "description": "A public university with campuses in London and Kent offering undergraduate and postgraduate degrees in business, computing, engineering, architecture and health."
   },
   {
+      "country": "The United Kingdom",
     "id": 4,
     "name": "University of the West of England (UWE Bristol)",
     "short_name": "UWE Bristol",
@@ -327,6 +331,7 @@
     "description": "A modern public university in Bristol known for industry links and practical degrees in engineering, computer science, business, design, nursing and health."
   },
   {
+      "country": "The United Kingdom",
     "id": 5,
     "name": "University of Hull",
     "short_name": "Hull",
@@ -336,6 +341,7 @@
     "description": "A public research university in Hull offering programs in business, engineering, computer science, renewable energy, biomedical science, law and nursing."
   },
   {
+      "country": "The United Kingdom",
     "id": 6,
     "name": "Brunel University of London",
     "short_name": "Brunel",
@@ -345,6 +351,7 @@
     "description": "A campus-based public university in West London recognized for placement opportunities and strengths in engineering, design, computer science, business and health."
   },
   {
+      "country": "The United Kingdom",
     "id": 7,
     "name": "Middlesex University",
     "short_name": "Middlesex",
@@ -354,6 +361,7 @@
     "description": "A London public university offering practice-led degrees across business, computing and data science, psychology, nursing, media, design and law."
   },
   {
+      "country": "The United Kingdom",
     "id": 8,
     "name": "The University of Manchester",
     "short_name": "Manchester",
@@ -363,6 +371,7 @@
     "description": "A major Russell Group public research university in Manchester with top programs in engineering, computer science, business, medicine, science and humanities."
   },
   {
+      "country": "The United Kingdom",
     "id": 9,
     "name": "University of Birmingham",
     "short_name": "Birmingham",
@@ -372,6 +381,7 @@
     "description": "A Russell Group public research university in Birmingham offering strong degrees in business, engineering, computer science, medicine, law, science and arts."
   },
   {
+      "country": "The United Kingdom",
     "id": 10,
     "name": "Queen Mary University of London",
     "short_name": "QMUL",
@@ -381,6 +391,7 @@
     "description": "A Russell Group public research university in London known for medicine, dentistry, law, economics, computer science, engineering and international business."
   },
   {
+      "country": "The United Kingdom",
     "id": 11,
     "name": "Anglia Ruskin University",
     "short_name": "ARU",
@@ -390,6 +401,7 @@
     "description": "A public university in East England with campuses in Cambridge, Chelmsford and Peterborough, offering degrees in business, health, nursing, computing and arts."
   },
   {
+      "country": "The United Kingdom",
     "id": 12,
     "name": "University of Chester",
     "short_name": "Chester",
@@ -1058,6 +1070,7 @@
   ],
   "universities": [
   {
+      "country": "Australia",
     "id": 1,
     "name": "Macquarie University",
     "short_name": "MQ",
@@ -1067,6 +1080,7 @@
     "description": "A Sydney public university known for its modern campus and business connections, offering IT, computer science, business, accounting, finance, data science, engineering and health."
   },
   {
+      "country": "Australia",
     "id": 2,
     "name": "Western Sydney University",
     "short_name": "WSU",
@@ -1076,6 +1090,7 @@
     "description": "A multi-campus public university in Greater Western Sydney offering practical, career-focused programs in business, engineering, IT, nursing, health sciences and social sciences."
   },
   {
+      "country": "Australia",
     "id": 3,
     "name": "University of Wollongong",
     "short_name": "UOW",
@@ -1085,6 +1100,7 @@
     "description": "A public research university south of Sydney known for computer science, cybersecurity, engineering, business, information technology, data science and health sciences."
   },
   {
+      "country": "Australia",
     "id": 4,
     "name": "The University of Newcastle",
     "short_name": "UON",
@@ -1094,6 +1110,7 @@
     "description": "A public university in Newcastle known for research and global outlook, offering programs in engineering, IT, computer science, business, architecture, medicine and health."
   },
   {
+      "country": "Australia",
     "id": 5,
     "name": "TAFE NSW International",
     "short_name": "TAFE NSW",
@@ -1103,6 +1120,7 @@
     "description": "New South Wales's public vocational education provider offering hands-on diplomas, certificates and English pathways in business, IT, hospitality, trades and design."
   },
   {
+      "country": "Australia",
     "id": 6,
     "name": "University of New England",
     "short_name": "UNE",
@@ -1112,6 +1130,7 @@
     "description": "A regional public university in Armidale, New South Wales, offering programs in business, data science, IT, agriculture, environmental studies, education and health."
   },
   {
+      "country": "Australia",
     "id": 7,
     "name": "Victoria University",
     "short_name": "VU",
@@ -1121,6 +1140,7 @@
     "description": "A public university in Melbourne offering career-focused degrees across business, IT, engineering, sport science, health, hospitality and education."
   },
   {
+      "country": "Australia",
     "id": 8,
     "name": "Southern Cross University",
     "short_name": "SCU",
@@ -1130,6 +1150,7 @@
     "description": "A regional public university with campuses across northern NSW and the Gold Coast, known for environmental science, marine ecology, business, IT and health."
   },
   {
+      "country": "Australia",
     "id": 9,
     "name": "The University of Notre Dame Australia",
     "short_name": "UNDA",
@@ -1139,6 +1160,7 @@
     "description": "A private national university with campuses in Western Australia and New South Wales, offering programs in medicine, nursing, health sciences, law, business and education."
   },
   {
+      "country": "Australia",
     "id": 10,
     "name": "Universal Higher Education",
     "short_name": "UHE",
@@ -1148,6 +1170,7 @@
     "description": "An Australian higher education provider in Sydney offering undergraduate and postgraduate degrees in business, accounting, information technology and leadership."
   },
   {
+      "country": "Australia",
     "id": 11,
     "name": "CQUniversity Australia",
     "short_name": "CQU",
@@ -1157,6 +1180,7 @@
     "description": "One of Australia's most connected public universities with campuses across regional and metropolitan hubs, offering IT, engineering, business, health and trades."
   },
   {
+      "country": "Australia",
     "id": 12,
     "name": "University of the Sunshine Coast",
     "short_name": "UniSC",
@@ -1166,6 +1190,7 @@
     "description": "A public university on Queensland's Sunshine Coast offering programs in environmental science, business, IT, nursing, health sciences, design and education."
   },
     {
+      "country": "Australia",
     "id": 13,
     "name": "Charles Sturt University",
     "short_name": "CSU",
@@ -1175,6 +1200,7 @@
     "description": "An Australian public university with campuses across regional NSW and metropolitan hubs, offering programs in business, IT, nursing, health, agriculture and education."
   },
   {
+      "country": "Australia",
     "id": 14,
     "name": "Edith Cowan College",
     "short_name": "ECC",
@@ -1184,6 +1210,7 @@
     "description": "A pathway college on Edith Cowan University's campuses offering diplomas and foundation programs leading into degrees in business, IT, engineering, health and media."
   },
   {
+      "country": "Australia",
     "id": 15,
     "name": "La Trobe College Australia",
     "short_name": "LTCA",
@@ -1193,6 +1220,7 @@
     "description": "A pathway institution offering foundation, diploma and English programs with direct progression into La Trobe University degrees in business, IT, health and science."
   },
   {
+      "country": "Australia",
     "id": 16,
     "name": "Education Centre of Australia",
     "short_name": "ECA",
@@ -1202,6 +1230,7 @@
     "description": "An Australian education group offering undergraduate, postgraduate and vocational programs in business, accounting, information technology, analytics and management."
   },
   {
+      "country": "Australia",
     "id": 17,
     "name": "Navitas",
     "short_name": "Navitas",
@@ -2088,6 +2117,7 @@
   ],
   "universities": [
     {
+      "country": "New Zealand",
     "id": 1,
     "name": "The University of Auckland",
     "short_name": "UoA",
@@ -2097,6 +2127,7 @@
     "description": "New Zealand's highest-ranked public research university in Auckland, offering programs in business, engineering, computer science, medicine, health, arts and science."
   },
   {
+      "country": "New Zealand",
     "id": 2,
     "name": "University of Otago",
     "short_name": "Otago",
@@ -2106,6 +2137,7 @@
     "description": "New Zealand's oldest university based in Dunedin, known for health sciences, medicine, dentistry, business, sciences, law and humanities."
   },
   {
+      "country": "New Zealand",
     "id": 3,
     "name": "Victoria University of Wellington",
     "short_name": "VUW",
@@ -2115,6 +2147,7 @@
     "description": "A public university in New Zealand's capital city, known for public policy, law, business, computer science, design, architecture and humanities."
   },
   {
+      "country": "New Zealand",
     "id": 4,
     "name": "University of Canterbury",
     "short_name": "UC",
@@ -2124,6 +2157,7 @@
     "description": "A research-focused public university in Christchurch offering strong programs in engineering, computer science, business, data science, commerce and science."
   },
   {
+      "country": "New Zealand",
     "id": 5,
     "name": "Massey University",
     "short_name": "Massey",
@@ -2133,6 +2167,7 @@
     "description": "A multi-campus New Zealand public university known for aviation, agriculture, veterinary science, business, design, engineering and health programs."
   },
   {
+      "country": "New Zealand",
     "id": 6,
     "name": "The University of Waikato",
     "short_name": "Waikato",
@@ -2142,6 +2177,7 @@
     "description": "A public university with campuses in Hamilton and Tauranga, offering programs in computer science, business, engineering, environmental science and social sciences."
   },
   {
+      "country": "New Zealand",
     "id": 7,
     "name": "Lincoln University",
     "short_name": "Lincoln",
@@ -2151,6 +2187,7 @@
     "description": "A specialist land-based public university near Christchurch, focused on agribusiness, agriculture, food science, environmental management, viticulture and commerce."
   },
   {
+      "country": "New Zealand",
     "id": 8,
     "name": "Otago Polytechnic",
     "short_name": "OP",
@@ -2160,6 +2197,7 @@
     "description": "A practical vocational and applied degree provider offering hands-on programs in IT, engineering, design, nursing, business, hospitality and trades."
   },
   {
+      "country": "New Zealand",
     "id": 9,
     "name": "Auckland University of Technology",
     "short_name": "AUT",
@@ -2169,6 +2207,7 @@
     "description": "A modern public university in Auckland emphasizing industry-connected learning across IT, computer science, business, engineering, design and health sciences."
   },
   {
+      "country": "New Zealand",
     "id": 10,
     "name": "Eastern Institute of Technology",
     "short_name": "EIT",
@@ -2178,6 +2217,7 @@
     "description": "A vocational and degree-granting institution offering practical courses in computing, business, nursing, viticulture, trades and applied management."
   },
   {
+      "country": "New Zealand",
     "id": 11,
     "name": "Unitec Institute of Technology",
     "short_name": "Unitec",
@@ -2187,6 +2227,7 @@
     "description": "An applied institute of technology in Auckland offering hands-on programs in computing, IT, engineering, business, construction, nursing, architecture and trades."
   },
   {
+      "country": "New Zealand",
     "id": 12,
     "name": "Yoobee College of Creative Innovation",
     "short_name": "Yoobee",
@@ -2865,6 +2906,7 @@
   ],
   "universities": [
     {
+      "country": "Malaysia",
     "id": 1,
     "name": "UOW Malaysia",
     "short_name": "UOW Malaysia",
@@ -2874,6 +2916,7 @@
     "description": "Part of the University of Wollongong Australia global network in Malaysia, offering degrees in computing, business, engineering, communication and hospitality."
   },
   {
+      "country": "Malaysia",
     "id": 2,
     "name": "Universiti Tun Abdul Razak",
     "short_name": "UNIRAZAK",
@@ -2883,6 +2926,7 @@
     "description": "A private university in Kuala Lumpur focused on business, finance, accounting, economics, leadership, public policy and information technology."
   },
   {
+      "country": "Malaysia",
     "id": 3,
     "name": "University of Cyberjaya",
     "short_name": "UoC",
@@ -2892,6 +2936,7 @@
     "description": "A private university in Cyberjaya known for health sciences, medicine, pharmacy, biomedical science, business and information technology programs."
   },
   {
+      "country": "Malaysia",
     "id": 4,
     "name": "MAHSA University",
     "short_name": "MAHSA",
@@ -2901,6 +2946,7 @@
     "description": "A private university in Malaysia specializing in medicine, dentistry, pharmacy, nursing, allied health, business, engineering and computing."
   },
   {
+      "country": "Malaysia",
     "id": 5,
     "name": "INTI International University & Colleges",
     "short_name": "INTI",
@@ -2910,6 +2956,7 @@
     "description": "A multi-campus Malaysian higher education provider offering foundation, diploma and degree programs in business, computing, engineering, mass comm and health."
   },
   {
+      "country": "Malaysia",
     "id": 6,
     "name": "LSBF Malaysia",
     "short_name": "LSBF",
@@ -3475,1014 +3522,7 @@
     ]
   }
 },
-{
-  "id": 5,
-  "name": "United States",
-  "slug": "united-states",
-  "code": "US",
-  "hero": {
-    "id": 1,
-    "title": "World-Class Education and Innovation",
-    "description": "Study at globally recognised universities, access cutting-edge research facilities, explore flexible academic programmes and build international connections in one of the world's leading higher education destinations.",
-    "features": [
-      {
-        "id": 1,
-        "value": "Globally recognised universities and qualifications"
-      },
-      {
-        "id": 2,
-        "value": "Research, innovation and advanced facilities"
-      },
-      {
-        "id": 3,
-        "value": "Flexible academic pathways and programme choices"
-      },
-      {
-        "id": 4,
-        "value": "Career development and practical learning opportunities"
-      }
-    ]
-  },
-  "overview": {
-    "id": 1,
-    "title": "Higher Education Opportunities in the United States",
-    "description_1": "The United States offers a diverse higher education system that includes public and private universities, liberal arts colleges, community colleges and specialist institutions. Students can choose from a wide range of undergraduate, graduate and research programmes, with academic structures and admission requirements varying by institution.",
-    "description_2": "For students from Bangladesh, study options include direct bachelor's admission, community-college transfer pathways and postgraduate study. Applicants should compare total cost of attendance, programme accreditation, institutional support and the requirements for an F-1 student visa before making a decision."
-  },
-  "cities": [
-    {
-      "id": 1,
-      "name": "New York City",
-      "image": "/images/destinations/united-states/city-1.jfif",
-      "location": "New York",
-      "description": "A major international centre for finance, business, media, arts and technology, with a wide choice of universities and professional networks."
-    },
-    {
-      "id": 2,
-      "name": "Boston",
-      "image": "/images/destinations/united-states/city-2.jfif",
-      "location": "Massachusetts",
-      "description": "A prominent education and research hub with universities, hospitals, biotechnology organisations and a large student community."
-    },
-    {
-      "id": 3,
-      "name": "Los Angeles",
-      "image": "/images/destinations/united-states/city-3.jfif",
-      "location": "California",
-      "description": "A diverse metropolitan area with opportunities in technology, entertainment, business, engineering and creative industries."
-    },
-    {
-      "id": 4,
-      "name": "Chicago",
-      "image": "/images/destinations/united-states/city-4.jfif",
-      "location": "Illinois",
-      "description": "A major centre for business, finance, healthcare, engineering and research, with a range of public and private universities."
-    },
-    {
-      "id": 5,
-      "name": "San Francisco Bay Area",
-      "image": "/images/destinations/united-states/city-5.jfif",
-      "location": "California",
-      "description": "Known for technology, entrepreneurship, computing, engineering and research, with universities and innovation-focused employers."
-    },
-    {
-      "id": 6,
-      "name": "Houston",
-      "image": "/images/destinations/united-states/city-6.jfif",
-      "location": "Texas",
-      "description": "A large and diverse city with strengths in energy, engineering, medicine, aerospace and business education."
-    }
-  ],
-  "whyChoose": {
-    "id": 1,
-    "description": "The United States offers a broad range of academic institutions, flexible course choices and opportunities to participate in research, internships and practical learning. Costs, admission standards and student support vary considerably, so students should assess each institution and programme individually.",
-    "image": "/images/destinations/united-states/why-choose.jfif",
-    "highlights": [
-      {
-        "id": 1,
-        "value": "Globally Recognised Institutions"
-      },
-      {
-        "id": 2,
-        "value": "Research and Innovation"
-      },
-      {
-        "id": 3,
-        "value": "Optional Practical Training Pathways"
-      }
-    ],
-    "benefits": [
-      {
-        "id": 1,
-        "number": "01",
-        "icon": "lucide:graduation-cap",
-        "title": "Wide Choice of Universities",
-        "description": "Choose from public universities, private universities, liberal arts colleges and community colleges offering different academic environments and programme options."
-      },
-      {
-        "id": 2,
-        "number": "02",
-        "icon": "lucide:microscope",
-        "title": "Research and Innovation",
-        "description": "Many institutions provide access to research laboratories, specialist facilities and faculty-led projects across science, technology, healthcare and other disciplines."
-      },
-      {
-        "id": 3,
-        "number": "03",
-        "icon": "lucide:book-open",
-        "title": "Flexible Academic Pathways",
-        "description": "Some institutions allow students to explore subjects before choosing a major, while community-college transfer routes may provide an alternative path to a bachelor's degree."
-      },
-      {
-        "id": 4,
-        "number": "04",
-        "icon": "lucide:briefcase-business",
-        "title": "Practical Learning Opportunities",
-        "description": "Eligible F-1 students may participate in authorised practical training, including CPT and OPT, when programme and immigration requirements are met."
-      },
-      {
-        "id": 5,
-        "number": "05",
-        "icon": "lucide:globe",
-        "title": "International Student Community",
-        "description": "Students join multicultural campuses and can build academic, cultural and professional connections with peers from around the world."
-      },
-      {
-        "id": 6,
-        "number": "06",
-        "icon": "lucide:building-2",
-        "title": "Industry and Career Networks",
-        "description": "Universities may offer career services, employer events, internships and alumni networks; access and outcomes depend on the institution, field and individual eligibility."
-      }
-    ],
-    "careerPoints": [
-      {
-        "id": 1,
-        "icon": "lucide:briefcase-business",
-        "title": "Career Development"
-      },
-      {
-        "id": 2,
-        "icon": "lucide:network",
-        "title": "Professional Networking"
-      },
-      {
-        "id": 3,
-        "icon": "lucide:lightbulb",
-        "title": "Research and Innovation"
-      },
-      {
-        "id": 4,
-        "icon": "lucide:trending-up",
-        "title": "Practical Experience"
-      }
-    ]
-  },
-  "courses": [
-    {
-      "id": 1,
-      "number": "01",
-      "icon": "lucide:code-2",
-      "title": "Computer Science & Information Technology",
-      "description": "Develop computing, software, information systems and emerging technology skills through academic and practical study.",
-      "subjects": [
-        "Computer Science",
-        "Software Engineering",
-        "Artificial Intelligence",
-        "Data Science",
-        "Cyber Security",
-        "Information Systems"
-      ]
-    },
-    {
-      "id": 2,
-      "number": "02",
-      "icon": "lucide:cog",
-      "title": "Engineering & Technology",
-      "description": "Study engineering principles and applications across infrastructure, manufacturing, energy and advanced technology.",
-      "subjects": [
-        "Computer Engineering",
-        "Mechanical Engineering",
-        "Electrical Engineering",
-        "Civil Engineering",
-        "Aerospace Engineering",
-        "Biomedical Engineering"
-      ]
-    },
-    {
-      "id": 3,
-      "number": "03",
-      "icon": "lucide:briefcase-business",
-      "title": "Business & Management",
-      "description": "Build knowledge in leadership, entrepreneurship, organisational strategy and international business.",
-      "subjects": [
-        "Business Administration",
-        "MBA",
-        "Management",
-        "Marketing",
-        "International Business",
-        "Supply Chain Management"
-      ]
-    },
-    {
-      "id": 4,
-      "number": "04",
-      "icon": "lucide:chart-no-axes-combined",
-      "title": "Accounting, Finance & Economics",
-      "description": "Develop analytical and financial skills for business, banking, investment and economic research.",
-      "subjects": [
-        "Accounting",
-        "Finance",
-        "Economics",
-        "Business Analytics",
-        "Financial Technology",
-        "Actuarial Science"
-      ]
-    },
-    {
-      "id": 5,
-      "number": "05",
-      "icon": "lucide:heart-pulse",
-      "title": "Health & Life Sciences",
-      "description": "Explore scientific and health-related disciplines. Clinical and professional programmes may have additional accreditation and licensing requirements.",
-      "subjects": [
-        "Public Health",
-        "Biomedical Sciences",
-        "Nursing",
-        "Pharmacy",
-        "Biotechnology",
-        "Health Administration"
-      ]
-    },
-    {
-      "id": 6,
-      "number": "06",
-      "icon": "lucide:palette",
-      "title": "Arts, Humanities & Social Sciences",
-      "description": "Study human society, communication, culture, policy and creative practice across interdisciplinary programmes.",
-      "subjects": [
-        "Psychology",
-        "International Relations",
-        "Political Science",
-        "Communication",
-        "Sociology",
-        "Fine Arts"
-      ]
-    }
-  ],
-  "studyLevels": [
-    {
-      "id": 1,
-      "number": "01",
-      "title": "English Language & Academic Pathway Programmes",
-      "subtitle": "Prepare for University-Level Study",
-      "duration": "Varies by programme",
-      "description": "Intensive English, academic preparation and pathway programmes may help students meet language or academic entry requirements. Availability and progression conditions are institution-specific.",
-      "qualifications": [
-        "Intensive English Language Programme",
-        "Academic English",
-        "University Pathway Programme",
-        "Conditional Admission Pathway"
-      ],
-      "icon": "lucide:book-open"
-    },
-    {
-      "id": 2,
-      "number": "02",
-      "title": "Associate Degrees & Community College",
-      "subtitle": "Begin Higher Education with a Transfer Option",
-      "duration": "Typically 2 years",
-      "description": "Community colleges offer associate degrees and other programmes. Some students transfer eligible credits to a four-year institution through a 2+2 pathway, subject to transfer agreements and receiving-university requirements.",
-      "qualifications": [
-        "Associate of Arts (AA)",
-        "Associate of Science (AS)",
-        "Associate of Applied Science (AAS)",
-        "University Transfer Pathway"
-      ],
-      "icon": "lucide:book"
-    },
-    {
-      "id": 3,
-      "number": "03",
-      "title": "Undergraduate Bachelor's Degrees",
-      "subtitle": "Build a Strong Academic Foundation",
-      "duration": "Typically 4 years",
-      "description": "Bachelor's programmes combine general education with a major and electives. Programme duration may vary with credit load, transfer credits and course requirements.",
-      "qualifications": [
-        "Bachelor of Arts (BA)",
-        "Bachelor of Science (BS/BSc)",
-        "Bachelor of Engineering (BEng)",
-        "Bachelor of Business Administration (BBA)"
-      ],
-      "icon": "lucide:graduation-cap"
-    },
-    {
-      "id": 4,
-      "number": "04",
-      "title": "Postgraduate Master's Degrees",
-      "subtitle": "Advanced Professional and Academic Study",
-      "duration": "Typically 1–2 years",
-      "description": "Master's programmes provide advanced coursework, professional preparation or research training. Admission prerequisites and programme length vary by discipline and institution.",
-      "qualifications": [
-        "Master of Science (MS/MSc)",
-        "Master of Arts (MA)",
-        "Master of Business Administration (MBA)",
-        "Master of Engineering (MEng)"
-      ],
-      "icon": "lucide:award"
-    },
-    {
-      "id": 5,
-      "number": "05",
-      "title": "Doctoral Degrees (PhD / Research)",
-      "subtitle": "Conduct Advanced Original Research",
-      "duration": "Typically 4–6 years",
-      "description": "Doctoral programmes involve advanced research and supervised scholarly work. Some programmes admit students after a bachelor's degree, while others require a master's degree.",
-      "qualifications": [
-        "Doctor of Philosophy (PhD)",
-        "Doctor of Education (EdD)",
-        "Doctor of Business Administration (DBA)",
-        "Professional Doctoral Programmes"
-      ],
-      "icon": "lucide:microscope"
-    }
-  ],
-  "universities": [
-    {
-      "id": 1,
-      "name": "Massachusetts Institute of Technology",
-      "short_name": "MIT",
-      "logo": "/images/destinations/united-states/mit.png",
-      "city": "Cambridge, Massachusetts",
-      "ranking": "",
-      "description": "A private research university known for science, engineering, computing, economics and technology-led research."
-    },
-    {
-      "id": 2,
-      "name": "Harvard University",
-      "short_name": "Harvard",
-      "logo": "/images/destinations/united-states/harvard.png",
-      "city": "Cambridge, Massachusetts",
-      "ranking": "",
-      "description": "A private research university offering programmes across arts and sciences, business, law, medicine, education and public policy."
-    },
-    {
-      "id": 3,
-      "name": "Stanford University",
-      "short_name": "Stanford",
-      "logo": "/images/destinations/united-states/stanford.png",
-      "city": "Stanford, California",
-      "ranking": "",
-      "description": "A research university recognised for engineering, computer science, business, medicine and entrepreneurship."
-    },
-    {
-      "id": 4,
-      "name": "University of California, Berkeley",
-      "short_name": "UC Berkeley",
-      "logo": "/images/destinations/united-states/berkeley.png",
-      "city": "Berkeley, California",
-      "ranking": "",
-      "description": "A public research university with programmes in engineering, computing, business, natural sciences, social sciences and humanities."
-    },
-    {
-      "id": 5,
-      "name": "University of California, Los Angeles",
-      "short_name": "UCLA",
-      "logo": "/images/destinations/united-states/ucla.png",
-      "city": "Los Angeles, California",
-      "ranking": "",
-      "description": "A public research university offering a broad range of programmes in arts, sciences, engineering, medicine and management."
-    },
-    {
-      "id": 6,
-      "name": "New York University",
-      "short_name": "NYU",
-      "logo": "/images/destinations/united-states/nyu.png",
-      "city": "New York City, New York",
-      "ranking": "",
-      "description": "A private university with programmes in business, arts, law, social sciences, technology and global studies."
-    },
-    {
-      "id": 7,
-      "name": "University of Texas at Austin",
-      "short_name": "UT Austin",
-      "logo": "/images/destinations/united-states/ut-austin.png",
-      "city": "Austin, Texas",
-      "ranking": "",
-      "description": "A major public research university with strengths in engineering, business, computer science, natural sciences and communication."
-    },
-    {
-      "id": 8,
-      "name": "Purdue University",
-      "short_name": "Purdue",
-      "logo": "/images/destinations/united-states/purdue.png",
-      "city": "West Lafayette, Indiana",
-      "ranking": "",
-      "description": "A public research university known for engineering, technology, aviation, agriculture and science programmes."
-    },
-    {
-      "id": 9,
-      "name": "Arizona State University",
-      "short_name": "ASU",
-      "logo": "/images/destinations/united-states/asu.png",
-      "city": "Tempe, Arizona",
-      "ranking": "",
-      "description": "A large public research university offering a wide range of undergraduate and graduate programmes across multiple campuses."
-    },
-    {
-      "id": 10,
-      "name": "University of Illinois Urbana-Champaign",
-      "short_name": "UIUC",
-      "logo": "/images/destinations/united-states/uiuc.png",
-      "city": "Urbana-Champaign, Illinois",
-      "ranking": "",
-      "description": "A public research university with recognised programmes in computing, engineering, business, agriculture and sciences."
-    }
-  ],
-  "requirements": [
-    {
-      "id": 1,
-      "icon": "lucide:graduation-cap",
-      "number": "01",
-      "title": "Academic Qualifications",
-      "description": "Applicants must meet the academic entry standards set by the selected U.S. institution and programme.",
-      "items": [
-        "SSC and HSC certificates and transcripts, or recognised equivalents, for undergraduate pathways",
-        "A recognised bachelor's degree and transcripts for most master's programmes",
-        "Relevant prior academic preparation and research background for doctoral programmes",
-        "Certified English translations and credential evaluations where requested"
-      ]
-    },
-    {
-      "id": 2,
-      "icon": "lucide:languages",
-      "number": "02",
-      "title": "English Language Proficiency",
-      "description": "Universities set their own English-language requirements and decide which tests or exemptions they accept.",
-      "items": [
-        "TOEFL iBT, where accepted",
-        "IELTS Academic, where accepted",
-        "Duolingo English Test or PTE Academic, where accepted by the institution",
-        "English-language pathway or waiver only where the institution approves it"
-      ]
-    },
-    {
-      "id": 3,
-      "icon": "lucide:files",
-      "number": "03",
-      "title": "Application Documents",
-      "description": "The required application package depends on the university, degree level and subject.",
-      "items": [
-        "Valid passport",
-        "Academic certificates and official transcripts",
-        "Statement of Purpose or personal essay, where required",
-        "Letters of recommendation, where required",
-        "CV or resume for selected graduate programmes",
-        "SAT/ACT, GRE, GMAT, portfolio or other test results only when required by the programme"
-      ]
-    },
-    {
-      "id": 4,
-      "icon": "lucide:wallet",
-      "number": "04",
-      "title": "Financial Preparation",
-      "description": "Students must plan for the amount documented by the institution and demonstrate credible funding for study and living costs as required for admission and visa processing.",
-      "items": [
-        "Evidence of funds or approved sponsorship for the amount required by the institution",
-        "Scholarship, fellowship or assistantship award letters, where applicable",
-        "Tuition deposit and initial payment requirements",
-        "Estimated housing, food, health insurance, books and personal expenses",
-        "Funds for travel and initial settlement"
-      ]
-    }
-  ],
-  "educationLevelRequirements": {
-    "id": 1,
-    "levels": [
-      {
-        "id": 1,
-        "key": "pathway",
-        "label": "Pathway / English",
-        "heading": "Pathway and English Programme Entry Requirements",
-        "requirements": [
-          {
-            "id": 1,
-            "description": "Academic records meeting the selected institution's minimum entry standard."
-          },
-          {
-            "id": 2,
-            "description": "English placement test or accepted English proficiency evidence, depending on the programme."
-          },
-          {
-            "id": 3,
-            "description": "Some pathway programmes offer conditional progression; progression is subject to stated academic and language conditions."
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "key": "associate",
-        "label": "Associate Degree",
-        "heading": "Associate Degree Entry Requirements",
-        "requirements": [
-          {
-            "id": 1,
-            "description": "Secondary school completion equivalent to U.S. high school graduation, assessed by the community college."
-          },
-          {
-            "id": 2,
-            "description": "Official school transcripts and any requested credential evaluation or translation."
-          },
-          {
-            "id": 3,
-            "description": "English proficiency evidence or placement assessment, according to college policy."
-          },
-          {
-            "id": 4,
-            "description": "International applicants must confirm that the college is authorised to enrol F-1 students and issue Form I-20."
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "key": "undergraduate",
-        "label": "Undergraduate",
-        "heading": "Bachelor's Degree Entry Requirements",
-        "requirements": [
-          {
-            "id": 1,
-            "description": "HSC or equivalent secondary qualification; universities assess grades, subjects and academic preparation individually."
-          },
-          {
-            "id": 2,
-            "description": "Official transcripts, school-leaving certificates and certified translations where needed."
-          },
-          {
-            "id": 3,
-            "description": "English test such as TOEFL iBT or IELTS Academic if required by the university."
-          },
-          {
-            "id": 4,
-            "description": "SAT or ACT may be required, optional or not considered, depending on the institution and admission cycle."
-          },
-          {
-            "id": 5,
-            "description": "Personal essay, recommendation letters, portfolio or interview may be required by selected programmes."
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "key": "postgraduate",
-        "label": "Master's",
-        "heading": "Master's Degree Entry Requirements",
-        "requirements": [
-          {
-            "id": 1,
-            "description": "A recognised bachelor's degree from an appropriately recognised institution; subject prerequisites vary."
-          },
-          {
-            "id": 2,
-            "description": "Academic transcripts and evidence of required prerequisite courses."
-          },
-          {
-            "id": 3,
-            "description": "English proficiency test results if required; accepted tests and minimum scores are programme-specific."
-          },
-          {
-            "id": 4,
-            "description": "Statement of Purpose, CV and recommendation letters are commonly requested."
-          },
-          {
-            "id": 5,
-            "description": "GRE or GMAT may be required, optional or waived depending on the university and programme."
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "key": "doctoral",
-        "label": "PhD",
-        "heading": "Doctoral Programme Entry Requirements",
-        "requirements": [
-          {
-            "id": 1,
-            "description": "A relevant bachelor's or master's degree, depending on the doctoral programme's admission structure."
-          },
-          {
-            "id": 2,
-            "description": "Academic transcripts, CV and evidence of research preparation."
-          },
-          {
-            "id": 3,
-            "description": "Research statement, writing sample or proposed research interests may be required."
-          },
-          {
-            "id": 4,
-            "description": "Academic references and an interview may form part of the selection process."
-          },
-          {
-            "id": 5,
-            "description": "English proficiency and GRE requirements vary by institution and department."
-          }
-        ]
-      }
-    ]
-  },
-  "financialPlanning": {
-    "id": 1,
-    "tuitionFees": [
-      {
-        "id": 1,
-        "level": "Community College",
-        "title": "Community College Tuition Fees",
-        "studentCategory": "International Students",
-        "minimum": 8000,
-        "maximum": 20000,
-        "currency": "USD",
-        "period": "Per academic year",
-        "description": "Indicative planning range only. International tuition varies by college, state, programme and credit load; confirm the current international student fee schedule.",
-        "icon": "lucide:book"
-      },
-      {
-        "id": 2,
-        "level": "Undergraduate",
-        "title": "Undergraduate Tuition Fees",
-        "studentCategory": "International Students",
-        "minimum": 20000,
-        "maximum": 50000,
-        "currency": "USD",
-        "period": "Per academic year",
-        "description": "Indicative range for many public university and selected private university programmes. Highly selective private institutions and specialist programmes may cost more.",
-        "icon": "lucide:graduation-cap"
-      },
-      {
-        "id": 3,
-        "level": "Postgraduate",
-        "title": "Postgraduate Tuition Fees",
-        "studentCategory": "International Students",
-        "minimum": 20000,
-        "maximum": 55000,
-        "currency": "USD",
-        "period": "Per academic year",
-        "description": "Indicative range for selected master's programmes. Tuition depends on university, discipline, credit load and whether the programme charges by semester or credit.",
-        "icon": "lucide:award"
-      },
-      {
-        "id": 4,
-        "level": "MBA",
-        "title": "MBA Tuition Fees",
-        "studentCategory": "International Students",
-        "minimum": 25000,
-        "maximum": 80000,
-        "currency": "USD",
-        "period": "Per academic year",
-        "description": "Indicative planning range only. MBA tuition varies widely by school, programme format and duration; top-ranked programmes may exceed this range.",
-        "icon": "lucide:briefcase-business"
-      },
-      {
-        "id": 5,
-        "level": "Doctoral",
-        "title": "Doctoral Programme Tuition Fees",
-        "studentCategory": "International Students",
-        "minimum": 15000,
-        "maximum": 50000,
-        "currency": "USD",
-        "period": "Per academic year before funding",
-        "description": "Published doctoral tuition varies widely. Some PhD students receive tuition waivers, fellowships or assistantships; funding is competitive and must be confirmed in the offer.",
-        "icon": "lucide:microscope"
-      }
-    ],
-    "livingCosts": {
-      "title": "Estimated Monthly Living Costs",
-      "description": "Indicative planning estimates only, not official visa financial thresholds. Actual expenses vary significantly by city, accommodation, health insurance and lifestyle. Use the institution's published cost of attendance for the visa and budget process.",
-      "period": "Per month",
-      "areas": [
-        {
-          "id": 1,
-          "category": "Major Metropolitan Areas",
-          "name": "New York, Boston, San Francisco and similar cities",
-          "amount": "2000–3500",
-          "currency": "USD",
-          "description": "Illustrative monthly budget for housing, food, local transport and personal expenses in higher-cost metropolitan areas; university insurance and other fees may be additional."
-        },
-        {
-          "id": 2,
-          "category": "Mid-Cost Cities and College Towns",
-          "name": "Many smaller cities and college towns",
-          "amount": "1200–2500",
-          "currency": "USD",
-          "description": "Illustrative monthly budget for housing, food, local transport and personal expenses; actual costs depend on the campus and accommodation arrangement."
-        }
-      ]
-    },
-    "scholarships": {
-      "items": [
-        {
-          "id": 1,
-          "icon": "lucide:award",
-          "category": "University Merit",
-          "name": "University Merit Scholarships",
-          "description": "Some U.S. universities offer merit-based awards to international applicants based on academic achievement, test results or other selection criteria. Availability and award value vary."
-        },
-        {
-          "id": 2,
-          "icon": "lucide:graduation-cap",
-          "category": "Need-Based Aid",
-          "name": "Institutional Need-Based Financial Aid",
-          "description": "A limited number of institutions provide need-based financial aid to international students. Eligibility, required financial forms and award policies differ by institution."
-        },
-        {
-          "id": 3,
-          "icon": "lucide:microscope",
-          "category": "Graduate Research",
-          "name": "Graduate Assistantships and Fellowships",
-          "description": "Selected graduate departments may offer teaching assistantships, research assistantships, tuition support or stipends. These opportunities are competitive and department-specific."
-        },
-        {
-          "id": 4,
-          "icon": "lucide:trophy",
-          "category": "External Funding",
-          "name": "External and Sponsored Scholarships",
-          "description": "Students may investigate eligible government, foundation, employer or private sponsorship opportunities. Check the sponsor's eligibility rules, deadlines and funding conditions."
-        },
-        {
-          "id": 5,
-          "icon": "lucide:medal",
-          "category": "Athletic",
-          "name": "Athletic Scholarships",
-          "description": "Some colleges and universities offer athletic scholarships to eligible student-athletes under the rules of their athletic associations and institutions."
-        }
-      ]
-    }
-  },
-  "admissionProcess": {
-    "id": 1,
-    "eyebrow": "STEP-BY-STEP ADMISSION PROCESS",
-    "title": "Your Journey to Studying in the United States",
-    "description": "Our structured process helps students compare institutions, prepare applications, secure admission and navigate the F-1 student visa process.",
-    "steps": [
-      {
-        "id": 1,
-        "step": "01",
-        "icon": "lucide:user-check",
-        "title": "Profile Assessment & University Selection",
-        "description": "Review academic history, English proficiency, study interests, budget and career goals to identify suitable U.S. institutions.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Academic transcript and qualification assessment"
-          },
-          {
-            "id": 2,
-            "value": "Course and university shortlist"
-          },
-          {
-            "id": 3,
-            "value": "Budget and funding review"
-          },
-          {
-            "id": 4,
-            "value": "Admission requirement and deadline check"
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "step": "02",
-        "icon": "lucide:languages",
-        "title": "English and Standardised Test Preparation",
-        "description": "Identify the tests required by each shortlisted university and prepare for the relevant application deadlines.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "TOEFL or IELTS requirement review"
-          },
-          {
-            "id": 2,
-            "value": "SAT or ACT review for undergraduate applications"
-          },
-          {
-            "id": 3,
-            "value": "GRE or GMAT review for selected graduate programmes"
-          },
-          {
-            "id": 4,
-            "value": "Test registration and score submission planning"
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "step": "03",
-        "icon": "lucide:file-text",
-        "title": "Application Preparation & Submission",
-        "description": "Prepare academic records, essays, recommendations and programme-specific materials, then submit applications through the university's required system.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Transcript and certificate preparation"
-          },
-          {
-            "id": 2,
-            "value": "Statement of Purpose or personal essay"
-          },
-          {
-            "id": 3,
-            "value": "Recommendation letters and CV where required"
-          },
-          {
-            "id": 4,
-            "value": "Application submission and follow-up"
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "step": "04",
-        "icon": "lucide:mail-check",
-        "title": "Admission Decision & Funding Review",
-        "description": "Review admission decisions, conditions, scholarship offers, programme details and the institution's estimated cost of attendance.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Admission offer and conditions review"
-          },
-          {
-            "id": 2,
-            "value": "Scholarship or assistantship assessment"
-          },
-          {
-            "id": 3,
-            "value": "Tuition deposit and payment review"
-          },
-          {
-            "id": 4,
-            "value": "Final institution selection"
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "step": "05",
-        "icon": "lucide:wallet",
-        "title": "Financial Documentation & Form I-20",
-        "description": "After accepting an offer, provide the financial and identity documents requested by the institution so its designated school official can assess eligibility and issue Form I-20 where appropriate.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Funding evidence and sponsor documents"
-          },
-          {
-            "id": 2,
-            "value": "Bank statements or approved financial documents"
-          },
-          {
-            "id": 3,
-            "value": "Passport details and institutional forms"
-          },
-          {
-            "id": 4,
-            "value": "Review of Form I-20 details"
-          }
-        ]
-      },
-      {
-        "id": 6,
-        "step": "06",
-        "icon": "lucide:shield-check",
-        "title": "SEVIS Registration & F-1 Visa Application",
-        "description": "Follow the official SEVIS and U.S. Department of State process, including the I-901 SEVIS fee, DS-160 application and visa interview scheduling.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Check Form I-20 and SEVIS information"
-          },
-          {
-            "id": 2,
-            "value": "Pay the applicable I-901 SEVIS fee"
-          },
-          {
-            "id": 3,
-            "value": "Complete DS-160 and pay applicable visa application fee"
-          },
-          {
-            "id": 4,
-            "value": "Prepare for the visa interview and supporting documents"
-          }
-        ]
-      },
-      {
-        "id": 7,
-        "step": "07",
-        "icon": "lucide:plane-takeoff",
-        "title": "Pre-Departure Preparation",
-        "description": "Prepare for travel only after receiving the required visa and confirm the university's arrival instructions, housing and orientation arrangements.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Review visa validity and travel guidance"
-          },
-          {
-            "id": 2,
-            "value": "Arrange accommodation and health insurance"
-          },
-          {
-            "id": 3,
-            "value": "Confirm university orientation and arrival date"
-          },
-          {
-            "id": 4,
-            "value": "Prepare essential travel and academic documents"
-          }
-        ]
-      },
-      {
-        "id": 8,
-        "step": "08",
-        "icon": "lucide:badge-check",
-        "title": "Arrival, University Check-In & Student Status",
-        "description": "Arrive within the permitted entry window, report to the institution as instructed and maintain F-1 status by following enrolment and employment rules.",
-        "checklist": [
-          {
-            "id": 1,
-            "value": "Complete university check-in and orientation"
-          },
-          {
-            "id": 2,
-            "value": "Meet the designated school official (DSO)"
-          },
-          {
-            "id": 3,
-            "value": "Maintain required full-time enrolment"
-          },
-          {
-            "id": 4,
-            "value": "Understand authorised work and travel requirements"
-          }
-        ]
-      }
-    ]
-  },
-  "faqSection": {
-    "id": 1,
-    "eyebrow": "FREQUENTLY ASKED QUESTIONS",
-    "title": "Questions About Studying in the United States",
-    "description": "Find answers to common questions about U.S. university admission, English tests, student visas, costs and work authorisation.",
-    "faqs": [
-      {
-        "id": 1,
-        "question": "What student visa do I need to study in the United States?",
-        "answer": "Most students pursuing academic programmes at SEVP-certified schools apply for an F-1 student visa. Vocational or other study programmes may have different visa categories. The institution should confirm the appropriate category and issue the required documentation."
-      },
-      {
-        "id": 2,
-        "question": "What is Form I-20?",
-        "answer": "Form I-20 is the Certificate of Eligibility for Nonimmigrant Student Status issued by an SEVP-certified school after it accepts an eligible student and completes the required review. Students use the form as part of the F-1 visa application and entry process."
-      },
-      {
-        "id": 3,
-        "question": "Do I need IELTS or TOEFL to study in the USA?",
-        "answer": "Many universities require proof of English proficiency, but accepted tests and minimum scores vary. Some institutions accept IELTS, TOEFL, PTE Academic or Duolingo English Test, while others may grant an exemption or offer an English pathway. Check the selected programme's current policy."
-      },
-      {
-        "id": 4,
-        "question": "Can international students work while studying in the USA?",
-        "answer": "F-1 students may generally work in qualifying on-campus jobs up to 20 hours per week while school is in session, subject to applicable rules. Off-campus work requires a specific authorisation category, such as eligible CPT or OPT, and students must obtain the required approval before starting."
-      },
-      {
-        "id": 5,
-        "question": "Can I work in the USA after graduation?",
-        "answer": "Eligible F-1 graduates may apply for post-completion Optional Practical Training (OPT), generally up to 12 months. Graduates with qualifying STEM degrees may be eligible for a 24-month STEM OPT extension if they meet all applicable requirements. OPT is not automatic and requires proper authorisation."
-      },
-      {
-        "id": 6,
-        "question": "How much does it cost to study in the United States?",
-        "answer": "Costs vary widely by institution, programme and location. As an initial planning estimate, tuition may range from around USD 8,000–20,000 per year at some community colleges, USD 20,000–50,000 for many undergraduate programmes and USD 20,000–55,000 for selected graduate programmes. Living costs, insurance, fees and travel are additional. Always use the university's current cost-of-attendance estimate."
-      },
-      {
-        "id": 7,
-        "question": "What are the main intakes in U.S. universities?",
-        "answer": "Many U.S. institutions offer Fall intake, usually beginning around August or September, and Spring intake, often beginning around January. Some institutions also offer Summer or other entry terms. Programme availability and deadlines vary."
-      },
-      {
-        "id": 8,
-        "question": "How much bank balance do I need for an F-1 student visa?",
-        "answer": "There is no single fixed bank-balance amount for every U.S. student visa applicant. The student should be prepared to document credible funding for the costs shown by the institution, including tuition and living expenses for the relevant period. The consular officer assesses the applicant's circumstances and supporting evidence."
-      },
-      {
-        "id": 9,
-        "question": "Can I get a scholarship as an international student?",
-        "answer": "Some U.S. institutions offer merit scholarships, need-based aid, graduate assistantships, fellowships or athletic awards to international students. Eligibility and availability vary, and funding is competitive. Students should check scholarship deadlines and whether awards cover tuition, living costs or both."
-      },
-      {
-        "id": 10,
-        "question": "Can I bring my spouse or children while studying in the USA?",
-        "answer": "Eligible F-1 students may have a spouse and unmarried children under 21 apply for F-2 dependent status. Each dependent needs the required documentation from the school and must meet visa requirements. F-2 dependants have restrictions, including that an F-2 spouse may not work."
-      }
-    ]
-  }
-},
+
 {
   "id": 6,
   "name": "Canada",
@@ -4787,6 +3827,7 @@
   ],
   "universities": [
     {
+      "country": "Canada",
     "id": 1,
     "name": "University of Saskatchewan",
     "short_name": "USask",
@@ -4796,6 +3837,7 @@
     "description": "A public research university in Saskatoon known for agriculture, food security, veterinary medicine, engineering, computer science, business and health sciences."
   },
   {
+      "country": "Canada",
     "id": 2,
     "name": "Lakehead University",
     "short_name": "Lakehead",
@@ -4805,6 +3847,7 @@
     "description": "A teaching- and research-focused public university in Ontario offering programs in engineering, computer science, business, nursing, forestry and education."
   },
   {
+      "country": "Canada",
     "id": 3,
     "name": "Algoma University",
     "short_name": "AlgomaU",
@@ -4814,6 +3857,7 @@
     "description": "A public undergraduate-focused university in Ontario offering programs in computer science, business administration, accounting, finance, psychology and biology."
   },
   {
+      "country": "Canada",
     "id": 4,
     "name": "University of Windsor",
     "short_name": "UWindsor",
@@ -4823,6 +3867,7 @@
     "description": "A public university in Windsor, Ontario, known for automotive and mechanical engineering, computer science, business, law, nursing and environmental studies."
   },
   {
+      "country": "Canada",
     "id": 5,
     "name": "Trent University",
     "short_name": "Trent",
@@ -4832,6 +3877,7 @@
     "description": "A public university in Ontario recognized for small class sizes and strengths in environmental science, computing, business, nursing, forensic science and humanities."
   },
   {
+      "country": "Canada",
     "id": 6,
     "name": "Toronto Metropolitan University",
     "short_name": "TMU",
@@ -4841,6 +3887,7 @@
     "description": "A career-focused public university in downtown Toronto offering programs in business, engineering, computer science, media, architecture, design and health."
   },
   {
+      "country": "Canada",
     "id": 7,
     "name": "Laurentian University",
     "short_name": "Laurentian",
@@ -4850,6 +3897,7 @@
     "description": "A bilingual public university in Sudbury, Ontario, offering degrees in mining and engineering, computer science, business, health sciences, science and arts."
   },
   {
+      "country": "Canada",
     "id": 8,
     "name": "University of Regina",
     "short_name": "URegina",
@@ -4859,6 +3907,7 @@
     "description": "A public research university in Regina known for co-operative education and programs in engineering, computer science, business, data science, arts and education."
   },
   {
+      "country": "Canada",
     "id": 9,
     "name": "Capilano University",
     "short_name": "CapU",
@@ -4868,6 +3917,7 @@
     "description": "A public teaching-focused university near Vancouver offering degrees and diplomas in business, tourism, film, animation, design, music and communication."
   },
   {
+      "country": "Canada",
     "id": 10,
     "name": "University of Manitoba",
     "short_name": "UM",
@@ -4877,6 +3927,7 @@
     "description": "A public research university in Winnipeg known for engineering, business, computer science, agriculture, health sciences, medicine and fine arts."
   },
   {
+      "country": "Canada",
     "id": 11,
     "name": "Bishop's University",
     "short_name": "Bishop's",
@@ -4886,6 +3937,7 @@
     "description": "A small, residential public university in Quebec offering liberal arts, business, natural sciences, computer science and education with close faculty mentorship."
   },
   {
+      "country": "Canada",
     "id": 12,
     "name": "University of Waterloo",
     "short_name": "Waterloo",

@@ -92,22 +92,6 @@
 
                     {{-- Toolbar: Sort & Filter Toggle Button --}}
                     <div class="flex items-center gap-2.5">
-                        {{-- Sort Segmented Control --}}
-                        <div class="inline-flex rounded-xl bg-neutral-100 p-1 text-xs font-medium text-neutral-600">
-                            <button type="button" @click="sort = 'rating'"
-                                :class="sort === 'rating' ? 'bg-white text-neutral-900 shadow-sm' :
-                                    'text-neutral-500 hover:text-neutral-900'"
-                                class="rounded-lg px-3 py-1.5 transition-all">
-                                Top Rated
-                            </button>
-                            <button type="button" @click="sort = 'popular'"
-                                :class="sort === 'popular' ? 'bg-white text-neutral-900 shadow-sm' :
-                                    'text-neutral-500 hover:text-neutral-900'"
-                                class="rounded-lg px-3 py-1.5 transition-all">
-                                Most Popular
-                            </button>
-                        </div>
-
                         {{-- Filter Button to Toggle Tab Menu --}}
                         <button type="button" @click="showFilters = !showFilters"
                             :class="showFilters ? 'bg-brand-500 text-white border-brand-500' :

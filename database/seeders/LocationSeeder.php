@@ -49,23 +49,23 @@ class LocationSeeder extends Seeder
                 ],
             ],
 
-            'US' => [
-                'name' => 'United States',
-                'phone_code' => '+1',
-                'currency_code' => 'USD',
-                'is_popular' => true,
-                'cities' => [
-                    'New York',
-                    'Los Angeles',
-                    'Boston',
-                    'Chicago',
-                    'San Francisco',
-                    'Seattle',
-                    'Washington',
-                    'Miami',
-                    'Houston',
-                ],
-            ],
+            // 'US' => [
+            //     'name' => 'United States',
+            //     'phone_code' => '+1',
+            //     'currency_code' => 'USD',
+            //     'is_popular' => true,
+            //     'cities' => [
+            //         'New York',
+            //         'Los Angeles',
+            //         'Boston',
+            //         'Chicago',
+            //         'San Francisco',
+            //         'Seattle',
+            //         'Washington',
+            //         'Miami',
+            //         'Houston',
+            //     ],
+            // ],
 
             'CA' => [
                 'name' => 'Canada',
