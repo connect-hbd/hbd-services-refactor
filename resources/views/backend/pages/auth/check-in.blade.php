@@ -1,5 +1,7 @@
 @extends('backend.layouts.fullscreen-layout')
 
+@section('title', 'Check In')
+
 @section('content')
     <div class="relative min-h-screen overflow-y-auto bg-neutral-100 bg-cover bg-center dark:bg-neutral-950"
         style="background-image: url('{{ asset('frontend-img/reg-bg.webp') }}');">
@@ -38,7 +40,7 @@
                     </p>
                 </div>
 
-                <form method="POST" action="{{ route('login.submit') }}">
+                <form method="POST" action="{{ route('check-in-store') }}">
                     @csrf
                     <div class="space-y-1">
                         @if ($errors->any())

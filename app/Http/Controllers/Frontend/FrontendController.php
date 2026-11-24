@@ -247,9 +247,9 @@ public function appointmentStore(Request $request)
     }
 }
 
- public function checkIn()
-    {
-        return view('student.check-in');
-    }
+//  public function checkIn()
+//     {
+//         return view('backend.pages.auth.check-in');
+//     }
 
 }
