@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    {{-- <title>{{ $title }}</title> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
+   <x-frontend.seo-meta :page-title="trim($__env->yieldContent('title'))" />
     <x-frontend.seo-meta />
-    <link rel="stylesheet" href="{{ asset('css/front-end-custom.css') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Theme Store -->
     <script>
@@ -90,40 +89,65 @@
         })();
     </script>
 </head>
-
 <body class="min-h-screen flex flex-col">
-
-    @include('student.layouts.navbar')
+    
+    @include('frontend.layouts.navbar')
 
     <main class="grow">
-        <div class="pt-18 md:pt-20 pb-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
-
-                    <aside class="hidden lg:col-span-3 lg:block">
-
-                        @include('student.layouts.sidebar')
-
-                    </aside>
-
-                    <main class="lg:col-span-9">
-                        <div class="">
-                            @yield('content')
-                        </div>
-                    </main>
-
-                </div>
-            </div>
-
-        </div>
+       <div class="pt-27 md:pt-30.25 pb-12">
+         @yield('content')
+       </div>
     </main>
 
-    @include('student.layouts.footer')
-    @include('frontend.layouts.mobile-navigation')
+    {{-- @include('frontend.layouts.footer') --}}
+
+
+    {{-- Global scroll reveal for every frontend page (any [data-reveal] element). --}}
+    <noscript>
+        <style>
+            [data-reveal] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
+
+    <script>
+        (function () {
+            var nodes = document.querySelectorAll('[data-reveal]');
+
+            if (!nodes.length) {
+                return;
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                nodes.forEach(function (node) {
+                    node.classList.add('is-revealed');
+                });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -60px 0px'
+            });
+
+            nodes.forEach(function (node) {
+                observer.observe(node);
+            });
+        })();
+    </script>
 
     @stack('scripts')
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+    
 
 </body>
-
 </html>
