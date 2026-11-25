@@ -54,17 +54,17 @@
     class="relative"
 >
     @if($label)
-        <label for="{{ $id }}" class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+        <label for="{{ $id }}" class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             {{ $label }}
             @if($required)
-                <span class="text-rose-500"> * </span>
+                <span class="text-rose-500">*</span>
             @endif
         </label>
     @endif
 
     <div class="relative flex items-center">
-        <!-- Left Calendar Icon -->
-        <div class="absolute left-3.5 z-10 flex items-center pointer-events-none text-neutral-400 dark:text-neutral-500">
+        {{-- Left Calendar Icon --}}
+        <div class="absolute inset-y-0 left-0 z-10 flex items-center pl-3.5 pointer-events-none text-neutral-400">
             <iconify-icon icon="lucide:calendar" class="text-sm"></iconify-icon>
         </div>
 
@@ -76,17 +76,20 @@
             placeholder="{{ $placeholder ?? strtoupper($dateFormat) }}"
             autocomplete="off"
             {{ $attributes->merge([
-                'class' => 'w-full h-10 pl-10 pr-10 py-2.25 rounded-lg text-[13px] border border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700  text-neutral-800 dark:text-neutral-200 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all placeholder:text-neutral-400 dark:placeholder:text-neutral-500'
+                'class' => ($errors->has($name)
+                    ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20'
+                    : 'border-neutral-200 bg-neutral-50/40 dark:border-neutral-700/80 dark:bg-neutral-800/50')
+                    . ' w-full h-10 pl-10 pr-10 py-2.25 rounded-lg text-sm border text-neutral-800 dark:text-neutral-200 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all placeholder:text-neutral-400'
             ]) }}
         />
 
-        <!-- Right Dropdown Arrow Icon -->
-        <div class="absolute right-3.5 z-10 flex items-center pointer-events-none text-neutral-400 dark:text-neutral-500">
+        {{-- Right Dropdown Arrow Icon --}}
+        <div class="absolute inset-y-0 right-0 z-10 flex items-center pr-3.5 pointer-events-none text-neutral-400">
             <iconify-icon icon="lucide:chevron-down" class="text-xl"></iconify-icon>
         </div>
     </div>
 
     @error($name)
-        <p class="mt-1 text-xs text-rose-500 font-medium">{{ $message }}</p>
+        <p class="mt-1.5 text-xs font-medium text-rose-600">{{ $message }}</p>
     @enderror
 </div>

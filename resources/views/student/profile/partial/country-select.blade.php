@@ -47,20 +47,19 @@
     {{-- Country --}}
     <div>
         <label for="{{ $countryField }}"
-            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             Country
             <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">
-
             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-neutral-400">
                 <iconify-icon icon="lucide:globe" class="text-sm"></iconify-icon>
             </div>
 
             <select id="{{ $countryField }}" name="{{ $countryField }}" x-model="selectedCountry"
                 @change="countryChanged()"
-                class="w-full h-10 appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
+                class="w-full h-10 appearance-none bg-none rounded-lg border py-2.25 pl-10 pr-10 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:text-neutral-200 dark:focus:bg-neutral-900 {{ $errors->has($countryField) ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:border-neutral-700/80 dark:bg-neutral-800/50' }}">
                 <option value="">
                     Select Country
                 </option>
@@ -72,6 +71,9 @@
                 @endforeach
             </select>
 
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-neutral-400">
+                <iconify-icon icon="lucide:chevron-down" class="text-xl"></iconify-icon>
+            </div>
         </div>
 
         @error($countryField)
@@ -81,25 +83,22 @@
         @enderror
     </div>
 
-
     {{-- City --}}
     <div>
         <label for="{{ $cityField }}"
-            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             City
             <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">
-
             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-neutral-400">
                 <iconify-icon icon="lucide:map-pin" class="text-sm"></iconify-icon>
             </div>
 
             <select id="{{ $cityField }}" name="{{ $cityField }}" x-model="selectedCity"
                 :disabled="!selectedCountry"
-                class="w-full h-10 appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
-
+                class="w-full h-10 appearance-none bg-none rounded-lg border py-2.25 pl-10 pr-10 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-200 dark:focus:bg-neutral-900 {{ $errors->has($cityField) ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:border-neutral-700/80 dark:bg-neutral-800/50' }}">
                 <option value="">
                     Select City
                 </option>
@@ -107,9 +106,11 @@
                 <template x-for="city in filteredCities" :key="city.id">
                     <option :value="city.id" x-text="city.name"></option>
                 </template>
-
             </select>
 
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-neutral-400">
+                <iconify-icon icon="lucide:chevron-down" class="text-xl"></iconify-icon>
+            </div>
         </div>
 
         @error($cityField)
@@ -119,26 +120,23 @@
         @enderror
     </div>
 
-
     {{-- Post Code --}}
     <div>
         <label for="{{ $postCodeField }}"
-            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             Post Code
             <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">
-
             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-neutral-400">
                 <iconify-icon icon="lucide:mail" class="text-sm"></iconify-icon>
             </div>
 
             <input type="text" id="{{ $postCodeField }}" name="{{ $postCodeField }}"
                 value="{{ $selectedPostCode }}"
-                class="w-full h-10 rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900"
+                class="w-full h-10 rounded-lg border py-2.25 pl-10 pr-4 text-sm text-neutral-800 placeholder-neutral-400 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:text-neutral-200 dark:focus:bg-neutral-900 {{ $errors->has($postCodeField) ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:border-neutral-700/80 dark:bg-neutral-800/50' }}"
                 placeholder="1213">
-
         </div>
 
         @error($postCodeField)
