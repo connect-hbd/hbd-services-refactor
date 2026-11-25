@@ -163,8 +163,8 @@
             error.classList.add('hidden');
 
             const routes = {
-                'study-abroad': '/study-abroad',
-                'english-proficiency': '/english-proficiency'
+                'study-abroad': '/student/study-abroad',
+                'english-proficiency': '/student/english-proficiency'
             };
 
             window.location.href = routes[selected.value];

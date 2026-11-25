@@ -34,6 +34,11 @@ class ProfileController extends Controller
 
     public function profile(Request $request)
     {
+        return view('student.index');
+    }
+
+    public function studyAbroad(Request $request)
+    {
         $user    = $request->user();
         $student = $user->student;
 
@@ -91,9 +96,7 @@ class ProfileController extends Controller
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
         $activeStep = max(1, min(6, $activeStep));
 
-       
-
-        return view('student.index', compact(
+        return view('student.edit', compact(
             'student',
             'countries',
             'cities',
@@ -109,6 +112,13 @@ class ProfileController extends Controller
         ));
     }
 
+
+     public function englishProficiency(Request $request)
+    {
+        return view('student.hla');
+    }
+
+
     public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
@@ -121,7 +131,7 @@ class ProfileController extends Controller
 
         $data = [];
 
-       
+
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $this->replaceFile(
                 $request->file('avatar'),
@@ -150,9 +160,9 @@ class ProfileController extends Controller
 
     public function accountSettings(Request $request)
     {
-         $user = $request->user();
+        $user = $request->user();
 
-        return view('student.settings',compact('user') );
+        return view('student.settings', compact('user'));
     }
 
     // =========================================================================
