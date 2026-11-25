@@ -1,234 +1,179 @@
 @extends('student.layouts.app')
 
 @section('content')
-    {{-- ── Toast Notification ────────────────────────────────────────────────── --}}
-    @if (session('success'))
-        <div x-data="{ show: true }" 
-             x-show="show" 
-             x-init="setTimeout(() => show = false, 4000)"
-             x-transition:enter="transition ease-out duration-300" 
-             x-transition:enter-start="opacity-0 translate-y-2 sm:translate-y-0 sm:translate-x-8"
-             x-transition:enter-end="opacity-100 translate-y-0 sm:translate-x-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100"
-             x-transition:leave-end="opacity-0 scale-95" 
-             class="fixed bottom-4 right-4 sm:bottom-auto sm:top-5 z-[9999] max-w-sm w-[calc(100%-2rem)] sm:w-full">
+    <main class="min-h-screen bg-slate-50/80">
+        <div class="mx-auto max-w-4xl px-4 py-6 sm:py-10 sm:px-6 md:py-14">
 
-            <div class="flex items-start gap-3 rounded-2xl border border-emerald-500/20 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md p-4 shadow-xl shadow-emerald-500/5 dark:border-emerald-500/30">
-                <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
-                    <iconify-icon icon="lucide:check-circle-2" class="text-lg"></iconify-icon>
+            {{-- Header --}}
+            <header class="mb-8 text-center sm:mb-10">
+                <span
+                    class="mb-3 inline-flex uppercase items-center gap-2 rounded-full border border-brand-200/80 bg-white px-3.5 py-1.5 text-xs font-semibold tracking-wide text-brand-600 shadow-2xs">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    HBD Student Services
+                </span>
+
+                <h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                    Start Your Study Abroad Journey
+                </h1>
+
+                <p class="mx-auto mt-2.5 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">
+                    Choose the service that matches your goals.
+                    Our team will guide you through your next step.
+                </p>
+            </header>
+
+            {{-- Information --}}
+            <div
+                class="mb-6 flex items-start gap-2 rounded-2xl border border-amber-200/80 bg-amber-50/70 p-4 sm:mb-8 sm:p-5">
+                <div class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+                    <i class="fa-solid fa-circle-info text-sm"></i>
                 </div>
 
-                <div class="flex-1 min-w-0 pt-0.5">
-                    <p class="text-xs font-semibold text-neutral-900 dark:text-neutral-100">Changes Saved</p>
-                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">{{ session('success') }}</p>
-                </div>
+                <div>
+                    <h2 class="text-sm font-semibold text-slate-900">
+                        Important Information
+                    </h2>
 
-                <button type="button" @click="show = false" class="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors p-1 rounded-lg">
-                    <iconify-icon icon="lucide:x" class="text-sm block"></iconify-icon>
-                </button>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-700">
+                        এই ফর্মটি বিদেশে উচ্চ শিক্ষায় আগ্রহী শিক্ষার্থীদের জন্য।
+                        সকল তথ্য পাসপোর্ট ও একাডেমিক ডকুমেন্ট অনুযায়ী সঠিকভাবে প্রদান করুন।
+                        ভুল তথ্য দিলে আবেদন বাতিল হতে পারে।
+                    </p>
+                </div>
             </div>
-        </div>
-    @endif
 
-    {{-- ── Main Profile Wizard Section ─────────────────────────────────────── --}}
-    @php
-        $stepsMeta = [
-            1 => ['icon' => 'lucide:id-card', 'label' => 'Personal Info'],
-            2 => ['icon' => 'lucide:graduation-cap', 'label' => 'Academic'],
-            3 => ['icon' => 'lucide:compass', 'label' => 'Study Plan'],
-            4 => ['icon' => 'lucide:briefcase', 'label' => 'Experience'],
-            5 => ['icon' => 'lucide:shield-alert', 'label' => 'Immigration'],
-            6 => ['icon' => 'lucide:folder-check', 'label' => 'Documents'],
-        ];
-    @endphp
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            {{-- Service Selection --}}
+            <section class="rounded-3xl border border-slate-200/90 bg-white p-4 shadow-xs sm:p-6">
 
-    <div class="py-6 space-y-6" x-data="stepWizard({{ $activeStep }}, {{ $student->profile_step ?? 1 }})" x-init="init()" @go-to-step.window="goTo($event.detail)">
 
-        {{-- ── Responsive Modern Tab Card Container ───────────────────────── --}}
-        <div class="sticky sm:top-0 top-27 z-10 sm:static  sm:z-auto border-t sm:border-t-0  bg-white dark:bg-neutral-900 sm:rounded-2xl border-0 sm:border border-neutral-200/80 dark:border-neutral-800 shadow-sm overflow-hidden">
-            
-            {{-- Scroll Container with Edge Visual Indicators --}}
-            <div class="relative group">
-                
-                {{-- Left Fade Cue --}}
-                <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white dark:from-neutral-900 to-transparent z-10 transition-opacity duration-200"
-                     :class="canScrollLeft ? 'opacity-100' : 'opacity-0'"></div>
+                <div class="mb-4 border-b border-slate-100 pb-4 flex items-center gap-2">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+                           <iconify-icon icon="lucide:compass" class="text-xl text-slate-400" aria-hidden="true"></iconify-icon>
+                        </div>
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                                 Choose Your Service
+                            </h2>
+                            <p class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
+                               Select one of the following services to continue.
+                            </p>
+                        </div>
+                    </div>
 
-                {{-- Right Fade Cue --}}
-                <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white dark:from-neutral-900 to-transparent z-10 transition-opacity duration-200"
-                     :class="canScrollRight ? 'opacity-100' : 'opacity-0'"></div>
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5">
 
-                {{-- Tab Navigation Strip --}}
-                <div class="overflow-x-auto scrollbar-none touch-pan-x border-b border-neutral-200/80 dark:border-neutral-800 select-none cursor-grab active:cursor-grabbing"
-                     x-ref="tabContainer"
-                     @scroll="updateScrollIndicators()"
-                     @wheel="handleDesktopWheel($event)">
-                    
-                    <nav class="flex items-center min-w-max px-3 sm:px-5 py-1" aria-label="Profile navigation tabs">
-                        @foreach ($stepsMeta as $num => $info)
-                            <button type="button" 
-                                    x-ref="tab_{{ $num }}"
-                                    @click="maxStep >= {{ $num }} && goTo({{ $num }})"
-                                    :disabled="maxStep < {{ $num }}"
-                                    class="group relative flex items-center gap-2.5 px-4 py-3.5 my-1 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                                    :class="{
-                                        'text-brand-600 dark:text-brand-400 bg-brand-50/70 dark:bg-brand-950/40': currentStep === {{ $num }},
-                                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/70 dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800/60': currentStep !== {{ $num }} && maxStep >= {{ $num }},
-                                        'text-neutral-300 dark:text-neutral-700 cursor-not-allowed opacity-60': maxStep < {{ $num }}
-                                    }">
-                                
-                                {{-- Tab Icon Container --}}
-                                <div class="flex h-6 w-6 items-center justify-center rounded-lg transition-all duration-200 flex-shrink-0"
-                                     :class="{
-                                         'bg-brand-600 text-white dark:bg-brand-500 dark:text-neutral-950 shadow-sm shadow-brand-500/30': currentStep === {{ $num }},
-                                         'bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 group-hover:scale-105': currentStep !== {{ $num }} && maxStep >= {{ $num }},
-                                         'bg-transparent text-neutral-300 dark:text-neutral-700': maxStep < {{ $num }}
-                                     }">
-                                    <iconify-icon icon="{{ $info['icon'] }}" class="text-sm"></iconify-icon>
+                    {{-- Study Abroad --}}
+                    <label
+                        class="group relative block cursor-pointer rounded-xl border border-slate-200 bg-white p-3 transition duration-150 hover:border-brand-300 hover:bg-slate-50/50 has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50/40 has-[:checked]:ring-2 has-[:checked]:ring-brand-600/20 sm:p-4">
+                        <input type="radio" name="service" value="study-abroad" class="sr-only">
+
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition group-has-[:checked]:bg-brand-600 group-has-[:checked]:text-white">
+                                    <i class="fa-solid fa-plane-departure text-base"></i>
                                 </div>
 
-                                {{-- Step Label & Indicator --}}
-                                <div class="flex items-center gap-2">
-                                    <span>{{ $info['label'] }}</span>
+                                <h3 class="text-base font-semibold text-slate-900 sm:text-lg">
+                                    Study Abroad
+                                </h3>
+                            </div>
+
+                            <span
+                                class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px] text-transparent transition group-has-[:checked]:border-brand-600 group-has-[:checked]:bg-brand-600 group-has-[:checked]:text-white">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                        </div>
+
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                            Explore international education opportunities
+                            and get professional guidance for your higher
+                            studies abroad.
+                        </p>
+                    </label>
+
+                    {{-- English Proficiency --}}
+                    <label
+                        class="group relative block cursor-pointer rounded-xl border border-slate-200 bg-white p-3 transition duration-150 hover:border-emerald-300 hover:bg-slate-50/50 has-[:checked]:border-emerald-600 has-[:checked]:bg-emerald-50/40 has-[:checked]:ring-2 has-[:checked]:ring-emerald-600/20 sm:p-4">
+                        <input type="radio" name="service" value="english-proficiency" class="sr-only">
+
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition group-has-[:checked]:bg-emerald-600 group-has-[:checked]:text-white">
+                                    <i class="fa-solid fa-book-open-reader text-base"></i>
                                 </div>
 
-                                {{-- Active Bottom Accent Indicator --}}
-                                <span class="absolute inset-x-3 bottom-0 h-0.5 rounded-full transition-all duration-300"
-                                      :class="currentStep === {{ $num }} ? 'bg-brand-600 dark:bg-brand-400 scale-x-100' : 'bg-transparent scale-x-0'"></span>
-                            </button>
-                        @endforeach
-                    </nav>
-                </div>
-            </div>
+                                <h3 class="text-base font-semibold text-slate-900 sm:text-lg">
+                                    English Proficiency
+                                </h3>
+                            </div>
 
-            {{-- Compact Dynamic Status Header Strip --}}
-            <div class="px-4 sm:px-6 py-2.5 bg-neutral-50/70 dark:bg-neutral-900/40 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-                <div class="flex items-center gap-2">
-                    <span class="font-medium">Step <span class="text-neutral-900 dark:text-neutral-100 font-bold" x-text="currentStep"></span> of 6</span>
-                    <span class="text-neutral-300 dark:text-neutral-700">•</span>
-                    <span class="font-semibold text-brand-600 dark:text-brand-400" x-text="stepLabel()"></span>
+                            <span
+                                class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-slate-300 text-[10px] text-transparent transition group-has-[:checked]:border-emerald-600 group-has-[:checked]:bg-emerald-600 group-has-[:checked]:text-white">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                        </div>
+
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                            Improve your English language skills and
+                            prepare for international English proficiency
+                            examinations.
+                        </p>
+                    </label>
+
                 </div>
-            </div>
+
+                {{-- Footer Actions --}}
+                <div
+                    class="mt-3 flex flex-col gap-2 border-t border-slate-100 pt-2 sm:mt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p class="flex items-center gap-2 text-xs text-slate-500">
+                        <i class="fa-solid fa-shield-halved text-slate-400"></i>
+                        Your information will be handled securely.
+                    </p>
+
+                    <div class="flex flex-col sm:items-end mt-4 sm:mt-0">
+                        <p id="service-error" class="mb-2 hidden text-xs font-medium text-rose-600" role="alert">
+                            Please select a service before continuing.
+                        </p>
+
+                        <button type="button" onclick="continueService()"
+                            class="inline-flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-xs transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 active:scale-[0.99] sm:w-auto">
+                            Continue
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </section>
 
         </div>
+    </main>
 
-        {{-- ── Step Form Content Panels ───────────────────────────────────────── --}}
-        <div class="mt-6">
-            <div x-show="currentStep === 1" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.personal-information')
-            </div>
-
-            <div x-show="currentStep === 2" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.academic-information')
-            </div>
-
-            <div x-show="currentStep === 3" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.study-plan')
-            </div>
-
-            <div x-show="currentStep === 4" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.work-experience')
-            </div>
-
-            <div x-show="currentStep === 5" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.immigration-history')
-            </div>
-
-            <div x-show="currentStep === 6" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                @include('student.step-form.visa-documents-checklist')
-            </div>
-        </div>
-
-    </div>
-    </div>
-@endsection
-
-@push('scripts')
     <script>
-        function stepWizard(initialStep, maxStepFromServer) {
-            const labels = {
-                1: 'Personal Information',
-                2: 'Academic Background',
-                3: 'Study Plan',
-                4: 'Work Experience',
-                5: 'Immigration History',
-                6: 'Visa Documents',
+        function continueService() {
+            const selected = document.querySelector('input[name="service"]:checked');
+            const error = document.getElementById('service-error');
+
+            if (!selected) {
+                error.classList.remove('hidden');
+                return;
+            }
+
+            error.classList.add('hidden');
+
+            const routes = {
+                'study-abroad': '/study-abroad',
+                'english-proficiency': '/english-proficiency'
             };
 
-            return {
-                currentStep: initialStep,
-                maxStep: maxStepFromServer,
-                canScrollLeft: false,
-                canScrollRight: false,
-
-                init() {
-                    this.$nextTick(() => {
-                        this.scrollToActiveTab();
-                        this.updateScrollIndicators();
-                    });
-
-                    // Update scroll indicators on resize
-                    window.addEventListener('resize', () => this.updateScrollIndicators());
-
-                    this.$watch('currentStep', (step) => {
-                        const url = new URL(window.location.href);
-                        url.searchParams.set('step', step);
-                        history.replaceState(null, '', url.toString());
-
-                        this.scrollToActiveTab();
-
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    });
-                },
-
-                goTo(step) {
-                    if (step < 1 || step > 6 || step > this.maxStep) return;
-                    this.currentStep = step;
-                },
-
-                stepLabel() {
-                    return labels[this.currentStep] ?? '';
-                },
-
-                handleDesktopWheel(e) {
-                    // Converts vertical mouse wheel scroll into horizontal tab scrolling
-                    if (e.deltaY !== 0) {
-                        e.preventDefault();
-                        this.$refs.tabContainer.scrollLeft += e.deltaY;
-                        this.updateScrollIndicators();
-                    }
-                },
-
-                updateScrollIndicators() {
-                    const el = this.$refs.tabContainer;
-                    if (!el) return;
-                    this.canScrollLeft = el.scrollLeft > 5;
-                    this.canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth - 5);
-                },
-
-                scrollToActiveTab() {
-                    const container = this.$refs.tabContainer;
-                    const activeTab = this.$refs[`tab_${this.currentStep}`];
-
-                    if (container && activeTab) {
-                        const containerWidth = container.offsetWidth;
-                        const tabOffsetLeft = activeTab.offsetLeft;
-                        const tabWidth = activeTab.offsetWidth;
-
-                        container.scrollTo({
-                            left: tabOffsetLeft - (containerWidth / 2) + (tabWidth / 2),
-                            behavior: 'smooth'
-                        });
-
-                        setTimeout(() => this.updateScrollIndicators(), 300);
-                    }
-                }
-            };
+            window.location.href = routes[selected.value];
         }
+
+        document.querySelectorAll('input[name="service"]').forEach((input) => {
+            input.addEventListener('change', () => {
+                document.getElementById('service-error').classList.add('hidden');
+            });
+        });
     </script>
-@endpush
+@endsection

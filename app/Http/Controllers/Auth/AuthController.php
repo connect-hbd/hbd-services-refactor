@@ -62,7 +62,7 @@ class AuthController extends Controller
         }
 
         if ($user->rolePrefix() === 'student') {
-            return redirect()->route('student.account.settings');
+            return redirect()->route('student.student-profile');
         }
 
         return redirect()->route('role.dashboard', [
@@ -90,7 +90,7 @@ class AuthController extends Controller
     public function showCheckIn(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('student.account.settings');
+            return redirect()->route('student.student-profile');
         }
 
         return view('backend.pages.auth.check-in', [
@@ -346,7 +346,7 @@ class AuthController extends Controller
 
         // 10. Redirect dashboard
         return redirect()
-            ->route('student.account.settings')
+            ->route('student.student-profile')
             ->with('message', 'Check-in successful. Welcome!');
     }
 
@@ -376,6 +376,6 @@ class AuthController extends Controller
         }
         Auth::login($user, (bool) $request->boolean('remember'));
         $request->session()->regenerate();
-        return redirect()->route('student.account.settings')->with('message', 'Check-in successful. Welcome!');
+        return redirect()->route('student.student-profile')->with('message', 'Check-in successful. Welcome!');
     }
 }

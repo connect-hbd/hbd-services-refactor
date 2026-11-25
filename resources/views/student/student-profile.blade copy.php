@@ -1,0 +1,357 @@
+@extends('student.layouts.app')
+
+@section('content')
+    {{-- Toast Notification --}}
+    @if (session('success'))
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-2 sm:translate-y-0 sm:translate-x-8"
+            x-transition:enter-end="opacity-100 translate-y-0 sm:translate-x-0"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            class="fixed bottom-4 right-4 sm:bottom-auto sm:top-5 z-[9999] max-w-sm w-[calc(100%-2rem)] sm:w-full">
+
+            <div
+                class="flex items-start gap-3 rounded-2xl border border-emerald-500/20 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md p-4 shadow-xl shadow-emerald-500/5 dark:border-emerald-500/30">
+                <div
+                    class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+                    <iconify-icon icon="lucide:check-circle-2" class="text-lg"></iconify-icon>
+                </div>
+
+                <div class="flex-1 min-w-0 pt-0.5">
+                    <p class="text-xs font-semibold text-neutral-900 dark:text-neutral-100">Changes Saved</p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">{{ session('success') }}</p>
+                </div>
+
+                <button type="button" @click="show = false"
+                    class="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors p-1 rounded-lg">
+                    <iconify-icon icon="lucide:x" class="text-sm block"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    @endif
+    {{-- Main Profile Wizard Section --}}
+    @php
+        $stepsMeta = [
+            1 => ['icon' => 'lucide:id-card', 'label' => 'Personal Info'],
+            2 => ['icon' => 'lucide:graduation-cap', 'label' => 'Academic'],
+            3 => ['icon' => 'lucide:compass', 'label' => 'Study Plan'],
+            4 => ['icon' => 'lucide:briefcase', 'label' => 'Experience'],
+            5 => ['icon' => 'lucide:shield-alert', 'label' => 'Immigration'],
+            6 => ['icon' => 'lucide:folder-check', 'label' => 'Documents'],
+        ];
+    @endphp
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+  
+    <div
+        x-data="{
+            serviceType: @js(old('service_type', $student->service_type ?? '')),
+            serviceError: false,
+
+           
+        }">
+
+        <form action="#" method="POST">
+            @csrf
+
+            {{-- ── STEP 1: INTRO & SERVICE TYPE ──────────────────────────────── --}}
+            <div x-show="step === 1" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+                class="bg-white dark:bg-neutral-900 rounded-2xl shadow-xs border border-neutral-200/80 dark:border-neutral-800 overflow-hidden">
+
+                {{-- Marquee Notice Banner --}}
+                <div class="overflow-hidden border-b border-neutral-200/70 dark:border-neutral-800 bg-brand-50/60 dark:bg-neutral-800/60 py-2.5 group">
+                    <div class="flex">
+                        <div class="flex shrink-0 animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap">
+                            <span class="mx-6 text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                                এই ফর্মটি বিদেশে উচ্চ শিক্ষায় আগ্রহী শিক্ষার্থীদের জন্য, যারা HBD Services থেকে কাউন্সেলিং সহায়তা ও পরামর্শ নিতে চান।
+                            </span>
+                            <span class="mx-6 text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-200" aria-hidden="true">
+                                এই ফর্মটি বিদেশে উচ্চ শিক্ষায় আগ্রহী শিক্ষার্থীদের জন্য, যারা HBD Services থেকে কাউন্সেলিং সহায়তা ও পরামর্শ নিতে চান।
+                            </span>
+                        </div>
+                        <div class="flex shrink-0 animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap" aria-hidden="true">
+                            <span class="mx-6 text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                                এই ফর্মটি বিদেশে উচ্চ শিক্ষায় আগ্রহী শিক্ষার্থীদের জন্য, যারা HBD Services থেকে কাউন্সেলিং সহায়তা ও পরামর্শ নিতে চান।
+                            </span>
+                            <span class="mx-6 text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                                এই ফর্মটি বিদেশে উচ্চ শিক্ষায় আগ্রহী শিক্ষার্থীদের জন্য, যারা HBD Services থেকে কাউন্সেলিং সহায়তা ও পরামর্শ নিতে চান।
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Intro Header --}}
+                <div class="px-6 sm:px-8 pt-7 pb-6">
+                    <div class="flex items-center gap-3.5 mb-6">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+                            <iconify-icon icon="lucide:graduation-cap" class="text-2xl"></iconify-icon>
+                        </div>
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                                Start Your Counselling Session
+                            </h2>
+                            <p class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                Select the service you are looking for to continue to the registration form.
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Service Type Field (Matching Your Exact Input Style) --}}
+                    <div>
+                        <label for="service_type"
+                            class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                            Service Type <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
+                                <iconify-icon icon="lucide:user" class="text-sm"></iconify-icon>
+                            </div>
+                            <select name="service_type" id="service_type" x-model="serviceType"
+                                @change="serviceError = false"
+                                :class="serviceError ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : ''"
+                                class="w-full h-10 pl-10 pr-10 text-sm rounded-lg border appearance-none bg-none
+                                    {{ $errors->has('service_type') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80' }}
+                                    text-neutral-800 dark:text-neutral-200
+                                    focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                <option value="">Select Service</option>
+                                <option value="Study Abroad" @selected(old('service_type', $student->service_type ?? '') === 'Study Abroad')>
+                                    Study Abroad
+                                </option>
+                                <option value="English Proficiency" @selected(old('service_type', $student->service_type ?? '') === 'English Proficiency')>
+                                    English Proficiency
+                                </option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-neutral-400">
+                                <iconify-icon icon="lucide:chevron-down" class="text-sm"></iconify-icon>
+                            </div>
+                        </div>
+
+                        <p x-show="serviceError" x-cloak class="mt-1.5 text-xs font-medium text-rose-600">
+                            Please select a service type before continuing.
+                        </p>
+
+                        @error('service_type')
+                            <p class="mt-1.5 text-xs font-medium text-rose-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Next Button --}}
+                    <div class="flex justify-end mt-7 pt-5 border-t border-neutral-200/70 dark:border-neutral-800">
+                        <button type="button" @click="nextStep()"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold shadow-xs hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.99] transition-all">
+                            Next
+                            <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>         
+
+        </form>
+    </div>
+        <div class="py-6 space-y-6" x-data="stepWizard({{ $activeStep }}, {{ $student->profile_step ?? 1 }})" x-init="init()"
+            @go-to-step.window="goTo($event.detail)">
+
+            {{-- ── Responsive Modern Tab Card Container ───────────────────────── --}}
+            <div
+                class="sticky sm:top-0 top-27 z-10 sm:static  sm:z-auto border-t sm:border-t-0  bg-white dark:bg-neutral-900 sm:rounded-2xl border-0 sm:border border-neutral-200/80 dark:border-neutral-800 shadow-sm overflow-hidden">
+
+                {{-- Scroll Container with Edge Visual Indicators --}}
+                <div class="relative group">
+
+                    {{-- Left Fade Cue --}}
+                    <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white dark:from-neutral-900 to-transparent z-10 transition-opacity duration-200"
+                        :class="canScrollLeft ? 'opacity-100' : 'opacity-0'"></div>
+
+                    {{-- Right Fade Cue --}}
+                    <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white dark:from-neutral-900 to-transparent z-10 transition-opacity duration-200"
+                        :class="canScrollRight ? 'opacity-100' : 'opacity-0'"></div>
+
+                    {{-- Tab Navigation Strip --}}
+                    <div class="overflow-x-auto scrollbar-none touch-pan-x border-b border-neutral-200/80 dark:border-neutral-800 select-none cursor-grab active:cursor-grabbing"
+                        x-ref="tabContainer" @scroll="updateScrollIndicators()" @wheel="handleDesktopWheel($event)">
+
+                        <nav class="flex items-center min-w-max px-3 sm:px-5 py-1" aria-label="Profile navigation tabs">
+                            @foreach ($stepsMeta as $num => $info)
+                                <button type="button" x-ref="tab_{{ $num }}"
+                                    @click="maxStep >= {{ $num }} && goTo({{ $num }})"
+                                    :disabled="maxStep < {{ $num }}"
+                                    class="group relative flex items-center gap-2.5 px-4 py-3.5 my-1 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                                    :class="{
+                                        'text-brand-600 dark:text-brand-400 bg-brand-50/70 dark:bg-brand-950/40': currentStep ===
+                                            {{ $num }},
+                                        'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100/70 dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800/60': currentStep !==
+                                            {{ $num }} && maxStep >= {{ $num }},
+                                        'text-neutral-300 dark:text-neutral-700 cursor-not-allowed opacity-60': maxStep <
+                                            {{ $num }}
+                                    }">
+
+                                    {{-- Tab Icon Container --}}
+                                    <div class="flex h-6 w-6 items-center justify-center rounded-lg transition-all duration-200 flex-shrink-0"
+                                        :class="{
+                                            'bg-brand-600 text-white dark:bg-brand-500 dark:text-neutral-950 shadow-sm shadow-brand-500/30': currentStep ===
+                                                {{ $num }},
+                                            'bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 group-hover:scale-105': currentStep !==
+                                                {{ $num }} && maxStep >= {{ $num }},
+                                            'bg-transparent text-neutral-300 dark:text-neutral-700': maxStep <
+                                                {{ $num }}
+                                        }">
+                                        <iconify-icon icon="{{ $info['icon'] }}" class="text-sm"></iconify-icon>
+                                    </div>
+
+                                    {{-- Step Label & Indicator --}}
+                                    <div class="flex items-center gap-2">
+                                        <span>{{ $info['label'] }}</span>
+                                    </div>
+
+                                    {{-- Active Bottom Accent Indicator --}}
+                                    <span class="absolute inset-x-3 bottom-0 h-0.5 rounded-full transition-all duration-300"
+                                        :class="currentStep === {{ $num }} ?
+                                            'bg-brand-600 dark:bg-brand-400 scale-x-100' : 'bg-transparent scale-x-0'"></span>
+                                </button>
+                            @endforeach
+                        </nav>
+                    </div>
+                </div>
+
+                {{-- Compact Dynamic Status Header Strip --}}
+                <div
+                    class="px-4 sm:px-6 py-2.5 bg-neutral-50/70 dark:bg-neutral-900/40 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+                    <div class="flex items-center gap-2">
+                        <span class="font-medium">Step <span class="text-neutral-900 dark:text-neutral-100 font-bold"
+                                x-text="currentStep"></span> of 6</span>
+                        <span class="text-neutral-300 dark:text-neutral-700">•</span>
+                        <span class="font-semibold" x-text="stepLabel()"></span>
+                        <span class="text-brand-500 font-semibold uppercase">view guidelines</span>
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- ── Step Form Content Panels ───────────────────────────────────────── --}}
+            <div class="mt-6">
+                <div x-show="currentStep === 1" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.personal-information')
+                </div>
+
+                <div x-show="currentStep === 2" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.academic-information')
+                </div>
+
+                <div x-show="currentStep === 3" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.study-plan')
+                </div>
+
+                <div x-show="currentStep === 4" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.work-experience')
+                </div>
+
+                <div x-show="currentStep === 5" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.immigration-history')
+                </div>
+
+                <div x-show="currentStep === 6" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.visa-documents-checklist')
+                </div>
+            </div>
+
+        </div>
+  
+    </main>
+@endsection
+
+@push('scripts')
+    <script>
+        function stepWizard(initialStep, maxStepFromServer) {
+            const labels = {
+                1: 'Personal Information',
+                2: 'Academic Background',
+                3: 'Study Plan',
+                4: 'Work Experience',
+                5: 'Immigration History',
+                6: 'Visa Documents',
+            };
+
+            return {
+                currentStep: initialStep,
+                maxStep: maxStepFromServer,
+                canScrollLeft: false,
+                canScrollRight: false,
+
+                init() {
+                    this.$nextTick(() => {
+                        this.scrollToActiveTab();
+                        this.updateScrollIndicators();
+                    });
+
+                    // Update scroll indicators on resize
+                    window.addEventListener('resize', () => this.updateScrollIndicators());
+
+                    this.$watch('currentStep', (step) => {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('step', step);
+                        history.replaceState(null, '', url.toString());
+
+                        this.scrollToActiveTab();
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                },
+
+                goTo(step) {
+                    if (step < 1 || step > 6 || step > this.maxStep) return;
+                    this.currentStep = step;
+                },
+
+                stepLabel() {
+                    return labels[this.currentStep] ?? '';
+                },
+
+                handleDesktopWheel(e) {
+                    // Converts vertical mouse wheel scroll into horizontal tab scrolling
+                    if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        this.$refs.tabContainer.scrollLeft += e.deltaY;
+                        this.updateScrollIndicators();
+                    }
+                },
+
+                updateScrollIndicators() {
+                    const el = this.$refs.tabContainer;
+                    if (!el) return;
+                    this.canScrollLeft = el.scrollLeft > 5;
+                    this.canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth - 5);
+                },
+
+                scrollToActiveTab() {
+                    const container = this.$refs.tabContainer;
+                    const activeTab = this.$refs[`tab_${this.currentStep}`];
+
+                    if (container && activeTab) {
+                        const containerWidth = container.offsetWidth;
+                        const tabOffsetLeft = activeTab.offsetLeft;
+                        const tabWidth = activeTab.offsetWidth;
+
+                        container.scrollTo({
+                            left: tabOffsetLeft - (containerWidth / 2) + (tabWidth / 2),
+                            behavior: 'smooth'
+                        });
+
+                        setTimeout(() => this.updateScrollIndicators(), 300);
+                    }
+                }
+            };
+        }
+    </script>
+@endpush

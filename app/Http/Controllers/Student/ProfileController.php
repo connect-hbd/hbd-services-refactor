@@ -34,52 +34,6 @@ class ProfileController extends Controller
 
     public function profile(Request $request)
     {
-        $user = $request->user();
-
-        return view('student.account-setting', compact('user'));
-    }
-
-    public function update(Request $request): RedirectResponse
-    {
-        $user = $request->user();
-
-        $request->validate([
-            'avatar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'current_password' => ['required_with:password'],
-            'password'         => ['nullable', 'min:8', 'confirmed'],
-        ]);
-
-        $data = [];
-
-       
-        if ($request->hasFile('avatar')) {
-            $data['avatar'] = $this->replaceFile(
-                $request->file('avatar'),
-                $user->avatar,
-                'users'
-            );
-        }
-
-        if ($request->filled('password')) {
-            if (! Hash::check($request->current_password, $user->password)) {
-                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
-            }
-            $data['password'] = bcrypt($request->password);
-        }
-
-        if (! empty($data)) {
-            $user->update($data);
-        }
-
-        return back()->with('success', 'Profile updated successfully.');
-    }
-
-    // =========================================================================
-    // Account Settings — shared GET for all 6 steps
-    // =========================================================================
-
-    public function accountSettings(Request $request)
-    {
         $user    = $request->user();
         $student = $user->student;
 
@@ -137,7 +91,9 @@ class ProfileController extends Controller
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
         $activeStep = max(1, min(6, $activeStep));
 
-        return view('student.student-profile', compact(
+       
+
+        return view('student.index', compact(
             'student',
             'countries',
             'cities',
@@ -151,6 +107,52 @@ class ProfileController extends Controller
             'documentSlots',
             'activeStep',
         ));
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'avatar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'current_password' => ['required_with:password'],
+            'password'         => ['nullable', 'min:8', 'confirmed'],
+        ]);
+
+        $data = [];
+
+       
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->replaceFile(
+                $request->file('avatar'),
+                $user->avatar,
+                'users'
+            );
+        }
+
+        if ($request->filled('password')) {
+            if (! Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            }
+            $data['password'] = bcrypt($request->password);
+        }
+
+        if (! empty($data)) {
+            $user->update($data);
+        }
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
+    // =========================================================================
+    // Account Settings — shared GET for all 6 steps
+    // =========================================================================
+
+    public function accountSettings(Request $request)
+    {
+         $user = $request->user();
+
+        return view('student.settings',compact('user') );
     }
 
     // =========================================================================

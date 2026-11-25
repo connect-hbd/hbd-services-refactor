@@ -91,13 +91,12 @@ Route::prefix('student')
     ->name('student.')
     ->middleware(['auth', 'active.user'])
     ->group(function () {
-        Route::get('/dashboard', [StudentController::class, 'dashboard'])
-            ->name('dashboard');
-        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('student-profile');
         Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
         
         // student account settings
-        Route::get('/account/settings', [ProfileController::class, 'accountSettings'])->name('account.settings');
+        Route::get('/settings', [ProfileController::class, 'accountSettings'])->name('student-settings');
+
         Route::put('/account/personal-information', [ProfileController::class, 'updatePersonalInformation'])->name('account.personal-information.update');
         Route::put('/account/academic-information', [ProfileController::class, 'updateAcademicInformation'])->name('account.academic-information.update');
         Route::put('/account/study-plan', [ProfileController::class, 'updateStudyPlan'])->name('account.study-plan.update');

@@ -112,9 +112,9 @@
                             </div>
                             <select name="gender"
                                 class="w-full h-10 pl-10 pr-10 text-sm rounded-lg border appearance-none bg-none
-                {{ $errors->has('gender') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80' }}
-                text-neutral-800 dark:text-neutral-200
-                focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                {{ $errors->has('gender') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80' }}
+                                text-neutral-800 dark:text-neutral-200
+                                focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 <option value="">Select Gender</option>
                                 <option value="Female" @selected(old('gender', $student->gender) === 'Female')>Female</option>
                                 <option value="Male" @selected(old('gender', $student->gender) === 'Male')>Male</option>
@@ -142,9 +142,9 @@
                             </div>
                             <select name="marital_status"
                                 class="w-full h-10 pl-10 pr-10 text-sm rounded-lg border appearance-none bg-none
-                {{ $errors->has('marital_status') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80' }}
-                text-neutral-800 dark:text-neutral-200
-                focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                {{ $errors->has('marital_status') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80' }}
+                                text-neutral-800 dark:text-neutral-200
+                                focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 <option value="">Select Marital Status</option>
                                 <option value="Single" @selected(old('marital_status', $student->marital_status) === 'Single')>Single</option>
                                 <option value="Married" @selected(old('marital_status', $student->marital_status) === 'Married')>Married</option>
