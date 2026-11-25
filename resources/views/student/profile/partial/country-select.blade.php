@@ -47,7 +47,7 @@
     {{-- Country --}}
     <div>
         <label for="{{ $countryField }}"
-            class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
             Country
             <span class="text-rose-500">*</span>
         </label>
@@ -60,7 +60,7 @@
 
             <select id="{{ $countryField }}" name="{{ $countryField }}" x-model="selectedCountry"
                 @change="countryChanged()"
-                class="w-full appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.5 pl-10 pr-4 text-xs font-medium text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
+                class="w-full h-10 appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
                 <option value="">
                     Select Country
                 </option>
@@ -85,7 +85,7 @@
     {{-- City --}}
     <div>
         <label for="{{ $cityField }}"
-            class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
             City
             <span class="text-rose-500">*</span>
         </label>
@@ -98,7 +98,7 @@
 
             <select id="{{ $cityField }}" name="{{ $cityField }}" x-model="selectedCity"
                 :disabled="!selectedCountry"
-                class="w-full appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.5 pl-10 pr-4 text-xs font-medium text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
+                class="w-full h-10 appearance-none rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm font-normal text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900">
 
                 <option value="">
                     Select City
@@ -123,7 +123,7 @@
     {{-- Post Code --}}
     <div>
         <label for="{{ $postCodeField }}"
-            class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+            class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
             Post Code
             <span class="text-rose-500">*</span>
         </label>
@@ -136,7 +136,7 @@
 
             <input type="text" id="{{ $postCodeField }}" name="{{ $postCodeField }}"
                 value="{{ $selectedPostCode }}"
-                class="w-full rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.5 pl-10 pr-4 text-xs font-medium text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900"
+                class="w-full h-10 rounded-lg border border-neutral-200 bg-neutral-50/30 py-2.25 pl-10 pr-4 text-sm text-neutral-800 transition-all focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:focus:bg-neutral-900"
                 placeholder="1213">
 
         </div>

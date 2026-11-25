@@ -54,7 +54,7 @@
     class="relative"
 >
     @if($label)
-        <label for="{{ $id }}" class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+        <label for="{{ $id }}" class="block mb-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300">
             {{ $label }}
             @if($required)
                 <span class="text-rose-500"> * </span>
@@ -76,13 +76,13 @@
             placeholder="{{ $placeholder ?? strtoupper($dateFormat) }}"
             autocomplete="off"
             {{ $attributes->merge([
-                'class' => 'w-full pl-10 pr-10 py-2.5 rounded-lg border border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all placeholder:text-neutral-400 dark:placeholder:text-neutral-500'
+                'class' => 'w-full h-10 pl-10 pr-10 py-2.25 rounded-lg text-[13px] border border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700  text-neutral-800 dark:text-neutral-200 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all placeholder:text-neutral-400 dark:placeholder:text-neutral-500'
             ]) }}
         />
 
         <!-- Right Dropdown Arrow Icon -->
         <div class="absolute right-3.5 z-10 flex items-center pointer-events-none text-neutral-400 dark:text-neutral-500">
-            <iconify-icon icon="lucide:chevron-down" class="text-sm"></iconify-icon>
+            <iconify-icon icon="lucide:chevron-down" class="text-xl"></iconify-icon>
         </div>
     </div>
 
