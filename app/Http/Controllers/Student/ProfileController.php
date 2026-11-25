@@ -36,7 +36,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        return view('student.profile.index', compact('user'));
+        return view('student.account-setting', compact('user'));
     }
 
     public function update(Request $request): RedirectResponse
@@ -44,8 +44,6 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $request->validate([
-            'name'             => ['nullable', 'string', 'max:191'],
-            'phone'            => ['nullable', 'string', 'max:191'],
             'avatar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'current_password' => ['required_with:password'],
             'password'         => ['nullable', 'min:8', 'confirmed'],
@@ -53,14 +51,7 @@ class ProfileController extends Controller
 
         $data = [];
 
-        if ($request->filled('name')) {
-            $data['name'] = $request->name;
-        }
-
-        if ($request->filled('phone')) {
-            $data['phone'] = $request->phone;
-        }
-
+       
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $this->replaceFile(
                 $request->file('avatar'),
@@ -146,7 +137,7 @@ class ProfileController extends Controller
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
         $activeStep = max(1, min(6, $activeStep));
 
-        return view('student.profile.settings', compact(
+        return view('student.student-profile', compact(
             'student',
             'countries',
             'cities',

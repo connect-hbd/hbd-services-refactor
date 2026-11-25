@@ -91,7 +91,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
     
-    @include('frontend.layouts.navbar')
+    @include('student.layouts.navbar')
 
     <main class="grow">
        <div class="pt-27 md:pt-30.25 pb-12">

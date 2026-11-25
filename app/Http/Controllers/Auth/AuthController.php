@@ -28,40 +28,6 @@ class AuthController extends Controller
         ]);
     }
 
-    // public function login(Request $request): RedirectResponse
-    // {
-    //     $credentials = $request->validate([
-    //         'email' => ['required', 'email'],
-    //         'password' => ['required', 'string'],
-    //         'remember' => ['nullable', 'boolean'],
-    //     ]);
-
-    //     $remember = (bool) ($credentials['remember'] ?? false);
-    //     unset($credentials['remember']);
-
-    //     if (! Auth::attempt($credentials, $remember)) {
-    //         throw ValidationException::withMessages([
-    //             'email' => __('auth.failed'),
-    //         ]);
-    //     }
-
-    //     $request->session()->regenerate();
-
-    //     if (! $request->user()->isActive() || ! $request->user()->rolePrefix()) {
-    //         Auth::logout();
-
-    //         $request->session()->invalidate();
-    //         $request->session()->regenerateToken();
-
-    //         throw ValidationException::withMessages([
-    //             'email' => 'Your account is not ready for access. Please contact support.',
-    //         ]);
-    //     }
-
-    //     return redirect()->route('role.dashboard', [
-    //         'role' => $request->user()->rolePrefix(),
-    //     ]);
-    // }
 
     public function login(Request $request): RedirectResponse
     {
@@ -96,7 +62,7 @@ class AuthController extends Controller
         }
 
         if ($user->rolePrefix() === 'student') {
-            return redirect()->route('student.dashboard');
+            return redirect()->route('student.account.settings');
         }
 
         return redirect()->route('role.dashboard', [
@@ -124,44 +90,14 @@ class AuthController extends Controller
     public function showCheckIn(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('student.dashboard');
+            return redirect()->route('student.account.settings');
         }
 
-        return view('backend.pages.auth.check-in');
+        return view('backend.pages.auth.check-in', [
+            'title' => 'Check In',
+        ]);
     }
-    //    public function register(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //          'first_name' => 'required|string|max:100',
-    //         'last_name'  => 'required|string|max:100',
-    //         'email' => 'required|email|unique:users,email',
-    //         'phone' => 'required|string|max:255',
-    //         'password' => 'required|string|min:8|confirmed',
-    //     ]);
-    //     $fullName = trim(
-    //         $validatedData['first_name'] . ' ' . $validatedData['last_name']
-    //     );
-
-    //     $user = User::create([
-    //         'name' => $fullName,
-    //         'email' => $validatedData['email'],
-    //         'phone' => $validatedData['phone'],
-    //         'password' => Hash::make($validatedData['password']),
-    //         'status' => 'active',
-    //         'primary_role_id' => 4, 
-    //     ]);
-
-    //     Student::create([
-    //         'user_id' => $user->id,
-    //         'student_number' => 'STU-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
-    //          'first_name' => $validatedData['first_name'],
-    //         'last_name' => $validatedData['last_name'],
-    //     ]);
-
-    //     return redirect()
-    //         ->route('login')
-    //         ->with('message', 'Registration successful.');
-    // }
+   
     public function register(
         Request $request,
         ContactService $contactService
@@ -410,7 +346,7 @@ class AuthController extends Controller
 
         // 10. Redirect dashboard
         return redirect()
-            ->route('student.dashboard')
+            ->route('student.account.settings')
             ->with('message', 'Check-in successful. Welcome!');
     }
 
@@ -440,6 +376,6 @@ class AuthController extends Controller
         }
         Auth::login($user, (bool) $request->boolean('remember'));
         $request->session()->regenerate();
-        return redirect()->route('student.dashboard');
+        return redirect()->route('student.account.settings')->with('message', 'Check-in successful. Welcome!');
     }
 }

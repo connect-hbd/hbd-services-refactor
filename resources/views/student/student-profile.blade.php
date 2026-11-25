@@ -42,6 +42,7 @@
             6 => ['icon' => 'lucide:folder-check', 'label' => 'Documents'],
         ];
     @endphp
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
     <div class="py-6 space-y-6" x-data="stepWizard({{ $activeStep }}, {{ $student->profile_step ?? 1 }})" x-init="init()" @go-to-step.window="goTo($event.detail)">
 
@@ -140,6 +141,7 @@
             </div>
         </div>
 
+    </div>
     </div>
 @endsection
 

@@ -212,23 +212,7 @@
                 </div>
             @endforelse
         </div>
-
-        {{-- FILTER EMPTY STATE --}}
-        <div x-show="filteredEvents.length === 0" x-cloak
-             class="rounded-2xl border border-dashed border-brand-200 bg-white px-5 py-16 text-center">
-            <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-500">
-                <iconify-icon icon="lucide:calendar-search" class="text-3xl"></iconify-icon>
-            </span>
-            <h3 class="mt-5 text-lg font-semibold text-brand-950">No Events Found</h3>
-            <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-brand-700">
-                We couldn't find events matching your search and filters. Try another category or clear your filters.
-            </p>
-            <button type="button" @click="resetFilters()"
-                    class="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600">
-                <iconify-icon icon="lucide:rotate-ccw"></iconify-icon>
-                Reset filters
-            </button>
-        </div>
+   
 
         {{-- LOAD MORE --}}
         <div x-show="visibleEvents.length < filteredEvents.length" x-cloak class="mt-10 text-center">
