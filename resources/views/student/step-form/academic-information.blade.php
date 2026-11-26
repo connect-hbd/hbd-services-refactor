@@ -94,8 +94,6 @@
                             placeholder="YYYY-MM-DD"
                             :defaultDate="old('highest_grad_date', $ai?->highest_grad_date ?? '')"
                             required />
-                        {{-- Sync flatpickr value back into Alpine on change --}}
-                        {{-- (hidden input keeps server-side value; flatpickr updates it directly) --}}
                     </div>
 
                     {{-- Institution & Country --}}
@@ -236,99 +234,8 @@
             {{-- ══════════════════════════════════════════════════════════════
                  SECTION 3 — Standardized Test Scores
             ══════════════════════════════════════════════════════════════ --}}
-            <div class="space-y-4">
-                <div class="flex items-center gap-2 border-b border-neutral-100 pb-3 dark:border-neutral-800">
-                    <iconify-icon icon="lucide:file-check-2" class="text-brand-500 text-base"></iconify-icon>
-                    <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">3. Standardized Test Scores</h4>
-                </div>
-
-                {{-- ── IELTS ───────────────────────────────────────────────── --}}
-                <div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/30 dark:bg-neutral-800/20 space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-200/70 dark:border-neutral-700/70 pb-3">
-                        <span class="text-xs font-bold text-neutral-900 dark:text-white">IELTS Academic</span>
-                        <div class="flex items-center gap-2">
-                            <label class="text-xs font-semibold text-neutral-700 dark:text-neutral-300">Test Date:</label>
-                            <input type="date" name="ielts_test_date"
-                                x-model="ielts.testDate"
-                                class="px-3 py-1.5 rounded-lg border
-                                    {{ $errors->has('ielts_test_date') ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('ielts_test_date')
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                        <div class="col-span-2 sm:col-span-1">
-                            <label class="block mb-1.5 text-xs font-bold text-brand-600 dark:text-brand-400">Overall</label>
-                            <input type="text" name="ielts_overall" x-model="ielts.overall" placeholder="0.0"
-                                class="w-full px-3 py-2 rounded-lg border
-                                    {{ $errors->has('ielts_overall') ? 'border-rose-400 bg-rose-50/30' : 'border-brand-200 dark:border-brand-800/80' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-bold text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('ielts_overall')
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @foreach(['listening','reading','writing','speaking'] as $band)
-                        <div>
-                            <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 capitalize">{{ $band }}</label>
-                            <input type="text" name="ielts_{{ $band }}" x-model="ielts.{{ $band }}" placeholder="0.0"
-                                class="w-full px-3 py-2 rounded-lg border placeholder:text-neutral-400
-                                    {{ $errors->has('ielts_'.$band) ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('ielts_'.$band)
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                {{-- ── GRE ─────────────────────────────────────────────────── --}}
-                <div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/30 dark:bg-neutral-800/20 space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-200/70 dark:border-neutral-700/70 pb-3">
-                        <span class="text-xs font-bold text-neutral-900 dark:text-white">GRE General</span>
-                        <div class="flex items-center gap-2">
-                            <label class="text-xs font-semibold text-neutral-700 dark:text-neutral-300">Test Date:</label>
-                            <input type="date" name="gre_test_date"
-                                x-model="gre.testDate"
-                                class="px-3 py-1.5 rounded-lg border
-                                    {{ $errors->has('gre_test_date') ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('gre_test_date')
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="col-span-2 sm:col-span-1">
-                            <label class="block mb-1.5 text-xs font-bold text-brand-600 dark:text-brand-400">Combined Score</label>
-                            <input type="text" name="gre_combined" x-model="gre.combined" placeholder="0"
-                                class="w-full px-3 py-2 rounded-lg border
-                                    {{ $errors->has('gre_combined') ? 'border-rose-400 bg-rose-50/30' : 'border-brand-200 dark:border-brand-800/80' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-bold text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('gre_combined')
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @foreach(['quant' => 'Quant', 'verbal' => 'Verbal', 'awa' => 'AWA'] as $key => $label)
-                        <div>
-                            <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ $label }}</label>
-                            <input type="text" name="gre_{{ $key }}" x-model="gre.{{ $key }}" placeholder="0"
-                                class="w-full px-3 py-2 rounded-lg border placeholder:text-neutral-400
-                                    {{ $errors->has('gre_'.$key) ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
-                                    bg-white dark:bg-neutral-900 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            @error('gre_'.$key)
-                                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-
-            </div>
+            @include('student.step-form.englishProficiencyForm')
+           
 
         </div>
 
