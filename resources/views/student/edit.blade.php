@@ -127,8 +127,7 @@
             <div class="mt-6">
                 <div x-show="currentStep === 1" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    {{-- @include('student.step-form.personal-information') --}}
-                    @include('student.step-form.academic-information')
+                    @include('student.step-form.personal-information')
                     
                 </div>
 
@@ -155,7 +154,6 @@
                 <div x-show="currentStep === 6" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
                     @include('student.step-form.marketing-section')
-                    {{-- @include('student.step-form.visa-documents-checklist') --}}
                 </div>
             </div>
 

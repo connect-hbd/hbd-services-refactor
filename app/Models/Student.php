@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\student\AcademicInformation;
 use App\Models\student\Address;
 use App\Models\student\ImmigrationRefusal;
+use App\Models\student\Referrals;
 use App\Models\student\StudentDocument;
 use App\Models\student\StudentEmail;
 use App\Models\student\StudentEnglishProficiency;
@@ -132,4 +133,8 @@ class Student extends Model
     {
         return $this->hasMany(StudentEnglishProficiency::class);
     }
+    public function referral()
+{
+    return $this->hasOne(Referrals::class, 'student_id');
+}
 }

@@ -37,6 +37,47 @@ class ProfileController extends Controller
         return view('student.index');
     }
 
+  public function accountSettings(Request $request)
+    {
+        $user = $request->user();
+
+        return view('student.settings', compact('user'));
+    }
+    public function accountSettingUpdate(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'avatar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'current_password' => ['required_with:password'],
+            'password'         => ['nullable', 'min:8', 'confirmed'],
+        ]);
+
+        $data = [];
+
+
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->replaceFile(
+                $request->file('avatar'),
+                $user->avatar,
+                'users'
+            );
+        }
+
+        if ($request->filled('password')) {
+            if (! Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            }
+            $data['password'] = bcrypt($request->password);
+        }
+
+        if (! empty($data)) {
+            $user->update($data);
+        }
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
     public function studyAbroad(Request $request)
     {
         $user    = $request->user();
@@ -77,20 +118,7 @@ class ProfileController extends Controller
         $immigrationRefusals = $student->immigrationRefusals()->get();
 
         // ── Step 6 data ──────────────────────────────────────────────────────
-        // Build a keyed collection from the checklist so every slot is always
-        // present in the view, even if the student hasn't uploaded it yet.
-        $savedDocuments  = $student->documents()->get()->keyBy('document_key');
-        $documentSlots   = collect(StudentDocument::CHECKLIST)
-            ->map(function (string $label, string $key) use ($savedDocuments) {
-                return $savedDocuments->get($key) ?? (object) [
-                    'document_key'  => $key,
-                    'document_name' => $label,
-                    'file_path'     => null,
-                    'original_name' => null,
-                    'file_size'     => null,
-                    'status'        => 'pending',
-                ];
-            });
+       $referral = $student->Referrals()->get();
 
         // ── Active step (driven by query-string after a successful save) ──────
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
@@ -107,7 +135,7 @@ class ProfileController extends Controller
             'studyPlan',
             'workExperiences',
             'immigrationRefusals',
-            'documentSlots',
+            'referral',
             'activeStep',
         ));
     }
@@ -117,57 +145,6 @@ class ProfileController extends Controller
     {
         return view('student.hla');
     }
-
-
-    public function update(Request $request): RedirectResponse
-    {
-        $user = $request->user();
-
-        $request->validate([
-            'avatar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'current_password' => ['required_with:password'],
-            'password'         => ['nullable', 'min:8', 'confirmed'],
-        ]);
-
-        $data = [];
-
-
-        if ($request->hasFile('avatar')) {
-            $data['avatar'] = $this->replaceFile(
-                $request->file('avatar'),
-                $user->avatar,
-                'users'
-            );
-        }
-
-        if ($request->filled('password')) {
-            if (! Hash::check($request->current_password, $user->password)) {
-                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
-            }
-            $data['password'] = bcrypt($request->password);
-        }
-
-        if (! empty($data)) {
-            $user->update($data);
-        }
-
-        return back()->with('success', 'Profile updated successfully.');
-    }
-
-    // =========================================================================
-    // Account Settings — shared GET for all 6 steps
-    // =========================================================================
-
-    public function accountSettings(Request $request)
-    {
-        $user = $request->user();
-
-        return view('student.settings', compact('user'));
-    }
-
-    // =========================================================================
-    // Step 1 — Personal & Passport Information
-    // =========================================================================
 
     public function updatePersonalInformation(
         UpdatePersonalInformationRequest $request
@@ -220,8 +197,7 @@ class ProfileController extends Controller
         $student->advanceStepTo(1);
 
         return redirect()
-            ->route('student.account.settings', ['step' => 2])
-            ->with('success', 'Personal information saved successfully.');
+            ->route('student.account.settings', ['step' => 2]);
     }
 
     // =========================================================================
@@ -262,8 +238,7 @@ class ProfileController extends Controller
         $student->advanceStepTo(2);
 
         return redirect()
-            ->route('student.account.settings', ['step' => 3])
-            ->with('success', 'Academic information saved successfully.');
+            ->route('student.account.settings', ['step' => 3]);
     }
 
     // =========================================================================
@@ -307,8 +282,7 @@ class ProfileController extends Controller
         $student->advanceStepTo(3);
 
         return redirect()
-            ->route('student.account.settings', ['step' => 4])
-            ->with('success', 'Study plan saved successfully.');
+            ->route('student.account.settings', ['step' => 4]);
     }
 
     // =========================================================================
@@ -343,8 +317,7 @@ class ProfileController extends Controller
         $student->advanceStepTo(4);
 
         return redirect()
-            ->route('student.account.settings', ['step' => 5])
-            ->with('success', 'Work experience saved successfully.');
+            ->route('student.account.settings', ['step' => 5]);
     }
 
     // =========================================================================
@@ -402,64 +375,12 @@ class ProfileController extends Controller
         $student->advanceStepTo(5);
 
         return redirect()
-            ->route('student.account.settings', ['step' => 6])
-            ->with('success', 'Immigration history saved successfully.');
+            ->route('student.account.settings', ['step' => 6]);
     }
 
-    // =========================================================================
-    // Step 6 — Visa Documents Checklist
-    // =========================================================================
-
-    public function updateVisaDocumentsChecklist(
-        UpdateVisaDocumentsChecklistRequest $request
-    ): RedirectResponse {
-        $student = $request->user()->student;
-        abort_if(! $student, 404, 'Student profile not found.');
-
-        foreach (StudentDocument::CHECKLIST as $key => $label) {
-            if (! $request->hasFile("documents.{$key}")) {
-                continue;
-            }
-
-            $file     = $request->file("documents.{$key}");
-            $existing = $student->documents()->where('document_key', $key)->first();
-
-            // replaceFile deletes $existing->file_path then uploads the new file
-            $path = $this->replaceFile(
-                $file,
-                $existing?->file_path,
-                "students/{$student->id}/documents"
-            );
-
-            $student->documents()->updateOrCreate(
-                ['document_key' => $key],
-                [
-                    'document_name' => $label,
-                    'file_path'     => $path,
-                    'original_name' => $file->getClientOriginalName(),
-                    'file_size'     => $this->formatFileSize($file->getSize()),
-                    'status'        => 'ready',
-                ]
-            );
-        }
-
-        $student->advanceStepTo(6);
-
+    public function updateReferralHistory(){
         return redirect()
-            ->route('student.account.settings', ['step' => 6])
-            ->with('success', 'Documents checklist updated successfully.');
-    }
-
-    // =========================================================================
-    // Helpers
-    // =========================================================================
-
-    private function formatFileSize(int $bytes): string
-    {
-        if ($bytes >= 1_048_576) {
-            return round($bytes / 1_048_576, 1) . ' MB';
-        }
-
-        return round($bytes / 1024, 0) . ' KB';
+            ->route('student.student-dashboard')
+            ->with('success', 'Your information saved successfully.');
     }
 }

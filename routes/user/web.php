@@ -91,20 +91,23 @@ Route::prefix('student')
     ->name('student.')
     ->middleware(['auth', 'active.user'])
     ->group(function () {
-        Route::get('/profile', [ProfileController::class, 'profile'])->name('student-profile');
-        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('student-profile');        
 
         Route::get('/study-abroad', [ProfileController::class, 'studyAbroad'])->name('study-abroad');
         Route::get('/english-proficiency', [ProfileController::class, 'englishProficiency'])->name('english-proficiency');
         
         // student account settings
         Route::get('/settings', [ProfileController::class, 'accountSettings'])->name('student-settings');
+        Route::put('/profile', [ProfileController::class, 'accountSettingUpdate'])->name('profile.update');
 
-        Route::put('/personal-information', [ProfileController::class, 'updatePersonalInformation'])->name('account.personal-information.update');
-        Route::put('/academic-information', [ProfileController::class, 'updateAcademicInformation'])->name('account.academic-information.update');
-        Route::put('/study-plan', [ProfileController::class, 'updateStudyPlan'])->name('account.study-plan.update');
-        Route::put('/work-experience', [ProfileController::class, 'updateWorkExperience'])->name('account.work-experience.update');
-        Route::put('/immigration-history', [ProfileController::class, 'updateImmigrationHistory'])->name('account.immigration-history.update');
-        Route::put('/visa-documents-checklist', [ProfileController::class, 'updateVisaDocumentsChecklist'])->name('account.visa-documents-checklist.update');
+        Route::put('/personal-information', [ProfileController::class, 'updatePersonalInformation'])->name('personal-information.update');
+        Route::put('/academic-information', [ProfileController::class, 'updateAcademicInformation'])->name('academic-information.update');
+        Route::put('/study-plan', [ProfileController::class, 'updateStudyPlan'])->name('study-plan.update');
+        Route::put('/work-experience', [ProfileController::class, 'updateWorkExperience'])->name('work-experience.update');
+        Route::put('/immigration-history', [ProfileController::class, 'updateImmigrationHistory'])->name('immigration-history.update');
+        Route::put('/referral', [ProfileController::class, 'updateReferralHistory'])->name('referral.update');
+
+        Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('student-dashboard');
+        // Route::put('/visa-documents-checklist', [ProfileController::class, 'updateVisaDocumentsChecklist'])->name('account.visa-documents-checklist.update');
 
     });
