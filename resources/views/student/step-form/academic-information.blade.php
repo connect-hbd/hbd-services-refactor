@@ -4,53 +4,38 @@
 
     $initialAcademic = [
         'highestQual' => [
-            'degree'      => old('highest_degree',      $ai?->highest_degree      ?? ''),
+            'degree' => old('highest_degree', $ai?->highest_degree ?? ''),
             'institution' => old('highest_institution', $ai?->highest_institution ?? ''),
-            'gradDate'    => old('highest_grad_date',   $ai?->highest_grad_date   ?? ''),
-            'gpa'         => old('highest_gpa',         $ai?->highest_gpa         ?? ''),
-            'maxGpa'      => old('highest_max_gpa',     $ai?->highest_max_gpa     ?? ''),
+            'gradDate' => old('highest_grad_date', $ai?->highest_grad_date ?? ''),
+            'gpa' => old('highest_gpa', $ai?->highest_gpa ?? ''),
+            'maxGpa' => old('highest_max_gpa', $ai?->highest_max_gpa ?? ''),
         ],
         'educationHistory' => old('education_history', $ai?->education_history ?? []),
-        'ielts' => [
-            'overall'   => old('ielts_overall',   $ai?->ielts_overall   ?? ''),
-            'testDate'  => old('ielts_test_date', $ai?->ielts_test_date?->format('Y-m-d') ?? ''),
-            'listening' => old('ielts_listening', $ai?->ielts_listening ?? ''),
-            'reading'   => old('ielts_reading',   $ai?->ielts_reading   ?? ''),
-            'writing'   => old('ielts_writing',   $ai?->ielts_writing   ?? ''),
-            'speaking'  => old('ielts_speaking',  $ai?->ielts_speaking  ?? ''),
-        ],
-        'gre' => [
-            'combined'  => old('gre_combined',  $ai?->gre_combined  ?? ''),
-            'testDate'  => old('gre_test_date', $ai?->gre_test_date?->format('Y-m-d') ?? ''),
-            'quant'     => old('gre_quant',     $ai?->gre_quant     ?? ''),
-            'verbal'    => old('gre_verbal',    $ai?->gre_verbal    ?? ''),
-            'awa'       => old('gre_awa',       $ai?->gre_awa       ?? ''),
-        ],
     ];
 
 @endphp
 
-<div x-data="academicForm({{ Js::from($initialAcademic) }})"
-     x-init="init()"
-     class="bg-white dark:bg-neutral-900 sm:rounded-2xl shadow-xs sm:border border-neutral-200/80 dark:border-neutral-800 overflow-hidden">
+<div x-data="academicForm({{ Js::from($initialAcademic) }})" x-init="init()"
+    class="bg-white dark:bg-neutral-900 sm:rounded-2xl shadow-xs sm:border border-neutral-200/80 dark:border-neutral-800 overflow-hidden">
 
     {{-- ── Header ──────────────────────────────────────────────────────────── --}}
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-100 dark:border-neutral-800 py-5 mb-5 px-4 sm:px-6">
+    <div
+        class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-100 dark:border-neutral-800 py-5 mb-5 px-4 sm:px-6">
         <div class="flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+            <div
+                class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
                 <iconify-icon icon="lucide:graduation-cap" class="text-xl"></iconify-icon>
             </div>
             <div>
                 <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Academic Background Setup</h3>
-                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Edit highest qualification, education history, and test scores.</p>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Edit highest qualification, education
+                    history, and test scores.</p>
             </div>
         </div>
     </div>
 
-    <form action="{{ route('student.account.academic-information.update') }}"
-          method="POST"
-          enctype="multipart/form-data"
-          class="space-y-6">
+    <form action="{{ route('student.account.academic-information.update') }}" method="POST"
+        enctype="multipart/form-data" class="space-y-6">
         @csrf
         @method('PUT')
 
@@ -62,7 +47,8 @@
             <div class="space-y-4">
                 <div class="flex items-center gap-2 border-b border-neutral-100 pb-3 dark:border-neutral-800">
                     <iconify-icon icon="lucide:award" class="text-brand-500 text-base"></iconify-icon>
-                    <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">1. Highest Qualification</h4>
+                    <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">1. Highest
+                        Qualification</h4>
                 </div>
 
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -72,8 +58,7 @@
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Degree Name <span class="text-rose-500">*</span>
                         </label>
-                        <input type="text" name="highest_degree"
-                            x-model="highestQual.degree"
+                        <input type="text" name="highest_degree" x-model="highestQual.degree"
                             placeholder="e.g. Bachelor of Science in Computer Science"
                             class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                 {{ $errors->has('highest_degree') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
@@ -87,13 +72,8 @@
 
                     {{-- Graduation Date (uses form-date component — has @error built-in) --}}
                     <div>
-                        <x-form.form-date
-                            id="highest_grad_date"
-                            name="highest_grad_date"
-                            label="Graduation Date"
-                            placeholder="YYYY-MM-DD"
-                            :defaultDate="old('highest_grad_date', $ai?->highest_grad_date ?? '')"
-                            required />
+                        <x-form.form-date id="highest_grad_date" name="highest_grad_date" label="Graduation Date"
+                            placeholder="YYYY-MM-DD" :defaultDate="old('highest_grad_date', $ai?->highest_grad_date ?? '')" required />
                     </div>
 
                     {{-- Institution & Country --}}
@@ -101,8 +81,7 @@
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Institution & Country <span class="text-rose-500">*</span>
                         </label>
-                        <input type="text" name="highest_institution"
-                            x-model="highestQual.institution"
+                        <input type="text" name="highest_institution" x-model="highestQual.institution"
                             placeholder="e.g. University of Oxford, United Kingdom"
                             class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                 {{ $errors->has('highest_institution') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
@@ -120,9 +99,7 @@
                             <label class="block mb-1.5 text-[13px] font-medium text-neutral-700 dark:text-neutral-300">
                                 GPA Score <span class="text-rose-500">*</span>
                             </label>
-                            <input type="text" name="highest_gpa"
-                                x-model="highestQual.gpa"
-                                placeholder="3.50"
+                            <input type="text" name="highest_gpa" x-model="highestQual.gpa" placeholder="3.50"
                                 class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                     {{ $errors->has('highest_gpa') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
                                      text-neutral-800 dark:text-neutral-200
@@ -133,10 +110,10 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block mb-1.5 text-[13px] font-medium text-neutral-700 dark:text-neutral-300">Scale / Max GPA</label>
-                            <input type="text" name="highest_max_gpa"
-                                x-model="highestQual.maxGpa"
-                                placeholder="4.00"
+                            <label
+                                class="block mb-1.5 text-[13px] font-medium text-neutral-700 dark:text-neutral-300">Scale
+                                / Max GPA</label>
+                            <input type="text" name="highest_max_gpa" x-model="highestQual.maxGpa" placeholder="4.00"
                                 class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                     border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700
                                      text-neutral-800 dark:text-neutral-200
@@ -155,7 +132,8 @@
                 <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
                     <div class="flex items-center gap-2">
                         <iconify-icon icon="lucide:book-open" class="text-brand-500 text-base"></iconify-icon>
-                        <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">2. Education History</h4>
+                        <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">2.
+                            Education History</h4>
                     </div>
                     <button type="button" @click="addEducation()"
                         class="inline-flex items-center gap-1.5 rounded-lg bg-brand-50 dark:bg-brand-950/50 px-3 py-1.5 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:bg-brand-100 transition-colors">
@@ -165,8 +143,10 @@
                 </div>
 
                 <template x-if="educationHistory.length === 0">
-                    <div class="rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800 p-6 text-center bg-neutral-50/50 dark:bg-neutral-800/20">
-                        <iconify-icon icon="lucide:school" class="text-2xl text-neutral-400 dark:text-neutral-500 mb-1"></iconify-icon>
+                    <div
+                        class="rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800 p-6 text-center bg-neutral-50/50 dark:bg-neutral-800/20">
+                        <iconify-icon icon="lucide:school"
+                            class="text-2xl text-neutral-400 dark:text-neutral-500 mb-1"></iconify-icon>
                         <p class="text-xs text-neutral-500 dark:text-neutral-400">No education history added yet.</p>
                         <button type="button" @click="addEducation()"
                             class="mt-2 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">
@@ -177,17 +157,21 @@
 
                 <div class="space-y-4" x-show="educationHistory.length > 0">
                     <template x-for="(edu, index) in educationHistory" :key="index">
-                        <div class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30 space-y-4 relative">
+                        <div
+                            class="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30 space-y-4 relative">
 
                             {{-- Hidden inputs — mirror Alpine state for server POST --}}
-                            <input type="hidden" :name="`education_history[${index}][degree]`"      :value="edu.degree">
-                            <input type="hidden" :name="`education_history[${index}][institution]`" :value="edu.institution">
-                            <input type="hidden" :name="`education_history[${index}][country]`"     :value="edu.country">
-                            <input type="hidden" :name="`education_history[${index}][year]`"        :value="edu.year">
-                            <input type="hidden" :name="`education_history[${index}][grade]`"       :value="edu.grade">
+                            <input type="hidden" :name="`education_history[${index}][degree]`" :value="edu.degree">
+                            <input type="hidden" :name="`education_history[${index}][institution]`"
+                                :value="edu.institution">
+                            <input type="hidden" :name="`education_history[${index}][country]`" :value="edu.country">
+                            <input type="hidden" :name="`education_history[${index}][year]`" :value="edu.year">
+                            <input type="hidden" :name="`education_history[${index}][grade]`" :value="edu.grade">
 
-                            <div class="flex items-center justify-between border-b border-neutral-200/60 dark:border-neutral-700/60 pb-2.5">
-                                <span class="text-xs font-bold text-neutral-700 dark:text-neutral-300" x-text="'Entry #' + (index + 1)"></span>
+                            <div
+                                class="flex items-center justify-between border-b border-neutral-200/60 dark:border-neutral-700/60 pb-2.5">
+                                <span class="text-xs font-bold text-neutral-700 dark:text-neutral-300"
+                                    x-text="'Entry #' + (index + 1)"></span>
                                 <button type="button" @click="removeEducation(index)"
                                     class="text-rose-500 hover:text-rose-700 text-xs flex items-center gap-1 font-medium transition-colors">
                                     <iconify-icon icon="lucide:trash-2" class="text-sm"></iconify-icon>
@@ -197,27 +181,35 @@
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                                 <div>
-                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Degree / Level</label>
+                                    <label
+                                        class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Degree
+                                        / Level</label>
                                     <input type="text" x-model="edu.degree" placeholder="e.g. B.Sc."
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Institution</label>
+                                    <label
+                                        class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Institution</label>
                                     <input type="text" x-model="edu.institution" placeholder="Institution Name"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Country</label>
+                                    <label
+                                        class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Country</label>
                                     <input type="text" x-model="edu.country" placeholder="Country"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Year Completed</label>
+                                    <label
+                                        class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Year
+                                        Completed</label>
                                     <input type="text" x-model="edu.year" placeholder="YYYY"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Grade / Score</label>
+                                    <label
+                                        class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Grade
+                                        / Score</label>
                                     <input type="text" x-model="edu.grade" placeholder="e.g. 3.82 GPA"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
@@ -235,12 +227,13 @@
                  SECTION 3 — Standardized Test Scores
             ══════════════════════════════════════════════════════════════ --}}
             @include('student.step-form.englishProficiencyForm')
-           
+
 
         </div>
 
         {{-- ── Footer ───────────────────────────────────────────────────────── --}}
-        <div class="flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-neutral-50/50 dark:bg-neutral-800/30 border-t border-neutral-100 dark:border-neutral-800">
+        <div
+            class="flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-neutral-50/50 dark:bg-neutral-800/30 border-t border-neutral-100 dark:border-neutral-800">
             <button type="button" @click="$dispatch('go-to-step', 1)"
                 class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                 <iconify-icon icon="lucide:arrow-left" class="text-sm"></iconify-icon>
@@ -263,26 +256,28 @@
 </div>
 
 @push('scripts')
-<script>
-function academicForm(initial) {
-    return {
-        highestQual:      initial.highestQual,
-        educationHistory: initial.educationHistory,
-        ielts:            initial.ielts,
-        gre:              initial.gre,
+    <script>
+        function academicForm(initial) {
+            return {
+                highestQual: initial.highestQual,
+                educationHistory: initial.educationHistory,
 
-        init() {},
+                init() {},
 
-        addEducation() {
-            this.educationHistory.push({
-                degree: '', institution: '', country: '', year: '', grade: ''
-            });
-        },
+                addEducation() {
+                    this.educationHistory.push({
+                        degree: '',
+                        institution: '',
+                        country: '',
+                        year: '',
+                        grade: ''
+                    });
+                },
 
-        removeEducation(index) {
-            this.educationHistory.splice(index, 1);
-        },
-    };
-}
-</script>
+                removeEducation(index) {
+                    this.educationHistory.splice(index, 1);
+                },
+            };
+        }
+    </script>
 @endpush

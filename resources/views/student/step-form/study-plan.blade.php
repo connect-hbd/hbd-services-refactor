@@ -6,16 +6,11 @@
     if ($sp && $sp->choices->count()) {
         foreach ($sp->choices as $i => $c) {
             $initialChoices[] = [
-                'id'          => $c->id,
-                'program'     => old("choices.{$i}.program",     $c->program     ?? ''),
-                'university'  => old("choices.{$i}.university",  $c->university  ?? ''),
-                'country'     => old("choices.{$i}.country",     $c->country     ?? ''),
-                'duration'    => old("choices.{$i}.duration",    $c->duration    ?? ''),
-                'start_date'  => old("choices.{$i}.start_date",  $c->start_date  ?? ''),
-                'end_date'    => old("choices.{$i}.end_date",    $c->end_date    ?? ''),
-                'tuition'     => old("choices.{$i}.tuition",     $c->tuition     ?? ''),
-                'scholarship' => old("choices.{$i}.scholarship", $c->scholarship ?? ''),
-                'summary'     => old("choices.{$i}.summary",     $c->summary     ?? ''),
+                'id' => $c->id,
+                'program' => old("choices.{$i}.program", $c->program ?? ''),
+                'country' => old("choices.{$i}.country", $c->country ?? ''),
+                'start_date' => old("choices.{$i}.start_date", $c->start_date ?? ''),
+                'summary' => old("choices.{$i}.summary", $c->summary ?? ''),
             ];
         }
     } elseif (old('choices')) {
@@ -26,164 +21,190 @@
 
     $initialStudyPlan = [
         'targetDegree' => old('target_degree', $sp?->target_degree ?? ''),
-        'choices'      => $initialChoices,
+        'choices' => $initialChoices,
     ];
 @endphp
 
-<div x-data="studyPlanForm({{ Js::from($initialStudyPlan) }})"
-     x-init="init()"
-     class="bg-white dark:bg-neutral-900 sm:rounded-2xl shadow-xs sm:border border-neutral-200/80 dark:border-neutral-800 overflow-hidden">
+<div x-data="studyPlanForm({{ Js::from($initialStudyPlan) }})" x-init="init()"
+    class="overflow-hidden border-neutral-200/80 bg-white shadow-xs sm:rounded-2xl sm:border dark:border-neutral-800 dark:bg-neutral-900">
 
     {{-- Header --}}
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-100 dark:border-neutral-800 py-5 mb-5 px-4 sm:px-6">
+    <div
+        class="flex flex-col gap-4 border-b border-neutral-100 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 dark:border-neutral-800">
         <div class="flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+            <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
                 <iconify-icon icon="lucide:compass" class="text-xl"></iconify-icon>
             </div>
             <div>
-                <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Study Plan & University Details Setup</h3>
-                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Fill in target degree level and university preference choices.</p>
+                <h3 class="text-base font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white">
+                    Study Plan & Country Preferences
+                </h3>
+                <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                    Select your target degree level and rank your destination and program choices.
+                </p>
             </div>
         </div>
 
-        {{-- Target Degree Dropdown --}}
-        <div class="flex items-center gap-2 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 px-3 py-1.5 border border-neutral-200/80 dark:border-neutral-700">
-            <label class="text-xs font-semibold text-neutral-600 dark:text-neutral-300 whitespace-nowrap">Target Degree:</label>
+        {{-- Target Degree Dropdown (Single custom arrow) --}}
+       
+        <div
+            class="flex items-center gap-2 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 px-3 py-1.5 border border-neutral-200/80 dark:border-neutral-700">
+            <label class="text-xs font-semibold text-neutral-600 dark:text-neutral-300 whitespace-nowrap">Target
+                Degree:</label>
             <select x-model="targetDegree" name="target_degree"
-                class="bg-transparent text-xs font-bold text-brand-600 dark:text-brand-400 focus:outline-none border-none cursor-pointer pr-2">
-                <option value="" disabled class="bg-white dark:bg-neutral-900 text-neutral-800">Select Degree</option>
-                <option value="Master's Degree"       class="bg-white dark:bg-neutral-900 text-neutral-800">Master's Degree</option>
-                <option value="Bachelor's Degree"     class="bg-white dark:bg-neutral-900 text-neutral-800">Bachelor's Degree</option>
-                <option value="PhD / Doctorate"       class="bg-white dark:bg-neutral-900 text-neutral-800">PhD / Doctorate</option>
-                <option value="Postgraduate Diploma"  class="bg-white dark:bg-neutral-900 text-neutral-800">Postgraduate Diploma</option>
+                class="bg-transparent text-xs font-bold text-brand-600 dark:text-brand-400 focus:outline-none border rounded-lg cursor-pointer pr-2">
+                <option value="" disabled class="bg-white dark:bg-neutral-900 text-neutral-800">Select Degree
+                </option>
+                <option value="Master's Degree" class="bg-white dark:bg-neutral-900 text-neutral-800">Master's Degree
+                </option>
+                <option value="Bachelor's Degree" class="bg-white dark:bg-neutral-900 text-neutral-800">Bachelor's
+                    Degree</option>
+                <option value="PhD / Doctorate" class="bg-white dark:bg-neutral-900 text-neutral-800">PhD / Doctorate
+                </option>
+                <option value="Postgraduate Diploma" class="bg-white dark:bg-neutral-900 text-neutral-800">Postgraduate
+                    Diploma</option>
             </select>
         </div>
     </div>
 
     @error('target_degree')
-        <p class="px-5 sm:px-8 -mt-3 mb-2 text-xs text-rose-600">{{ $message }}</p>
+        <p class="px-5 pt-3 text-xs font-medium text-rose-600 sm:px-8 dark:text-rose-400">{{ $message }}</p>
     @enderror
 
     <form action="{{ route('student.account.study-plan.update') }}" method="POST" class="space-y-6">
         @csrf
         @method('PUT')
 
-        {{-- Bind target_degree from Alpine (select is outside form tag) --}}
+        {{-- Single source of truth for form submission --}}
         <input type="hidden" name="target_degree" :value="targetDegree">
 
-        <div class="px-5 sm:px-8 space-y-6 mb-6">
+        <div class="space-y-5 px-4 pt-5 sm:px-8">
 
-            <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
+            {{-- Section Toolbar --}}
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-100 pb-3.5 dark:border-neutral-800">
                 <div class="flex items-center gap-2">
-                    <iconify-icon icon="lucide:compass" class="text-brand-500 text-base"></iconify-icon>
-                    <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">University / Program Choices</h4>
+                    <iconify-icon icon="lucide:globe" class="text-base text-brand-500"></iconify-icon>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200">
+                        Destination & Program Choices
+                    </h4>
+                    <span
+                        class="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[11px] font-semibold text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300"
+                        x-text="choices.length + (choices.length === 1 ? ' Choice' : ' Choices')"></span>
                 </div>
+
                 <button type="button" @click="addChoice()"
-                    class="inline-flex items-center gap-1.5 rounded-lg bg-brand-50 dark:bg-brand-950/50 px-3 py-1.5 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:bg-brand-100 transition-colors">
+                    class="inline-flex items-center gap-1.5 rounded-xl border border-brand-200/80 bg-brand-50/70 px-3.5 py-2 text-xs font-semibold text-brand-700 transition hover:bg-brand-100/80 dark:border-brand-800/60 dark:bg-brand-950/50 dark:text-brand-300 dark:hover:bg-brand-950/80">
                     <iconify-icon icon="lucide:plus" class="text-sm"></iconify-icon>
                     Add Preference Choice
                 </button>
             </div>
 
             @error('choices')
-                <p class="text-xs text-rose-600">{{ $message }}</p>
+                <p class="text-xs font-medium text-rose-600 dark:text-rose-400">{{ $message }}</p>
             @enderror
 
+            {{-- Choice Cards --}}
             <div class="space-y-4">
                 <template x-for="(choice, index) in choices" :key="choice.id || index">
-                    <div class="p-4 sm:p-5 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30 space-y-4 relative">
+                    <div
+                        class="space-y-4 rounded-xl border border-neutral-200/90 bg-neutral-50/50 p-4 transition sm:p-5 dark:border-neutral-800 dark:bg-neutral-800/30">
 
                         {{-- Hidden form fields that submit to server --}}
-                        <input type="hidden" :name="`choices[${index}][program]`"     :value="choice.program">
-                        <input type="hidden" :name="`choices[${index}][university]`"  :value="choice.university">
-                        <input type="hidden" :name="`choices[${index}][country]`"     :value="choice.country">
-                        <input type="hidden" :name="`choices[${index}][duration]`"    :value="choice.duration">
-                        <input type="hidden" :name="`choices[${index}][start_date]`"  :value="choice.start_date">
-                        <input type="hidden" :name="`choices[${index}][end_date]`"    :value="choice.end_date">
-                        <input type="hidden" :name="`choices[${index}][tuition]`"     :value="choice.tuition">
-                        <input type="hidden" :name="`choices[${index}][scholarship]`" :value="choice.scholarship">
-                        <input type="hidden" :name="`choices[${index}][summary]`"     :value="choice.summary">
+                        <input type="hidden" :name="`choices[${index}][program]`" :value="choice.program">
+                        <input type="hidden" :name="`choices[${index}][country]`" :value="choice.country">
+                        <input type="hidden" :name="`choices[${index}][start_date]`" :value="choice.start_date">
+                        <input type="hidden" :name="`choices[${index}][summary]`" :value="choice.summary">
 
-                        <div class="flex items-center justify-between border-b border-neutral-200/60 dark:border-neutral-700/60 pb-3">
-                            <div class="flex items-center gap-2">
-                                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300 text-[11px] font-bold" x-text="index + 1"></span>
+                        {{-- Card Header --}}
+                        <div
+                            class="flex items-center justify-between gap-2 border-b border-neutral-200/70 pb-3 dark:border-neutral-700/70">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-100 text-xs font-bold text-brand-700 dark:bg-brand-900/60 dark:text-brand-300"
+                                    x-text="index + 1"></span>
                                 <span class="text-xs font-bold text-neutral-800 dark:text-neutral-200"
                                     x-text="index === 0 ? 'Choice 1 (Primary Destination)' : 'Choice ' + (index + 1)"></span>
                             </div>
+
                             <button type="button" x-show="choices.length > 1" @click="removeChoice(index)"
-                                class="text-xs font-medium text-rose-500 hover:text-rose-700 flex items-center gap-1 transition-colors">
+                                class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-rose-600 transition hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/30">
                                 <iconify-icon icon="lucide:trash-2" class="text-sm"></iconify-icon>
-                                Remove Choice
+                                Remove
                             </button>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {{-- Fields Grid --}}
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
-                            <div class="sm:col-span-2 lg:col-span-3">
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                            {{-- Intended Program --}}
+                            <div>
+                                <label :for="'program_' + index"
+                                    class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                     Intended Program <span class="text-rose-500">*</span>
                                 </label>
-                                <input type="text" x-model="choice.program"
+                                <input :id="'program_' + index" type="text" x-model="choice.program" required
                                     placeholder="e.g. MSc in Human-Computer Interaction"
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                    class="h-10.5 w-full rounded-lg border border-neutral-200 bg-white px-3.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                             </div>
 
+                            {{-- Destination Country --}}
                             <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-                                    University Name <span class="text-rose-500">*</span>
-                                </label>
-                                <input type="text" x-model="choice.university"
-                                    placeholder="e.g. University of Manchester"
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            </div>
-
-                            <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                                <label :for="'country_' + index"
+                                    class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                     Destination Country <span class="text-rose-500">*</span>
                                 </label>
-                                <input type="text" x-model="choice.country"
-                                    placeholder="e.g. United Kingdom"
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                <div class="relative">
+                                    <select :id="'country_' + index" x-model="choice.country" required
+                                        class="h-10.5 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                                        <option value="">Select Country</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="Ireland">Ireland</option>
+                                        <option value="New Zealand">New Zealand</option>
+                                        <option value="Netherlands">Netherlands</option>
+                                        <option value="Sweden">Sweden</option>
+                                        <option value="Malaysia">Malaysia</option>
+                                    </select>
+                                    <iconify-icon icon="lucide:chevron-down"
+                                        class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-base text-neutral-400"></iconify-icon>
+                                </div>
                             </div>
 
+                            {{-- Study Intake --}}
                             <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Program Duration</label>
-                                <input type="text" x-model="choice.duration"
-                                    placeholder="e.g. 1 Year / 24 Months"
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
+                                <label :for="'intake_' + index"
+                                    class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                    Study Intake <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <select :id="'intake_' + index" x-model="choice.start_date" required
+                                        class="h-10.5 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                                        <option value="">Select Intake</option>
+                                        <option value="Spring 2027">Spring 2027 (Jan – Feb)</option>
+                                        <option value="Summer 2027">Summer 2027 (May – Jun)</option>
+                                        <option value="Fall 2027">Fall 2027 (Sep – Oct)</option>
+                                        <option value="Spring 2028">Spring 2028 (Jan – Feb)</option>
+                                        <option value="Summer 2028">Summer 2028 (May – Jun)</option>
+                                        <option value="Fall 2028">Fall 2028 (Sep – Oct)</option>
+                                    </select>
+                                    <iconify-icon icon="lucide:chevron-down"
+                                        class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-base text-neutral-400"></iconify-icon>
+                                </div>
                             </div>
 
-                            <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Intended Start Date</label>
-                                <input type="month" x-model="choice.start_date"
-                                    class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all cursor-pointer">
-                            </div>
-
-                            <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Expected End Date</label>
-                                <input type="month" x-model="choice.end_date"
-                                    class="w-full px-4 py-2.5 rounded-lg border border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all cursor-pointer">
-                            </div>
-
-                            <div>
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Tuition Fee</label>
-                                <input type="text" x-model="choice.tuition"
-                                    placeholder="e.g. £28,500 / year"
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            </div>
-
+                            {{-- Summary --}}
                             <div class="sm:col-span-2 lg:col-span-3">
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Scholarship / Funding Status</label>
-                                <input type="text" x-model="choice.scholarship"
-                                    placeholder="e.g. Self-funded, Merit Award Applied, etc."
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
-                            </div>
-
-                            <div class="sm:col-span-2 lg:col-span-3">
-                                <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Study Plan Summary & Academic Motivation</label>
-                                <textarea x-model="choice.summary" rows="3"
-                                    placeholder="Explain your academic objective, alignment with career goals, and reasons for selecting this university..."
-                                    class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all resize-y"></textarea>
+                                <label :for="'summary_' + index"
+                                    class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                    Study Plan Summary & Academic Motivation
+                                </label>
+                                <textarea :id="'summary_' + index" x-model="choice.summary" rows="3"
+                                    placeholder="Explain your academic objective, alignment with career goals, and reasons for selecting this country and program..."
+                                    class="min-h-[88px] w-full resize-y rounded-lg border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"></textarea>
                             </div>
 
                         </div>
@@ -194,19 +215,21 @@
         </div>
 
         {{-- Footer --}}
-        <div class="flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-neutral-50/50 dark:bg-neutral-800/30 border-t border-neutral-100 dark:border-neutral-800">
+        <div
+            class="flex items-center justify-between gap-3 border-t border-neutral-100 bg-neutral-50/70 px-4 py-4 sm:px-8 dark:border-neutral-800 dark:bg-neutral-800/30">
             <button type="button" @click="$dispatch('go-to-step', 2)"
-                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                class="inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
                 <iconify-icon icon="lucide:arrow-left" class="text-sm"></iconify-icon>
                 Back
             </button>
-            <div class="flex items-center gap-3">
+
+            <div class="flex items-center gap-2.5">
                 <button type="button" onclick="window.location.reload()"
-                    class="px-4 py-2.5 rounded-lg text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                    class="rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
                     Discard
                 </button>
                 <button type="submit"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 text-white text-xs font-bold shadow-xs hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98] transition-all">
+                    class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-xs font-bold text-white shadow-xs transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
                     <iconify-icon icon="lucide:check" class="text-sm"></iconify-icon>
                     Save & Continue
                 </button>
@@ -217,32 +240,34 @@
 </div>
 
 @push('scripts')
-<script>
-function studyPlanForm(initial) {
-    return {
-        targetDegree: initial.targetDegree,
-        choices:      initial.choices,
+    <script>
+        function studyPlanForm(initial) {
+            return {
+                targetDegree: initial.targetDegree ?? '',
+                choices: Array.isArray(initial.choices) ? initial.choices : [],
 
-        init() {
-            if (this.choices.length === 0) {
-                this.addChoice();
-            }
-        },
+                init() {
+                    if (this.choices.length === 0) {
+                        this.addChoice();
+                    }
+                },
 
-        addChoice() {
-            this.choices.push({
-                id: Date.now(), program: '', university: '', country: '',
-                duration: '', start_date: '', end_date: '',
-                tuition: '', scholarship: '', summary: ''
-            });
-        },
+                addChoice() {
+                    this.choices.push({
+                        id: Date.now() + Math.random(),
+                        program: '',
+                        country: '',
+                        start_date: '',
+                        summary: ''
+                    });
+                },
 
-        removeChoice(index) {
-            if (this.choices.length > 1) {
-                this.choices.splice(index, 1);
-            }
-        },
-    };
-}
-</script>
+                removeChoice(index) {
+                    if (this.choices.length > 1) {
+                        this.choices.splice(index, 1);
+                    }
+                },
+            };
+        }
+    </script>
 @endpush

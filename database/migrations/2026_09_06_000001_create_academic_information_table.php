@@ -24,22 +24,7 @@ return new class extends Migration
             $table->string('highest_max_gpa')->nullable();
 
             // Education History (JSON array of entries)
-            $table->json('education_history')->nullable();
-
-            // IELTS
-            $table->string('ielts_overall')->nullable();
-            $table->date('ielts_test_date')->nullable();
-            $table->string('ielts_listening')->nullable();
-            $table->string('ielts_reading')->nullable();
-            $table->string('ielts_writing')->nullable();
-            $table->string('ielts_speaking')->nullable();
-
-            // GRE
-            $table->string('gre_combined')->nullable();
-            $table->date('gre_test_date')->nullable();
-            $table->string('gre_quant')->nullable();
-            $table->string('gre_verbal')->nullable();
-            $table->string('gre_awa')->nullable();
+            $table->json('education_history')->nullable();          
 
             $table->timestamps();
         });
