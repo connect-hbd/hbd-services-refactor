@@ -16,6 +16,7 @@ class Address extends Model
         'address',
         'city_id',
         'country_id',
+        'post_code',
     ];
 
     public function student(): BelongsTo

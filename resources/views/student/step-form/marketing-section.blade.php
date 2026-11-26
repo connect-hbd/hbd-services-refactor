@@ -1,5 +1,5 @@
 @php
-    $data = $data ?? [
+    $data = array_merge([
         'referral_id' => null,
         'check_student' => (object) [
             'known_by' => "Our Student's recommendation.",
@@ -17,7 +17,7 @@
             'Canada & USA Admission Day 2026 - Sylhet',
             'Global Higher Study Summit 2026 - Uttara',
         ],
-    ];
+    ], $data ?? []);
 
     $student = isset($data['check_student']) ? optional($data['check_student']) : null;
 
@@ -120,6 +120,10 @@
         ],
     ];
 @endphp
+
+<form action="{{ route('student.referral.update') }}" method="POST">
+    @csrf
+    @method('PUT')
 
 <div x-data="{
     knownBy: @js($initialKnownBy),
@@ -368,3 +372,4 @@
         </div>
     </div>
 </div>
+</form>

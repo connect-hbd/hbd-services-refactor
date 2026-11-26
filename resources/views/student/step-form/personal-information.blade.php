@@ -40,7 +40,8 @@
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Full Name
                         </label>
-                        <input type="text" name="name" value=""
+                        <input type="text" name="name"
+                            value="{{ old('name', $student->user?->name) }}"
                             class="w-full h-10 px-3.5 text-sm rounded-lg border border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80 text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                             placeholder="John Doe">
                         @error('name')
@@ -58,7 +59,8 @@
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Phone Number
                         </label>
-                        <input type="text" name="phone" value=""
+                        <input type="text" name="phone"
+                            value="{{ old('phone', $student->user?->phone) }}"
                             class="w-full h-10 px-3.5 text-sm rounded-lg border border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80 text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                             placeholder="01978855506">
                         @error('phone')

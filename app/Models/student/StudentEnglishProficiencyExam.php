@@ -19,9 +19,11 @@ class StudentEnglishProficiencyExam extends Model
         'reading_score',
         'writing_score',
         'speaking_score',
+        'scores',
     ];
 
     protected $casts = [
+        'scores' => 'array',
         'year' => 'integer',
         'overall_score' => 'decimal:2',
         'listening_score' => 'decimal:2',

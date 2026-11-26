@@ -117,7 +117,10 @@ class Student extends Model
     {
         if ($completedStep >= $this->profile_step) {
             $next = min($completedStep + 1, 6);
-            $this->update(['profile_step' => $next]);
+
+            if ($next !== $this->profile_step) {
+                $this->update(['profile_step' => $next]);
+            }
         }
     }
     public function scopeSearch($query, $search)
@@ -133,8 +136,14 @@ class Student extends Model
     {
         return $this->hasMany(StudentEnglishProficiency::class);
     }
+
+    public function englishProficiency()
+    {
+        return $this->hasOne(StudentEnglishProficiency::class);
+    }
+
     public function referral()
-{
-    return $this->hasOne(Referrals::class, 'student_id');
-}
+    {
+        return $this->hasOne(Referrals::class, 'student_id');
+    }
 }

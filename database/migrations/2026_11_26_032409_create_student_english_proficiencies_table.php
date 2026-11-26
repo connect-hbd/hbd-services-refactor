@@ -23,8 +23,8 @@ return new class extends Migration
             $table->date('exam_date')->nullable();
 
             // Course Information
-            $table->string('course_name');
-            $table->string('mode', 50);
+            $table->string('course_name')->nullable();
+            $table->string('mode', 50)->nullable();
             // online, in_person_campus, one_on_one_intensive
 
             $table->decimal('target_score', 5, 2)->nullable();

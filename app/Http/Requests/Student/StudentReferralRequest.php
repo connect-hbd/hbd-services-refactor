@@ -6,42 +6,24 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StudentReferralRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     public function rules(): array
     {
         return [
-            'known_by' => [
-                'required',
-                'string',
-                'max:100',
-            ],
+            'known_by' => ['required', 'string', 'max:100'],
 
-            'known_by_details' => [
-                'nullable',
-                'string',
-            ],
+            'known_by_details' => ['nullable', 'string', 'max:3000'],
 
-            'employee' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
+            'employee' => ['nullable', 'string', 'max:255'],
 
-            'expo' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
+            'expo' => ['nullable', 'string', 'max:255'],
 
-            'permission' => [
-                'nullable',
-                'boolean',
-            ],
+            // The final UI checkbox submits the literal value "granted".
+            'permission' => ['nullable', 'string', 'in:granted'],
         ];
     }
 
@@ -50,7 +32,7 @@ class StudentReferralRequest extends FormRequest
         return [
             'known_by.required' => 'Please select how you heard about us.',
             'known_by.max' => 'The referral source may not exceed 100 characters.',
-            'permission.boolean' => 'Invalid permission value.',
+            'permission.in' => 'Invalid permission value.',
         ];
     }
 }

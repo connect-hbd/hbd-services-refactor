@@ -10,12 +10,21 @@ class ImmigrationRefusal extends Model
     protected $fillable = [
         'student_id',
         'country',
-        'date',
+        'status',
+        'refusal_date',
         'grounds',
         'document_path',
         'document_name',
         'sort_order',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'refusal_date' => 'date',
+            'sort_order'   => 'integer',
+        ];
+    }
 
     public function student()
     {

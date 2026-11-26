@@ -9,6 +9,7 @@ class WorkExperience extends Model
 {
     protected $fillable = [
         'student_id',
+        'status',
         'title',
         'organization',
         'start_date',

@@ -17,14 +17,15 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('exam_name');
-            $table->unsignedSmallInteger('year');
+            $table->unsignedSmallInteger('year')->nullable();
 
             // Exam Scores
-            $table->decimal('overall_score', 5, 2);
+            $table->decimal('overall_score', 5, 2)->nullable();
             $table->decimal('listening_score', 5, 2)->nullable();
             $table->decimal('reading_score', 5, 2)->nullable();
             $table->decimal('writing_score', 5, 2)->nullable();
             $table->decimal('speaking_score', 5, 2)->nullable();
+            $table->json('scores')->nullable();
 
             $table->timestamps();
 

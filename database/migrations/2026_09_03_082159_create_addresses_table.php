@@ -34,6 +34,7 @@ return new class extends Migration
             ->nullable()
             ->constrained('countries')
             ->nullOnDelete();
+        $table->string('post_code', 20)->nullable();
 
         $table->timestamps();
 

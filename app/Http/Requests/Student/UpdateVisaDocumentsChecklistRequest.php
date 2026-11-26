@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Student;
 
-use App\Models\Profile\StudentDocument;
+use App\Models\student\StudentDocument;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateVisaDocumentsChecklistRequest extends FormRequest

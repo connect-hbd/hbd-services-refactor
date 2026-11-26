@@ -16,6 +16,7 @@ class UpdateStudyPlanRequest extends FormRequest
     {
         return [
             'target_degree' => [
+                'sometimes',
                 'required',
                 'string',
                 Rule::in(["Master's Degree", "Bachelor's Degree", "PhD / Doctorate", "Postgraduate Diploma"]),
@@ -26,13 +27,11 @@ class UpdateStudyPlanRequest extends FormRequest
             | University / Program Choices (at least one required)
             |--------------------------------------------------------------------------
             */
-            'choices'                  => ['required', 'array', 'min:1'],
-            'choices.*.program'        => ['required', 'string', 'max:255'],
-            'choices.*.country'        => ['required', 'string', 'max:100'],
-           
-            'choices.*.intake'     => ['nullable', 'string', 'max:20'],
-           
-            'choices.*.summary'        => ['nullable', 'string', 'max:3000'],
+            'choices'               => ['sometimes', 'required', 'array', 'min:1'],
+            'choices.*.program'     => ['required', 'string', 'max:255'],
+            'choices.*.country'     => ['required', 'string', 'max:100'],
+            'choices.*.start_date'  => ['required', 'string', 'max:50'],
+            'choices.*.summary'     => ['nullable', 'string', 'max:3000'],
         ];
     }
 
@@ -41,6 +40,7 @@ class UpdateStudyPlanRequest extends FormRequest
         return [
             'choices.*.program'    => 'intended program',
             'choices.*.country'    => 'destination country',
+            'choices.*.start_date' => 'study intake',
         ];
     }
 }

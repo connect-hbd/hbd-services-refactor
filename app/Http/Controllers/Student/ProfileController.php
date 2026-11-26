@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Student\StudentReferralRequest;
 use App\Http\Requests\Student\UpdateAcademicInformationRequest;
 use App\Http\Requests\Student\UpdateImmigrationHistoryRequest;
 use App\Http\Requests\Student\UpdatePersonalInformationRequest;
@@ -10,11 +11,15 @@ use App\Http\Requests\Student\UpdateStudyPlanRequest;
 use App\Http\Requests\Student\UpdateWorkExperienceRequest;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\Profile\StudyPlan;
+use App\Models\student\StudentEmail;
+use App\Models\student\StudentEnglishProficiency;
+use App\Models\student\StudentPhone;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Traits\HandlesFiles;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,12 +40,13 @@ class ProfileController extends Controller
         return view('student.index');
     }
 
-  public function accountSettings(Request $request)
+    public function accountSettings(Request $request)
     {
         $user = $request->user();
 
         return view('student.settings', compact('user'));
     }
+
     public function accountSettingUpdate(Request $request): RedirectResponse
     {
         $user = $request->user();
@@ -52,7 +58,6 @@ class ProfileController extends Controller
         ]);
 
         $data = [];
-
 
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $this->replaceFile(
@@ -75,6 +80,10 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Profile updated successfully.');
     }
+
+    // =========================================================================
+    // Study abroad wizard
+    // =========================================================================
 
     public function studyAbroad(Request $request)
     {
@@ -101,7 +110,8 @@ class ProfileController extends Controller
             && $permanentAddress
             && $currentAddress->address    === $permanentAddress->address
             && $currentAddress->city_id    === $permanentAddress->city_id
-            && $currentAddress->country_id === $permanentAddress->country_id;
+            && $currentAddress->country_id === $permanentAddress->country_id
+            && $currentAddress->post_code  === $permanentAddress->post_code;
 
         // ── Step 2 data ──────────────────────────────────────────────────────
         $academicInformation = $student->academicInformation;
@@ -116,9 +126,19 @@ class ProfileController extends Controller
         $immigrationRefusals = $student->immigrationRefusals()->get();
 
         // ── Step 6 data ──────────────────────────────────────────────────────
-       $referral = $student->referral()->get();
+        $referral = $student->referral;
 
-        // ── Active step (driven by query-string after a successful save) ──────
+        $data = [
+            'referral_id'   => $referral?->id,
+            'check_student' => $referral
+                ? (object) [
+                    'known_by'         => $referral->known_by,
+                    'known_by_details' => $referral->known_by_details,
+                ]
+                : null,
+        ];
+
+        // ── Active step (driven by the query string after each save) ─────────
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
         $activeStep = max(1, min(6, $activeStep));
 
@@ -134,15 +154,26 @@ class ProfileController extends Controller
             'workExperiences',
             'immigrationRefusals',
             'referral',
+            'data',
             'activeStep',
         ));
     }
 
-
-     public function englishProficiency(Request $request)
+    public function englishProficiency(Request $request)
     {
         return view('student.hla');
     }
+
+    public function dashboard()
+    {
+        $student = auth()->user()->student;
+
+        return view('student.dashboard', compact('student'));
+    }
+
+    // =========================================================================
+    // Step 1 — Personal Information
+    // =========================================================================
 
     public function updatePersonalInformation(
         UpdatePersonalInformationRequest $request
@@ -150,56 +181,83 @@ class ProfileController extends Controller
         $student = $request->user()->student;
         abort_if(! $student, 404, 'Student profile not found.');
 
-        $validated    = $request->validated();
-        $sameAddress  = (bool) ($validated['same_address'] ?? false);
+        $validated = $request->validated();
+        $sameAddress = (bool) ($validated['same_address'] ?? false);
 
-        DB::transaction(function () use ($student, $validated, $sameAddress) {
-            $student->update([
-                'date_of_birth'        => $validated['date_of_birth']        ?? null,
-                'gender'               => $validated['gender']               ?? null,
-                'nationality'          => $validated['nationality']          ?? null,
-                'place_of_birth'       => $validated['place_of_birth']       ?? null,
-                'marital_status'       => $validated['marital_status']       ?? null,
-                'passport_number'      => $validated['passport_number']      ?? null,
-                'passport_issue_date'  => $validated['passport_issue_date']  ?? null,
-                'passport_expiry_date' => $validated['passport_expiry_date'] ?? null,
+        DB::transaction(function () use ($student, $request, $validated, $sameAddress) {
+            // User account fields (only when actually submitted / changed).
+            $userChanges = $this->changedOnly(
+                $request->user(),
+                Arr::only($validated, ['name', 'phone'])
+            );
+            if ($userChanges !== []) {
+                $request->user()->update($userChanges);
+            }
+
+            // Student fields.
+            $studentChanges = $this->changedOnly($student, Arr::only($validated, [
+                'date_of_birth',
+                'gender',
+                'marital_status',
+                'passport_number',
+                'passport_issue_date',
+                'passport_expiry_date',
+            ]));
+            if ($studentChanges !== []) {
+                $student->update($studentChanges);
+            }
+
+            $currentAddress = $student->addresses()->where('type', 'current')->first();
+
+            $currentData = $this->mapOnlyPresent($validated, [
+                'current_address'    => 'address',
+                'current_city_id'    => 'city_id',
+                'current_country_id' => 'country_id',
+                'current_post_code'  => 'post_code',
             ]);
+            $this->syncAddress($student, 'current', $currentData);
 
-            $student->addresses()->updateOrCreate(
-                ['type' => 'current'],
-                [
-                    'address'    => $validated['current_address']    ?? null,
-                    'city_id'    => $validated['current_city_id']    ?? null,
-                    'country_id' => $validated['current_country_id'] ?? null,
-                ]
-            );
+            if ($sameAddress) {
+                // Mirror the current address without ever clearing a stored
+                // value that was not part of this request.
+                $permanentData = [];
+                foreach (['address', 'city_id', 'country_id', 'post_code'] as $field) {
+                    if (array_key_exists($field, $currentData)) {
+                        $permanentData[$field] = $currentData[$field];
+                    } elseif ($currentAddress) {
+                        $permanentData[$field] = $currentAddress->{$field};
+                    }
+                }
+            } else {
+                $permanentData = $this->mapOnlyPresent($validated, [
+                    'permanent_address'    => 'address',
+                    'permanent_city_id'    => 'city_id',
+                    'permanent_country_id' => 'country_id',
+                    'permanent_post_code'  => 'post_code',
+                ]);
+            }
+            $this->syncAddress($student, 'permanent', $permanentData);
 
-            $permanentData = $sameAddress
-                ? [
-                    'address'    => $validated['current_address']    ?? null,
-                    'city_id'    => $validated['current_city_id']    ?? null,
-                    'country_id' => $validated['current_country_id'] ?? null,
-                ]
-                : [
-                    'address'    => $validated['permanent_address']    ?? null,
-                    'city_id'    => $validated['permanent_city_id']    ?? null,
-                    'country_id' => $validated['permanent_country_id'] ?? null,
-                ];
+            if (array_key_exists('alt_phone', $validated)) {
+                $this->syncAlternativePhones($student, $validated['alt_phone'] ?? []);
+            }
 
-            $student->addresses()->updateOrCreate(
-                ['type' => 'permanent'],
-                $permanentData
-            );
+            if (array_key_exists('alt_email', $validated)) {
+                $this->syncAlternativeEmails($student, $validated['alt_email'] ?? []);
+            }
+
+            if (array_key_exists('destination_id', $validated)) {
+                $this->syncDestinations($student, $validated['destination_id'] ?? []);
+            }
         });
 
         $student->advanceStepTo(1);
 
-        return redirect()
-            ->route('student.account.settings', ['step' => 2]);
+        return redirect()->route('student.study-abroad', ['step' => 2]);
     }
 
     // =========================================================================
-    // Step 2 — Academic Information
+    // Step 2 — Academic Information (+ English Proficiency)
     // =========================================================================
 
     public function updateAcademicInformation(
@@ -210,33 +268,51 @@ class ProfileController extends Controller
 
         $validated = $request->validated();
 
-        $student->academicInformation()->updateOrCreate(
-            ['student_id' => $student->id],
-            [
-                'highest_degree'      => $validated['highest_degree'],
-                'highest_institution' => $validated['highest_institution'],
-                'highest_grad_date'   => $validated['highest_grad_date'],
-                'highest_gpa'         => $validated['highest_gpa'],
-                'highest_max_gpa'     => $validated['highest_max_gpa']     ?? null,
-                'education_history'   => $validated['education_history']   ?? [],
-                'ielts_overall'       => $validated['ielts_overall']       ?? null,
-                'ielts_test_date'     => $validated['ielts_test_date']     ?? null,
-                'ielts_listening'     => $validated['ielts_listening']     ?? null,
-                'ielts_reading'       => $validated['ielts_reading']       ?? null,
-                'ielts_writing'       => $validated['ielts_writing']       ?? null,
-                'ielts_speaking'      => $validated['ielts_speaking']      ?? null,
-                'gre_combined'        => $validated['gre_combined']        ?? null,
-                'gre_test_date'       => $validated['gre_test_date']       ?? null,
-                'gre_quant'           => $validated['gre_quant']           ?? null,
-                'gre_verbal'          => $validated['gre_verbal']          ?? null,
-                'gre_awa'             => $validated['gre_awa']             ?? null,
-            ]
-        );
+        DB::transaction(function () use ($student, $validated) {
+            $academic = $student->academicInformation()
+                ->firstOrNew(['student_id' => $student->id]);
+
+            $changes = $this->changedOnly($academic, Arr::only($validated, [
+                'highest_degree',
+                'highest_institution',
+                'highest_grad_date',
+                'highest_gpa',
+                'highest_max_gpa',
+                'education_history',
+            ]));
+
+            if ($changes !== [] || ! $academic->exists) {
+                $academic->fill($changes)->save();
+            }
+
+            if (! array_key_exists('status', $validated)) {
+                return;
+            }
+
+            $proficiency = $student->englishProficiency()
+                ->firstOrNew(['student_id' => $student->id]);
+
+            $proficiencyData = ['status' => $validated['status']];
+            if (array_key_exists('planned_exam_name', $validated)) {
+                $proficiencyData['exam_name'] = $validated['planned_exam_name'];
+            }
+            if (array_key_exists('exam_date', $validated)) {
+                $proficiencyData['exam_date'] = $validated['exam_date'];
+            }
+
+            $proficiencyChanges = $this->changedOnly($proficiency, $proficiencyData);
+            if ($proficiencyChanges !== [] || ! $proficiency->exists) {
+                $proficiency->fill($proficiencyData)->save();
+            }
+
+            if ($validated['status'] === 'yes' && array_key_exists('exams', $validated)) {
+                $this->syncEnglishExams($proficiency, $validated['exams'] ?? []);
+            }
+        });
 
         $student->advanceStepTo(2);
 
-        return redirect()
-            ->route('student.account.settings', ['step' => 3]);
+        return redirect()->route('student.study-abroad', ['step' => 3]);
     }
 
     // =========================================================================
@@ -252,35 +328,51 @@ class ProfileController extends Controller
         $validated = $request->validated();
 
         DB::transaction(function () use ($student, $validated) {
-            /** @var StudyPlan $plan */
-            $plan = $student->studyPlan()->updateOrCreate(
-                ['student_id' => $student->id],
-                ['target_degree' => $validated['target_degree']]
+            $plan = $student->studyPlan()
+                ->firstOrNew(['student_id' => $student->id]);
+
+            $degreeChanges = $this->changedOnly(
+                $plan,
+                Arr::only($validated, ['target_degree'])
             );
-
-            // Sync choices: delete old ones and re-insert in submitted order
-            $plan->choices()->delete();
-
-            foreach ($validated['choices'] as $i => $choice) {
-                $plan->choices()->create([
-                    'sort_order'  => $i,
-                    'program'     => $choice['program'],
-                    'university'  => $choice['university'],
-                    'country'     => $choice['country'],
-                    'duration'    => $choice['duration']    ?? null,
-                    'start_date'  => $choice['start_date']  ?? null,
-                    'end_date'    => $choice['end_date']    ?? null,
-                    'tuition'     => $choice['tuition']     ?? null,
-                    'scholarship' => $choice['scholarship'] ?? null,
-                    'summary'     => $choice['summary']     ?? null,
-                ]);
+            if ($degreeChanges !== [] || ! $plan->exists) {
+                $plan->fill($degreeChanges)->save();
             }
+
+            if (! array_key_exists('choices', $validated)) {
+                return;
+            }
+
+            $choices = $validated['choices'] ?? [];
+            $existing = $plan->choices()->orderBy('sort_order')->get();
+
+            foreach ($choices as $index => $choice) {
+                $data = [
+                    'sort_order' => $index,
+                    'program'    => $choice['program'],
+                    'country'    => $choice['country'],
+                    'start_date' => $choice['start_date'],
+                    'summary'    => $choice['summary'] ?? null,
+                ];
+
+                $model = $existing->get($index);
+                if ($model) {
+                    $changes = $this->changedOnly($model, $data);
+                    if ($changes !== []) {
+                        $model->update($changes);
+                    }
+                } else {
+                    $plan->choices()->create($data);
+                }
+            }
+
+            // Only remove rows the user actually deleted.
+            $existing->slice(count($choices))->each->delete();
         });
 
         $student->advanceStepTo(3);
 
-        return redirect()
-            ->route('student.account.settings', ['step' => 4]);
+        return redirect()->route('student.study-abroad', ['step' => 4]);
     }
 
     // =========================================================================
@@ -296,26 +388,51 @@ class ProfileController extends Controller
         $validated = $request->validated();
 
         DB::transaction(function () use ($student, $validated) {
-            $student->workExperiences()->delete();
+            if (($validated['status'] ?? null) === 'no') {
+                // An explicit "No work experience" answer clears the entries.
+                $student->workExperiences()->delete();
 
-            foreach ($validated['roles'] as $i => $role) {
-                $student->workExperiences()->create([
-                    'sort_order'   => $i,
+                return;
+            }
+
+            if (! array_key_exists('roles', $validated)) {
+                return;
+            }
+
+            $roles = $validated['roles'] ?? [];
+            $existing = $student->workExperiences()->orderBy('sort_order')->get();
+
+            foreach ($roles as $index => $role) {
+                $isCurrent = (bool) ($role['is_current'] ?? false);
+
+                $data = [
+                    'status'       => 'yes',
+                    'sort_order'   => $index,
                     'title'        => $role['title'],
                     'organization' => $role['organization'],
-                    'department'   => $role['department']  ?? null,
                     'start_date'   => $role['start_date'],
-                    'end_date'     => $role['is_current'] ?? false ? null : ($role['end_date'] ?? null),
-                    'is_current'   => $role['is_current'] ?? false,
+                    'end_date'     => $isCurrent ? null : ($role['end_date'] ?? null),
+                    'is_current'   => $isCurrent,
                     'description'  => $role['description'] ?? null,
-                ]);
+                ];
+
+                $model = $existing->get($index);
+                if ($model) {
+                    $changes = $this->changedOnly($model, $data);
+                    if ($changes !== []) {
+                        $model->update($changes);
+                    }
+                } else {
+                    $student->workExperiences()->create($data);
+                }
             }
+
+            $existing->slice(count($roles))->each->delete();
         });
 
         $student->advanceStepTo(4);
 
-        return redirect()
-            ->route('student.account.settings', ['step' => 5]);
+        return redirect()->route('student.study-abroad', ['step' => 5]);
     }
 
     // =========================================================================
@@ -330,55 +447,318 @@ class ProfileController extends Controller
 
         $validated = $request->validated();
 
-        DB::transaction(function () use ($student, $validated, $request) {
-            // Collect existing document paths before deleting records
-            $existingPaths = $student->immigrationRefusals()
-                ->whereNotNull('document_path')
-                ->pluck('document_path');
+        DB::transaction(function () use ($student, $request, $validated) {
+            $existing = $student->immigrationRefusals()->orderBy('sort_order')->get();
 
-            $student->immigrationRefusals()->delete();
-
-            // Delete old uploaded files
-            foreach ($existingPaths as $oldPath) {
-                $this->deleteFile($oldPath);
-            }
-
-            foreach ($validated['refusals'] as $i => $refusal) {
-                $docPath = null;
-                $docName = null;
-
-                // Handle optional per-record file upload via HandlesFiles trait
-                if ($request->hasFile("refusals.{$i}.document")) {
-                    $file    = $request->file("refusals.{$i}.document");
-                    $docPath = $this->uploadFile(
-                        $file,
-                        "students/{$student->id}/immigration"
-                    );
-                    $docName = $file->getClientOriginalName();
+            if (($validated['status'] ?? null) === 'no') {
+                // An explicit "No visa refusal" answer removes the records
+                // and their uploaded letters.
+                foreach ($existing as $refusal) {
+                    $this->deleteFile($refusal->document_path);
+                    $refusal->delete();
                 }
 
-                $student->immigrationRefusals()->create([
-                    'sort_order'    => $i,
-                    'country'       => $refusal['country'],
-                    'visa_type'     => $refusal['visa_type'],
-                    'year'          => $refusal['year'],
-                    'status'        => $refusal['status'] ?? 'Refused',
-                    'grounds'       => $refusal['grounds'],
-                    'document_path' => $docPath,
-                    'document_name' => $docName,
-                ]);
+                return;
+            }
+
+            if (! array_key_exists('refusals', $validated)) {
+                return;
+            }
+
+            $refusals = $validated['refusals'] ?? [];
+            $byId = $existing->keyBy('id');
+            $keptIds = [];
+
+            foreach ($refusals as $index => $refusal) {
+                $record = null;
+
+                if (! empty($refusal['id']) && $byId->has((int) $refusal['id'])) {
+                    $record = $byId->get((int) $refusal['id']);
+                } else {
+                    $record = $existing->first(
+                        fn ($item) => (int) $item->sort_order === $index
+                            && ! in_array($item->id, $keptIds, true)
+                    );
+                }
+
+                $data = [
+                    'status'      => 'yes',
+                    'sort_order'  => $refusal['sort_order'] ?? $index,
+                    'country'     => $refusal['country'],
+                    'refusal_date'=> $refusal['refusal_date'] ?? null,
+                    'grounds'     => $refusal['grounds'] ?? null,
+                ];
+
+                if ($request->hasFile("refusals.{$index}.document")) {
+                    $file = $request->file("refusals.{$index}.document");
+                    $directory = "students/{$student->id}/immigration";
+
+                    $data['document_path'] = $record?->document_path
+                        ? $this->replaceFile($file, $record->document_path, $directory)
+                        : $this->uploadFile($file, $directory);
+                    $data['document_name'] = $file->getClientOriginalName();
+                }
+
+                if ($record) {
+                    $changes = $this->changedOnly($record, $data);
+                    if ($changes !== []) {
+                        $record->update($changes);
+                    }
+                    $keptIds[] = $record->id;
+                } else {
+                    $created = $student->immigrationRefusals()->create($data);
+                    $keptIds[] = $created->id;
+                }
+            }
+
+            foreach ($existing as $refusal) {
+                if (! in_array($refusal->id, $keptIds, true)) {
+                    $this->deleteFile($refusal->document_path);
+                    $refusal->delete();
+                }
             }
         });
 
         $student->advanceStepTo(5);
 
-        return redirect()
-            ->route('student.account.settings', ['step' => 6]);
+        return redirect()->route('student.study-abroad', ['step' => 6]);
     }
 
-    public function updateReferralHistory(){
+    // =========================================================================
+    // Step 6 — Referral (final submit)
+    // =========================================================================
+
+    public function updateReferralHistory(StudentReferralRequest $request): RedirectResponse
+    {
+        $student = $request->user()->student;
+        abort_if(! $student, 404, 'Student profile not found.');
+
+        $validated = $request->validated();
+
+        $data = Arr::only($validated, ['known_by', 'known_by_details', 'employee', 'expo']);
+        $data['permission'] = in_array(
+            strtolower((string) ($validated['permission'] ?? '')),
+            ['1', 'true', 'granted', 'yes', 'on'],
+            true
+        );
+
+        $referral = $student->referral()->firstOrNew(['student_id' => $student->id]);
+        $changes = $this->changedOnly($referral, $data);
+
+        if ($changes !== [] || ! $referral->exists) {
+            $referral->fill($data)->save();
+        }
+
+        $student->advanceStepTo(6);
+
+        // Only the final step flashes a message and leaves the wizard.
         return redirect()
             ->route('student.student-dashboard')
             ->with('success', 'Your information saved successfully.');
+    }
+
+    // =========================================================================
+    // Helpers — update only what actually changed
+    // =========================================================================
+
+    /**
+     * Keep only attributes whose value differs from the persisted one.
+     * Missing keys are never added, so untouched fields cannot be wiped.
+     */
+    private function changedOnly(Model $model, array $attributes): array
+    {
+        $changed = [];
+
+        foreach ($attributes as $key => $value) {
+            $current = $model->getAttribute($key);
+
+            if ($current instanceof \Carbon\CarbonInterface) {
+                $current = $current->toDateString();
+            }
+
+            if (is_array($current) || is_array($value)) {
+                $isSame = $current == $value;
+            } elseif (is_numeric($current) && is_numeric($value) && $current !== '' && $value !== '') {
+                $isSame = (float) $current === (float) $value;
+            } else {
+                $isSame = (string) ($current ?? '') === (string) ($value ?? '');
+            }
+
+            if (! $isSame) {
+                $changed[$key] = $value;
+            }
+        }
+
+        return $changed;
+    }
+
+    /**
+     * Map only the request keys that are actually present.
+     */
+    private function mapOnlyPresent(array $source, array $map): array
+    {
+        $result = [];
+
+        foreach ($map as $input => $output) {
+            if (array_key_exists($input, $source)) {
+                $result[$output] = $source[$input];
+            }
+        }
+
+        return $result;
+    }
+
+    private function syncAddress($student, string $type, array $data): void
+    {
+        if ($data === []) {
+            return;
+        }
+
+        $address = $student->addresses()->firstOrNew(['type' => $type]);
+
+        if (! $address->exists) {
+            $address->fill($data)->save();
+
+            return;
+        }
+
+        $changes = $this->changedOnly($address, $data);
+        if ($changes !== []) {
+            $address->update($changes);
+        }
+    }
+
+    private function syncAlternativePhones($student, array $phones): void
+    {
+        $existing = $student->phones()->orderBy('sort_order')->get()->keyBy('sort_order');
+
+        foreach ($phones as $slot => $entry) {
+            $value = $entry['value'] ?? null;
+            $record = $existing->get($slot);
+
+            if (blank($value)) {
+                // The final UI does not prefill these inputs. An empty value
+                // therefore means "not edited", not "delete".
+                continue;
+            }
+
+            // Respect the global unique constraint without exposing another
+            // student's phone number.
+            $conflict = StudentPhone::where('phone', $value)
+                ->where('student_id', '!=', $student->id)
+                ->exists();
+            if ($conflict) {
+                continue;
+            }
+
+            $data = [
+                'phone'       => $value,
+                // An unchecked checkbox is not submitted at all, so presence
+                // means the user ticked it (regardless of its HTML value).
+                'is_whatsapp' => array_key_exists('is_whatsapp', $entry),
+                'sort_order'  => $slot,
+            ];
+
+            if ($record) {
+                $changes = $this->changedOnly($record, $data);
+                if ($changes !== []) {
+                    $record->update($changes);
+                }
+            } else {
+                $student->phones()->create($data);
+            }
+        }
+    }
+
+    private function syncAlternativeEmails($student, array $emails): void
+    {
+        $existing = $student->emails()->orderBy('sort_order')->get()->keyBy('sort_order');
+
+        foreach ($emails as $slot => $value) {
+            $record = $existing->get($slot);
+
+            if (blank($value)) {
+                // See syncAlternativePhones(): never wipe an unedited value.
+                continue;
+            }
+
+            $conflict = StudentEmail::where('email', $value)
+                ->where('student_id', '!=', $student->id)
+                ->exists();
+            if ($conflict) {
+                continue;
+            }
+
+            $data = ['email' => $value, 'sort_order' => $slot];
+
+            if ($record) {
+                $changes = $this->changedOnly($record, $data);
+                if ($changes !== []) {
+                    $record->update($changes);
+                }
+            } else {
+                $student->emails()->create($data);
+            }
+        }
+    }
+
+    private function syncDestinations($student, array $ids): void
+    {
+        if ($ids === [] && $student->destinations()->exists()) {
+            // The multi-select is not pre-populated by the approved UI, so an
+            // empty submission means "not edited" rather than "clear all".
+            return;
+        }
+
+        $resolved = [];
+
+        foreach ($ids as $value) {
+            if (blank($value)) {
+                continue;
+            }
+
+            // The UI currently uses fixed option ids; accept either a real
+            // country id or a country name and skip anything unresolvable.
+            $country = Country::query()->find($value)
+                ?? Country::query()->where('name', $value)->first();
+
+            if ($country) {
+                $resolved[] = $country->id;
+            }
+        }
+
+        $student->destinations()->sync(array_values(array_unique($resolved)));
+    }
+
+    private function syncEnglishExams(StudentEnglishProficiency $proficiency, array $exams): void
+    {
+        $existing = $proficiency->exams()->orderBy('id')->get();
+
+        foreach ($exams as $index => $exam) {
+            $scores = $exam['scores'] ?? [];
+
+            $data = [
+                'exam_name'        => $exam['exam_name'] ?? null,
+                'year'             => $exam['year'] ?? null,
+                'overall_score'    => $scores['overall'] ?? $scores['total'] ?? null,
+                'listening_score'  => $scores['listening'] ?? null,
+                'reading_score'    => $scores['reading'] ?? null,
+                'writing_score'    => $scores['writing'] ?? null,
+                'speaking_score'   => $scores['speaking'] ?? null,
+                'scores'           => $scores,
+            ];
+
+            $model = $existing->get($index);
+            if ($model) {
+                $changes = $this->changedOnly($model, $data);
+                if ($changes !== []) {
+                    $model->update($changes);
+                }
+            } else {
+                $proficiency->exams()->create($data);
+            }
+        }
+
+        $existing->slice(count($exams))->each->delete();
     }
 }
