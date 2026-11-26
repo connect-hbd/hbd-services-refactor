@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profile;
+namespace App\Models\student;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,13 +10,8 @@ class StudyPlanChoice extends Model
         'study_plan_id',
         'sort_order',
         'program',
-        'university',
         'country',
-        'duration',
         'start_date',
-        'end_date',
-        'tuition',
-        'scholarship',
         'summary',
     ];
 

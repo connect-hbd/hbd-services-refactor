@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Profile\Address;
-use App\Models\Profile\AcademicInformation;
-use App\Models\Profile\ImmigrationRefusal;
-use App\Models\Profile\StudentDocument;
-use App\Models\Profile\StudyPlan;
-use App\Models\Profile\WorkExperience;
+use App\Models\student\AcademicInformation;
+use App\Models\student\Address;
+use App\Models\student\ImmigrationRefusal;
+use App\Models\student\StudentDocument;
 use App\Models\student\StudentEmail;
 use App\Models\student\StudentEnglishProficiency;
 use App\Models\student\StudentPhone;
+use App\Models\student\StudyPlan;
+use App\Models\student\WorkExperience;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;

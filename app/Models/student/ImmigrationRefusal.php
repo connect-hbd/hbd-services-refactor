@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profile;
+namespace App\Models\student;
 
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
@@ -10,9 +10,7 @@ class ImmigrationRefusal extends Model
     protected $fillable = [
         'student_id',
         'country',
-        'visa_type',
-        'year',
-        'status',
+        'date',
         'grounds',
         'document_path',
         'document_name',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profile;
+namespace App\Models\student;
 
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,6 @@ class WorkExperience extends Model
         'student_id',
         'title',
         'organization',
-        'department',
         'start_date',
         'end_date',
         'is_current',
