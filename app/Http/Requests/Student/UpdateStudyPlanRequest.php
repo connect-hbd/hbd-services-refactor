@@ -28,13 +28,10 @@ class UpdateStudyPlanRequest extends FormRequest
             */
             'choices'                  => ['required', 'array', 'min:1'],
             'choices.*.program'        => ['required', 'string', 'max:255'],
-            'choices.*.university'     => ['required', 'string', 'max:255'],
             'choices.*.country'        => ['required', 'string', 'max:100'],
-            'choices.*.duration'       => ['nullable', 'string', 'max:100'],
-            'choices.*.start_date'     => ['nullable', 'string', 'max:20'],
-            'choices.*.end_date'       => ['nullable', 'string', 'max:20'],
-            'choices.*.tuition'        => ['nullable', 'string', 'max:100'],
-            'choices.*.scholarship'    => ['nullable', 'string', 'max:255'],
+           
+            'choices.*.intake'     => ['nullable', 'string', 'max:20'],
+           
             'choices.*.summary'        => ['nullable', 'string', 'max:3000'],
         ];
     }
@@ -43,7 +40,6 @@ class UpdateStudyPlanRequest extends FormRequest
     {
         return [
             'choices.*.program'    => 'intended program',
-            'choices.*.university' => 'university name',
             'choices.*.country'    => 'destination country',
         ];
     }

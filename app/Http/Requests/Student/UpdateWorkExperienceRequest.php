@@ -17,7 +17,6 @@ class UpdateWorkExperienceRequest extends FormRequest
             'roles'                   => ['required', 'array', 'min:1'],
             'roles.*.title'           => ['required', 'string', 'max:255'],
             'roles.*.organization'    => ['required', 'string', 'max:255'],
-            'roles.*.department'      => ['nullable', 'string', 'max:255'],
             'roles.*.start_date'      => ['required', 'string', 'max:20'],
             'roles.*.end_date'        => ['nullable', 'string', 'max:20'],
             'roles.*.is_current'      => ['nullable', 'boolean'],

@@ -37,29 +37,7 @@ class UpdateAcademicInformationRequest extends FormRequest
             'education_history.*.country'     => ['nullable', 'string', 'max:100'],
             'education_history.*.year'        => ['nullable', 'digits:4', 'integer', 'min:1950', 'max:2100'],
             'education_history.*.grade'       => ['nullable', 'string', 'max:50'],
-
-            /*
-            |--------------------------------------------------------------------------
-            | IELTS
-            |--------------------------------------------------------------------------
-            */
-            'ielts_overall'    => ['nullable', 'string', 'max:10'],
-            'ielts_test_date'  => ['nullable', 'date'],
-            'ielts_listening'  => ['nullable', 'string', 'max:10'],
-            'ielts_reading'    => ['nullable', 'string', 'max:10'],
-            'ielts_writing'    => ['nullable', 'string', 'max:10'],
-            'ielts_speaking'   => ['nullable', 'string', 'max:10'],
-
-            /*
-            |--------------------------------------------------------------------------
-            | GRE
-            |--------------------------------------------------------------------------
-            */
-            'gre_combined'   => ['nullable', 'string', 'max:10'],
-            'gre_test_date'  => ['nullable', 'date'],
-            'gre_quant'      => ['nullable', 'string', 'max:10'],
-            'gre_verbal'     => ['nullable', 'string', 'max:10'],
-            'gre_awa'        => ['nullable', 'string', 'max:10'],
+         
         ];
     }
 

@@ -25,10 +25,6 @@ class UpdatePersonalInformationRequest extends FormRequest
 
             'gender' => ['required', 'string', Rule::in(['Male', 'Female', 'Other'])],
 
-            'nationality' => ['required', 'string', 'max:100'],
-
-            'place_of_birth' => ['required', 'string', 'max:255'],
-
             'marital_status' => ['required', 'string', Rule::in(['Single', 'Married', 'Divorced', 'Widowed'])],
 
             /*
