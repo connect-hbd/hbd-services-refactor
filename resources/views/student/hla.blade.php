@@ -39,7 +39,7 @@
         </div> --}}
 
         <!-- Main Form Card -->
-        <form action="#" method="POST" @submit="isSubmitting = true"
+        <form action="#" method="POST"
               class="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border p-4 sm:p-6 border-neutral-200/80 dark:border-neutral-800 overflow-hidden">
             @csrf
 
@@ -49,10 +49,10 @@
 
             <div class="space-y-4">
 
-                <!-- Step 1: Select a Course (Interactive Cards) -->
+                <!-- Step 2: Select a Course (Interactive Cards) -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <label class="text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
+                        <label class="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
                             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold">2</span>
                             Select Your Desired Course <span class="text-rose-500">*</span>
                         </label>
@@ -107,9 +107,9 @@
 
                 <hr class="border-neutral-100 dark:border-neutral-800">
 
-                <!-- Step 2: Learning Mode -->
+                <!-- Step 3: Learning Mode -->
                 <div>
-                    <label class="text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2 mb-4">
+                    <label class="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2 mb-4">
                         <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold">3</span>
                         Preferred Learning Mode <span class="text-rose-500">*</span>
                     </label>
@@ -138,9 +138,9 @@
 
                 <hr class="border-neutral-100 dark:border-neutral-800">
 
-                <!-- Step 3: Additional Details -->
+                <!-- Step 4: Additional Details -->
                 <div>
-                    <label class="text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2 mb-4">
+                    <label class="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2 mb-4">
                         <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold">4</span>
                         Goal & Schedule Preferences
                     </label>
@@ -196,7 +196,7 @@
                         :disabled="!testType || isSubmitting"
                         :class="!testType ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-700 shadow-sm'"
                         class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-brand-500/40">
-                    <span x-text="isSubmitting ? 'Submitting Request...' : 'Confirm Course Selection'"></span>
+                    <span x-text="isSubmitting ? 'Submitting Request...' : 'Save Information'"></span>
                     <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon>
                 </button>
             </div>

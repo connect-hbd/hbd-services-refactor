@@ -9,15 +9,17 @@ use App\Models\Profile\StudentDocument;
 use App\Models\Profile\StudyPlan;
 use App\Models\Profile\WorkExperience;
 use App\Models\student\StudentEmail;
+use App\Models\student\StudentEnglishProficiency;
 use App\Models\student\StudentPhone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
     use SoftDeletes;
 
-   protected $fillable = [
+    protected $fillable = [
         'profile_step',
         'user_id',
         'student_number',
@@ -37,7 +39,7 @@ class Student extends Model
 
     protected function casts(): array
     {
-         return [
+        return [
             'date_of_birth' => 'date',
             'passport_issue_date' => 'date',
             'passport_expiry_date' => 'date',
@@ -117,12 +119,17 @@ class Student extends Model
             $this->update(['profile_step' => $next]);
         }
     }
-     public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
             $q->where('student_number', 'like', "%{$search}%")
-              ->orWhere('first_name', 'like', "%{$search}%")
-              ->orWhere('last_name', 'like', "%{$search}%");
+                ->orWhere('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%");
         });
+    }
+
+    public function englishProficiencies(): HasMany
+    {
+        return $this->hasMany(StudentEnglishProficiency::class);
     }
 }

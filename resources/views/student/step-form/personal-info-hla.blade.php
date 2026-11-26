@@ -1,12 +1,13 @@
  {{-- ── Personal Information ────────────────────────────────────────── --}}
  <div class="space-y-4">
-    
-      <div class="flex items-center justify-between mb-4">
-                        <label class="text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold">1</span>
-                            Personal Information 
-                        </label>
-                    </div>
+
+     <div class="flex items-center justify-between mb-4">
+         <label class="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white flex items-center gap-2">
+             <span
+                 class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold">1</span>
+             Personal Information
+         </label>
+     </div>
 
      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
          <div>

@@ -33,7 +33,7 @@
 
                  </button>
                  <!-- Logo -->
-                 <div class="w-28 py-1.5">
+                 <div class="w-20 sm:w-28 py-1.5">
                      <a href="/">
                          <img src="{{ asset('logo.webp') }}" alt="logo" class="w-auto h-auto">
                      </a>

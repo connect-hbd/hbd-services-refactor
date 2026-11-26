@@ -69,15 +69,15 @@
 
                     {{-- Degree Name --}}
                     <div class="sm:col-span-2">
-                        <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                        <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Degree Name <span class="text-rose-500">*</span>
                         </label>
                         <input type="text" name="highest_degree"
                             x-model="highestQual.degree"
                             placeholder="e.g. Bachelor of Science in Computer Science"
-                            class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400
+                            class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                 {{ $errors->has('highest_degree') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
-                                text-xs font-medium text-neutral-800 dark:text-neutral-200
+                                 text-neutral-800 dark:text-neutral-200
                                 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                             required>
                         @error('highest_degree')
@@ -100,15 +100,15 @@
 
                     {{-- Institution & Country --}}
                     <div class="sm:col-span-2">
-                        <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                        <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Institution & Country <span class="text-rose-500">*</span>
                         </label>
                         <input type="text" name="highest_institution"
                             x-model="highestQual.institution"
                             placeholder="e.g. University of Oxford, United Kingdom"
-                            class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400
+                            class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                 {{ $errors->has('highest_institution') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
-                                text-xs font-medium text-neutral-800 dark:text-neutral-200
+                                 text-neutral-800 dark:text-neutral-200
                                 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                             required>
                         @error('highest_institution')
@@ -119,15 +119,15 @@
                     {{-- GPA Score + Scale --}}
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                            <label class="block mb-1.5 text-[13px] font-medium text-neutral-700 dark:text-neutral-300">
                                 GPA Score <span class="text-rose-500">*</span>
                             </label>
                             <input type="text" name="highest_gpa"
                                 x-model="highestQual.gpa"
                                 placeholder="3.50"
-                                class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400
+                                class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                     {{ $errors->has('highest_gpa') ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20' : 'border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700' }}
-                                    text-xs font-medium text-neutral-800 dark:text-neutral-200
+                                     text-neutral-800 dark:text-neutral-200
                                     focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
                                 required>
                             @error('highest_gpa')
@@ -135,13 +135,13 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Scale / Max GPA</label>
+                            <label class="block mb-1.5 text-[13px] font-medium text-neutral-700 dark:text-neutral-300">Scale / Max GPA</label>
                             <input type="text" name="highest_max_gpa"
                                 x-model="highestQual.maxGpa"
                                 placeholder="4.00"
-                                class="w-full px-4 py-2.5 rounded-lg border placeholder:text-neutral-400
+                                class="w-full h-10 px-4 py-2.25 text-sm rounded-lg border placeholder:text-neutral-400
                                     border-neutral-200 bg-neutral-50/30 dark:bg-neutral-800/40 dark:border-neutral-700
-                                    text-xs font-medium text-neutral-800 dark:text-neutral-200
+                                     text-neutral-800 dark:text-neutral-200
                                     focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                         </div>
                     </div>
@@ -199,27 +199,27 @@
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                                 <div>
-                                    <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Degree / Level</label>
+                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Degree / Level</label>
                                     <input type="text" x-model="edu.degree" placeholder="e.g. B.Sc."
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Institution</label>
+                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Institution</label>
                                     <input type="text" x-model="edu.institution" placeholder="Institution Name"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Country</label>
+                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Country</label>
                                     <input type="text" x-model="edu.country" placeholder="Country"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Year Completed</label>
+                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Year Completed</label>
                                     <input type="text" x-model="edu.year" placeholder="YYYY"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">Grade / Score</label>
+                                    <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">Grade / Score</label>
                                     <input type="text" x-model="edu.grade" placeholder="e.g. 3.82 GPA"
                                         class="w-full px-3.5 py-2 rounded-lg border placeholder:text-neutral-400 border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 text-xs font-medium text-neutral-800 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all">
                                 </div>
@@ -272,7 +272,7 @@
                         </div>
                         @foreach(['listening','reading','writing','speaking'] as $band)
                         <div>
-                            <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300 capitalize">{{ $band }}</label>
+                            <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300 capitalize">{{ $band }}</label>
                             <input type="text" name="ielts_{{ $band }}" x-model="ielts.{{ $band }}" placeholder="0.0"
                                 class="w-full px-3 py-2 rounded-lg border placeholder:text-neutral-400
                                     {{ $errors->has('ielts_'.$band) ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
@@ -315,7 +315,7 @@
                         </div>
                         @foreach(['quant' => 'Quant', 'verbal' => 'Verbal', 'awa' => 'AWA'] as $key => $label)
                         <div>
-                            <label class="block mb-1.5 text-xs font-semibold text-neutral-700 dark:text-neutral-300">{{ $label }}</label>
+                            <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ $label }}</label>
                             <input type="text" name="gre_{{ $key }}" x-model="gre.{{ $key }}" placeholder="0"
                                 class="w-full px-3 py-2 rounded-lg border placeholder:text-neutral-400
                                     {{ $errors->has('gre_'.$key) ? 'border-rose-400 bg-rose-50/30' : 'border-neutral-200 dark:border-neutral-700' }}
