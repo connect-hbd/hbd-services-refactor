@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -30,17 +31,15 @@ return new class extends Migration
 
             $table->unsignedTinyInteger('sort_order')->default(0);
 
-            $table->string('program')->nullable();
-            $table->string('university')->nullable();
-            $table->string('country')->nullable();
-            $table->string('duration')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->string('tuition')->nullable();
-            $table->string('scholarship')->nullable();
+            $table->string('program');
+            $table->string('country');
+            $table->string('start_date');
+
             $table->text('summary')->nullable();
 
             $table->timestamps();
+
+            $table->index(['study_plan_id', 'sort_order']);
         });
     }
 

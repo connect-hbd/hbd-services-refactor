@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -16,18 +17,20 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('country');
-            $table->string('visa_type');
-            $table->year('year');
-            $table->string('status')->default('Refused');
+            $table->date('refusal_date')->nullable();
+
             $table->text('grounds')->nullable();
 
-            // Uploaded refusal letter file path
+            // Refusal Letter
             $table->string('document_path')->nullable();
             $table->string('document_name')->nullable();
 
+            // Multiple refusal ordering
             $table->unsignedSmallInteger('sort_order')->default(0);
 
             $table->timestamps();
+
+            $table->index(['student_id', 'sort_order']);
         });
     }
 

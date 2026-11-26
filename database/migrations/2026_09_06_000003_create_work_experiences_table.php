@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('organization');
-            $table->string('department')->nullable();
             $table->string('start_date')->nullable(); // YYYY-MM
             $table->string('end_date')->nullable();   // YYYY-MM or null if current
             $table->boolean('is_current')->default(false);

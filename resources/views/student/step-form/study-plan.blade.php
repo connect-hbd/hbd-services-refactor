@@ -145,7 +145,7 @@
                                 </label>
                                 <input :id="'program_' + index" type="text" x-model="choice.program" required
                                     placeholder="e.g. MSc in Human-Computer Interaction"
-                                    class="h-10.5 w-full rounded-lg border border-neutral-200 bg-white px-3.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                                    class="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                             </div>
 
                             {{-- Destination Country --}}
@@ -156,7 +156,7 @@
                                 </label>
                                 <div class="relative">
                                     <select :id="'country_' + index" x-model="choice.country" required
-                                        class="h-10.5 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                                        class="h-10 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                                         <option value="">Select Country</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="United States">United States</option>
@@ -182,7 +182,7 @@
                                 </label>
                                 <div class="relative">
                                     <select :id="'intake_' + index" x-model="choice.start_date" required
-                                        class="h-10.5 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
+                                        class="h-10 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                                         <option value="">Select Intake</option>
                                         <option value="Spring 2027">Spring 2027 (Jan – Feb)</option>
                                         <option value="Summer 2027">Summer 2027 (May – Jun)</option>
@@ -218,18 +218,18 @@
         <div
             class="flex items-center justify-between gap-3 border-t border-neutral-100 bg-neutral-50/70 px-4 py-4 sm:px-8 dark:border-neutral-800 dark:bg-neutral-800/30">
             <button type="button" @click="$dispatch('go-to-step', 2)"
-                class="inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
+                class="inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
                 <iconify-icon icon="lucide:arrow-left" class="text-sm"></iconify-icon>
                 Back
             </button>
 
             <div class="flex items-center gap-2.5">
                 <button type="button" onclick="window.location.reload()"
-                    class="rounded-xl px-4 py-2.5 text-xs font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
+                    class="rounded-xl px-4 py-2.5 text-sm font-semibold text-neutral-600 transition hover:bg-neutral-200/60 dark:text-neutral-300 dark:hover:bg-neutral-800">
                     Discard
                 </button>
                 <button type="submit"
-                    class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-xs font-bold text-white shadow-xs transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
+                    class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-bold text-white shadow-xs transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98]">
                     <iconify-icon icon="lucide:check" class="text-sm"></iconify-icon>
                     Save & Continue
                 </button>
