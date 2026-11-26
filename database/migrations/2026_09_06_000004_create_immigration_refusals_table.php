@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('student_id')
                 ->constrained('students')
                 ->cascadeOnDelete();
+            $table->string('status', 20)->default('no');
 
             $table->string('country');
             $table->date('refusal_date')->nullable();

@@ -14,7 +14,7 @@
                     Personal &amp; Passport Details
                 </h3>
                 <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-                    Update identity parameters, contact details, and document validation info.
+                    Add/Update your personal info.
                 </p>
             </div>
         </div>
@@ -422,7 +422,7 @@
                             class="h-4 w-4 rounded border-neutral-300 text-brand-600 focus:ring-brand-500 dark:border-neutral-700 dark:bg-neutral-800">
                         <label for="same_address"
                             class="text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer select-none">
-                            Permanent address is the same as current residential address
+                            Permanent address is the same
                         </label>
                     </div>
 
@@ -457,10 +457,7 @@
             {{-- ── Action Buttons ──────────────────────────────────────────────── --}}
             <div
                 class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 pt-5 border-t border-neutral-200/70 dark:border-neutral-800">
-                <button type="button" onclick="window.location.reload()"
-                    class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-sm font-semibold text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-                    Discard
-                </button>
+               
                 <button type="submit"
                     class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold shadow-xs hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.99] transition-all">
                     <iconify-icon icon="lucide:check" class="text-base"></iconify-icon>

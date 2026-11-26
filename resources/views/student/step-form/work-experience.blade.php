@@ -1,6 +1,7 @@
 {{-- Pre-populate Alpine from backend data --}}
 @php
     $initialRoles = [];
+
     if ($workExperiences->count()) {
         foreach ($workExperiences as $i => $we) {
             $initialRoles[] = [
@@ -9,17 +10,30 @@
                 'organization' => old("roles.{$i}.organization", $we->organization ?? ''),
                 'startDate' => old("roles.{$i}.start_date", $we->start_date ?? ''),
                 'endDate' => old("roles.{$i}.end_date", $we->end_date ?? ''),
-                'isCurrent' => (bool) ($we->is_current ?? false),
+                'isCurrent' => (bool) old("roles.{$i}.is_current", $we->is_current ?? false),
                 'description' => old("roles.{$i}.description", $we->description ?? ''),
             ];
         }
     } elseif (old('roles')) {
         foreach (old('roles') as $i => $r) {
-            $initialRoles[] = array_merge(['id' => null, 'isCurrent' => false], $r);
+            $initialRoles[] = [
+                'id' => $r['id'] ?? null,
+                'title' => $r['title'] ?? '',
+                'organization' => $r['organization'] ?? '',
+                'startDate' => $r['start_date'] ?? '',
+                'endDate' => $r['end_date'] ?? '',
+                'isCurrent' => (bool) ($r['is_current'] ?? false),
+                'description' => $r['description'] ?? '',
+            ];
         }
     }
 
-    $initialWorkExperience = ['roles' => $initialRoles];
+    $initialStatus = old('status', count($initialRoles) > 0 ? 'yes' : 'no');
+
+    $initialWorkExperience = [
+        'status' => $initialStatus,
+        'roles' => $initialRoles,
+    ];
 @endphp
 
 <div x-data="workExperienceForm({{ Js::from($initialWorkExperience) }})" x-init="init()"
@@ -45,9 +59,87 @@
         @csrf
         @method('PUT')
 
+        {{-- Work Experience Status Selection --}}
         <div class="px-5 sm:px-8 space-y-6 mb-6">
-
             <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
+                <div class="flex items-center gap-2">
+                    <iconify-icon icon="lucide:layers" class="text-brand-500 text-base"></iconify-icon>
+                    <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">
+                        Have Work Experience ?
+                    </h4>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                {{-- Option: Have No Work Experience --}}
+                <label class="group relative cursor-pointer">
+                    <input type="radio" name="status" value="no" x-model="status" class="sr-only">
+                    <div :class="status === 'no'
+                        ? 'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25'
+                        : 'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
+                        class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
+
+                        <div
+                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
+                            <iconify-icon icon="lucide:calendar-clock" class="text-xl"></iconify-icon>
+                        </div>
+
+                        <div class="min-w-0 flex-1">
+                            <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
+                                No Work Experience
+                            </h5>
+                            <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                                Don't have any work experience
+                            </p>
+                        </div>
+
+                        <span
+                            :class="status === 'no'
+                                ? 'border-brand-600 bg-brand-600 text-white'
+                                : 'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
+                            class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
+                            <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
+                        </span>
+                    </div>
+                </label>
+
+                {{-- Option: Have Work Experience --}}
+                <label class="group relative cursor-pointer">
+                    <input type="radio" name="status" value="yes" x-model="status" class="sr-only">
+                    <div :class="status === 'yes'
+                        ? 'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25'
+                        : 'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
+                        class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
+
+                        <div
+                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
+                            <iconify-icon icon="lucide:badge-check" class="text-xl"></iconify-icon>
+                        </div>
+
+                        <div class="min-w-0 flex-1">
+                            <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
+                                Have Work Experience
+                            </h5>
+                            <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                                I have work experience
+                            </p>
+                        </div>
+
+                        <span
+                            :class="status === 'yes'
+                                ? 'border-brand-600 bg-brand-600 text-white'
+                                : 'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
+                            class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
+                            <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
+                        </span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        {{-- Conditional Work Experience Section (Shown only when status === 'yes') --}}
+        <div x-show="status === 'yes'" x-cloak x-transition class="px-5 sm:px-8 space-y-6 mb-6">
+           <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
                 <div class="flex items-center gap-2">
                     <iconify-icon icon="lucide:layers" class="text-brand-500 text-base"></iconify-icon>
                     <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">Work &
@@ -178,7 +270,6 @@
                     </div>
                 </template>
             </div>
-
         </div>
 
         {{-- Footer --}}
@@ -189,11 +280,7 @@
                 <iconify-icon icon="lucide:arrow-left" class="text-sm"></iconify-icon>
                 Back
             </button>
-            <div class="flex items-center gap-3">
-                <button type="button" onclick="window.location.reload()"
-                    class="px-4 py-2.5 rounded-lg text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-                    Discard
-                </button>
+            <div class="flex items-center gap-3">                
                 <button type="submit"
                     class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 text-white text-sm font-bold shadow-xs hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98] transition-all">
                     <iconify-icon icon="lucide:check" class="text-sm"></iconify-icon>
@@ -209,16 +296,23 @@
     <script>
         function workExperienceForm(initial) {
             return {
+                status: initial.status ?? 'no',
                 roles: initial.roles ?? [],
 
                 init() {
                     if (this.roles.length === 0) {
                         this.addRole();
                     }
+
+                    this.$watch('status', (value) => {
+                        if (value === 'yes' && this.roles.length === 0) {
+                            this.addRole();
+                        }
+                    });
                 },
 
                 addRole() {
-                    this.roles.unshift({
+                    this.roles.push({
                         id: 'new_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
                         title: '',
                         organization: '',

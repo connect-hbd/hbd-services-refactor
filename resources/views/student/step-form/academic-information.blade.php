@@ -240,10 +240,7 @@
                 Back
             </button>
             <div class="flex items-center gap-3">
-                <button type="button" onclick="window.location.reload()"
-                    class="px-4 py-2.5 rounded-lg text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
-                    Discard
-                </button>
+              
                 <button type="submit"
                     class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 text-white text-sm font-bold shadow-xs hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 active:scale-[0.98] transition-all">
                     <iconify-icon icon="lucide:check" class="text-sm"></iconify-icon>

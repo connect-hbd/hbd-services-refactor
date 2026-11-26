@@ -38,7 +38,7 @@
             3 => ['icon' => 'lucide:compass', 'label' => 'Study Plan'],
             4 => ['icon' => 'lucide:briefcase', 'label' => 'Experience'],
             5 => ['icon' => 'lucide:shield-alert', 'label' => 'Immigration'],
-            6 => ['icon' => 'lucide:folder-check', 'label' => 'Documents'],
+            6 => ['icon' => 'lucide:compass', 'label' => 'Referrals'],
         ];
     @endphp
 
@@ -71,7 +71,7 @@
                                 <button type="button" x-ref="tab_{{ $num }}"
                                     @click="maxStep >= {{ $num }} && goTo({{ $num }})"
                                     :disabled="maxStep < {{ $num }}"
-                                    class="group relative flex items-center gap-2.5 px-4 py-3.5 my-1 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                                    class="group relative flex items-center gap-2 px-4 py-3.5 my-1 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                                     :class="{
                                         'text-brand-600 dark:text-brand-400 bg-brand-50/70 dark:bg-brand-950/40': currentStep ===
                                             {{ $num }},
@@ -127,8 +127,8 @@
             <div class="mt-6">
                 <div x-show="currentStep === 1" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    {{-- @include('student.step-form.personal-information') --}}
-                    @include('student.step-form.marketing-section')
+                    @include('student.step-form.personal-information')
+                    
                 </div>
 
                 <div x-show="currentStep === 2" x-cloak x-transition:enter="transition ease-out duration-300"
@@ -153,7 +153,8 @@
 
                 <div x-show="currentStep === 6" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    @include('student.step-form.visa-documents-checklist')
+                    @include('student.step-form.marketing-section')
+                    {{-- @include('student.step-form.visa-documents-checklist') --}}
                 </div>
             </div>
 
@@ -171,7 +172,7 @@
                 3: 'Study Plan',
                 4: 'Work Experience',
                 5: 'Immigration History',
-                6: 'Visa Documents',
+                6: 'Referrals',
             };
 
             return {
