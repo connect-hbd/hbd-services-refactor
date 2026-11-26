@@ -72,7 +72,7 @@
         <p class="px-5 pt-3 text-xs font-medium text-rose-600 sm:px-8 dark:text-rose-400">{{ $message }}</p>
     @enderror
 
-    <form action="{{ route('student.account.study-plan.update') }}" method="POST" class="space-y-6">
+    <form action="{{ route('student.study-plan.update') }}" method="POST" class="space-y-6">
         @csrf
         @method('PUT')
 

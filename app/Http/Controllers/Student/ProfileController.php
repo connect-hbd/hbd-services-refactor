@@ -7,11 +7,9 @@ use App\Http\Requests\Student\UpdateAcademicInformationRequest;
 use App\Http\Requests\Student\UpdateImmigrationHistoryRequest;
 use App\Http\Requests\Student\UpdatePersonalInformationRequest;
 use App\Http\Requests\Student\UpdateStudyPlanRequest;
-use App\Http\Requests\Student\UpdateVisaDocumentsChecklistRequest;
 use App\Http\Requests\Student\UpdateWorkExperienceRequest;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\Profile\StudentDocument;
 use App\Models\Profile\StudyPlan;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Traits\HandlesFiles;
@@ -118,7 +116,7 @@ class ProfileController extends Controller
         $immigrationRefusals = $student->immigrationRefusals()->get();
 
         // ── Step 6 data ──────────────────────────────────────────────────────
-       $referral = $student->Referrals()->get();
+       $referral = $student->referral()->get();
 
         // ── Active step (driven by query-string after a successful save) ──────
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);

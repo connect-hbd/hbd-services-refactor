@@ -2,8 +2,6 @@
 
 namespace App\Models\student;
 
-use App\Models\City;
-use App\Models\Country;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

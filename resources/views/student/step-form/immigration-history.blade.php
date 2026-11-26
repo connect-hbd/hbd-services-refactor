@@ -58,7 +58,7 @@
     </div>
 
     <form
-        action="{{ route('student.account.immigration-history.update') }}"
+        action="{{ route('student.immigration-history.update') }}"
         method="POST"
         enctype="multipart/form-data"
         class="space-y-6"

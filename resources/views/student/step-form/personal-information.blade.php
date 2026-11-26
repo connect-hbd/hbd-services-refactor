@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <form action="{{ route('student.account.personal-information.update') }}" method="POST" class="space-y-8">
+    <form action="{{ route('student.personal-information.update') }}" method="POST" class="space-y-8">
         @csrf
         @method('PUT')
 

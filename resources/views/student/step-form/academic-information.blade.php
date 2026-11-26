@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <form action="{{ route('student.account.academic-information.update') }}" method="POST"
+    <form action="{{ route('student.academic-information.update') }}" method="POST"
         enctype="multipart/form-data" class="space-y-6">
         @csrf
         @method('PUT')
