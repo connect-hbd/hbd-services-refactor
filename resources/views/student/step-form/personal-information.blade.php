@@ -436,7 +436,7 @@
 
             {{-- ── Address Details ─────────────────────────────────────────────── --}}
             <div class="space-y-4" x-data="{
-                sameAddress: @js((bool) old('same_address', $sameAddress))
+                sameAddress: @js((bool) old('same_address', true))
             }">
 
                 <div
@@ -479,14 +479,16 @@
                         @enderror
                     </div>
 
-                    {{-- Same Address Checkbox --}}
+                    {{-- Same Address Checkbox (checked by default) --}}
                     <div class="flex items-center gap-2.5 pt-0.5">
-                        <input type="checkbox" id="same_address" name="same_address" value="1"
+                        {{-- Always submit the state, even when unchecked --}}
+                        <input type="hidden" name="same_address" :value="sameAddress ? '1' : '0'">
+                        <input type="checkbox" id="same_address" value="1"
                             x-model="sameAddress"
                             class="h-4 w-4 rounded border-neutral-300 text-brand-600 focus:ring-brand-500 dark:border-neutral-700 dark:bg-neutral-800">
                         <label for="same_address"
                             class="text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer select-none">
-                            Permanent address is the same
+                            Permanent address same as current residential address
                         </label>
                     </div>
 

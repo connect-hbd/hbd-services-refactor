@@ -159,7 +159,7 @@
         <div x-show="status === 'yes'" x-cloak x-transition class="space-y-5 px-4 sm:px-8">
 
             {{-- Section Header --}}
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-100 pb-3 dark:border-neutral-800">
+            <div class="mt-3 flex flex-wrap items-center justify-between gap-3 border-b border-neutral-100 pb-3 dark:border-neutral-800">
                 <div class="flex items-center gap-2">
                     <iconify-icon icon="lucide:history" class="text-base text-amber-500"></iconify-icon>
 

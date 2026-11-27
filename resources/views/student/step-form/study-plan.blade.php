@@ -40,16 +40,14 @@
                 <h3 class="text-base font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white">
                     Study Plan & Country Preferences
                 </h3>
-                <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
-                    Select your target degree level and rank your destination and program choices.
-                </p>
+                
             </div>
         </div>
 
         {{-- Target Degree Dropdown (Single custom arrow) --}}
        
         <div
-            class="flex items-center gap-2 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 px-3 py-1.5 border border-neutral-200/80 dark:border-neutral-700">
+            class="w-fit flex items-center gap-2 rounded-xl bg-neutral-50/80 dark:bg-neutral-800/50 px-3 py-1.5 border border-neutral-200/80 dark:border-neutral-700">
             <label class="text-xs font-semibold text-neutral-600 dark:text-neutral-300 whitespace-nowrap">Target
                 Degree:</label>
             <select x-model="targetDegree" name="target_degree"
@@ -96,7 +94,7 @@
                 <button type="button" @click="addChoice()"
                     class="inline-flex items-center gap-1.5 rounded-xl border border-brand-200/80 bg-brand-50/70 px-3.5 py-2 text-xs font-semibold text-brand-700 transition hover:bg-brand-100/80 dark:border-brand-800/60 dark:bg-brand-950/50 dark:text-brand-300 dark:hover:bg-brand-950/80">
                     <iconify-icon icon="lucide:plus" class="text-sm"></iconify-icon>
-                    Add Preference Choice
+                    Add Another Choice
                 </button>
             </div>
 

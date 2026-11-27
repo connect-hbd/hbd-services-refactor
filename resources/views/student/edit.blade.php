@@ -43,14 +43,14 @@
         ];
     @endphp
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">  
+    <main class="max-w-7xl mx-auto relative">  
    
-        <div class="py-6 space-y-6" x-data="stepWizard({{ $activeStep }}, {{ $student->profile_step ?? 1 }})" x-init="init()"
+        <div class="pt-0 pb-6 sm:py-6 space-y-6 px-0 sm:px-6 lg:px-8" x-data="stepWizard({{ $activeStep }}, {{ $student->profile_step ?? 1 }})" x-init="init()"
             @go-to-step.window="goTo($event.detail)">
 
             {{-- ── Responsive Modern Tab Card Container ───────────────────────── --}}
             <div
-                class="sticky sm:top-0 top-27 z-10 sm:static  sm:z-auto border-t sm:border-t-0  bg-white dark:bg-neutral-900 sm:rounded-2xl border-0 sm:border border-neutral-200/80 dark:border-neutral-800 shadow-sm overflow-hidden">
+                class="sticky sm:top-0 top-27 z-[9999] sm:static  sm:z-auto border-t sm:border-t-0  bg-white dark:bg-neutral-900 sm:rounded-2xl border-0 sm:border border-neutral-200/80 dark:border-neutral-800 shadow-sm overflow-hidden">
 
                 {{-- Scroll Container with Edge Visual Indicators --}}
                 <div class="relative group">

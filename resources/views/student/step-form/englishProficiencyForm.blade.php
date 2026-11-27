@@ -13,7 +13,7 @@
                 'id' => $exam->id,
                 'exam_name' => (string) old("exams.{$i}.exam_name", $exam->exam_name ?? ''),
                 'year' => (string) old("exams.{$i}.year", $exam->year ?? ''),
-                'scores' => (array) (old("exams.{$i}.scores") ?: ($exam->scores ?? [])),
+                'scores' => (array) (old("exams.{$i}.scores") ?: $exam->scores ?? []),
             ];
         }
     }
@@ -37,102 +37,100 @@
 @endphp
 
 <div x-data="englishProficiencyForm(@js($initialEnglish))" x-init="init()"
-    class="space-y-6 rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-xs sm:p-6 dark:border-neutral-800 dark:bg-neutral-900/60">
+    class="space-y-6 sm:rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-xs sm:p-6 dark:border-neutral-800 dark:bg-neutral-900/60">
 
     @if ($hideStatusRadios)
         {{-- Keep the status explicit when the radios are hidden --}}
         <input type="hidden" name="status" value="yes">
-    @else
-    {{-- 1. Exam Status --}}
-    <section class="space-y-4">
-        <div class="flex items-center justify-between border-b border-neutral-100 pb-3.5 dark:border-neutral-800">
-            <div class="flex items-center gap-2.5">
-                <span
-                    class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-950/60 dark:text-brand-400">
-                    <iconify-icon icon="lucide:graduation-cap" class="text-base"></iconify-icon>
-                </span>
-                <div>
-                    <h4 class="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">
-                        English Proficiency Status
-                    </h4>
-                    <p class="text-xs text-neutral-500 dark:text-neutral-400">
-                        Choose whether you plan to test or already have results.
-                    </p>
+
+        {{-- 1. Exam Status --}}
+        <section class="space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-3.5 dark:border-neutral-800">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+                        <iconify-icon icon="lucide:languages" class="text-xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-neutral-900 dark:text-white">English Proficiency Status</h3>
+                        <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Choose whether you plan to test
+                            or already have</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                {{-- Option: Will Take Exam --}}
+                <label class="group relative cursor-pointer">
+                    <input type="radio" name="status" value="will" x-model="status" class="sr-only">
+                    <div :class="status === 'will'
+                        ?
+                        'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25' :
+                        'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
+                        class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
 
-        <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            {{-- Option: Will Take Exam --}}
-            <label class="group relative cursor-pointer">
-                <input type="radio" name="status" value="will" x-model="status" class="sr-only">
-                <div :class="status === 'will'
-                    ?
-                    'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25' :
-                    'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
-                    class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
+                        <div
+                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
+                            <iconify-icon icon="lucide:calendar-clock" class="text-xl"></iconify-icon>
+                        </div>
 
-                    <div
-                        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
-                        <iconify-icon icon="lucide:calendar-clock" class="text-xl"></iconify-icon>
+                        <div class="min-w-0 flex-1">
+                            <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
+                                Will Take Exam
+                            </h5>
+                            <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                                Planning to sit for an upcoming test
+                            </p>
+                        </div>
+
+                        <span
+                            :class="status === 'will'
+                                ?
+                                'border-brand-600 bg-brand-600 text-white' :
+                                'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
+                            class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
+                            <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
+                        </span>
                     </div>
+                </label>
 
-                    <div class="min-w-0 flex-1">
-                        <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
-                            Will Take Exam
-                        </h5>
-                        <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
-                            Planning to sit for an upcoming test
-                        </p>
+                {{-- Option: Already Taken --}}
+                <label class="group relative cursor-pointer">
+                    <input type="radio" name="status" value="yes" x-model="status" class="sr-only">
+                    <div :class="status === 'yes'
+                        ?
+                        'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25' :
+                        'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
+                        class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
+
+                        <div
+                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
+                            <iconify-icon icon="lucide:badge-check" class="text-xl"></iconify-icon>
+                        </div>
+
+                        <div class="min-w-0 flex-1">
+                            <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
+                                Already Taken
+                            </h5>
+                            <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                                I have completed one or more exams
+                            </p>
+                        </div>
+
+                        <span
+                            :class="status === 'yes'
+                                ?
+                                'border-brand-600 bg-brand-600 text-white' :
+                                'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
+                            class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
+                            <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
+                        </span>
                     </div>
-
-                    <span
-                        :class="status === 'will'
-                            ?
-                            'border-brand-600 bg-brand-600 text-white' :
-                            'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
-                        class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
-                        <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
-                    </span>
-                </div>
-            </label>
-
-            {{-- Option: Already Taken --}}
-            <label class="group relative cursor-pointer">
-                <input type="radio" name="status" value="yes" x-model="status" class="sr-only">
-                <div :class="status === 'yes'
-                    ?
-                    'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/15 dark:border-brand-500 dark:bg-brand-950/25' :
-                    'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700'"
-                    class="flex items-center gap-3.5 rounded-xl border p-4 transition-all duration-150">
-
-                    <div
-                        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
-                        <iconify-icon icon="lucide:badge-check" class="text-xl"></iconify-icon>
-                    </div>
-
-                    <div class="min-w-0 flex-1">
-                        <h5 class="text-sm font-semibold text-neutral-900 dark:text-white">
-                            Already Taken
-                        </h5>
-                        <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
-                            I have completed one or more exams
-                        </p>
-                    </div>
-
-                    <span
-                        :class="status === 'yes'
-                            ?
-                            'border-brand-600 bg-brand-600 text-white' :
-                            'border-neutral-300 bg-transparent text-transparent dark:border-neutral-600'"
-                        class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors">
-                        <iconify-icon icon="lucide:check" class="text-xs"></iconify-icon>
-                    </span>
-                </div>
-            </label>
-        </div>
-    </section>
+                </label>
+            </div>
     @endif
+    </section>
+
 
     {{-- 2. Planned Exam --}}
     <section x-show="status === 'will'" x-cloak x-transition.opacity.duration.150ms

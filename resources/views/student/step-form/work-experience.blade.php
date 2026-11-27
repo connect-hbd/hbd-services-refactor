@@ -53,8 +53,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Experience & Achievements Setup</h3>
-                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Add or update your work experience,
-                    internships, and roles.</p>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Add or update your work experience</p>
             </div>
         </div>
     </div>
@@ -152,7 +151,7 @@
                 <div class="flex items-center gap-2">
                     <iconify-icon icon="lucide:layers" class="text-brand-500 text-base"></iconify-icon>
                     <h4 class="text-xs font-bold text-neutral-900 uppercase tracking-wider dark:text-white">Work &
-                        Experience Entries</h4>
+                        Experience</h4>
                 </div>
                 <button type="button" @click="addRole()"
                     class="inline-flex items-center gap-1.5 rounded-lg bg-brand-50 dark:bg-brand-950/50 px-3 py-1.5 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:bg-brand-100 transition-colors">

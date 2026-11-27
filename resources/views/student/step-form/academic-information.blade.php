@@ -29,7 +29,7 @@
             <div>
                 <h3 class="text-lg font-bold text-neutral-900 dark:text-white">Academic Background Setup</h3>
                 <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">Edit highest qualification, education
-                    history, and test scores.</p>
+                    history</p>
             </div>
         </div>
     </div>
