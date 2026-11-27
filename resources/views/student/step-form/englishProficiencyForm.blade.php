@@ -1,6 +1,48 @@
-<div x-data="englishProficiencyForm()"
+@php
+    $proficiency = $englishProficiency ?? null;
+
+    // In the "Already Taken" state the radios are hidden and the exam cards
+    // below stay editable: view, update and add more exams.
+    $hideStatusRadios = $proficiency && $proficiency->status === 'yes';
+
+    $savedExams = [];
+    if ($proficiency) {
+        foreach ($proficiency->exams as $exam) {
+            $i = count($savedExams);
+            $savedExams[] = [
+                'id' => $exam->id,
+                'exam_name' => (string) old("exams.{$i}.exam_name", $exam->exam_name ?? ''),
+                'year' => (string) old("exams.{$i}.year", $exam->year ?? ''),
+                'scores' => (array) (old("exams.{$i}.scores") ?: ($exam->scores ?? [])),
+            ];
+        }
+    }
+
+    if (old('exams') && $savedExams === []) {
+        foreach (old('exams') as $i => $exam) {
+            $savedExams[] = [
+                'id' => $exam['id'] ?? null,
+                'exam_name' => $exam['exam_name'] ?? '',
+                'year' => (string) ($exam['year'] ?? ''),
+                'scores' => (array) ($exam['scores'] ?? []),
+            ];
+        }
+    }
+
+    $initialEnglish = [
+        'status' => old('status', $proficiency?->status ?? ''),
+        'plannedExamName' => (string) old('planned_exam_name', $proficiency?->exam_name ?? ''),
+        'exams' => $savedExams,
+    ];
+@endphp
+
+<div x-data="englishProficiencyForm(@js($initialEnglish))" x-init="init()"
     class="space-y-6 rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-xs sm:p-6 dark:border-neutral-800 dark:bg-neutral-900/60">
 
+    @if ($hideStatusRadios)
+        {{-- Keep the status explicit when the radios are hidden --}}
+        <input type="hidden" name="status" value="yes">
+    @else
     {{-- 1. Exam Status --}}
     <section class="space-y-4">
         <div class="flex items-center justify-between border-b border-neutral-100 pb-3.5 dark:border-neutral-800">
@@ -90,6 +132,7 @@
             </label>
         </div>
     </section>
+    @endif
 
     {{-- 2. Planned Exam --}}
     <section x-show="status === 'will'" x-cloak x-transition.opacity.duration.150ms
@@ -108,7 +151,8 @@
                     class="mb-1.5 block text-xs font-semibold text-neutral-700 dark:text-neutral-300">
                     Exam Name <span class="text-rose-500">*</span>
                 </label>
-                <select id="planned_exam_name" name="planned_exam_name" :required="status === 'will'"
+                <select id="planned_exam_name" name="planned_exam_name" x-model="plannedExamName"
+                    :required="status === 'will'"
                     class="w-full rounded-lg border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                     <option value="">Select Exam</option>
                     <option value="IELTS Academic">IELTS Academic</option>
@@ -122,7 +166,7 @@
 
             <div>
                 <x-form.form-date id="exam_date" name="exam_date" label="Expected Exam Date" placeholder="YYYY-MM-DD"
-                    :value="old('exam_date')" />
+                    :value="old('exam_date', $proficiency?->exam_date?->format('Y-m-d'))" />
             </div>
         </div>
     </section>
@@ -169,6 +213,10 @@
                     </div>
 
                     <div class="space-y-5 p-4 sm:p-5">
+                        {{-- Existing exam id lets the controller update in place --}}
+                        <input type="hidden" :name="'exams[' + index + '][id]'"
+                            :value="Number.isInteger(exam.id) ? exam.id : ''">
+
                         {{-- Exam Name and Year --}}
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
@@ -264,17 +312,31 @@
 </div>
 
 <script>
-    function englishProficiencyForm() {
+    function englishProficiencyForm(initial = {}) {
         return {
-            status: '',
+            status: initial.status || '',
 
-            exams: [],
+            plannedExamName: initial.plannedExamName || '',
+
+            exams: Array.isArray(initial.exams) ? initial.exams : [],
 
             years: Array.from({
                     length: 15
                 },
                 (_, i) => new Date().getFullYear() - i
             ),
+
+            init() {
+                if (this.status === 'yes' && this.exams.length === 0) {
+                    this.addExam();
+                }
+
+                this.$watch('status', (value) => {
+                    if (value === 'yes' && this.exams.length === 0) {
+                        this.addExam();
+                    }
+                });
+            },
 
             addExam() {
                 this.exams.push({

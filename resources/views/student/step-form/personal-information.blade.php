@@ -35,10 +35,15 @@
                     </h4>
                 </div>
 
+                {{-- Primary phone / e-mail are a one-time setup: locked once the e-mail exists --}}
+                @php
+                    $primaryContactLocked = filled($student->user?->email);
+                @endphp
+
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Full Name
+                            Full Name  <span class="text-rose-500">*</span>
                         </label>
                         <input type="text" name="name"
                             value="{{ old('name', $student->user?->name) }}"
@@ -57,12 +62,31 @@
 
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Phone Number
+                            Phone Number  <span class="text-rose-500">*</span>
                         </label>
-                        <input type="text" name="phone"
-                            value="{{ old('phone', $student->user?->phone) }}"
-                            class="w-full h-10 px-3.5 text-sm rounded-lg border border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80 text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
-                            placeholder="01978855506">
+                        <div class="relative">
+                            <input type="text" name="phone"
+                                value="{{ old('phone', $student->user?->phone) }}"
+                                @readonly($primaryContactLocked)
+                                class="w-full h-10 px-3.5 text-sm rounded-lg transition-all
+                                    {{ $primaryContactLocked
+                                        ? 'pr-20 border-neutral-200/80 bg-neutral-100/80 dark:bg-neutral-800/80 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed'
+                                        : 'border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80 text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500' }}"
+                                placeholder="01978855506">
+                            @if ($primaryContactLocked)
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <span
+                                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-neutral-200/70 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300">
+                                        <svg class="w-3 h-3 text-neutral-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                        Locked
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
                         @error('phone')
                             <p class="text-rose-500 text-xs font-medium mt-1.5 flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,23 +101,42 @@
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
                             Email Address
+                            @if (! $primaryContactLocked)
+                                <span class="text-rose-500">*</span>
+                            @endif
                         </label>
                         <div class="relative">
-                            <input type="email" value="" readonly
-                                class="w-full h-10 pl-3.5 pr-20 text-sm rounded-lg border border-neutral-200/80 bg-neutral-100/80 dark:bg-neutral-800/80 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed selection:bg-none"
+                            <input type="email" name="email"
+                                value="{{ old('email', $student->user?->email) }}"
+                                @readonly($primaryContactLocked)
+                                class="w-full h-10 pl-3.5 text-sm rounded-lg transition-all
+                                    {{ $primaryContactLocked
+                                        ? 'pr-20 border-neutral-200/80 bg-neutral-100/80 dark:bg-neutral-800/80 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed selection:bg-none'
+                                        : 'pr-3.5 border-neutral-200 bg-neutral-50/40 dark:bg-neutral-800/50 dark:border-neutral-700/80 text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:bg-white dark:focus:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500' }}"
                                 placeholder="student@example.com">
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <span
-                                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-neutral-200/70 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300">
-                                    <svg class="w-3 h-3 text-neutral-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                    Locked
-                                </span>
-                            </div>
+                            @if ($primaryContactLocked)
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <span
+                                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-neutral-200/70 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300">
+                                        <svg class="w-3 h-3 text-neutral-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                        Locked
+                                    </span>
+                                </div>
+                            @endif
                         </div>
+                        @error('email')
+                            <p class="text-rose-500 text-xs font-medium mt-1.5 flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     {{-- Date of Birth --}}
@@ -167,16 +210,31 @@
             </div>
 
             {{-- ── Personal Contact ────────────────────────────────────────── --}}
+            @php
+                $savedPhones = $student->phones->keyBy('sort_order');
+                $savedEmails = $student->emails->keyBy('sort_order');
+
+                $initialPhones = [];
+                $initialEmails = [];
+
+                foreach ([0, 1] as $slot) {
+                    $phone = $savedPhones->get($slot);
+                    $email = $savedEmails->get($slot);
+
+                    $initialPhones[] = [
+                        'value' => (string) old("alt_phone.{$slot}.value", $phone?->phone ?? ''),
+                        'is_whatsapp' => (bool) old("alt_phone.{$slot}.is_whatsapp", $phone?->is_whatsapp ?? false),
+                    ];
+                    $initialEmails[] = [
+                        'value' => (string) old("alt_email.{$slot}", $email?->email ?? ''),
+                    ];
+                }
+            @endphp
+
             <div x-data="{
                 contacts: {
-                    phones: [
-                        { value: '', is_whatsapp: false },
-                        { value: '', is_whatsapp: false }
-                    ],
-                    emails: [
-                        { value: '' },
-                        { value: '' }
-                    ]
+                    phones: @js($initialPhones),
+                    emails: @js($initialEmails)
                 }
             }" class="space-y-4">
                 <div class="flex items-center gap-2 border-b border-neutral-200/70 pb-3 dark:border-neutral-800">
@@ -191,9 +249,9 @@
                     {{-- Alternative Phone 1 --}}
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Alt Phone 1
+                            Alt Phone One
                         </label>
-                        <input type="text" name="alt_phone[0][value]"
+                        <input type="text" name="alt_phone[0][value]" x-model="contacts.phones[0].value"
                             class="w-full h-10 px-3.5 rounded-lg text-sm border
                                 {{ $errors->has('alt_phone.0.value')
                                     ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20'
@@ -224,9 +282,9 @@
                     {{-- Alternative Phone 2 --}}
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Alt Phone 2
+                            Alt Phone Two
                         </label>
-                        <input type="text" name="alt_phone[1][value]"
+                        <input type="text" name="alt_phone[1][value]" x-model="contacts.phones[1].value"
                             class="w-full h-10 px-3.5 rounded-lg text-sm border
                                 {{ $errors->has('alt_phone.1.value')
                                     ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20'
@@ -257,9 +315,9 @@
                     {{-- Alternative Email 1 --}}
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Alt Email 1
+                            Alt Email One
                         </label>
-                        <input type="text" name="alt_email[0]"
+                        <input type="text" name="alt_email[0]" x-model="contacts.emails[0].value"
                             class="w-full h-10 px-3.5 rounded-lg text-sm border
                                 {{ $errors->has('alt_email.0')
                                     ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20'
@@ -281,9 +339,9 @@
                     {{-- Alternative Email 2 --}}
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Alt Email 2
+                            Alt Email Two
                         </label>
-                        <input type="text" name="alt_email[1]"
+                        <input type="text" name="alt_email[1]" x-model="contacts.emails[1].value"
                             class="w-full h-10 px-3.5 rounded-lg text-sm border
                                 {{ $errors->has('alt_email.1')
                                     ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/20'
@@ -342,13 +400,13 @@
                     {{-- Issue Date --}}
                     <div>
                         <x-form.form-date id="passport_issue_date" name="passport_issue_date" label="Issue Date"
-                            placeholder="YYYY-MM-DD" :value="old('passport_issue_date', $student->passport_issue_date?->format('Y-m-d'))" required />
+                            placeholder="YYYY-MM-DD" :value="old('passport_issue_date', $student->passport_issue_date?->format('Y-m-d'))" />
                     </div>
 
                     {{-- Expiry Date --}}
                     <div>
                         <x-form.form-date id="passport_expiry_date" name="passport_expiry_date" label="Expiry Date"
-                            placeholder="YYYY-MM-DD" :value="old('passport_expiry_date', $student->passport_expiry_date?->format('Y-m-d'))" required />
+                            placeholder="YYYY-MM-DD" :value="old('passport_expiry_date', $student->passport_expiry_date?->format('Y-m-d'))" />
                     </div>
 
                 </div>
@@ -363,13 +421,17 @@
                     </h4>
                 </div>
 
-                <x-form.multi-select name="destination_id" label="Preferred Destination"
-                    placeholder="Select Destination" :options="[
-                        ['id' => 1, 'name' => 'Malaysia'],
-                        ['id' => 2, 'name' => 'Singapore'],
-                        ['id' => 3, 'name' => 'Thailand'],
-                        ['id' => 4, 'name' => 'Other'],
-                    ]" />
+                @php
+                    $destinationOptions = $countries
+                        ->map(fn ($country) => ['id' => $country->id, 'name' => $country->name])
+                        ->values()
+                        ->all();
+                    $selectedDestinations = $student->destinations->pluck('id')->all();
+                @endphp
+
+                <x-form.multi-select name="destination_id" label="Preferred Destination" required
+                    :selected="old('destination_id', $selectedDestinations)"
+                    placeholder="Select Destination" :options="$destinationOptions" />
             </div>
 
             {{-- ── Address Details ─────────────────────────────────────────────── --}}
@@ -398,7 +460,7 @@
                     {{-- Current Address --}}
                     <div>
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Current Residential Address <span class="text-rose-500">*</span>
+                            Current Residential Address
                         </label>
                         <div class="relative">
                             <div

@@ -115,6 +115,7 @@ class ProfileController extends Controller
 
         // ── Step 2 data ──────────────────────────────────────────────────────
         $academicInformation = $student->academicInformation;
+        $englishProficiency  = $student->englishProficiency()->with('exams')->first();
 
         // ── Step 3 data ──────────────────────────────────────────────────────
         $studyPlan = $student->studyPlan()->with('choices')->first();
@@ -150,6 +151,7 @@ class ProfileController extends Controller
             'permanentAddress',
             'sameAddress',
             'academicInformation',
+            'englishProficiency',
             'studyPlan',
             'workExperiences',
             'immigrationRefusals',
@@ -188,7 +190,7 @@ class ProfileController extends Controller
             // User account fields (only when actually submitted / changed).
             $userChanges = $this->changedOnly(
                 $request->user(),
-                Arr::only($validated, ['name', 'phone'])
+                Arr::only($validated, ['name', 'email', 'phone'])
             );
             if ($userChanges !== []) {
                 $request->user()->update($userChanges);
@@ -401,6 +403,8 @@ class ProfileController extends Controller
 
             $roles = $validated['roles'] ?? [];
             $existing = $student->workExperiences()->orderBy('sort_order')->get();
+            $byId = $existing->keyBy('id');
+            $keptIds = [];
 
             foreach ($roles as $index => $role) {
                 $isCurrent = (bool) ($role['is_current'] ?? false);
@@ -416,18 +420,33 @@ class ProfileController extends Controller
                     'description'  => $role['description'] ?? null,
                 ];
 
-                $model = $existing->get($index);
-                if ($model) {
-                    $changes = $this->changedOnly($model, $data);
-                    if ($changes !== []) {
-                        $model->update($changes);
-                    }
+                $record = null;
+
+                if (! empty($role['id']) && $byId->has((int) $role['id'])) {
+                    $record = $byId->get((int) $role['id']);
                 } else {
-                    $student->workExperiences()->create($data);
+                    $candidate = $existing->get($index);
+                    if ($candidate && ! in_array($candidate->id, $keptIds, true)) {
+                        $record = $candidate;
+                    }
+                }
+
+                if ($record) {
+                    $changes = $this->changedOnly($record, $data);
+                    if ($changes !== []) {
+                        $record->update($changes);
+                    }
+                    $keptIds[] = $record->id;
+                } else {
+                    $keptIds[] = $student->workExperiences()->create($data)->id;
                 }
             }
 
-            $existing->slice(count($roles))->each->delete();
+            foreach ($existing as $role) {
+                if (! in_array($role->id, $keptIds, true)) {
+                    $role->delete();
+                }
+            }
         });
 
         $student->advanceStepTo(4);
@@ -717,8 +736,9 @@ class ProfileController extends Controller
                 continue;
             }
 
-            // The UI currently uses fixed option ids; accept either a real
-            // country id or a country name and skip anything unresolvable.
+            // Options come from the real countries list, so each selected
+            // value is a valid country id. The name lookup is a fallback for
+            // older payloads submitted with plain labels.
             $country = Country::query()->find($value)
                 ?? Country::query()->where('name', $value)->first();
 
@@ -733,6 +753,8 @@ class ProfileController extends Controller
     private function syncEnglishExams(StudentEnglishProficiency $proficiency, array $exams): void
     {
         $existing = $proficiency->exams()->orderBy('id')->get();
+        $byId = $existing->keyBy('id');
+        $keptIds = [];
 
         foreach ($exams as $index => $exam) {
             $scores = $exam['scores'] ?? [];
@@ -748,17 +770,32 @@ class ProfileController extends Controller
                 'scores'           => $scores,
             ];
 
-            $model = $existing->get($index);
-            if ($model) {
-                $changes = $this->changedOnly($model, $data);
-                if ($changes !== []) {
-                    $model->update($changes);
-                }
+            $record = null;
+
+            if (! empty($exam['id']) && $byId->has((int) $exam['id'])) {
+                $record = $byId->get((int) $exam['id']);
             } else {
-                $proficiency->exams()->create($data);
+                $candidate = $existing->get($index);
+                if ($candidate && ! in_array($candidate->id, $keptIds, true)) {
+                    $record = $candidate;
+                }
+            }
+
+            if ($record) {
+                $changes = $this->changedOnly($record, $data);
+                if ($changes !== []) {
+                    $record->update($changes);
+                }
+                $keptIds[] = $record->id;
+            } else {
+                $keptIds[] = $proficiency->exams()->create($data)->id;
             }
         }
 
-        $existing->slice(count($exams))->each->delete();
+        foreach ($existing as $exam) {
+            if (! in_array($exam->id, $keptIds, true)) {
+                $exam->delete();
+            }
+        }
     }
 }

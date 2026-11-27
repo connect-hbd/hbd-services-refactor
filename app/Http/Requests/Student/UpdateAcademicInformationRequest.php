@@ -71,6 +71,7 @@ class UpdateAcademicInformationRequest extends FormRequest
             'exam_date'         => ['sometimes', 'nullable', 'date'],
 
             'exams'                    => ['sometimes', 'nullable', 'array'],
+            'exams.*.id'               => ['nullable', 'integer'],
             'exams.*.exam_name'        => ['required', 'string', 'max:100'],
             'exams.*.year'             => ['nullable', 'digits:4', 'integer', 'min:1950', 'max:2100'],
             'exams.*.scores'           => ['nullable', 'array'],

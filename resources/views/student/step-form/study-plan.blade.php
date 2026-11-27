@@ -141,9 +141,9 @@
                             <div>
                                 <label :for="'program_' + index"
                                     class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Intended Program <span class="text-rose-500">*</span>
+                                    Intended Program
                                 </label>
-                                <input :id="'program_' + index" type="text" x-model="choice.program" required
+                                <input :id="'program_' + index" type="text" x-model="choice.program"
                                     placeholder="e.g. MSc in Human-Computer Interaction"
                                     class="h-10 w-full rounded-lg border border-neutral-200 bg-white px-3.5 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                             </div>
@@ -152,10 +152,10 @@
                             <div>
                                 <label :for="'country_' + index"
                                     class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Destination Country <span class="text-rose-500">*</span>
+                                    Destination Country
                                 </label>
                                 <div class="relative">
-                                    <select :id="'country_' + index" x-model="choice.country" required
+                                    <select :id="'country_' + index" x-model="choice.country"
                                         class="h-10 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                                         <option value="">Select Country</option>
                                         <option value="United Kingdom">United Kingdom</option>
@@ -178,10 +178,10 @@
                             <div>
                                 <label :for="'intake_' + index"
                                     class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                                    Study Intake <span class="text-rose-500">*</span>
+                                    Study Intake
                                 </label>
                                 <div class="relative">
-                                    <select :id="'intake_' + index" x-model="choice.start_date" required
+                                    <select :id="'intake_' + index" x-model="choice.start_date"
                                         class="h-10 w-full cursor-pointer appearance-none bg-none rounded-lg border border-neutral-200 bg-white px-3.5 pr-10 text-sm text-neutral-900 outline-none transition [-moz-appearance:none] [-webkit-appearance:none] [&::-ms-expand]:hidden focus:border-brand-500 focus:ring-2 focus:ring-brand-500/15 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
                                         <option value="">Select Intake</option>
                                         <option value="Spring 2027">Spring 2027 (Jan – Feb)</option>

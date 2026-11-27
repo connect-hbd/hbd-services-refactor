@@ -28,6 +28,10 @@
 
     $initialStatus = old('status', count($initialRefusals) > 0 ? 'yes' : 'no');
 
+    // With saved refusals the status radios are hidden and the records below
+    // stay editable: view, update and add more refusals.
+    $hideStatusRadios = $initialStatus === 'yes' && count($initialRefusals) > 0;
+
     $initialImmigration = [
         'status' => $initialStatus,
         'refusals' => $initialRefusals,
@@ -66,6 +70,7 @@
         @csrf
         @method('PUT')
 
+        @if (! $hideStatusRadios)
         {{-- Visa Refusal Status Selection --}}
         <div class="space-y-4 px-4 pt-5 sm:px-8">
             <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
@@ -145,6 +150,10 @@
                 </label>
             </div>
         </div>
+        @else
+            {{-- Keep the status explicit when the radios are hidden --}}
+            <input type="hidden" name="status" value="yes">
+        @endif
 
         {{-- Conditional Refusal Records Section (Shown only when status === 'yes') --}}
         <div x-show="status === 'yes'" x-cloak x-transition class="space-y-5 px-4 sm:px-8">

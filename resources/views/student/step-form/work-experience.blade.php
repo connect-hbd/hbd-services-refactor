@@ -30,6 +30,10 @@
 
     $initialStatus = old('status', count($initialRoles) > 0 ? 'yes' : 'no');
 
+    // When experience data exists the status radios are hidden and the
+    // entries below stay editable: view, update and add more roles.
+    $hideStatusRadios = $initialStatus === 'yes' && count($initialRoles) > 0;
+
     $initialWorkExperience = [
         'status' => $initialStatus,
         'roles' => $initialRoles,
@@ -59,6 +63,7 @@
         @csrf
         @method('PUT')
 
+        @if (! $hideStatusRadios)
         {{-- Work Experience Status Selection --}}
         <div class="px-5 sm:px-8 space-y-6 mb-6">
             <div class="flex items-center justify-between border-b border-neutral-100 pb-3 dark:border-neutral-800">
@@ -136,6 +141,10 @@
                 </label>
             </div>
         </div>
+        @else
+            {{-- Keep the status explicit when the radios are hidden --}}
+            <input type="hidden" name="status" value="yes">
+        @endif
 
         {{-- Conditional Work Experience Section (Shown only when status === 'yes') --}}
         <div x-show="status === 'yes'" x-cloak x-transition class="px-5 sm:px-8 space-y-6 mb-6">
@@ -162,6 +171,8 @@
                         class="p-4 sm:p-5 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-800/30 space-y-4 relative">
 
                         {{-- Hidden server-side inputs --}}
+                        <input type="hidden" :name="`roles[${index}][id]`"
+                            :value="Number.isInteger(role.id) ? role.id : ''">
                         <input type="hidden" :name="`roles[${index}][title]`" :value="role.title">
                         <input type="hidden" :name="`roles[${index}][organization]`" :value="role.organization">
                         <input type="hidden" :name="`roles[${index}][start_date]`" :value="role.startDate">

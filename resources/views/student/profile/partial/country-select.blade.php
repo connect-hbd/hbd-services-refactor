@@ -49,7 +49,6 @@
         <label for="{{ $countryField }}"
             class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             Country
-            <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">
@@ -88,7 +87,6 @@
         <label for="{{ $cityField }}"
             class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             City
-            <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">
@@ -125,7 +123,6 @@
         <label for="{{ $postCodeField }}"
             class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
             Post Code
-            <span class="text-rose-500">*</span>
         </label>
 
         <div class="relative">

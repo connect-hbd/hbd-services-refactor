@@ -79,7 +79,7 @@
                     {{-- Institution & Country --}}
                     <div class="sm:col-span-2">
                         <label class="block mb-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                            Institution & Country <span class="text-rose-500">*</span>
+                            Institution<span class="text-rose-500">*</span>
                         </label>
                         <input type="text" name="highest_institution" x-model="highestQual.institution"
                             placeholder="e.g. University of Oxford, United Kingdom"
@@ -226,7 +226,7 @@
             {{-- ══════════════════════════════════════════════════════════════
                  SECTION 3 — Standardized Test Scores
             ══════════════════════════════════════════════════════════════ --}}
-            @include('student.step-form.englishProficiencyForm')
+            @include('student.step-form.englishProficiencyForm', ['englishProficiency' => $englishProficiency ?? null])
 
 
         </div>
