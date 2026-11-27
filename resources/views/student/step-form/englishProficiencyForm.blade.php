@@ -53,7 +53,7 @@
                 </span>
                 <div>
                     <h4 class="text-sm font-bold tracking-tight text-neutral-900 dark:text-white">
-                        3. English Proficiency Status
+                        English Proficiency Status
                     </h4>
                     <p class="text-xs text-neutral-500 dark:text-neutral-400">
                         Choose whether you plan to test or already have results.

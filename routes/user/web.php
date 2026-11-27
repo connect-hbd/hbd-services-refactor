@@ -102,6 +102,7 @@ Route::prefix('student')
 
         Route::put('/personal-information', [ProfileController::class, 'updatePersonalInformation'])->name('personal-information.update');
         Route::put('/academic-information', [ProfileController::class, 'updateAcademicInformation'])->name('academic-information.update');
+        Route::put('/english-proficiency', [ProfileController::class, 'updateEnglishProficiency'])->name('english-proficiency.update');
         Route::put('/study-plan', [ProfileController::class, 'updateStudyPlan'])->name('study-plan.update');
         Route::put('/work-experience', [ProfileController::class, 'updateWorkExperience'])->name('work-experience.update');
         Route::put('/immigration-history', [ProfileController::class, 'updateImmigrationHistory'])->name('immigration-history.update');

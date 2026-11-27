@@ -35,10 +35,11 @@
         $stepsMeta = [
             1 => ['icon' => 'lucide:id-card', 'label' => 'Personal Info'],
             2 => ['icon' => 'lucide:graduation-cap', 'label' => 'Academic'],
-            3 => ['icon' => 'lucide:compass', 'label' => 'Study Plan'],
-            4 => ['icon' => 'lucide:briefcase', 'label' => 'Experience'],
-            5 => ['icon' => 'lucide:shield-alert', 'label' => 'Immigration'],
-            6 => ['icon' => 'lucide:compass', 'label' => 'Referrals'],
+            3 => ['icon' => 'lucide:languages', 'label' => 'English'],
+            4 => ['icon' => 'lucide:compass', 'label' => 'Study Plan'],
+            5 => ['icon' => 'lucide:briefcase', 'label' => 'Experience'],
+            6 => ['icon' => 'lucide:shield-alert', 'label' => 'Immigration'],
+            7 => ['icon' => 'lucide:compass', 'label' => 'Referrals'],
         ];
     @endphp
 
@@ -114,7 +115,7 @@
                     class="px-4 sm:px-6 py-2.5 bg-neutral-50/70 dark:bg-neutral-900/40 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                     <div class="flex items-center gap-2">
                         <span class="font-medium">Step <span class="text-neutral-900 dark:text-neutral-100 font-bold"
-                                x-text="currentStep"></span> of 6</span>
+                                x-text="currentStep"></span> of 7</span>
                         <span class="text-neutral-300 dark:text-neutral-700">•</span>
                         <span class="font-semibold" x-text="stepLabel()"></span>
                         <span class="text-brand-500 font-semibold uppercase">view guidelines</span>
@@ -138,20 +139,25 @@
 
                 <div x-show="currentStep === 3" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    @include('student.step-form.study-plan')
+                    @include('student.step-form.english-proficiency')
                 </div>
 
                 <div x-show="currentStep === 4" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    @include('student.step-form.work-experience')
+                    @include('student.step-form.study-plan')
                 </div>
 
                 <div x-show="currentStep === 5" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                    @include('student.step-form.immigration-history')
+                    @include('student.step-form.work-experience')
                 </div>
 
                 <div x-show="currentStep === 6" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                    @include('student.step-form.immigration-history')
+                </div>
+
+                <div x-show="currentStep === 7" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
                     @include('student.step-form.marketing-section')
                 </div>
@@ -168,10 +174,11 @@
             const labels = {
                 1: 'Personal Information',
                 2: 'Academic Background',
-                3: 'Study Plan',
-                4: 'Work Experience',
-                5: 'Immigration History',
-                6: 'Referrals',
+                3: 'English Proficiency',
+                4: 'Study Plan',
+                5: 'Work Experience',
+                6: 'Immigration History',
+                7: 'Referrals',
             };
 
             return {
@@ -204,7 +211,7 @@
                 },
 
                 goTo(step) {
-                    if (step < 1 || step > 6 || step > this.maxStep) return;
+                    if (step < 1 || step > 7 || step > this.maxStep) return;
                     this.currentStep = step;
                 },
 

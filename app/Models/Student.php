@@ -116,7 +116,7 @@ class Student extends Model
     public function advanceStepTo(int $completedStep): void
     {
         if ($completedStep >= $this->profile_step) {
-            $next = min($completedStep + 1, 6);
+            $next = min($completedStep + 1, 7);
 
             if ($next !== $this->profile_step) {
                 $this->update(['profile_step' => $next]);

@@ -223,11 +223,6 @@
                 @enderror
             </div>
 
-            {{-- ══════════════════════════════════════════════════════════════
-                 SECTION 3 — Standardized Test Scores
-            ══════════════════════════════════════════════════════════════ --}}
-            @include('student.step-form.englishProficiencyForm', ['englishProficiency' => $englishProficiency ?? null])
-
 
         </div>
 

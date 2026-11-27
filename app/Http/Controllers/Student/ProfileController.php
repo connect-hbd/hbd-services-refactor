@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\StudentReferralRequest;
 use App\Http\Requests\Student\UpdateAcademicInformationRequest;
+use App\Http\Requests\Student\UpdateEnglishProficiencyRequest;
 use App\Http\Requests\Student\UpdateImmigrationHistoryRequest;
 use App\Http\Requests\Student\UpdatePersonalInformationRequest;
 use App\Http\Requests\Student\UpdateStudyPlanRequest;
@@ -141,7 +142,7 @@ class ProfileController extends Controller
 
         // ── Active step (driven by the query string after each save) ─────────
         $activeStep = (int) $request->query('step', $student->profile_step ?? 1);
-        $activeStep = max(1, min(6, $activeStep));
+        $activeStep = max(1, min(7, $activeStep));
 
         return view('student.edit', compact(
             'student',
@@ -259,7 +260,7 @@ class ProfileController extends Controller
     }
 
     // =========================================================================
-    // Step 2 — Academic Information (+ English Proficiency)
+    // Step 2 — Academic Information
     // =========================================================================
 
     public function updateAcademicInformation(
@@ -286,7 +287,26 @@ class ProfileController extends Controller
             if ($changes !== [] || ! $academic->exists) {
                 $academic->fill($changes)->save();
             }
+        });
 
+        $student->advanceStepTo(2);
+
+        return redirect()->route('student.study-abroad', ['step' => 3]);
+    }
+
+    // =========================================================================
+    // Step 3 — English Proficiency
+    // =========================================================================
+
+    public function updateEnglishProficiency(
+        UpdateEnglishProficiencyRequest $request
+    ): RedirectResponse {
+        $student = $request->user()->student;
+        abort_if(! $student, 404, 'Student profile not found.');
+
+        $validated = $request->validated();
+
+        DB::transaction(function () use ($student, $validated) {
             if (! array_key_exists('status', $validated)) {
                 return;
             }
@@ -302,8 +322,8 @@ class ProfileController extends Controller
                 $proficiencyData['exam_date'] = $validated['exam_date'];
             }
 
-            $proficiencyChanges = $this->changedOnly($proficiency, $proficiencyData);
-            if ($proficiencyChanges !== [] || ! $proficiency->exists) {
+            $changes = $this->changedOnly($proficiency, $proficiencyData);
+            if ($changes !== [] || ! $proficiency->exists) {
                 $proficiency->fill($proficiencyData)->save();
             }
 
@@ -312,13 +332,13 @@ class ProfileController extends Controller
             }
         });
 
-        $student->advanceStepTo(2);
+        $student->advanceStepTo(3);
 
-        return redirect()->route('student.study-abroad', ['step' => 3]);
+        return redirect()->route('student.study-abroad', ['step' => 4]);
     }
 
     // =========================================================================
-    // Step 3 — Study Plan
+    // Step 5 — Study Plan
     // =========================================================================
 
     public function updateStudyPlan(
@@ -372,13 +392,13 @@ class ProfileController extends Controller
             $existing->slice(count($choices))->each->delete();
         });
 
-        $student->advanceStepTo(3);
+        $student->advanceStepTo(4);
 
-        return redirect()->route('student.study-abroad', ['step' => 4]);
+        return redirect()->route('student.study-abroad', ['step' => 5]);
     }
 
     // =========================================================================
-    // Step 4 — Work Experience
+    // Step 5 — Work Experience
     // =========================================================================
 
     public function updateWorkExperience(
@@ -449,13 +469,13 @@ class ProfileController extends Controller
             }
         });
 
-        $student->advanceStepTo(4);
+        $student->advanceStepTo(5);
 
-        return redirect()->route('student.study-abroad', ['step' => 5]);
+        return redirect()->route('student.study-abroad', ['step' => 6]);
     }
 
     // =========================================================================
-    // Step 5 — Immigration History
+    // Step 6 — Immigration History
     // =========================================================================
 
     public function updateImmigrationHistory(
@@ -538,13 +558,13 @@ class ProfileController extends Controller
             }
         });
 
-        $student->advanceStepTo(5);
+        $student->advanceStepTo(6);
 
-        return redirect()->route('student.study-abroad', ['step' => 6]);
+        return redirect()->route('student.study-abroad', ['step' => 7]);
     }
 
     // =========================================================================
-    // Step 6 — Referral (final submit)
+    // Step 7 — Referral (final submit)
     // =========================================================================
 
     public function updateReferralHistory(StudentReferralRequest $request): RedirectResponse
@@ -568,7 +588,7 @@ class ProfileController extends Controller
             $referral->fill($data)->save();
         }
 
-        $student->advanceStepTo(6);
+        $student->advanceStepTo(7);
 
         // Only the final step flashes a message and leaves the wizard.
         return redirect()

@@ -286,7 +286,7 @@
         {{-- Footer --}}
         <div
             class="flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-neutral-50/50 dark:bg-neutral-800/30 border-t border-neutral-100 dark:border-neutral-800">
-            <button type="button" @click="$dispatch('go-to-step', 3)"
+            <button type="button" @click="$dispatch('go-to-step', 4)"
                 class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                 <iconify-icon icon="lucide:arrow-left" class="text-sm"></iconify-icon>
                 Back
