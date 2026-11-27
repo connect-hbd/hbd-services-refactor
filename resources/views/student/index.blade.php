@@ -288,7 +288,7 @@
         </div>
     </main>
 
-   <script>
+    <script>
         function continueService() {
             const selected = document.querySelector('input[name="service"]:checked');
             const error = document.getElementById('service-error');
