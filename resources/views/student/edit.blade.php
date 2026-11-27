@@ -118,7 +118,10 @@
                                 x-text="currentStep"></span> of 7</span>
                         <span class="text-neutral-300 dark:text-neutral-700">•</span>
                         <span class="font-semibold" x-text="stepLabel()"></span>
-                        <span class="text-brand-500 font-semibold uppercase">view guidelines</span>
+                        <button type="button" @click="showGuidelines = true"
+                            class="font-semibold uppercase text-red-500 hover:text-red-600 underline underline-offset-4  transition-colors">
+                            Form Guidelines
+                        </button>
                     </div>
                 </div>
 
@@ -163,8 +166,88 @@
                 </div>
             </div>
 
+            {{-- ── Step-wise Submission Guidelines Modal ─────────────────────────── --}}
+            <div x-show="showGuidelines" x-cloak @keydown.escape.window="showGuidelines = false"
+                @click.self="showGuidelines = false" x-transition.opacity
+                class="fixed inset-0 z-[10000] flex items-center justify-center bg-neutral-950/60 backdrop-blur-sm p-3 sm:p-6">
+
+                <div x-show="showGuidelines" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                    class="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-neutral-900">
+
+                    {{-- Modal Header --}}
+                    <div
+                        class="flex items-center justify-between border-b border-neutral-200 px-5 py-4 dark:border-neutral-800 sm:px-6">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+                                <iconify-icon icon="lucide:book-open-check" class="text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-bold text-neutral-900 dark:text-white">
+                                    Submission Guidelines
+                                </h2>
+                                <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                                    Follow each step to complete your application.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button type="button" @click="showGuidelines = false"
+                            class="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white">
+                            <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
+                        </button>
+                    </div>
+
+                    
+
+                    {{-- Modal Body --}}
+                    <div class="flex-1 overflow-y-auto px-5 py-6 sm:px-6">
+                        <div class="mb-5 flex items-center gap-3">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/50 dark:text-brand-400">
+                                <iconify-icon :icon="guidelineSteps[currentStep].icon" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-brand-500">
+                                    Application Guide
+                                </p>
+                                <h3 class="text-lg font-bold text-neutral-900 dark:text-white"
+                                    x-text="guidelineSteps[currentStep].title"></h3>
+                            </div>
+                        </div>
+
+                        <p class="mb-5 text-sm leading-6 text-neutral-600 dark:text-neutral-400"
+                            x-text="guidelineSteps[currentStep].description"></p>
+
+                        <div class="space-y-3">
+                            <template x-for="(item, index) in guidelineSteps[currentStep].items" :key="index">
+                                <div
+                                    class="flex items-start gap-3 rounded-xl border border-neutral-200/80 bg-neutral-50/70 p-3.5 dark:border-neutral-800 dark:bg-neutral-800/40">
+                                    <div
+                                        class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                                        <span x-text="index + 1"></span>
+                                    </div>
+                                    <p class="text-sm leading-6 text-neutral-700 dark:text-neutral-300" x-text="item"></p>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div
+                            class="mt-5 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/20">
+                            <iconify-icon icon="lucide:info"
+                                class="mt-0.5 flex-shrink-0 text-lg text-amber-600 dark:text-amber-400"></iconify-icon>
+                            <p class="text-xs leading-5 text-amber-800 dark:text-amber-300"
+                                x-text="guidelineSteps[currentStep].note"></p>
+                        </div>
+                    </div>                  
+
+                </div>
+            </div>
+
         </div>
-  
+
     </main>
 @endsection
 
@@ -186,6 +269,96 @@
                 maxStep: maxStepFromServer,
                 canScrollLeft: false,
                 canScrollRight: false,
+                showGuidelines: false,
+                labels: labels,
+
+                guidelineSteps: {
+                    1: {
+                        title: 'Personal Information',
+                        icon: 'lucide:user-round',
+                        description: 'Provide your personal details exactly as they appear on your official documents.',
+                        items: [
+                            'Full Name: Enter your name as written in your passport.',
+                            'Email and Phone: These can be set once and are locked afterwards.',
+                            'Alternative contacts: You may add up to two alternative phone numbers and emails.',
+                            'Date of Birth, Gender and Marital Status: Fill in these details carefully.',
+                            'Preferred Destination: Select at least one study destination.'
+                        ],
+                        note: 'Incorrect personal information may cause problems during your admission or visa application.'
+                    },
+                    2: {
+                        title: 'Academic Qualification',
+                        icon: 'lucide:graduation-cap',
+                        description: 'Provide your highest qualification and complete education history.',
+                        items: [
+                            'Enter the degree name, institution, graduation date and GPA.',
+                            'Use Add Education to include previous education entries.',
+                            'Each entry can hold the degree, institution, country, year and grade.',
+                            'Remove an entry if you added it by mistake.'
+                        ],
+                        note: 'Provide accurate academic information and results. You can edit any entry later.'
+                    },
+                    3: {
+                        title: 'English Proficiency',
+                        icon: 'lucide:languages',
+                        description: 'Tell us about your English test results or your future test plans.',
+                        items: [
+                            'Select Will Take Exam if you plan to sit for a test, then choose the exam and expected date.',
+                            'Select Already Taken if you have completed one or more tests.',
+                            'For each exam, select the exam name, year and enter the required scores.',
+                            'Click Add Another Exam to include multiple results.'
+                        ],
+                        note: 'Enter your actual examination results, not estimated scores.'
+                    },
+                    4: {
+                        title: 'Study Plan',
+                        icon: 'lucide:compass',
+                        description: 'Tell us about your intended degree and the programmes and countries you are considering.',
+                        items: [
+                            'Select your target degree level.',
+                            'For each choice, enter the intended programme and destination country.',
+                            'Select your study intake and write a short summary of your academic goals.',
+                            'Click Add Preference Choice to add more options and rank them in order.'
+                        ],
+                        note: 'Put your preferred programme and country first.'
+                    },
+                    5: {
+                        title: 'Work Experience',
+                        icon: 'lucide:briefcase-business',
+                        description: 'Provide details of your professional experience, if applicable.',
+                        items: [
+                            'Select Have Work Experience if you have previously worked.',
+                            'Enter the role title and the organisation name.',
+                            'Provide the start and end dates, or tick Present if you still work there.',
+                            'Click Add New Experience to include more roles.'
+                        ],
+                        note: 'Provide correct employment information and actual employment dates.'
+                    },
+                    6: {
+                        title: 'Immigration History',
+                        icon: 'lucide:shield-alert',
+                        description: 'Disclose any previous visa refusal history accurately.',
+                        items: [
+                            'Select Have Visa Refusal if any of your visa applications were refused.',
+                            'Specify the country, refusal date and grounds for refusal.',
+                            'Upload the refusal letter or supporting document if you have it.',
+                            'Click Add Refusal to record multiple refusals.'
+                        ],
+                        note: 'Incomplete immigration information may affect your application.'
+                    },
+                    7: {
+                        title: 'How Did You Hear About Us?',
+                        icon: 'lucide:megaphone',
+                        description: 'Tell us how you discovered HBD Services.',
+                        items: [
+                            'Choose one option that best describes how you heard about us.',
+                            'For recommendations, mention the person and their university or country.',
+                            'For a phone invitation or expo, select the option and provide details.',
+                            'Tick the permission checkbox so we can contact you.'
+                        ],
+                        note: 'Provide accurate referral information and give contact permission.'
+                    }
+                },
 
                 init() {
                     this.$nextTick(() => {
@@ -218,6 +391,8 @@
                 stepLabel() {
                     return labels[this.currentStep] ?? '';
                 },
+
+                
 
                 handleDesktopWheel(e) {
                     // Converts vertical mouse wheel scroll into horizontal tab scrolling
